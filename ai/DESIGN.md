@@ -1,3 +1,11 @@
+---
+id: design
+scope: foundations
+applies-to: [base, dot-art, dot-blog]
+always-on: true
+last-updated: 2026-05-06
+---
+
 # River Romney Design System — Base Dark Theme
 
 ## Visual Identity

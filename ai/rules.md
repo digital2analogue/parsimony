@@ -1,3 +1,11 @@
+---
+id: rules
+scope: foundations
+applies-to: [base, decision-engine, dot-art, dot-blog]
+always-on: true
+last-updated: 2026-05-06
+---
+
 # Design System Rules
 
 ## Hard Rules (never break these)
