@@ -1,7 +1,7 @@
 ---
 id: plan-web-components
 scope: planning
-status: draft-rev3
+status: draft-rev4
 applies-to: [base, decision-engine, dot-art, dot-blog]
 last-updated: 2026-05-06
 ---
@@ -15,7 +15,8 @@ This is a **plan**, not an implementation. Each step ships as its own PR and is 
 > **Revision history**
 > - **rev1** — initial sketch.
 > - **rev2** — incorporated independent design-systems review. Cut `validate_token_addition`; narrowed `check_usage`; deferred trust-level table; deepened Input a11y; added schema + CEM + versioning + theming + motion + visual regression + AGENTS.md outline; deferred `packages/react`, Storybook, MCP publishing.
-> - **rev3** *(this revision)* — second review pass. Reordered migration so the merged JSON artifact ships **before** the first component; added a new precursor step extracting `--font-family-sans/serif/mono` as semantic tokens (the existing decision-engine "Inter exception" is currently unimplemented); added a CSS-sourcing section naming `tokens/components/*.tokens.json` as the styling source; replaced the schema *example* with an actual JSON Schema skeleton; resolved AGENTS.md audience conflation; added `aria-errormessage` AT-fallback note; added browser-support floor, bundle budget, token-rename protocol, design-system.json consumer contract, Code Connect step; tightened benchmark methodology; fixed step 11 self-contradiction.
+> - **rev3** — second review pass. Reordered migration so the merged JSON artifact ships **before** the first component; added a precursor step extracting `--font-family-sans/serif/mono` as semantic tokens (the existing decision-engine "Inter exception" is currently unimplemented); added a CSS-sourcing section naming `tokens/components/*.tokens.json` as the styling source; replaced the schema *example* with an actual JSON Schema skeleton; resolved AGENTS.md audience conflation; added `aria-errormessage` AT-fallback note; added browser-support floor, bundle budget, token-rename protocol, design-system.json consumer contract, Code Connect step; tightened benchmark methodology; fixed step 11 self-contradiction.
+> - **rev4** *(this revision)* — third review pass. Rewrites step 3 (font-family extraction) with concrete mechanics — the previous "non-breaking, additive" claim was asserted not verified, and the existing typography tokens reference primitive `fontFamily` from inside composite values, which Style Dictionary's default typography transform doesn't decompose. Adds a "Known follow-ups" section listing in-flight fixes (schema bugs, CSS-sourcing mechanism statement, codemod directory creation, merge-conflict policy for `design-system.json`, Code Connect authorship, distribution decision, drift-grep scope clarification). All non-step-3 issues fix during execution PRs, not before merge.
 
 ---
 
@@ -304,16 +305,54 @@ If a consumer needs older Safari, they fall back to the existing CSS-only patter
 
 ### The font-family precursor (step 3)
 
-The current token tree references `{primitive.font.family.sans}` directly inside composite typography tokens. There is **no semantic font-family token**. That means the decision-engine "Inter exception" described in `DECISION-ENGINE.md` is currently unimplemented at the token level — the brand override has no surface to override.
+The current token tree references `{primitive.font.family.sans}` directly from inside composite typography `$value` blocks. There is **no semantic font-family token**, and the decision-engine "Inter exception" described in `DECISION-ENGINE.md` is currently unimplemented at the token level — the brand override has no surface to override.
 
-Step 3 fixes this:
+**Why this is the riskiest step in the plan:** Style Dictionary's default `typography/css/shorthand` transform emits a fully-resolved shorthand string per composite (e.g. `300 2.5rem/1.1 "Space Grotesk", system-ui, sans-serif`). Adding a sibling semantic token does NOT automatically yield a `--font-family-sans` CSS variable, and pointing composites at the new semantic token still requires SD to resolve through one extra indirection level. This step has to be verified, not asserted.
 
-1. Add semantic tokens `font.family.sans|serif|mono` that resolve to the corresponding primitives by default.
-2. Update every composite typography token (display, title.*, body.*, label.*, label-strong.*, mono-label.*, code) to reference `{font.family.sans|serif|mono}` instead of the primitive.
-3. Decision-engine overrides `font.family.sans = "Inter, …"`. The override now actually works.
-4. CSS output gains `--font-family-sans|serif|mono` as semantic variables that components and consumers can reference directly when they need font-family without the full composite.
+#### Concrete mechanics
 
-This is a non-breaking change to the public CSS contract — existing `--font-display`, `--font-body-large`, etc. keep their resolved values. New variables are additive.
+1. **Author new semantic tokens** in `tokens/semantic/typography.tokens.json` (or a new `tokens/semantic/font-family.tokens.json` co-resident with the rest of the semantic layer):
+   ```jsonc
+   "font": {
+     "family": {
+       "sans":  { "$type": "fontFamily", "$value": "{primitive.font.family.sans}" },
+       "serif": { "$type": "fontFamily", "$value": "{primitive.font.family.serif}" },
+       "mono":  { "$type": "fontFamily", "$value": "{primitive.font.family.mono}" }
+     }
+   }
+   ```
+   `$type: "fontFamily"` is what makes Style Dictionary's CSS transformer emit a `--font-family-sans` CSS variable. Without this `$type`, SD treats the token as a generic value and may not emit the variable at all.
+
+2. **Repoint every composite** — exhaustive list, derived from the current `tokens/semantic/typography.tokens.json` (19 composites; do not skip any):
+   - `font.display` → `fontFamily: "{font.family.sans}"`
+   - `font.title.large`, `font.title.medium`, `font.title.small` → `{font.family.sans}`
+   - `font.body.large`, `font.body.medium`, `font.body.small` → `{font.family.serif}`
+   - `font.label.large`, `font.label.medium`, `font.label.small`, `font.label.xsmall` → `{font.family.sans}`
+   - `font.label-strong.large`, `font.label-strong.medium`, `font.label-strong.small`, `font.label-strong.xsmall` → `{font.family.sans}`
+   - `font.code` → `{font.family.mono}`
+   - `font.mono-label-small`, `font.mono-label-strong-small`, `font.mono-label-xsmall` → `{font.family.mono}`
+
+3. **Override in decision-engine** — add to `tokens/brands/decision-engine.tokens.json`:
+   ```jsonc
+   "font": {
+     "family": {
+       "sans": { "$type": "fontFamily", "$value": "Inter, system-ui, sans-serif" }
+     }
+   }
+   ```
+
+4. **Verify Style Dictionary chain resolution.** SD must resolve `{font.family.sans}` → primitive (or DE override) → final string inside composite shorthand emission. After running `npm run build`:
+   - **Base build** (`build/css/base.css` or whichever default CSS file):
+     - `--font-family-sans` exists and equals the primitive's resolved value (Space Grotesk stack).
+     - `--font-family-serif` and `--font-family-mono` exist.
+     - `--font-display` shorthand still resolves to `300 2.5rem/1.1 "Space Grotesk"…` — unchanged.
+   - **Decision-engine build** (`build/css/decision-engine.css`):
+     - `--font-family-sans` resolves to `Inter, system-ui, sans-serif`.
+     - `--font-display` shorthand resolves to `300 2.5rem/1.1 Inter, system-ui, sans-serif` — Inter, not Space Grotesk. **This is the regression test that gates the step.**
+
+5. **Failure mode if SD doesn't decompose composites cleanly:** if step 4 shows `--font-display` in the DE build still emits Space Grotesk (because SD's composite transform pre-resolved the reference), the fix is a custom transform or a `transformer` override that resolves composite typography values through the semantic indirection. Identify this in the step's PR; don't ship the step without DE actually using Inter in built CSS.
+
+6. **Non-breaking claim, now verified:** existing `--font-display`, `--font-body-large`, etc. keep their public names and resolved values for the base brand. Net-new variables (`--font-family-sans|serif|mono`) are additive. DE consumers see Inter where they previously saw Space Grotesk — but DE never actually shipped a font-family override before, so consumers either weren't loading DE's CSS or were already supplying their own font stack.
 
 ---
 
@@ -455,7 +494,7 @@ Each step is its own PR. Each step is gated on the previous step paying off.
 
 1. **`AGENTS.md` at root + front-matter on `ai/*.md`** — pure-doc PR, no toolchain change. Useful immediately to any agent in any consumer repo.
 2. **npm workspaces conversion** — move existing repo contents under `packages/tokens/`. `build/css/*.css` paths preserved. Cut `@riverromney/tokens@1.0.0`. Update one consumer to confirm no drift. Decide distribution (npm only, or also CDN ESM) here.
-3. **Font-family extraction** — add semantic `font.family.sans|serif|mono` tokens; route composite typography through them; implement decision-engine's Inter override at the token level. Non-breaking to existing CSS contract; net-new variables are additive.
+3. **Font-family extraction** — see "The font-family precursor" section above for full mechanics. Add semantic `font.family.sans|serif|mono` tokens with `$type: "fontFamily"`; repoint all 19 composite typography tokens; implement decision-engine's Inter override. **Step gates on the DE-build regression test:** `--font-display` in `build/css/decision-engine.css` must resolve with Inter, not Space Grotesk. If Style Dictionary's composite transform pre-resolves through the indirection and breaks this, the step ships a custom transform alongside.
 4. **`schemas/meta.schema.json` + CI validator** — JSON Schema draft 2020-12 (skeleton above) + CI step that validates every `*.meta.json`. The `npm run validate` script also runs the "no hex / no `--primitive-*`" lint over `packages/components/**`.
 5. **`scripts/build-design-system-json.mjs`** — merges every `*.meta.json` + `custom-elements.json` into committed `design-system.json`. Ships before any component so step 6's CI signal includes "artifact regenerates and validates."
 6. **`<rr-badge>` end-to-end** — Lit + `@web/dev-server` + vitest-axe + eslint-lit-a11y + `*.meta.json` (schema-validated) + visual regression smoke across all four brands + size-limit budget. Shadow CSS references existing component tokens from `tokens/components/badge.tokens.json`.
@@ -475,6 +514,34 @@ Each step is its own PR. Each step is gated on the previous step paying off.
 - **Benchmark depth** — ~10 prompts × 3 runs is directional. Acceptable for this scale; revisit if results are noisy.
 - **Storybook** — deferred. Start with `@web/dev-server` + `*.stories.html`. Reconsider when component count > 8.
 - **AT smoke matrix scope** — minimum: NVDA/Firefox, JAWS/Chrome, VoiceOver/Safari macOS, VoiceOver/Safari iOS. TalkBack/Chrome Android optional unless a consumer ships native Android.
+
+---
+
+## Known follow-ups (fix during execution, not before merge)
+
+The third review pass surfaced these issues. None block step 1; each is a small fix in the PR that introduces the affected step.
+
+### Schema bugs (fix in step 4 PR)
+- **Version-field collision**: `$schemaVersion` is required on per-component `*.meta.json` *and* on the merged `design-system.json`. Rename per-component to `metaVersion` to disambiguate; merged artifact keeps `$schemaVersion`.
+- **`tokensUsed` accepts primitives**: regex `^--(color|font|spacing|radius|motion|shadow|icon|component)-` will match `--font-weight-light` (a primitive). Either add a negative pattern excluding `^--primitive-` or accept that runtime `check_usage` is the enforcement layer and document the schema's limitation.
+- **`ariaLive` enum includes `null`**: in JSON Schema, `null` in an enum requires the property be present and explicitly null. Drop `null`; let absence mean "no live region."
+- **`name` and `tagName` are identical regex**: if always equal in practice, collapse to a single field.
+- **No schema for the merged artifact**: add `schemas/design-system.schema.json` (or extend `meta.schema.json` with a wrapper definition) so the version-mismatch contract has something to validate against.
+
+### Mechanism statements (fix in step 6 PR)
+- **CSS-sourcing section names files but not the mechanism**: confirm in the section that brand CSS is loaded on `:root` of the consumer page (it is, via `build/css/<brand>.css`); state that components MUST NOT `@import` brand CSS into shadow DOM — custom properties cascade through shadow boundaries from `:root` automatically.
+- **Bundle budget excludes Lit core (fine)** but should state the total cost a consumer adds: ~6 KB gz for Lit + per-component budget. Otherwise the number reads as accounting cleverness.
+
+### Repository scaffolding (fix in step 2 PR)
+- **`packages/tokens/scripts/codemods/`** is referenced in the token-rename protocol but never created in the migration order. Add the directory at step 2 even if empty, so the first deprecation has somewhere to live.
+
+### Operational policy (fix in step 5 PR)
+- **`design-system.json` merge-conflict strategy**: pick one. Either commit-on-CI-only (PR author doesn't regenerate locally; CI regenerates and commits in a follow-up) or accept noisy merges and add a CODEOWNERS rule routing conflicts to a single reviewer. Recommended: commit-on-CI-only.
+
+### Step polish
+- **Distribution channel** is still gating step 2 ("Decide here"). Pre-decide in step 2's PR description, or make distribution its own ~step-2.5. Recommended: npm + ESM only, defer CDN until a real consumer asks.
+- **Code Connect step (12) is one sentence.** Expand in its PR: who authors `componentKey`/`nodeId` (engineer; designers don't touch the JSON), where the Figma file lives (link from `ai/DECISION-ENGINE.md` or a new `ai/FIGMA.md`), what happens on Figma rename (CI fetches via Figma MCP `get_metadata` and fails if a referenced node is missing).
+- **Trust-level CI rule scope clarification**: the rule at step 4 catches violations only inside `packages/components/**`. Consumer-side hex usage is what step 13's drift grep catches. Add a one-line note where the trust-rule is described saying "consumer-side enforcement is step 13."
 
 ---
 
