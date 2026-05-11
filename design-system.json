@@ -1,7 +1,187 @@
 {
   "$schemaVersion": "1.0.0",
-  "generatedAt": "2026-05-11T03:28:02.434Z",
+  "generatedAt": "2026-05-11T05:08:22.694Z",
   "components": [
+    {
+      "metaVersion": "1.0.0",
+      "name": "rr-input",
+      "summary": "Form-associated text input with label, helper/error text, and ElementInternals for native form participation.",
+      "package": "@riverromney/components",
+      "props": [
+        {
+          "name": "type",
+          "type": "string",
+          "default": "text",
+          "description": "Input type attribute (text, email, password, etc.)."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "default": "",
+          "description": "Form field name for submission."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "default": "",
+          "description": "Current input value."
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "",
+          "description": "Placeholder text shown when empty."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": "",
+          "description": "Visible label text above the input."
+        },
+        {
+          "name": "helper-text",
+          "type": "string",
+          "default": "",
+          "description": "Helper text below the input. Hidden when error-text is set."
+        },
+        {
+          "name": "error-text",
+          "type": "string",
+          "default": "",
+          "description": "Error message below the input. Sets aria-invalid and replaces helper text."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "default": false,
+          "description": "Marks the field as required. Shows asterisk and sets aria-required."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false,
+          "description": "Disables the input."
+        },
+        {
+          "name": "autocomplete",
+          "type": "string",
+          "default": "",
+          "description": "Autocomplete hint for browser autofill."
+        }
+      ],
+      "slots": [
+        {
+          "name": "label",
+          "description": "Optional override for the label content."
+        }
+      ],
+      "events": [
+        {
+          "name": "input",
+          "detail": "Fired on each keystroke, mirrors native input event."
+        },
+        {
+          "name": "change",
+          "detail": "Fired on value commit (blur), mirrors native change event."
+        }
+      ],
+      "cssParts": [
+        {
+          "name": "label",
+          "description": "The label element above the input."
+        },
+        {
+          "name": "input",
+          "description": "The inner <input> element."
+        },
+        {
+          "name": "helper",
+          "description": "The helper text container."
+        },
+        {
+          "name": "error",
+          "description": "The error message container."
+        }
+      ],
+      "tokensUsed": [
+        "--component-input-background-default",
+        "--component-input-background-hover",
+        "--component-input-background-focus",
+        "--component-input-background-disabled",
+        "--component-input-background-error",
+        "--component-input-foreground-value",
+        "--component-input-foreground-placeholder",
+        "--component-input-foreground-label",
+        "--component-input-foreground-label-required",
+        "--component-input-foreground-helper",
+        "--component-input-foreground-error",
+        "--component-input-foreground-disabled",
+        "--component-input-border-default",
+        "--component-input-border-hover",
+        "--component-input-border-focus",
+        "--component-input-border-error",
+        "--component-input-border-disabled",
+        "--component-input-radius",
+        "--component-input-padding-x",
+        "--component-input-padding-y",
+        "--font-label-medium",
+        "--font-body-large",
+        "--font-label-small"
+      ],
+      "rules": [
+        "Never use hex values — always var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)"
+      ],
+      "examples": [
+        {
+          "title": "Default",
+          "html": "<rr-input label=\"Email\" placeholder=\"you@example.com\"></rr-input>"
+        },
+        {
+          "title": "With helper text",
+          "html": "<rr-input label=\"Username\" helper-text=\"Must be 3-20 characters\"></rr-input>"
+        },
+        {
+          "title": "Error state",
+          "html": "<rr-input label=\"Email\" value=\"bad\" error-text=\"Invalid email address\"></rr-input>"
+        },
+        {
+          "title": "Required",
+          "html": "<rr-input label=\"Name\" required></rr-input>"
+        },
+        {
+          "title": "Disabled",
+          "html": "<rr-input label=\"Locked\" value=\"Cannot edit\" disabled></rr-input>"
+        },
+        {
+          "title": "With autocomplete",
+          "html": "<rr-input label=\"Email\" type=\"email\" autocomplete=\"email\"></rr-input>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/textbox/",
+        "focusable": true,
+        "keyboard": [
+          "Tab moves focus to the input",
+          "Standard text editing keys work natively"
+        ],
+        "wcag": [
+          "1.3.1 Info and Relationships",
+          "1.3.5 Identify Input Purpose",
+          "1.4.3 Contrast (Minimum)",
+          "2.4.6 Headings and Labels",
+          "3.3.1 Error Identification",
+          "3.3.2 Labels or Instructions"
+        ],
+        "rules": [
+          "aria-errormessage points to error div; aria-describedby mirrors the link while invalid as AT fallback.",
+          "When valid, aria-describedby points to helper text. When invalid, it switches to error text.",
+          "delegatesFocus ensures host element forwards focus to inner <input>.",
+          "ElementInternals.setFormValue() keeps the form value in sync with the input."
+        ]
+      }
+    },
     {
       "metaVersion": "1.0.0",
       "name": "rr-badge",

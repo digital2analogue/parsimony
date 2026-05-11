@@ -28,5 +28,5 @@ for (const { name, config } of brands) {
   const sd = new StyleDictionary(config);
   await sd.buildAllPlatforms();
   const outFile = name === 'base' ? 'variables' : name;
-  console.log(`✅ build/css/${outFile}.css`);
+  console.log(`  -> build/css/${outFile}.css`);
 }
