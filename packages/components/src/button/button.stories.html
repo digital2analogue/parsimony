@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>rr-button — Dev Stories</title>
+  <link rel="stylesheet" href="../../../../build/css/variables.css" />
+  <style>
+    body {
+      background: var(--color-background-default);
+      color: var(--color-foreground-default);
+      font: var(--font-body-large);
+      padding: 2rem;
+      margin: 0;
+    }
+    h1 { font: var(--font-title-large); margin-bottom: 1rem; }
+    h2 { font: var(--font-title-small); margin: 2rem 0 0.75rem; }
+    .section {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: var(--color-background-alt);
+      border-radius: var(--radius-lg);
+    }
+    .row {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .row:last-child {
+      margin-bottom: 0;
+    }
+  </style>
+  <script type="module" src="./button.ts"></script>
+</head>
+<body>
+  <h1>rr-button</h1>
+
+  <div class="section">
+    <h2>Variants</h2>
+    <div class="row">
+      <rr-button>Primary</rr-button>
+      <rr-button variant="secondary">Secondary</rr-button>
+      <rr-button variant="danger">Danger</rr-button>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Sizes</h2>
+    <div class="row">
+      <rr-button size="small">Small</rr-button>
+      <rr-button size="medium">Medium</rr-button>
+      <rr-button size="large">Large</rr-button>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Size x Variant</h2>
+    <div class="row">
+      <rr-button size="small">Small Primary</rr-button>
+      <rr-button size="small" variant="secondary">Small Secondary</rr-button>
+      <rr-button size="small" variant="danger">Small Danger</rr-button>
+    </div>
+    <div class="row">
+      <rr-button size="large">Large Primary</rr-button>
+      <rr-button size="large" variant="secondary">Large Secondary</rr-button>
+      <rr-button size="large" variant="danger">Large Danger</rr-button>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>States</h2>
+    <div class="row">
+      <rr-button disabled>Disabled Primary</rr-button>
+      <rr-button variant="secondary" disabled>Disabled Secondary</rr-button>
+      <rr-button variant="danger" disabled>Disabled Danger</rr-button>
+    </div>
+    <div class="row">
+      <rr-button loading>Loading Primary</rr-button>
+      <rr-button variant="secondary" loading>Loading Secondary</rr-button>
+      <rr-button variant="danger" loading>Loading Danger</rr-button>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>With icons (prefix/suffix slots)</h2>
+    <div class="row">
+      <rr-button><span slot="prefix">+</span> Add item</rr-button>
+      <rr-button variant="secondary">Next <span slot="suffix">-></span></rr-button>
+      <rr-button variant="danger"><span slot="prefix">!</span> Remove</rr-button>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Icon-only (with aria-label)</h2>
+    <div class="row">
+      <rr-button aria-label="Add" size="small"><span slot="prefix">+</span></rr-button>
+      <rr-button aria-label="Close"><span slot="prefix">X</span></rr-button>
+      <rr-button aria-label="Delete" variant="danger" size="large"><span slot="prefix">X</span></rr-button>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Form participation</h2>
+    <form id="demo-form" onsubmit="event.preventDefault(); alert('Form submitted!');">
+      <div class="row">
+        <rr-button type="submit">Submit</rr-button>
+        <rr-button type="reset" variant="secondary">Reset</rr-button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
