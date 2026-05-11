@@ -8,7 +8,7 @@ For resolved token values, read `build/css/decision-engine.css` directly — it 
 
 ## What This Sub-Brand Is
 
-Light-mode, enterprise data UI theme. White canvas, blue primary action (`#2456E4`), Inter font. Built for data-dense decisioning interfaces — think rule tables, condition builders, outcome badges.
+Light-mode, enterprise data UI theme. White canvas, blue primary action (`#2456E4`), Geist font. Built for data-dense decisioning interfaces — think rule tables, condition builders, outcome badges.
 
 It is a sub-brand overlay, not a separate system. All tokens not overridden here inherit from the base dark theme via Style Dictionary merge. If a token appears in `build/css/decision-engine.css` with a phosphor-green value (`#4ADE6E`) or near-black value (`#0A0D0A`), it is a base-theme bleed-through — the DE brand intentionally does not define that token.
 

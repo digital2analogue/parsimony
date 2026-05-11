@@ -47,7 +47,7 @@ docs/
 | Brand | Token file | Built CSS | Notes |
 |---|---|---|---|
 | Base (dark) | `tokens/base/` | — | All `.com`, `.design` sites |
-| decision-engine | `tokens/brands/decision-engine.tokens.json` | `build/css/decision-engine.css` | Light-mode enterprise UI. Inter font exception. |
+| decision-engine | `tokens/brands/decision-engine.tokens.json` | `build/css/decision-engine.css` | Light-mode enterprise UI. Geist font exception. |
 | dot-art | `tokens/brands/dot-art.tokens.json` | `build/css/dot-art.css` | Pure black canvas for photo |
 | dot-blog | `tokens/brands/dot-blog.tokens.json` | `build/css/dot-blog.css` | 18px body, relaxed line-height |
 

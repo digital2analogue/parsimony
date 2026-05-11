@@ -1,5 +1,19 @@
 {
-  "$description": "decision-engine sub-brand overrides. Light-mode enterprise data UI theme. Replaces the base dark/phosphor aesthetic with a white-canvas, C1-Navy-primary palette suited for data-dense decisioning interfaces. Font exception: uses Inter (not Space Grotesk) — enterprise data UI convention, approved for this sub-brand only.",
+  "$description": "decision-engine sub-brand overrides. Light-mode enterprise data UI theme. Replaces the base dark/phosphor aesthetic with a white-canvas, C1-Navy-primary palette suited for data-dense decisioning interfaces. Font exception: uses Geist (not Space Grotesk) — enterprise data UI convention, approved for this sub-brand only.",
+  "font": {
+    "family": {
+      "sans": {
+        "$type": "fontFamily",
+        "$value": "Geist, sans-serif",
+        "$description": "Decision-engine uses Geist instead of Space Grotesk. Enterprise data UI convention — approved font exception for this sub-brand only."
+      },
+      "mono": {
+        "$type": "fontFamily",
+        "$value": "DM Mono, JetBrains Mono, monospace",
+        "$description": "Decision-engine uses DM Mono as primary monospace, with JetBrains Mono as fallback."
+      }
+    }
+  },
   "color": {
     "background": {
       "default": {
@@ -168,6 +182,11 @@
         "$value": "{primitive.color.gray.navy}",
         "$type": "color",
         "$description": "Secondary text — supporting labels, metadata, helper text. Navy-tinted; sits between foreground.muted and foreground.default in visual hierarchy. Contrast vs white: 9.39:1 (WCAG AAA)."
+      },
+      "tertiary": {
+        "$value": "{primitive.color.gray.600}",
+        "$type": "color",
+        "$description": "Tertiary text — descriptor text, supplemental labels, dropdown item descriptions, secondary captions. Sits between foreground.muted (5.17:1) and foreground.alt (8.9:1) at ~6.2:1 vs white (WCAG AA). Use when foreground.muted reads as too passive/disabled but foreground.alt is too heavy for the content's importance level."
       },
       "danger": {
         "$value": "{primitive.color.red.600}",
