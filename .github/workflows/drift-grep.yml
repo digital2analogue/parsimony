@@ -1,0 +1,86 @@
+name: Drift Grep
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo:
+        description: 'Consumer repo to scan (owner/name)'
+        required: true
+        type: string
+      ref:
+        description: 'Branch or ref to scan (default: main)'
+        required: false
+        default: 'main'
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  drift-grep:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout consumer repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ inputs.repo }}
+          ref: ${{ inputs.ref }}
+          path: consumer
+
+      - name: Grep for drift violations
+        id: grep
+        shell: bash
+        run: |
+          cd consumer
+          EXCLUDE="--exclude-dir=node_modules --exclude-dir=.git --exclude-dir=.claude --exclude-dir=build --exclude-dir=dist"
+          SKIP_FILES="--exclude=*.tokens.json --exclude=variables.css --exclude=decision-engine.css --exclude=dot-art.css --exclude=dot-blog.css"
+          SRC_TYPES="--include=*.css --include=*.tsx --include=*.jsx --include=*.html --include=*.ts"
+          violations=""
+
+          # Rule 1: Hex color literals
+          hex=$(grep -rn $SRC_TYPES -E '#[0-9A-Fa-f]{3,8}\b' . $EXCLUDE $SKIP_FILES || true)
+          if [ -n "$hex" ]; then
+            violations+="### Hard Rule 1: No hardcoded colors\n"
+            violations+="Use \`var(--color-*)\` custom properties instead of hex literals.\n\n"
+            violations+="\`\`\`\n${hex}\n\`\`\`\n\n"
+          fi
+
+          # Rule 9: Primitive token references
+          primitives=$(grep -rn $SRC_TYPES -E '\-\-primitive-' . $EXCLUDE --exclude='*.tokens.json' || true)
+          if [ -n "$primitives" ]; then
+            violations+="### Hard Rule 9: Never use primitive tokens in UI code\n"
+            violations+="Use semantic tokens (\`--color-*\`, \`--font-*\`, \`--spacing-*\`) instead of \`--primitive-*\`.\n\n"
+            violations+="\`\`\`\n${primitives}\n\`\`\`\n\n"
+          fi
+
+          # Rule 8: Hardcoded font-size values
+          fontsizes=$(grep -rn --include='*.css' --include='*.tsx' --include='*.jsx' \
+            -E 'font-size:\s*[0-9]' . $EXCLUDE || true)
+          if [ -n "$fontsizes" ]; then
+            violations+="### Hard Rule 8: No hardcoded font sizes\n"
+            violations+="Use \`var(--font-size-*)\` primitives or semantic font shorthand tokens.\n\n"
+            violations+="\`\`\`\n${fontsizes}\n\`\`\`\n\n"
+          fi
+
+          if [ -z "$violations" ]; then
+            echo "result=clean" >> "$GITHUB_OUTPUT"
+            echo "No drift violations found."
+          else
+            echo -e "$violations" > /tmp/violations.md
+            echo "result=violations" >> "$GITHUB_OUTPUT"
+            echo "Drift violations found."
+          fi
+
+      - name: Post summary
+        if: always()
+        shell: bash
+        run: |
+          if [ "${{ steps.grep.outputs.result }}" = "clean" ]; then
+            echo "## Drift Grep: Clean" >> "$GITHUB_STEP_SUMMARY"
+            echo "No hex literals, \`--primitive-*\` references, or hardcoded font sizes found in \`${{ inputs.repo }}@${{ inputs.ref }}\`." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "## Drift Grep: Violations Found" >> "$GITHUB_STEP_SUMMARY"
+            echo "Scanned \`${{ inputs.repo }}@${{ inputs.ref }}\`. Rules reference: [ai/rules.md](https://github.com/digital2analogue/brand-tokens/blob/main/ai/rules.md)" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            cat /tmp/violations.md >> "$GITHUB_STEP_SUMMARY"
+          fi
