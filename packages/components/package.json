@@ -19,17 +19,19 @@
     "build": "tsc",
     "test": "vitest run",
     "test:watch": "vitest",
-    "cem": "cem analyze --litelement"
+    "cem": "cem analyze --litelement",
+    "figma:connect": "figma connect publish"
   },
   "peerDependencies": {
     "lit": "^3.0.0 || ^4.0.0"
   },
   "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.10.0",
+    "@figma/code-connect": "^1.4.4",
+    "jsdom": "^26.1.0",
     "lit": "^3.2.0",
     "typescript": "^5.7.0",
     "vitest": "^3.2.1",
-    "vitest-axe": "^1.0.0-pre.3",
-    "jsdom": "^26.1.0",
-    "@custom-elements-manifest/analyzer": "^0.10.0"
+    "vitest-axe": "^1.0.0-pre.3"
   }
 }

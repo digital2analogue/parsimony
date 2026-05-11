@@ -93,5 +93,10 @@
       "disabled attribute removes from tab order and prevents activation.",
       "Click events are suppressed when disabled or loading."
     ]
+  },
+  "figma": {
+    "componentKey": "",
+    "nodeId": "",
+    "codeConnectFile": "button.figma.ts"
   }
 }

@@ -100,5 +100,10 @@
       "Decorative badges (accent-*) do not need role=\"status\" — they are static labels.",
       "Badge text alone must convey meaning; do not rely solely on color to distinguish variants."
     ]
+  },
+  "figma": {
+    "componentKey": "",
+    "nodeId": "",
+    "codeConnectFile": "badge.figma.ts"
   }
 }

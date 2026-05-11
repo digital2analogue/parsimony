@@ -15,5 +15,5 @@
     "skipLibCheck": true
   },
   "include": ["src"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "src/react.d.ts"]
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.figma.ts", "src/react.d.ts"]
 }

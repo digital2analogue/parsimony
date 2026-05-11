@@ -87,5 +87,10 @@
       "delegatesFocus ensures host element forwards focus to inner <input>.",
       "ElementInternals.setFormValue() keeps the form value in sync with the input."
     ]
+  },
+  "figma": {
+    "componentKey": "",
+    "nodeId": "",
+    "codeConnectFile": "input.figma.ts"
   }
 }

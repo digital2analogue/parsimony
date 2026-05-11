@@ -1,6 +1,6 @@
 {
   "$schemaVersion": "1.0.0",
-  "generatedAt": "2026-05-11T08:02:54.158Z",
+  "generatedAt": "2026-05-11T09:13:31.363Z",
   "components": [
     {
       "metaVersion": "1.0.0",
@@ -180,6 +180,11 @@
           "delegatesFocus ensures host element forwards focus to inner <input>.",
           "ElementInternals.setFormValue() keeps the form value in sync with the input."
         ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "",
+        "codeConnectFile": "input.figma.ts"
       }
     },
     {
@@ -346,6 +351,11 @@
           "disabled attribute removes from tab order and prevents activation.",
           "Click events are suppressed when disabled or loading."
         ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "",
+        "codeConnectFile": "button.figma.ts"
       }
     },
     {
@@ -450,6 +460,11 @@
           "Decorative badges (accent-*) do not need role=\"status\" — they are static labels.",
           "Badge text alone must convey meaning; do not rely solely on color to distinguish variants."
         ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "",
+        "codeConnectFile": "badge.figma.ts"
       }
     }
   ]

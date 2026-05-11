@@ -113,6 +113,10 @@
         "nodeId": {
           "type": "string",
           "description": "Figma node ID for Code Connect mapping."
+        },
+        "codeConnectFile": {
+          "type": "string",
+          "description": "Path to the .figma.ts Code Connect file, relative to the component directory."
         }
       },
       "additionalProperties": false
