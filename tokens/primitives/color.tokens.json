@@ -204,6 +204,11 @@
           "$value": "#C0C4CE",
           "$type": "color",
           "$description": "Elevated gray border step for DE light mode. Between border-default (gray.200) and border-hover (blue.700). Used for structural chrome borders — headers, card frames, prominent dividers."
+        },
+        "600": {
+          "$value": "#4E5F79",
+          "$type": "color",
+          "$description": "Tertiary text on white — sits between foreground.muted (gray.500, 5.17:1) and foreground.alt (gray.700, 8.9:1). Cool blue-gray consistent with the DE palette character. Contrast vs white: ~6.2:1 (WCAG AA). Use for helper/descriptor text that should read as supplemental without the passive 'disabled' feel of muted."
         }
       },
       "violet": {

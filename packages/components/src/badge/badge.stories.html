@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>rr-badge — Dev Stories</title>
+
+  <!-- Load brand tokens (base dark theme) -->
+  <link rel="stylesheet" href="../../../../build/css/variables.css" />
+
+  <style>
+    body {
+      background: var(--color-background-default);
+      color: var(--color-foreground-default);
+      font: var(--font-body-large);
+      padding: 2rem;
+      margin: 0;
+    }
+    h1 { font: var(--font-title-large); margin-bottom: 1rem; }
+    h2 { font: var(--font-title-small); margin: 2rem 0 0.75rem; }
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    .section {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: var(--color-background-alt);
+      border-radius: var(--radius-lg);
+    }
+  </style>
+
+  <script type="module" src="./badge.ts"></script>
+</head>
+<body>
+  <h1>rr-badge</h1>
+
+  <div class="section">
+    <h2>Status variants</h2>
+    <div class="row">
+      <rr-badge>Default</rr-badge>
+      <rr-badge variant="success">Success</rr-badge>
+      <rr-badge variant="warning">Warning</rr-badge>
+      <rr-badge variant="danger">Danger</rr-badge>
+      <rr-badge variant="info">Info</rr-badge>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Accent chips</h2>
+    <div class="row">
+      <rr-badge variant="accent-green">Green</rr-badge>
+      <rr-badge variant="accent-blue">Blue</rr-badge>
+      <rr-badge variant="accent-violet">Violet</rr-badge>
+      <rr-badge variant="accent-amber">Amber</rr-badge>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Live region (role="status")</h2>
+    <div class="row">
+      <rr-badge variant="success" role="status">Connected</rr-badge>
+      <rr-badge variant="danger" role="status">Disconnected</rr-badge>
+    </div>
+  </div>
+</body>
+</html>

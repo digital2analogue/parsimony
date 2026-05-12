@@ -1,3 +1,4 @@
 node_modules/
 build/css/
+packages/components/dist/
 .DS_Store

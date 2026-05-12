@@ -493,7 +493,7 @@ Add more rules only when actual agent behavior justifies them.
 Each step is its own PR. Each step is gated on the previous step paying off.
 
 1. **`AGENTS.md` at root + front-matter on `ai/*.md`** — pure-doc PR, no toolchain change. Useful immediately to any agent in any consumer repo.
-2. **npm workspaces conversion** — move existing repo contents under `packages/tokens/`. `build/css/*.css` paths preserved. Cut `@riverromney/tokens@1.0.0`. Update one consumer to confirm no drift. Decide distribution (npm only, or also CDN ESM) here.
+2. **npm workspaces conversion** — move existing repo contents under `packages/tokens/`. `build/css/*.css` artifact names and content are preserved; their location relative to the repo root changes. **Both programmatic consumers (`portfolio-vercel`, `decisioning-table`) need two path updates in `scripts/sync-tokens.mjs` — do not defer:** (a) `execSync` target → `node packages/tokens/scripts/build-brands.mjs`; (b) `BRAND_CSS` → `packages/tokens/build/css/<brand>.css`. Create `packages/tokens/scripts/codemods/` (empty placeholder for rename protocol). Run both consumers' `sync-tokens` to confirm no drift. Cut `@riverromney/tokens@1.0.0`. Decide distribution (npm only, or also CDN ESM) here.
 3. **Font-family extraction** — see "The font-family precursor" section above for full mechanics. Add semantic `font.family.sans|serif|mono` tokens with `$type: "fontFamily"`; repoint all 19 composite typography tokens; implement decision-engine's Inter override. **Step gates on the DE-build regression test:** `--font-display` in `build/css/decision-engine.css` must resolve with Inter, not Space Grotesk. If Style Dictionary's composite transform pre-resolves through the indirection and breaks this, the step ships a custom transform alongside.
 4. **`schemas/meta.schema.json` + CI validator** — JSON Schema draft 2020-12 (skeleton above) + CI step that validates every `*.meta.json`. The `npm run validate` script also runs the "no hex / no `--primitive-*`" lint over `packages/components/**`.
 5. **`scripts/build-design-system-json.mjs`** — merges every `*.meta.json` + `custom-elements.json` into committed `design-system.json`. Ships before any component so step 6's CI signal includes "artifact regenerates and validates."
@@ -532,8 +532,8 @@ The third review pass surfaced these issues. None block step 1; each is a small 
 - **CSS-sourcing section names files but not the mechanism**: confirm in the section that brand CSS is loaded on `:root` of the consumer page (it is, via `build/css/<brand>.css`); state that components MUST NOT `@import` brand CSS into shadow DOM — custom properties cascade through shadow boundaries from `:root` automatically.
 - **Bundle budget excludes Lit core (fine)** but should state the total cost a consumer adds: ~6 KB gz for Lit + per-component budget. Otherwise the number reads as accounting cleverness.
 
-### Repository scaffolding (fix in step 2 PR)
-- **`packages/tokens/scripts/codemods/`** is referenced in the token-rename protocol but never created in the migration order. Add the directory at step 2 even if empty, so the first deprecation has somewhere to live.
+### Repository scaffolding
+- ~~**`packages/tokens/scripts/codemods/`**~~ — absorbed into step 2 description above.
 
 ### Operational policy (fix in step 5 PR)
 - **`design-system.json` merge-conflict strategy**: pick one. Either commit-on-CI-only (PR author doesn't regenerate locally; CI regenerates and commits in a follow-up) or accept noisy merges and add a CODEOWNERS rule routing conflicts to a single reviewer. Recommended: commit-on-CI-only.

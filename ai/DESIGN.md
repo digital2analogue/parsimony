@@ -133,6 +133,9 @@ JetBrains Mono at label scale. Use for token names, value readouts, technical id
 ## Typography — Primitive Tokens
 
 ### Font Size Scale
+
+**Base dark theme values** (fixed — for desktop/app contexts). Portfolio sites override these with fluid `clamp()` values — see Responsive Scaling below.
+
 | CSS Property | Value | Referenced by |
 |---|---|---|
 | --primitive-font-size-2xs | 0.625rem (10px) | font.label.xsmall, font.label-strong.xsmall, font.mono-label-xsmall |
@@ -143,6 +146,35 @@ JetBrains Mono at label scale. Use for token names, value readouts, technical id
 | --primitive-font-size-lg | 1.5rem (24px) | font.title.medium |
 | --primitive-font-size-2xl | 2rem (32px) | font.title.large |
 | --primitive-font-size-3xl | 2.5rem (40px) | font.display |
+
+### Responsive Scaling (portfolio sites)
+
+For portfolio and editorial contexts, replace the fixed font-size primitives in `:root` with fluid `clamp()` values. This makes every semantic token that references a primitive automatically scale — no selector-level overrides needed.
+
+**Pattern:** `clamp(mobile-floor, preferred-vw, desktop-ceiling)` — hits desktop ceiling at ~640px viewport.
+
+| CSS Property | Fluid value | Mobile floor | Desktop ceiling |
+|---|---|---|---|
+| --primitive-font-size-xs | clamp(0.65rem, 1.9vw, 0.75rem) | 10.4px | 12px |
+| --primitive-font-size-sm | clamp(0.7rem, 2.2vw, 0.875rem) | 11.2px | 14px |
+| --primitive-font-size-base | clamp(0.875rem, 2.5vw, 1rem) | 14px | 16px |
+| --primitive-font-size-md | clamp(1rem, 3.2vw, 1.25rem) | 16px | 20px |
+| --primitive-font-size-lg | clamp(1.125rem, 3.8vw, 1.5rem) | 18px | 24px |
+| --primitive-font-size-2xl | clamp(1.5rem, 5vw, 2rem) | 24px | 32px |
+| --primitive-font-size-3xl | clamp(1.75rem, 6.25vw, 2.5rem) | 28px | 40px |
+
+For spacing primitives (lg through 5xl), apply the same approach:
+
+| CSS Property | Fluid value | Mobile floor | Desktop ceiling |
+|---|---|---|---|
+| --primitive-space-lg | clamp(16px, 3.75vw, 24px) | 16px | 24px |
+| --primitive-space-xl | clamp(20px, 5vw, 32px) | 20px | 32px |
+| --primitive-space-2xl | clamp(32px, 7.5vw, 48px) | 32px | 48px |
+| --primitive-space-3xl | clamp(40px, 10vw, 64px) | 40px | 64px |
+| --primitive-space-4xl | clamp(48px, 12.5vw, 80px) | 48px | 80px |
+| --primitive-space-5xl | clamp(80px, 20vw, 128px) | 80px | 128px |
+
+Smaller spacing values (3xs–md) are fixed — they're already tight enough and don't benefit from fluid scaling.
 
 ### Font Weight Scale
 | CSS Property | Value | Usage |
@@ -258,3 +290,43 @@ Cards use `background.alt` for surface separation — no shadow token needed.
 - Accent green is NEVER resting text — interactivity or intentional emphasis only
 - All text/bg pairings in this system pass WCAG AA (4.5:1) — verify before adding new ones
 - Spacing values must come from the defined scale — no arbitrary values
+
+---
+
+## Interaction Patterns
+
+### Link style — global rule
+All `<a>` elements are underlined **by default** and lose the underline on `:hover`. This is the inverse of common convention and is intentional.
+
+```css
+/* Global base — applies to all links */
+a {
+  color: var(--color-foreground-action);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: currentColor;
+  transition: text-decoration-color var(--motion-duration-instant) var(--motion-easing-default),
+              color var(--motion-duration-instant) var(--motion-easing-default);
+}
+a:hover {
+  text-decoration: none;
+}
+```
+
+UI navigation elements that should **not** be underlined explicitly opt out:
+
+```css
+/* Opt-out pattern for nav/row/UI links */
+.topbar a,
+.topbar__links a,
+.case,
+.work-row,
+.about-experience__row,
+.case-detail__back,
+.case-detail__pager-link {
+  text-decoration: none;
+}
+```
+
+**Common mistake:** adding `text-decoration: underline` to a specific selector's `:hover` state overrides the global `a:hover { text-decoration: none }` due to specificity — and silently breaks the hover removal. Always audit for this when styling link elements.

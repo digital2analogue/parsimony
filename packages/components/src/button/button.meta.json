@@ -1,0 +1,102 @@
+{
+  "metaVersion": "1.0.0",
+  "name": "rr-button",
+  "summary": "Button with primary/secondary/danger variants, three sizes, loading spinner, and full keyboard/form semantics.",
+  "package": "@riverromney/components",
+  "props": [
+    { "name": "variant", "type": "string", "default": "primary", "description": "Visual variant: primary (filled CTA), secondary (outlined), danger (destructive)." },
+    { "name": "size", "type": "string", "default": "medium", "description": "Size: small, medium, large. Controls padding and font size." },
+    { "name": "disabled", "type": "boolean", "default": false, "description": "Disables the button. Prevents click and removes from tab order." },
+    { "name": "loading", "type": "boolean", "default": false, "description": "Shows a spinner and sets aria-busy. Click suppressed while loading." },
+    { "name": "type", "type": "string", "default": "button", "description": "Button type attribute: button, submit, or reset." },
+    { "name": "aria-label", "type": "string", "default": null, "description": "Accessible label. Required for icon-only buttons." }
+  ],
+  "slots": [
+    { "name": "(default)", "description": "Button label text." },
+    { "name": "prefix", "description": "Icon or element before the label." },
+    { "name": "suffix", "description": "Icon or element after the label." }
+  ],
+  "events": [
+    { "name": "click", "detail": "Native click event. Suppressed when disabled or loading." }
+  ],
+  "cssParts": [
+    { "name": "button", "description": "The inner <button> element." }
+  ],
+  "tokensUsed": [
+    "--component-button-primary-background-default",
+    "--component-button-primary-background-hover",
+    "--component-button-primary-background-active",
+    "--component-button-primary-foreground-default",
+    "--component-button-primary-border-default",
+    "--component-button-primary-border-hover",
+    "--component-button-primary-border-active",
+    "--component-button-secondary-background-default",
+    "--component-button-secondary-background-hover",
+    "--component-button-secondary-foreground-default",
+    "--component-button-secondary-border-default",
+    "--component-button-secondary-border-hover",
+    "--component-button-danger-background-default",
+    "--component-button-danger-background-hover",
+    "--component-button-danger-foreground-default",
+    "--component-button-danger-border-default",
+    "--component-button-danger-border-hover",
+    "--color-background-disabled",
+    "--color-foreground-disabled",
+    "--color-border-disabled",
+    "--color-border-focus",
+    "--font-label-strong-small",
+    "--font-label-strong-medium",
+    "--font-label-strong-large",
+    "--spacing-micro",
+    "--spacing-tight",
+    "--spacing-inline",
+    "--spacing-element",
+    "--radius-default",
+    "--motion-duration-instant",
+    "--motion-easing-default"
+  ],
+  "rules": [
+    "Never use hex values — always var(--color-*) or var(--component-*)",
+    "Never reference --primitive-* tokens in component code",
+    "All text/background pairings must pass WCAG AA (4.5:1)",
+    "Primary button: one per page maximum",
+    "Icon-only buttons must have aria-label"
+  ],
+  "examples": [
+    { "title": "Primary", "html": "<rr-button>Save changes</rr-button>" },
+    { "title": "Secondary", "html": "<rr-button variant=\"secondary\">Cancel</rr-button>" },
+    { "title": "Danger", "html": "<rr-button variant=\"danger\">Delete</rr-button>" },
+    { "title": "Small", "html": "<rr-button size=\"small\">Tag</rr-button>" },
+    { "title": "Large", "html": "<rr-button size=\"large\">Get started</rr-button>" },
+    { "title": "Loading", "html": "<rr-button loading>Saving...</rr-button>" },
+    { "title": "Disabled", "html": "<rr-button disabled>Unavailable</rr-button>" },
+    { "title": "Icon-only", "html": "<rr-button aria-label=\"Close\"><span slot=\"prefix\">X</span></rr-button>" }
+  ],
+  "accessibility": {
+    "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/button/",
+    "focusable": true,
+    "keyboard": [
+      "Enter activates the button",
+      "Space activates the button",
+      "Tab moves focus to/from the button"
+    ],
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.6 Headings and Labels",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "delegatesFocus ensures host element forwards focus to inner <button>.",
+      "aria-busy='true' set during loading state to communicate to AT.",
+      "Icon-only buttons require aria-label for accessible name.",
+      "disabled attribute removes from tab order and prevents activation.",
+      "Click events are suppressed when disabled or loading."
+    ]
+  },
+  "figma": {
+    "componentKey": "",
+    "nodeId": "",
+    "codeConnectFile": "button.figma.ts"
+  }
+}

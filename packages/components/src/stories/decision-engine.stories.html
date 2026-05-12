@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Decision Engine — Brand Integration Story</title>
+  <link rel="stylesheet" href="../../../../build/css/decision-engine.css" />
+  <style>
+    body {
+      background: var(--color-background-default);
+      color: var(--color-foreground-default);
+      font: var(--font-body-large);
+      padding: 2rem;
+      margin: 0;
+    }
+    h1 { font: var(--font-title-large); margin-bottom: 0.5rem; }
+    .subtitle { font: var(--font-body-medium); color: var(--color-foreground-alt); margin-bottom: 2rem; }
+    h2 { font: var(--font-title-small); margin: 2rem 0 0.75rem; }
+    .section {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: var(--color-background-alt);
+      border: 1px solid var(--color-border-default);
+      border-radius: var(--radius-lg);
+    }
+    .row {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .row:last-child { margin-bottom: 0; }
+    .form-row {
+      max-width: 400px;
+      margin-bottom: 1rem;
+    }
+    .form-row:last-child { margin-bottom: 0; }
+    .note {
+      font: var(--font-label-small);
+      color: var(--color-foreground-muted);
+      margin-top: 0.5rem;
+    }
+  </style>
+  <script type="module">
+    import '../badge/badge.js';
+    import '../button/button.js';
+    import '../input/input.js';
+  </script>
+</head>
+<body>
+  <h1>Decision Engine — Component Integration</h1>
+  <p class="subtitle">All components below inherit the decision-engine brand tokens (light mode, blue accent, Geist font).</p>
+
+  <div class="section">
+    <h2>Badges</h2>
+    <div class="row">
+      <rr-badge>Default</rr-badge>
+      <rr-badge variant="success">Approved</rr-badge>
+      <rr-badge variant="danger">Denied</rr-badge>
+      <rr-badge variant="accent-violet">Review</rr-badge>
+      <rr-badge variant="warning">Pending</rr-badge>
+      <rr-badge variant="info">Info</rr-badge>
+    </div>
+    <p class="note">Badge variants map to DE outcome states: green=Approved, red=Denied, violet=Review.</p>
+  </div>
+
+  <div class="section">
+    <h2>Buttons</h2>
+    <div class="row">
+      <rr-button>Approve</rr-button>
+      <rr-button variant="secondary">Skip</rr-button>
+      <rr-button variant="danger">Deny</rr-button>
+    </div>
+    <div class="row">
+      <rr-button size="small">Small</rr-button>
+      <rr-button size="medium">Medium</rr-button>
+      <rr-button size="large">Large</rr-button>
+    </div>
+    <div class="row">
+      <rr-button disabled>Disabled</rr-button>
+      <rr-button loading>Processing</rr-button>
+    </div>
+    <p class="note">Primary button uses DE action color (blue). Secondary uses DE surface tokens.</p>
+  </div>
+
+  <div class="section">
+    <h2>Inputs</h2>
+    <div class="form-row">
+      <rr-input label="Applicant name" placeholder="Jane Doe"></rr-input>
+    </div>
+    <div class="form-row">
+      <rr-input label="Decision note" helper-text="Optional context for the reviewer" placeholder="Reason for decision..."></rr-input>
+    </div>
+    <div class="form-row">
+      <rr-input label="Email" value="invalid" error-text="Must be a valid email address"></rr-input>
+    </div>
+    <div class="form-row">
+      <rr-input label="Locked field" value="Read-only data" disabled></rr-input>
+    </div>
+    <p class="note">Input borders and focus rings use DE border tokens. Error state uses DE danger color.</p>
+  </div>
+
+  <div class="section">
+    <h2>Composed: Decision Form</h2>
+    <form onsubmit="event.preventDefault(); alert(JSON.stringify(Object.fromEntries(new FormData(this))));">
+      <div class="form-row">
+        <rr-input label="Applicant ID" name="applicant_id" required placeholder="APP-00001"></rr-input>
+      </div>
+      <div class="form-row">
+        <rr-input label="Decision note" name="note" helper-text="Brief explanation for audit trail"></rr-input>
+      </div>
+      <div class="row" style="margin-top: 1rem;">
+        <rr-button type="submit">Approve</rr-button>
+        <rr-button type="button" variant="danger">Deny</rr-button>
+        <rr-button type="reset" variant="secondary">Clear</rr-button>
+      </div>
+    </form>
+  </div>
+
+  <div class="section">
+    <h2>React 19 consumption pattern</h2>
+    <pre style="font: var(--font-code); background: var(--color-background-default); padding: 1rem; border-radius: var(--radius-sm); overflow-x: auto;">
+// 1. Install: npm install @riverromney/components lit
+// 2. Import side-effect registration:
+import '@riverromney/components';
+
+// 3. Optional: add React types for autocomplete
+/// &lt;reference types="@riverromney/components/react" /&gt;
+
+// 4. Use directly in JSX — React 19 passes props natively:
+function DecisionActions() {
+  return (
+    &lt;div&gt;
+      &lt;rr-button variant="primary"&gt;Approve&lt;/rr-button&gt;
+      &lt;rr-button variant="danger"&gt;Deny&lt;/rr-button&gt;
+      &lt;rr-badge variant="success"&gt;Approved&lt;/rr-badge&gt;
+    &lt;/div&gt;
+  );
+}</pre>
+  </div>
+</body>
+</html>

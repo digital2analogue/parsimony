@@ -1,0 +1,22 @@
+{
+  "font": {
+    "family": {
+      "$description": "Semantic font-family tokens. These are the override surface for brand-specific font swaps (e.g., decision-engine uses Geist instead of Space Grotesk). All composite typography tokens reference these — never the primitives directly.",
+      "sans": {
+        "$type": "fontFamily",
+        "$value": "{primitive.font.family.sans}",
+        "$description": "Sans-serif family for titles, labels, and UI text. Base: Space Grotesk. Decision-engine override: Geist."
+      },
+      "serif": {
+        "$type": "fontFamily",
+        "$value": "{primitive.font.family.serif}",
+        "$description": "Serif family for body and long-form prose. Base: Spectral."
+      },
+      "mono": {
+        "$type": "fontFamily",
+        "$value": "{primitive.font.family.mono}",
+        "$description": "Monospaced family for code and technical UI labels. Base: JetBrains Mono."
+      }
+    }
+  }
+}

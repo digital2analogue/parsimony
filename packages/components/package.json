@@ -1,0 +1,37 @@
+{
+  "name": "@riverromney/components",
+  "version": "0.1.0",
+  "description": "Framework-agnostic Lit web components for the River Romney design system",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "cem": "cem analyze --litelement",
+    "figma:connect": "figma connect publish"
+  },
+  "peerDependencies": {
+    "lit": "^3.0.0 || ^4.0.0"
+  },
+  "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.10.0",
+    "@figma/code-connect": "^1.4.4",
+    "jsdom": "^26.1.0",
+    "lit": "^3.2.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.2.1",
+    "vitest-axe": "^1.0.0-pre.3"
+  }
+}

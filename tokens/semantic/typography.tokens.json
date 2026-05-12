@@ -4,7 +4,7 @@
     "display": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{primitive.font.family.sans}",
+        "fontFamily": "{font.family.sans}",
         "fontWeight": "{primitive.font.weight.light}",
         "fontSize": "{primitive.font.size.3xl}",
         "lineHeight": "{primitive.font.lineHeight.tight}"
@@ -16,7 +16,7 @@
       "large": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{primitive.font.family.sans}",
+          "fontFamily": "{font.family.sans}",
           "fontWeight": "{primitive.font.weight.light}",
           "fontSize": "{primitive.font.size.2xl}",
           "lineHeight": "{primitive.font.lineHeight.snug}"
@@ -26,7 +26,7 @@
       "medium": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{primitive.font.family.sans}",
+          "fontFamily": "{font.family.sans}",
           "fontWeight": "{primitive.font.weight.light}",
           "fontSize": "{primitive.font.size.lg}",
           "lineHeight": "{primitive.font.lineHeight.snug}"
@@ -36,7 +36,7 @@
       "small": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{primitive.font.family.sans}",
+          "fontFamily": "{font.family.sans}",
           "fontWeight": "{primitive.font.weight.light}",
           "fontSize": "{primitive.font.size.md}",
           "lineHeight": "{primitive.font.lineHeight.snug}"
@@ -49,7 +49,7 @@
       "large": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{primitive.font.family.serif}",
+          "fontFamily": "{font.family.serif}",
           "fontWeight": "{primitive.font.weight.regular}",
           "fontSize": "{primitive.font.size.base}",
           "lineHeight": "{primitive.font.lineHeight.normal}"
@@ -59,7 +59,7 @@
       "medium": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{primitive.font.family.serif}",
+          "fontFamily": "{font.family.serif}",
           "fontWeight": "{primitive.font.weight.regular}",
           "fontSize": "{primitive.font.size.sm}",
           "lineHeight": "{primitive.font.lineHeight.normal}"
@@ -69,7 +69,7 @@
       "small": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{primitive.font.family.serif}",
+          "fontFamily": "{font.family.serif}",
           "fontWeight": "{primitive.font.weight.regular}",
           "fontSize": "{primitive.font.size.xs}",
           "lineHeight": "{primitive.font.lineHeight.normal}"
@@ -82,7 +82,7 @@
       "large": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{primitive.font.family.sans}",
+          "fontFamily": "{font.family.sans}",
           "fontWeight": "{primitive.font.weight.regular}",
           "fontSize": "{primitive.font.size.base}",
           "lineHeight": "{primitive.font.lineHeight.snug}"
@@ -92,7 +92,7 @@
       "medium": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{primitive.font.family.sans}",
+          "fontFamily": "{font.family.sans}",
           "fontWeight": "{primitive.font.weight.regular}",
           "fontSize": "{primitive.font.size.sm}",
           "lineHeight": "{primitive.font.lineHeight.snug}"
@@ -102,7 +102,7 @@
       "small": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{primitive.font.family.sans}",
+          "fontFamily": "{font.family.sans}",
           "fontWeight": "{primitive.font.weight.regular}",
           "fontSize": "{primitive.font.size.xs}",
           "lineHeight": "{primitive.font.lineHeight.snug}"
@@ -112,7 +112,7 @@
       "xsmall": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{primitive.font.family.sans}",
+          "fontFamily": "{font.family.sans}",
           "fontWeight": "{primitive.font.weight.regular}",
           "fontSize": "{primitive.font.size.2xs}",
           "lineHeight": "{primitive.font.lineHeight.snug}"
@@ -125,7 +125,7 @@
       "large": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{primitive.font.family.sans}",
+          "fontFamily": "{font.family.sans}",
           "fontWeight": "{primitive.font.weight.medium}",
           "fontSize": "{primitive.font.size.base}",
           "lineHeight": "{primitive.font.lineHeight.snug}"
@@ -135,7 +135,7 @@
       "medium": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{primitive.font.family.sans}",
+          "fontFamily": "{font.family.sans}",
           "fontWeight": "{primitive.font.weight.medium}",
           "fontSize": "{primitive.font.size.sm}",
           "lineHeight": "{primitive.font.lineHeight.snug}"
@@ -145,7 +145,7 @@
       "small": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{primitive.font.family.sans}",
+          "fontFamily": "{font.family.sans}",
           "fontWeight": "{primitive.font.weight.medium}",
           "fontSize": "{primitive.font.size.xs}",
           "lineHeight": "{primitive.font.lineHeight.snug}"
@@ -155,7 +155,7 @@
       "xsmall": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{primitive.font.family.sans}",
+          "fontFamily": "{font.family.sans}",
           "fontWeight": "{primitive.font.weight.medium}",
           "fontSize": "{primitive.font.size.2xs}",
           "lineHeight": "{primitive.font.lineHeight.snug}"
@@ -166,7 +166,7 @@
     "code": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{primitive.font.family.mono}",
+        "fontFamily": "{font.family.mono}",
         "fontWeight": "{primitive.font.weight.regular}",
         "fontSize": "{primitive.font.size.sm}",
         "lineHeight": "{primitive.font.lineHeight.normal}"
@@ -176,7 +176,7 @@
     "mono-label-xsmall": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{primitive.font.family.mono}",
+        "fontFamily": "{font.family.mono}",
         "fontWeight": "{primitive.font.weight.medium}",
         "fontSize": "{primitive.font.size.2xs}",
         "lineHeight": "{primitive.font.lineHeight.snug}"
@@ -186,7 +186,7 @@
     "mono-label-small": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{primitive.font.family.mono}",
+        "fontFamily": "{font.family.mono}",
         "fontWeight": "{primitive.font.weight.regular}",
         "fontSize": "{primitive.font.size.xs}",
         "lineHeight": "{primitive.font.lineHeight.snug}"
@@ -196,7 +196,7 @@
     "mono-label-strong-small": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{primitive.font.family.mono}",
+        "fontFamily": "{font.family.mono}",
         "fontWeight": "{primitive.font.weight.medium}",
         "fontSize": "{primitive.font.size.xs}",
         "lineHeight": "{primitive.font.lineHeight.snug}"

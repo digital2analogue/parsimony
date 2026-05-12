@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://riverromney.design/schemas/meta.schema.json",
+  "title": "ComponentMeta",
+  "description": "Schema for *.meta.json files that describe each web component in the design system. Extends the Custom Elements Manifest with usage intent, token references, accessibility contracts, and Figma mappings.",
+  "type": "object",
+  "required": ["metaVersion", "name", "summary", "package",
+               "props", "slots", "tokensUsed", "examples", "accessibility"],
+  "properties": {
+    "metaVersion": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semver version of this meta file. Distinct from the merged design-system.json $schemaVersion."
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^rr-[a-z][a-z-]*$",
+      "description": "Component tag name (e.g. rr-badge). Used as both the custom element tag and the canonical identifier."
+    },
+    "summary": {
+      "type": "string",
+      "maxLength": 140,
+      "description": "One-line description of the component, suitable for search results and MCP tool responses."
+    },
+    "package": {
+      "const": "@riverromney/components"
+    },
+    "props": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "type"],
+        "properties": {
+          "name": { "type": "string" },
+          "type": { "type": "string" },
+          "default": {},
+          "description": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "slots": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/named" }
+    },
+    "events": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/event" }
+    },
+    "cssParts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/named" }
+    },
+    "tokensUsed": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^--(color|font|spacing|radius|motion|shadow|icon|component)-",
+        "not": { "pattern": "^--primitive-" }
+      },
+      "description": "CSS custom properties this component references. Must be semantic or component-level tokens — never primitives."
+    },
+    "rules": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Usage rules and constraints from ai/rules.md that apply to this component."
+    },
+    "examples": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/example" }
+    },
+    "accessibility": {
+      "type": "object",
+      "required": ["ariaPattern", "wcag"],
+      "properties": {
+        "ariaPattern": {
+          "type": "string",
+          "format": "uri",
+          "description": "Link to the WAI-ARIA Authoring Practices pattern this component implements."
+        },
+        "role": { "type": "string" },
+        "ariaLive": {
+          "enum": ["polite", "assertive", "off"],
+          "description": "Live region politeness. Omit if the component is not a live region."
+        },
+        "focusable": { "type": "boolean" },
+        "keyboard": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Keyboard interactions supported (e.g. 'Enter activates', 'Escape closes')."
+        },
+        "wcag": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "WCAG 2.2 success criteria this component must satisfy (e.g. '1.4.3 Contrast (Minimum)')."
+        },
+        "rules": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Component-specific accessibility rules beyond WCAG (e.g. 'aria-errormessage must mirror aria-describedby')."
+        }
+      },
+      "additionalProperties": false
+    },
+    "figma": {
+      "type": "object",
+      "properties": {
+        "componentKey": {
+          "type": "string",
+          "description": "Figma component key for Code Connect mapping."
+        },
+        "nodeId": {
+          "type": "string",
+          "description": "Figma node ID for Code Connect mapping."
+        },
+        "codeConnectFile": {
+          "type": "string",
+          "description": "Path to the .figma.ts Code Connect file, relative to the component directory."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "named": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "event": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "detail": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "example": {
+      "type": "object",
+      "required": ["title", "html"],
+      "properties": {
+        "title": { "type": "string" },
+        "html": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

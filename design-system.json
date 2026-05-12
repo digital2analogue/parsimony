@@ -1,0 +1,471 @@
+{
+  "$schemaVersion": "1.0.0",
+  "generatedAt": "2026-05-11T09:13:31.363Z",
+  "components": [
+    {
+      "metaVersion": "1.0.0",
+      "name": "rr-input",
+      "summary": "Form-associated text input with label, helper/error text, and ElementInternals for native form participation.",
+      "package": "@riverromney/components",
+      "props": [
+        {
+          "name": "type",
+          "type": "string",
+          "default": "text",
+          "description": "Input type attribute (text, email, password, etc.)."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "default": "",
+          "description": "Form field name for submission."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "default": "",
+          "description": "Current input value."
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "",
+          "description": "Placeholder text shown when empty."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": "",
+          "description": "Visible label text above the input."
+        },
+        {
+          "name": "helper-text",
+          "type": "string",
+          "default": "",
+          "description": "Helper text below the input. Hidden when error-text is set."
+        },
+        {
+          "name": "error-text",
+          "type": "string",
+          "default": "",
+          "description": "Error message below the input. Sets aria-invalid and replaces helper text."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "default": false,
+          "description": "Marks the field as required. Shows asterisk and sets aria-required."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false,
+          "description": "Disables the input."
+        },
+        {
+          "name": "autocomplete",
+          "type": "string",
+          "default": "",
+          "description": "Autocomplete hint for browser autofill."
+        }
+      ],
+      "slots": [
+        {
+          "name": "label",
+          "description": "Optional override for the label content."
+        }
+      ],
+      "events": [
+        {
+          "name": "input",
+          "detail": "Fired on each keystroke, mirrors native input event."
+        },
+        {
+          "name": "change",
+          "detail": "Fired on value commit (blur), mirrors native change event."
+        }
+      ],
+      "cssParts": [
+        {
+          "name": "label",
+          "description": "The label element above the input."
+        },
+        {
+          "name": "input",
+          "description": "The inner <input> element."
+        },
+        {
+          "name": "helper",
+          "description": "The helper text container."
+        },
+        {
+          "name": "error",
+          "description": "The error message container."
+        }
+      ],
+      "tokensUsed": [
+        "--component-input-background-default",
+        "--component-input-background-hover",
+        "--component-input-background-focus",
+        "--component-input-background-disabled",
+        "--component-input-background-error",
+        "--component-input-foreground-value",
+        "--component-input-foreground-placeholder",
+        "--component-input-foreground-label",
+        "--component-input-foreground-label-required",
+        "--component-input-foreground-helper",
+        "--component-input-foreground-error",
+        "--component-input-foreground-disabled",
+        "--component-input-border-default",
+        "--component-input-border-hover",
+        "--component-input-border-focus",
+        "--component-input-border-error",
+        "--component-input-border-disabled",
+        "--component-input-radius",
+        "--component-input-padding-x",
+        "--component-input-padding-y",
+        "--font-label-medium",
+        "--font-body-large",
+        "--font-label-small"
+      ],
+      "rules": [
+        "Never use hex values — always var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)"
+      ],
+      "examples": [
+        {
+          "title": "Default",
+          "html": "<rr-input label=\"Email\" placeholder=\"you@example.com\"></rr-input>"
+        },
+        {
+          "title": "With helper text",
+          "html": "<rr-input label=\"Username\" helper-text=\"Must be 3-20 characters\"></rr-input>"
+        },
+        {
+          "title": "Error state",
+          "html": "<rr-input label=\"Email\" value=\"bad\" error-text=\"Invalid email address\"></rr-input>"
+        },
+        {
+          "title": "Required",
+          "html": "<rr-input label=\"Name\" required></rr-input>"
+        },
+        {
+          "title": "Disabled",
+          "html": "<rr-input label=\"Locked\" value=\"Cannot edit\" disabled></rr-input>"
+        },
+        {
+          "title": "With autocomplete",
+          "html": "<rr-input label=\"Email\" type=\"email\" autocomplete=\"email\"></rr-input>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/textbox/",
+        "focusable": true,
+        "keyboard": [
+          "Tab moves focus to the input",
+          "Standard text editing keys work natively"
+        ],
+        "wcag": [
+          "1.3.1 Info and Relationships",
+          "1.3.5 Identify Input Purpose",
+          "1.4.3 Contrast (Minimum)",
+          "2.4.6 Headings and Labels",
+          "3.3.1 Error Identification",
+          "3.3.2 Labels or Instructions"
+        ],
+        "rules": [
+          "aria-errormessage points to error div; aria-describedby mirrors the link while invalid as AT fallback.",
+          "When valid, aria-describedby points to helper text. When invalid, it switches to error text.",
+          "delegatesFocus ensures host element forwards focus to inner <input>.",
+          "ElementInternals.setFormValue() keeps the form value in sync with the input."
+        ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "",
+        "codeConnectFile": "input.figma.ts"
+      }
+    },
+    {
+      "metaVersion": "1.0.0",
+      "name": "rr-button",
+      "summary": "Button with primary/secondary/danger variants, three sizes, loading spinner, and full keyboard/form semantics.",
+      "package": "@riverromney/components",
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "primary",
+          "description": "Visual variant: primary (filled CTA), secondary (outlined), danger (destructive)."
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "default": "medium",
+          "description": "Size: small, medium, large. Controls padding and font size."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false,
+          "description": "Disables the button. Prevents click and removes from tab order."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "default": false,
+          "description": "Shows a spinner and sets aria-busy. Click suppressed while loading."
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "default": "button",
+          "description": "Button type attribute: button, submit, or reset."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "default": null,
+          "description": "Accessible label. Required for icon-only buttons."
+        }
+      ],
+      "slots": [
+        {
+          "name": "(default)",
+          "description": "Button label text."
+        },
+        {
+          "name": "prefix",
+          "description": "Icon or element before the label."
+        },
+        {
+          "name": "suffix",
+          "description": "Icon or element after the label."
+        }
+      ],
+      "events": [
+        {
+          "name": "click",
+          "detail": "Native click event. Suppressed when disabled or loading."
+        }
+      ],
+      "cssParts": [
+        {
+          "name": "button",
+          "description": "The inner <button> element."
+        }
+      ],
+      "tokensUsed": [
+        "--component-button-primary-background-default",
+        "--component-button-primary-background-hover",
+        "--component-button-primary-background-active",
+        "--component-button-primary-foreground-default",
+        "--component-button-primary-border-default",
+        "--component-button-primary-border-hover",
+        "--component-button-primary-border-active",
+        "--component-button-secondary-background-default",
+        "--component-button-secondary-background-hover",
+        "--component-button-secondary-foreground-default",
+        "--component-button-secondary-border-default",
+        "--component-button-secondary-border-hover",
+        "--component-button-danger-background-default",
+        "--component-button-danger-background-hover",
+        "--component-button-danger-foreground-default",
+        "--component-button-danger-border-default",
+        "--component-button-danger-border-hover",
+        "--color-background-disabled",
+        "--color-foreground-disabled",
+        "--color-border-disabled",
+        "--color-border-focus",
+        "--font-label-strong-small",
+        "--font-label-strong-medium",
+        "--font-label-strong-large",
+        "--spacing-micro",
+        "--spacing-tight",
+        "--spacing-inline",
+        "--spacing-element",
+        "--radius-default",
+        "--motion-duration-instant",
+        "--motion-easing-default"
+      ],
+      "rules": [
+        "Never use hex values — always var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)",
+        "Primary button: one per page maximum",
+        "Icon-only buttons must have aria-label"
+      ],
+      "examples": [
+        {
+          "title": "Primary",
+          "html": "<rr-button>Save changes</rr-button>"
+        },
+        {
+          "title": "Secondary",
+          "html": "<rr-button variant=\"secondary\">Cancel</rr-button>"
+        },
+        {
+          "title": "Danger",
+          "html": "<rr-button variant=\"danger\">Delete</rr-button>"
+        },
+        {
+          "title": "Small",
+          "html": "<rr-button size=\"small\">Tag</rr-button>"
+        },
+        {
+          "title": "Large",
+          "html": "<rr-button size=\"large\">Get started</rr-button>"
+        },
+        {
+          "title": "Loading",
+          "html": "<rr-button loading>Saving...</rr-button>"
+        },
+        {
+          "title": "Disabled",
+          "html": "<rr-button disabled>Unavailable</rr-button>"
+        },
+        {
+          "title": "Icon-only",
+          "html": "<rr-button aria-label=\"Close\"><span slot=\"prefix\">X</span></rr-button>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/button/",
+        "focusable": true,
+        "keyboard": [
+          "Enter activates the button",
+          "Space activates the button",
+          "Tab moves focus to/from the button"
+        ],
+        "wcag": [
+          "1.4.3 Contrast (Minimum)",
+          "2.1.1 Keyboard",
+          "2.4.6 Headings and Labels",
+          "4.1.2 Name, Role, Value"
+        ],
+        "rules": [
+          "delegatesFocus ensures host element forwards focus to inner <button>.",
+          "aria-busy='true' set during loading state to communicate to AT.",
+          "Icon-only buttons require aria-label for accessible name.",
+          "disabled attribute removes from tab order and prevents activation.",
+          "Click events are suppressed when disabled or loading."
+        ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "",
+        "codeConnectFile": "button.figma.ts"
+      }
+    },
+    {
+      "metaVersion": "1.0.0",
+      "name": "rr-badge",
+      "summary": "Status badge and accent chip. 9 variants map to component tokens; brand theming cascades via CSS custom properties.",
+      "package": "@riverromney/components",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'default' | 'success' | 'warning' | 'danger' | 'info' | 'accent-green' | 'accent-blue' | 'accent-violet' | 'accent-amber'",
+          "default": "default",
+          "description": "Visual variant. Status variants (success, warning, danger, info) convey semantic meaning. Accent variants are decorative emphasis tags."
+        }
+      ],
+      "slots": [
+        {
+          "name": "default",
+          "description": "Badge label text."
+        }
+      ],
+      "events": [],
+      "cssParts": [],
+      "tokensUsed": [
+        "--component-badge-default-background",
+        "--component-badge-default-foreground",
+        "--component-badge-default-border",
+        "--component-badge-success-background",
+        "--component-badge-success-foreground",
+        "--component-badge-success-border",
+        "--component-badge-warning-background",
+        "--component-badge-warning-foreground",
+        "--component-badge-warning-border",
+        "--component-badge-danger-background",
+        "--component-badge-danger-foreground",
+        "--component-badge-danger-border",
+        "--component-badge-info-background",
+        "--component-badge-info-foreground",
+        "--component-badge-info-border",
+        "--component-badge-accent-green-background",
+        "--component-badge-accent-green-foreground",
+        "--component-badge-accent-green-border",
+        "--component-badge-accent-blue-background",
+        "--component-badge-accent-blue-foreground",
+        "--component-badge-accent-blue-border",
+        "--component-badge-accent-violet-background",
+        "--component-badge-accent-violet-foreground",
+        "--component-badge-accent-violet-border",
+        "--component-badge-accent-amber-background",
+        "--component-badge-accent-amber-foreground",
+        "--component-badge-accent-amber-border",
+        "--component-badge-radius",
+        "--component-badge-padding-x",
+        "--component-badge-padding-y",
+        "--font-label-small"
+      ],
+      "rules": [
+        "Never use hex values — always var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)"
+      ],
+      "examples": [
+        {
+          "title": "Default",
+          "html": "<rr-badge>Label</rr-badge>"
+        },
+        {
+          "title": "Success",
+          "html": "<rr-badge variant=\"success\">Active</rr-badge>"
+        },
+        {
+          "title": "Warning",
+          "html": "<rr-badge variant=\"warning\">Pending</rr-badge>"
+        },
+        {
+          "title": "Danger",
+          "html": "<rr-badge variant=\"danger\">Error</rr-badge>"
+        },
+        {
+          "title": "Info",
+          "html": "<rr-badge variant=\"info\">In Review</rr-badge>"
+        },
+        {
+          "title": "Accent chips",
+          "html": "<rr-badge variant=\"accent-green\">Tag</rr-badge>\n<rr-badge variant=\"accent-blue\">Category</rr-badge>\n<rr-badge variant=\"accent-violet\">Feature</rr-badge>\n<rr-badge variant=\"accent-amber\">New</rr-badge>"
+        },
+        {
+          "title": "Live region",
+          "html": "<rr-badge variant=\"success\" role=\"status\">Connected</rr-badge>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/badge/",
+        "focusable": false,
+        "keyboard": [],
+        "wcag": [
+          "1.4.3 Contrast (Minimum)",
+          "1.4.11 Non-text Contrast"
+        ],
+        "rules": [
+          "Add role=\"status\" on the host element when badge content updates dynamically to create an ARIA live region.",
+          "Decorative badges (accent-*) do not need role=\"status\" — they are static labels.",
+          "Badge text alone must convey meaning; do not rely solely on color to distinguish variants."
+        ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "",
+        "codeConnectFile": "badge.figma.ts"
+      }
+    }
+  ]
+}
