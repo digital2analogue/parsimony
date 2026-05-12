@@ -16,6 +16,14 @@
         "$description": "Deliberate transition. Use for page-level transitions, modal entry/exit, and large layout changes where the motion needs to be noticed and tracked by the eye. Do not use for simple hover or focus states. Referenced by: motion.duration.emphasized."
       }
     },
+    "delay": {
+      "$type": "duration",
+      "$description": "Primitive transition delay values. The default for every transition in this system is zero \u2014 ad-hoc delays produce sluggish, uncoordinated UI. Add new stops here only when a deliberate stagger or sequence requires it; never inline a delay value in UI code.",
+      "none": {
+        "$value": "0ms",
+        "$description": "No delay. The transition starts the moment the property changes. The default delay for every composite transition token in this system. Referenced by: motion.transition.* (all)."
+      }
+    },
     "easing": {
       "$type": "cubicBezier",
       "$description": "Cubic bezier easing curves. Match the easing to the direction of motion \u2014 elements entering should decelerate (ease-out), elements exiting should accelerate (ease-in). Default is general-purpose.",
