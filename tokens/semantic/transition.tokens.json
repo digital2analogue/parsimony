@@ -1,0 +1,47 @@
+{
+  "motion": {
+    "transition": {
+      "$description": "Composite transition tokens — pre-composed duration + timing function + delay triplets per the W3C Design Tokens spec. Use these instead of assembling motion.duration.* and motion.easing.* by hand in component CSS. Each token encodes a specific intent (micro feedback, standard state change, emphasized layer, repositioning) so that the same interaction reads consistently across components and brands. Delay is always zero by default in this system — if you need to stagger, do it at the component level with explicit transition-delay, not by inventing a new token.",
+
+      "micro": {
+        "$type": "transition",
+        "$value": {
+          "duration": "{motion.duration.instant}",
+          "timingFunction": "{motion.easing.default}",
+          "delay": "{primitive.delay.none}"
+        },
+        "$description": "Micro-interaction transition. The fastest composite in the system, with directionless easing. Use for property changes that should feel instantaneous but not jarring: hover color shifts, focus ring fade-in, active/pressed background flips, checkbox tick reveals, link underline color swaps. Do not use for any motion that involves layout, size, or position change — at 120ms those read as twitchy. Resolves to: 120ms cubic-bezier(0.25, 0.1, 0.25, 1) 0ms."
+      },
+
+      "standard": {
+        "$type": "transition",
+        "$value": {
+          "duration": "{motion.duration.standard}",
+          "timingFunction": "{motion.easing.default}",
+          "delay": "{primitive.delay.none}"
+        },
+        "$description": "Standard component transition. The workhorse composite — pair with most state changes that involve visibility or layout: dropdown menus opening, tooltips appearing, accordions expanding, tabs switching, popovers fading in. Directionless easing keeps the motion neutral so the same token can run both directions without feeling lopsided. If the element is *clearly* entering or exiting and you want to underscore that, reach for motion.easing.enter or motion.easing.exit on a custom transition instead. Resolves to: 200ms cubic-bezier(0.25, 0.1, 0.25, 1) 0ms."
+      },
+
+      "emphasized": {
+        "$type": "transition",
+        "$value": {
+          "duration": "{motion.duration.emphasized}",
+          "timingFunction": "{motion.easing.move}",
+          "delay": "{primitive.delay.none}"
+        },
+        "$description": "Emphasized transition for layer-shifting motion. Reserved for full-screen or near-full-screen movement where the motion itself is part of the meaning: modal entry and exit, drawer slides, full-page sheet reveals, route-level transitions. The 350ms duration gives the eye time to follow; the symmetric in-out easing reads as a deliberate slide rather than an entrance or exit, which keeps the same token usable both ways. Do not apply to small components — emphasized timing on a hover or a dropdown feels broken and slow. Resolves to: 350ms cubic-bezier(0.42, 0, 0.58, 1) 0ms."
+      },
+
+      "move": {
+        "$type": "transition",
+        "$value": {
+          "duration": "{motion.duration.standard}",
+          "timingFunction": "{motion.easing.move}",
+          "delay": "{primitive.delay.none}"
+        },
+        "$description": "Repositioning transition. Standard duration paired with symmetric in-out easing — the right combination for elements that travel from one position to another within the viewport without entering or exiting. Use for tab indicator underlines sliding between tabs, segmented control thumbs, accordion content shifting siblings, drag-and-drop snap, sticky header offset changes. The arc-shaped easing gives the motion a sense of weight and direction that linear or ease-out would flatten. Resolves to: 200ms cubic-bezier(0.42, 0, 0.58, 1) 0ms."
+      }
+    }
+  }
+}
