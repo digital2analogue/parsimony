@@ -211,6 +211,40 @@
           "$description": "Tertiary text on white — sits between foreground.muted (gray.500, 5.17:1) and foreground.alt (gray.700, 8.9:1). Cool blue-gray consistent with the DE palette character. Contrast vs white: ~6.2:1 (WCAG AA). Use for helper/descriptor text that should read as supplemental without the passive 'disabled' feel of muted."
         }
       },
+      "indigo": {
+        "$description": "Indigo ramp for accent-bold fills. Saturated, high-contrast against white. Used for identity surfaces like avatar backgrounds.",
+        "700": {
+          "$value": "#4338CA",
+          "$type": "color",
+          "$description": "Saturated indigo for bold accent fills. Contrast vs white: 7.98:1 (AAA). Use via color.background.accent-indigo-bold."
+        },
+        "100": {
+          "$value": "#E0E7FF",
+          "$type": "color",
+          "$description": "Light indigo tint for chip/tag fills. Use via color.background.accent-indigo."
+        }
+      },
+      "sky": {
+        "$description": "Sky blue ramp for accent-bold fills. Distinct from the blue (navy) ramp — lighter, cooler hue.",
+        "700": {
+          "$value": "#0369A1",
+          "$type": "color",
+          "$description": "Saturated sky blue for bold accent fills. Contrast vs white: 5.90:1 (AA). Use via color.background.accent-sky-bold."
+        },
+        "100": {
+          "$value": "#E0F2FE",
+          "$type": "color",
+          "$description": "Light sky tint for chip/tag fills. Use via color.background.accent-sky."
+        }
+      },
+      "emerald": {
+        "$description": "Emerald green ramp for accent-bold fills. Warmer and more saturated than the base green ramp.",
+        "700": {
+          "$value": "#047857",
+          "$type": "color",
+          "$description": "Saturated emerald for bold accent fills. Contrast vs white: 5.47:1 (AA). Use via color.background.accent-green-bold."
+        }
+      },
       "violet": {
         "$description": "Violet ramp for base dark theme accent slots. Lighter and cooler than the purple ramp (which serves DE outcome states).",
         "300": {
@@ -237,6 +271,11 @@
           "$value": "#D97706",
           "$type": "color",
           "$description": "Medium amber. Warning fill in light-mode (DE). Dark text required: #0A0D0A on this = 6.8:1 AA."
+        },
+        "600": {
+          "$value": "#B45309",
+          "$type": "color",
+          "$description": "Saturated amber for bold accent fills — avatar backgrounds, identity badges. Contrast vs white: 5.02:1 (AA). Use via color.background.accent-amber-bold."
         },
         "700": {
           "$value": "#92400E",
