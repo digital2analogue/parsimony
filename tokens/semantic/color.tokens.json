@@ -51,6 +51,36 @@
         "$value": "{primitive.color.amber.950}",
         "$description": "Dark amber tint #221B08. Subtle chip/tag fills, callout panels with warm amber emphasis. Pair with foreground.accent-amber for text."
       },
+      "accent-indigo": {
+        "$value": "{primitive.color.indigo.100}",
+        "$type": "color",
+        "$description": "Light indigo tint for chip/tag fills. Pair with foreground.accent-indigo for text."
+      },
+      "accent-indigo-bold": {
+        "$value": "{primitive.color.indigo.700}",
+        "$type": "color",
+        "$description": "Saturated indigo fill for bold accent surfaces — avatar backgrounds, identity badges. Pair with foreground.accent-on-indigo (white). Contrast vs white: 7.98:1 AAA."
+      },
+      "accent-sky": {
+        "$value": "{primitive.color.sky.100}",
+        "$type": "color",
+        "$description": "Light sky blue tint for chip/tag fills. Pair with foreground.accent-sky for text."
+      },
+      "accent-sky-bold": {
+        "$value": "{primitive.color.sky.700}",
+        "$type": "color",
+        "$description": "Saturated sky blue fill for bold accent surfaces — avatar backgrounds, identity badges. Pair with foreground.accent-on-sky (white). Contrast vs white: 5.90:1 AA."
+      },
+      "accent-green-bold": {
+        "$value": "{primitive.color.emerald.700}",
+        "$type": "color",
+        "$description": "Saturated emerald fill for bold accent surfaces — avatar backgrounds, identity badges. Pair with foreground.accent-on-green (white on dark fills). Contrast vs white: 5.47:1 AA."
+      },
+      "accent-amber-bold": {
+        "$value": "{primitive.color.amber.600}",
+        "$type": "color",
+        "$description": "Saturated amber fill for bold accent surfaces — avatar backgrounds, identity badges. Pair with white text (DS debt: accent-on-amber is dark for tints). Contrast vs white: 5.02:1 AA."
+      },
       "danger": {
         "$value": "{primitive.color.red.500}",
         "$description": "Danger fill #D03027. Use for filled destructive buttons (delete, remove). Always pair with foreground.on-danger."
@@ -172,10 +202,20 @@
         "$type": "color",
         "$description": "Text/icons on info fill backgrounds. White on blue fill."
       },
+      "accent-indigo": {
+        "$value": "{primitive.color.indigo.700}",
+        "$type": "color",
+        "$description": "Indigo accent for text and icons. Pair with background.accent-indigo for tinted surfaces."
+      },
+      "accent-sky": {
+        "$value": "{primitive.color.sky.700}",
+        "$type": "color",
+        "$description": "Sky blue accent for text and icons. Pair with background.accent-sky for tinted surfaces."
+      },
       "accent-on-green": {
         "$value": "{primitive.color.green.950}",
         "$type": "color",
-        "$description": "Text/icons on green accent fills. Near-black on dark theme."
+        "$description": "Text/icons on green accent tint fills. Near-black on dark theme. For bold green fills, white text is needed — DE overrides to white."
       },
       "accent-on-blue": {
         "$value": "{primitive.color.green.950}",
@@ -191,6 +231,16 @@
         "$value": "{primitive.color.green.950}",
         "$type": "color",
         "$description": "Text/icons on amber accent fills. Near-black on dark theme."
+      },
+      "accent-on-indigo": {
+        "$value": "{primitive.color.neutral.white}",
+        "$type": "color",
+        "$description": "Text/icons on indigo accent fills. White — indigo-700 provides 7.98:1 contrast (AAA)."
+      },
+      "accent-on-sky": {
+        "$value": "{primitive.color.neutral.white}",
+        "$type": "color",
+        "$description": "Text/icons on sky accent fills. White — sky-700 provides 5.90:1 contrast (AA)."
       }
     },
     "border": {

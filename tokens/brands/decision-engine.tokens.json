@@ -12,6 +12,18 @@
         "$value": "DM Mono, JetBrains Mono, monospace",
         "$description": "Decision-engine uses DM Mono as primary monospace, with JetBrains Mono as fallback."
       }
+    },
+    "title": {
+      "small": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontWeight": "{primitive.font.weight.medium}",
+          "fontSize": "1.125rem",
+          "lineHeight": "{primitive.font.lineHeight.snug}"
+        },
+        "$description": "DE title-small override — 18px (1.125rem) instead of base 20px. Enterprise data tables need a tighter heading scale. Weight medium (500) matches DE's denser typographic character."
+      }
     }
   },
   "color": {
