@@ -1,9 +1,9 @@
 ---
 id: plan-web-components
 scope: planning
-status: draft-rev4
+status: draft-rev5
 applies-to: [base, decision-engine, dot-art, dot-blog]
-last-updated: 2026-05-06
+last-updated: 2026-05-16
 ---
 
 # Web Components Plan
@@ -16,7 +16,8 @@ This is a **plan**, not an implementation. Each step ships as its own PR and is 
 > - **rev1** — initial sketch.
 > - **rev2** — incorporated independent design-systems review. Cut `validate_token_addition`; narrowed `check_usage`; deferred trust-level table; deepened Input a11y; added schema + CEM + versioning + theming + motion + visual regression + AGENTS.md outline; deferred `packages/react`, Storybook, MCP publishing.
 > - **rev3** — second review pass. Reordered migration so the merged JSON artifact ships **before** the first component; added a precursor step extracting `--font-family-sans/serif/mono` as semantic tokens (the existing decision-engine "Inter exception" is currently unimplemented); added a CSS-sourcing section naming `tokens/components/*.tokens.json` as the styling source; replaced the schema *example* with an actual JSON Schema skeleton; resolved AGENTS.md audience conflation; added `aria-errormessage` AT-fallback note; added browser-support floor, bundle budget, token-rename protocol, design-system.json consumer contract, Code Connect step; tightened benchmark methodology; fixed step 11 self-contradiction.
-> - **rev4** *(this revision)* — third review pass. Rewrites step 3 (font-family extraction) with concrete mechanics — the previous "non-breaking, additive" claim was asserted not verified, and the existing typography tokens reference primitive `fontFamily` from inside composite values, which Style Dictionary's default typography transform doesn't decompose. Adds a "Known follow-ups" section listing in-flight fixes (schema bugs, CSS-sourcing mechanism statement, codemod directory creation, merge-conflict policy for `design-system.json`, Code Connect authorship, distribution decision, drift-grep scope clarification). All non-step-3 issues fix during execution PRs, not before merge.
+> - **rev4** — third review pass. Rewrites step 3 (font-family extraction) with concrete mechanics — the previous "non-breaking, additive" claim was asserted not verified, and the existing typography tokens reference primitive `fontFamily` from inside composite values, which Style Dictionary's default typography transform doesn't decompose. Adds a "Known follow-ups" section listing in-flight fixes (schema bugs, CSS-sourcing mechanism statement, codemod directory creation, merge-conflict policy for `design-system.json`, Code Connect authorship, distribution decision, drift-grep scope clarification). All non-step-3 issues fix during execution PRs, not before merge.
+> - **rev5** *(this revision)* — fourth review pass. **Removes old step 2** (npm-workspaces conversion / moving repo contents under `packages/tokens/`). Verified against `package.json` (no `workspaces` field; `name: brand-tokens` is the token package), `style-dictionary.config.mjs` (`buildPath: build/css/`, repo-root-relative source globs), and `scripts/build-brands.mjs`: the move breaks consumer filesystem coupling — consumers read `<sibling>/build/css/variables.css`; the move makes that `<sibling>/packages/tokens/build/css/variables.css` — for zero best-practice gain absent npm publish, which is itself deferred. Tokens stay at the repo root. `packages/` is created lazily when the first component ships (step 5); `workspaces: ["packages/*"]` is added then. Renumbers migration steps 3→2 … 13→12 (12 steps total) and updates every cross-reference. Folds distribution-channel + npm-publish + symmetric-monorepo into a single deferred milestone in Open questions. Rationale: plant-seeds-not-trees — one package today, no symmetry to pay for; the path move fixes no anti-pattern without a version contract.
 
 ---
 
@@ -50,21 +51,24 @@ brand-tokens/                          (repo name unchanged)
 │   ├── DESIGN.md                      base dark theme token tables
 │   ├── DECISION-ENGINE.md             DE sub-brand decisions
 │   ├── rules.md                       hard/soft rules
-│   ├── BENCHMARK.md                   format-benchmark results (added at step 7)
+│   ├── BENCHMARK.md                   format-benchmark results (added at step 6)
 │   └── PLAN-web-components.md         this file
+├── tokens/                            ← STAYS AT ROOT — primitives, semantic, components, brands
+├── build/css/                         ← STAYS AT ROOT — per-brand CSS; consumer sync paths unchanged
+├── style-dictionary.config.mjs        ← STAYS AT ROOT — repo-root-relative source globs + buildPath
+├── docs/                              ← STAYS AT ROOT — static design system reference
+├── scripts/                           ← STAYS AT ROOT
+│   ├── build-brands.mjs               Style Dictionary multi-brand build (unchanged)
+│   ├── generate-docs.mjs              regenerates docs/index.html (unchanged)
+│   ├── build-design-system-json.mjs   merges *.meta.json + custom-elements.json → design-system.json (step 4)
+│   └── codemods/                      token-rename codemods — created with packages/ at step 5
 ├── schemas/
-│   └── meta.schema.json               JSON Schema for *.meta.json (added step 4)
-├── packages/
-│   ├── tokens/                        ← existing repo contents move here verbatim
-│   │   ├── tokens/                    primitives, semantic, components, brands
-│   │   ├── build/css/                 per-brand CSS — canonical artifact, paths preserved
-│   │   ├── scripts/                   build-brands, generate-docs, namespace-primitives
-│   │   ├── docs/                      static design system reference
-│   │   └── package.json               @riverromney/tokens
+│   └── meta.schema.json               JSON Schema for *.meta.json (added step 3)
+├── packages/                          ← created lazily at step 5 (first component). NOT a home for tokens.
 │   ├── components/                    ← new: framework-agnostic Lit components
 │   │   ├── src/
 │   │   │   ├── badge/
-│   │   │   │   ├── badge.ts           LitElement, peer-deps on @riverromney/tokens
+│   │   │   │   ├── badge.ts           LitElement; references --component-* CSS vars from root build/css
 │   │   │   │   ├── badge.stories.html dev story (@web/dev-server)
 │   │   │   │   ├── badge.test.ts      vitest + vitest-axe
 │   │   │   │   └── badge.meta.json    MCP-readable spec (validates against schemas/meta.schema.json)
@@ -75,15 +79,14 @@ brand-tokens/                          (repo name unchanged)
 │   ├── react/                         ← DEFERRED — only if React 19 native CE support proves insufficient
 │   └── mcp/                           ← in-repo script, not published as npm package yet
 │       └── src/server.ts
-├── scripts/
-│   └── build-design-system-json.mjs   merges *.meta.json + custom-elements.json → design-system.json (step 5)
 ├── design-system.json                 committed artifact, regenerated by CI on every PR
-└── package.json                       workspaces: ["packages/*"]
+└── package.json                       name: brand-tokens. NO workspaces field until packages/ exists;
+                                       add workspaces: ["packages/*"] at step 5
 ```
 
 ### Existing component tokens (the styling source)
 
-`packages/tokens/tokens/components/{badge,button,input}.tokens.json` already exists and is the **styling source** for the Lit components. The chain is:
+`tokens/components/{badge,button,input}.tokens.json` (at the repo root — confirmed present) already exists and is the **styling source** for the Lit components. The chain is:
 
 1. **Primitives** (`primitives/*.tokens.json`) — raw values.
 2. **Semantic** (`semantic/*.tokens.json`) — named roles like `color.background.action`.
@@ -96,6 +99,7 @@ This is the load-bearing decision for goal B: **components don't author colors a
 
 - Tokens and components version together. A token rename is a component breaking change.
 - One MCP surface for agents to discover.
+- "Same repo" does **not** mean "tokens under `packages/*`." Tokens stay at the repo root; only the new component/MCP code lives under `packages/`. Moving tokens would break consumer filesystem coupling for no gain until npm publish — deferred (see Open questions).
 
 Cost: this repo gains a real JS/TS toolchain (Lit, Vite, Vitest, @web/dev-server). Acceptable.
 
@@ -135,7 +139,7 @@ in CLAUDE.md, not here.
 @ai/DECISION-ENGINE.md
 
 ## Components
-On-demand via MCP server (in-repo until step 8): packages/mcp
+On-demand via MCP server (in-repo until step 7): packages/mcp
 Tools: list_components, get_component, check_usage
 
 ## Hard limits when using the system
@@ -177,7 +181,7 @@ last-updated: 2026-05-06
 
 ## JSON metadata schema (`schemas/meta.schema.json`)
 
-Defines the shape of every component's `*.meta.json`. Authored at **step 4**, before any component ships, and validated in CI on every PR.
+Defines the shape of every component's `*.meta.json`. Authored at **step 3**, before any component ships, and validated in CI on every PR.
 
 ### Schema skeleton (JSON Schema draft 2020-12)
 
@@ -252,7 +256,7 @@ Defines the shape of every component's `*.meta.json`. Authored at **step 4**, be
 
 - CEM (`custom-elements.json`) is auto-generated by `@custom-elements-manifest/analyzer` from JSDoc on the Lit class — props, slots, events, attributes.
 - `*.meta.json` adds what CEM cannot derive: `tokensUsed`, `rules`, `examples`, the full `accessibility` contract, Figma mappings.
-- The merged `design-system.json` artifact (built at step 5) joins them: CEM is the source of truth for the API surface; `*.meta.json` is the source of truth for usage intent.
+- The merged `design-system.json` artifact (built at step 4) joins them: CEM is the source of truth for the API surface; `*.meta.json` is the source of truth for usage intent.
 
 ### Versioning
 
@@ -303,7 +307,7 @@ If a consumer needs older Safari, they fall back to the existing CSS-only patter
 - Components MUST NOT bake colors, font-families, or font-sizes into shadow-DOM `<style>` — only `var(--*)` references.
 - CSS custom properties on `:root` cascade through shadow boundaries by design.
 
-### The font-family precursor (step 3)
+### The font-family precursor (step 2)
 
 The current token tree references `{primitive.font.family.sans}` directly from inside composite typography `$value` blocks. There is **no semantic font-family token**, and the decision-engine "Inter exception" described in `DECISION-ENGINE.md` is currently unimplemented at the token level — the brand override has no surface to override.
 
@@ -369,7 +373,7 @@ The current token tree references `{primitive.font.family.sans}` directly from i
     }
   }
   ```
-- Lives in `packages/tokens/build/css/<brand>.css` so every component inherits automatically.
+- Lives in `build/css/<brand>.css` (repo root) so every component inherits automatically.
 - Components MUST NOT write their own `@media (prefers-reduced-motion: reduce)` blocks.
 
 ---
@@ -427,7 +431,7 @@ The current token tree references `{primitive.font.family.sans}` directly from i
 - One Playwright screenshot per story per brand (4 brands × N stories).
 - Compares to baseline; PR fails on diff > N px or > N%.
 - Catches token regressions across all brands in one shot.
-- Lives in `packages/components/test/visual/`. Added at step 6.
+- Lives in `packages/components/test/visual/`. Added at step 5.
 
 ---
 
@@ -446,7 +450,7 @@ Tokens and components version together — but consumer repos need a migration w
 
 - A token rename ships in **two minor versions**: vN defines both old and new (old aliases new); vN+2 removes old.
 - vN includes a `DEPRECATED.md` entry naming the old token, the new token, and the version old will be removed in.
-- A codemod script in `packages/tokens/scripts/codemods/` rewrites consumer source. Run via `npx @riverromney/tokens codemod <name>`.
+- A codemod script in `scripts/codemods/` (repo root; directory created at step 5) rewrites consumer source. Run via `npx @riverromney/tokens codemod <name>` once the package is published — see the deferred publish milestone in Open questions.
 - `check_usage` MCP tool flags deprecated token references with the new-token suggestion in the violation message.
 
 ---
@@ -480,7 +484,7 @@ The MCP lives as an in-repo script (`packages/mcp/src/server.ts`) until there's 
 
 Originally this section had a seven-row table. **Cut** — trust levels without enforcement are theater.
 
-What ships at step 4 instead:
+What ships at step 3 instead:
 
 **One concrete CI rule:** `packages/components/**/*.{ts,css,html}` must contain no hex literals and no `--primitive-*` references. Fails the build.
 
@@ -492,25 +496,26 @@ Add more rules only when actual agent behavior justifies them.
 
 Each step is its own PR. Each step is gated on the previous step paying off.
 
+> **rev5:** old step 2 (npm-workspaces conversion / move to `packages/tokens/`) is **removed** — see revision history and Open questions. Steps renumbered; **12 steps total**. Tokens stay at the repo root; `packages/`, `scripts/codemods/`, and the `workspaces` field appear only at step 5, when the first component actually needs them.
+
 1. **`AGENTS.md` at root + front-matter on `ai/*.md`** — pure-doc PR, no toolchain change. Useful immediately to any agent in any consumer repo.
-2. **npm workspaces conversion** — move existing repo contents under `packages/tokens/`. `build/css/*.css` paths preserved. Cut `@riverromney/tokens@1.0.0`. Update one consumer to confirm no drift. Decide distribution (npm only, or also CDN ESM) here.
-3. **Font-family extraction** — see "The font-family precursor" section above for full mechanics. Add semantic `font.family.sans|serif|mono` tokens with `$type: "fontFamily"`; repoint all 19 composite typography tokens; implement decision-engine's Inter override. **Step gates on the DE-build regression test:** `--font-display` in `build/css/decision-engine.css` must resolve with Inter, not Space Grotesk. If Style Dictionary's composite transform pre-resolves through the indirection and breaks this, the step ships a custom transform alongside.
-4. **`schemas/meta.schema.json` + CI validator** — JSON Schema draft 2020-12 (skeleton above) + CI step that validates every `*.meta.json`. The `npm run validate` script also runs the "no hex / no `--primitive-*`" lint over `packages/components/**`.
-5. **`scripts/build-design-system-json.mjs`** — merges every `*.meta.json` + `custom-elements.json` into committed `design-system.json`. Ships before any component so step 6's CI signal includes "artifact regenerates and validates."
-6. **`<rr-badge>` end-to-end** — Lit + `@web/dev-server` + vitest-axe + eslint-lit-a11y + `*.meta.json` (schema-validated) + visual regression smoke across all four brands + size-limit budget. Shadow CSS references existing component tokens from `tokens/components/badge.tokens.json`.
-7. **Format benchmark** — ~10 representative prompts × 3 runs each (temperature pinned to 0 where supported), three configurations (AGENTS.md only / AGENTS.md + JSON MCP / AGENTS.md + Markdown MCP). Score accuracy + token cost. Commit results to `ai/BENCHMARK.md`. **Directional, not decision-grade** — informs format choice; doesn't block other steps.
-8. **MCP server** — `list_components`, `get_component`, `check_usage` reading the merged JSON artifact. In-repo, not published.
-9. **`<rr-input>`** — establishes the forms a11y pattern set, including `ElementInternals`, `formAssociated`, `aria-errormessage` (with `aria-describedby` mirror), focus delegation, autofill verification. AT smoke matrix recorded.
-10. **`<rr-button>`**.
-11. **Decision-engine wiring** — consume `<rr-*>` directly via React 19's native custom-elements support. Add `@lit/react` wrappers only if it bites.
-12. **Code Connect mappings** — populate `figma.componentKey` / `figma.nodeId` in each `*.meta.json`. Use the Figma MCP's `add_code_connect_map` to mirror the mapping into Figma. Updates `get_component` output so agents pulling component context get the mapping back.
-13. **Drift grep Action** — 30-line GitHub Action that greps consumer repos for hex literals, `--primitive-*` references, and deprecated tokens. Posts a comment with the rule from `ai/rules.md` that matched. Not a "detector"; a grep.
+2. **Font-family extraction** — see "The font-family precursor" section above for full mechanics. Add semantic `font.family.sans|serif|mono` tokens with `$type: "fontFamily"`; repoint all 19 composite typography tokens; implement decision-engine's Inter override. **Step gates on the DE-build regression test:** `--font-display` in `build/css/decision-engine.css` must resolve with Inter, not Space Grotesk. If Style Dictionary's composite transform pre-resolves through the indirection and breaks this, the step ships a custom transform alongside.
+3. **`schemas/meta.schema.json` + CI validator** — JSON Schema draft 2020-12 (skeleton above) + CI step that validates every `*.meta.json`. The `npm run validate` script also runs the "no hex / no `--primitive-*`" lint over `packages/components/**`.
+4. **`scripts/build-design-system-json.mjs`** — merges every `*.meta.json` + `custom-elements.json` into committed `design-system.json`. Ships before any component so step 5's CI signal includes "artifact regenerates and validates."
+5. **`<rr-badge>` end-to-end** — first time `packages/` physically exists. **Scaffold:** create `packages/components/` and `scripts/codemods/`, add `workspaces: ["packages/*"]` to the root `package.json` (tokens, `build/css/`, `style-dictionary.config.mjs` stay at root, untouched). **Then:** Lit + `@web/dev-server` + vitest-axe + eslint-lit-a11y + `*.meta.json` (schema-validated) + visual regression smoke across all four brands + size-limit budget. Shadow CSS references existing component tokens from `tokens/components/badge.tokens.json` via the root `build/css/<brand>.css`.
+6. **Format benchmark** — ~10 representative prompts × 3 runs each (temperature pinned to 0 where supported), three configurations (AGENTS.md only / AGENTS.md + JSON MCP / AGENTS.md + Markdown MCP). Score accuracy + token cost. Commit results to `ai/BENCHMARK.md`. **Directional, not decision-grade** — informs format choice; doesn't block other steps.
+7. **MCP server** — `list_components`, `get_component`, `check_usage` reading the merged JSON artifact. In-repo, not published.
+8. **`<rr-input>`** — establishes the forms a11y pattern set, including `ElementInternals`, `formAssociated`, `aria-errormessage` (with `aria-describedby` mirror), focus delegation, autofill verification. AT smoke matrix recorded.
+9. **`<rr-button>`**.
+10. **Decision-engine wiring** — consume `<rr-*>` directly via React 19's native custom-elements support. Add `@lit/react` wrappers only if it bites.
+11. **Code Connect mappings** — populate `figma.componentKey` / `figma.nodeId` in each `*.meta.json`. Use the Figma MCP's `add_code_connect_map` to mirror the mapping into Figma. Updates `get_component` output so agents pulling component context get the mapping back.
+12. **Drift grep Action** — 30-line GitHub Action that greps consumer repos for hex literals, `--primitive-*` references, and deprecated tokens. Posts a comment with the rule from `ai/rules.md` that matched. Not a "detector"; a grep.
 
 ---
 
 ## Open questions
 
-- **Distribution channel** — npm only, or also a CDN ESM build for editorial sites without a bundler? **Decide at step 2.**
+- **Deferred milestone: package distribution + symmetric monorepo** — npm publish (`@riverromney/tokens`, `@riverromney/components`), an optional CDN ESM build for bundler-less editorial sites, version-pinned consumers, and the symmetric `packages/tokens/` layout are folded into one future milestone (not a numbered step). Picked up only on a forcing function: a 4th consumer joins, a non-developer needs to consume the system, or the filesystem-sibling coupling actually causes pain. Until then consumers keep the existing `sync-tokens` filesystem path against the root `build/css/`. The path move pays no best-practice dividend without the version contract that publishing provides, so the two are sequenced together or not at all.
 - **Benchmark depth** — ~10 prompts × 3 runs is directional. Acceptable for this scale; revisit if results are noisy.
 - **Storybook** — deferred. Start with `@web/dev-server` + `*.stories.html`. Reconsider when component count > 8.
 - **AT smoke matrix scope** — minimum: NVDA/Firefox, JAWS/Chrome, VoiceOver/Safari macOS, VoiceOver/Safari iOS. TalkBack/Chrome Android optional unless a consumer ships native Android.
@@ -521,32 +526,32 @@ Each step is its own PR. Each step is gated on the previous step paying off.
 
 The third review pass surfaced these issues. None block step 1; each is a small fix in the PR that introduces the affected step.
 
-### Schema bugs (fix in step 4 PR)
+### Schema bugs (fix in step 3 PR)
 - **Version-field collision**: `$schemaVersion` is required on per-component `*.meta.json` *and* on the merged `design-system.json`. Rename per-component to `metaVersion` to disambiguate; merged artifact keeps `$schemaVersion`.
 - **`tokensUsed` accepts primitives**: regex `^--(color|font|spacing|radius|motion|shadow|icon|component)-` will match `--font-weight-light` (a primitive). Either add a negative pattern excluding `^--primitive-` or accept that runtime `check_usage` is the enforcement layer and document the schema's limitation.
 - **`ariaLive` enum includes `null`**: in JSON Schema, `null` in an enum requires the property be present and explicitly null. Drop `null`; let absence mean "no live region."
 - **`name` and `tagName` are identical regex**: if always equal in practice, collapse to a single field.
 - **No schema for the merged artifact**: add `schemas/design-system.schema.json` (or extend `meta.schema.json` with a wrapper definition) so the version-mismatch contract has something to validate against.
 
-### Mechanism statements (fix in step 6 PR)
+### Mechanism statements (fix in step 5 PR)
 - **CSS-sourcing section names files but not the mechanism**: confirm in the section that brand CSS is loaded on `:root` of the consumer page (it is, via `build/css/<brand>.css`); state that components MUST NOT `@import` brand CSS into shadow DOM — custom properties cascade through shadow boundaries from `:root` automatically.
 - **Bundle budget excludes Lit core (fine)** but should state the total cost a consumer adds: ~6 KB gz for Lit + per-component budget. Otherwise the number reads as accounting cleverness.
 
-### Repository scaffolding (fix in step 2 PR)
-- **`packages/tokens/scripts/codemods/`** is referenced in the token-rename protocol but never created in the migration order. Add the directory at step 2 even if empty, so the first deprecation has somewhere to live.
+### Repository scaffolding (fix in step 5 PR — when `packages/` is created)
+- **`scripts/codemods/`** (repo root) is referenced in the token-rename protocol but never created in the migration order. Create it at step 5 alongside `packages/` (even if empty), so the first deprecation has somewhere to live.
 
-### Operational policy (fix in step 5 PR)
+### Operational policy (fix in step 4 PR)
 - **`design-system.json` merge-conflict strategy**: pick one. Either commit-on-CI-only (PR author doesn't regenerate locally; CI regenerates and commits in a follow-up) or accept noisy merges and add a CODEOWNERS rule routing conflicts to a single reviewer. Recommended: commit-on-CI-only.
 
 ### Step polish
-- **Distribution channel** is still gating step 2 ("Decide here"). Pre-decide in step 2's PR description, or make distribution its own ~step-2.5. Recommended: npm + ESM only, defer CDN until a real consumer asks.
+- **Distribution channel / npm publish / symmetric monorepo** — removed from the step sequence in rev5; folded into the deferred milestone in Open questions. No longer gates any active step.
 - **Code Connect step (12) is one sentence.** Expand in its PR: who authors `componentKey`/`nodeId` (engineer; designers don't touch the JSON), where the Figma file lives (link from `ai/DECISION-ENGINE.md` or a new `ai/FIGMA.md`), what happens on Figma rename (CI fetches via Figma MCP `get_metadata` and fails if a referenced node is missing).
-- **Trust-level CI rule scope clarification**: the rule at step 4 catches violations only inside `packages/components/**`. Consumer-side hex usage is what step 13's drift grep catches. Add a one-line note where the trust-rule is described saying "consumer-side enforcement is step 13."
+- **Trust-level CI rule scope clarification**: the rule at step 3 catches violations only inside `packages/components/**`. Consumer-side hex usage is what step 12's drift grep catches. Add a one-line note where the trust-rule is described saying "consumer-side enforcement is step 12."
 
 ---
 
 ## Why this is "agentic," not just "a component library with docs"
 
-If we ship steps 1–12 and stop, we have a normal component library plus an MCP. That's good but it's not the article's vision.
+If we ship steps 1–11 and stop, we have a normal component library plus an MCP. That's good but it's not the article's vision.
 
-The agentic part is step 13 and beyond — the **observe → detect → suggest → fix → learn** loop. Drift signals from product repos and CI feed back into auto-PRs that propose token reconciliation. This plan ships only the cheapest possible version of that (a grep Action that posts a comment); the real loop is a future PR.
+The agentic part is step 12 and beyond — the **observe → detect → suggest → fix → learn** loop. Drift signals from product repos and CI feed back into auto-PRs that propose token reconciliation. This plan ships only the cheapest possible version of that (a grep Action that posts a comment); the real loop is a future PR.
