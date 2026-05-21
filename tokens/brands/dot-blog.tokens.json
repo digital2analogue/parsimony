@@ -2,14 +2,16 @@
   "$description": "riverromney.blog overrides — long-form reading",
   "font": {
     "body": {
-      "$type": "typography",
-      "$value": {
-        "fontFamily": "{primitive.font.family.serif}",
-        "fontWeight": "{primitive.font.weight.regular}",
-        "fontSize": "18px",
-        "lineHeight": "1.7"
-      },
-      "$description": "Larger for long-form reading comfort"
+      "large": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font.family.serif}",
+          "fontWeight": "{primitive.font.weight.regular}",
+          "fontSize": "18px",
+          "lineHeight": "{primitive.font.lineHeight.relaxed}"
+        },
+        "$description": "Larger default body for long-form reading. Overrides base body.large from 16px/1.6 to 18px/1.7. body.medium and body.small inherit from base."
+      }
     }
   }
 }
