@@ -39,7 +39,7 @@ def parse_dtcg_tokens(tokens_dir: str) -> dict:
 
     for json_file in sorted(tokens_path.rglob("*.tokens.json")):
         rel = json_file.relative_to(tokens_path)
-        with open(json_file, "r") as f:
+        with open(json_file, "r", encoding="utf-8") as f:
             data = json.load(f)
         _walk_dtcg(data, [], tokens, str(rel))
 
@@ -175,6 +175,7 @@ DTCG_TO_FIGMA_PREFIX_MAP = {
     "primitive.letterSpacing": "letter-spacing",
     "primitive.radius": "raw",
     "primitive.duration": "duration",
+    "primitive.delay": "delay",
     "primitive.easing": "easing",
     # Semantic
     "color.background": "color/background",
@@ -184,6 +185,7 @@ DTCG_TO_FIGMA_PREFIX_MAP = {
     "radius": "radius",
     "motion.duration": "motion/duration",
     "motion.easing": "motion/easing",
+    "motion.transition": "motion/transition",
     "icon.size": "icon-size",
     "letterSpacing": "letter-spacing",
     # Typography (special handling for font-style, which is Figma-only)
@@ -234,6 +236,7 @@ def figma_name_to_dtcg_path(figma_name: str, collection: str) -> Optional[str]:
             "font-style": None,  # Figma-only
             "line-height": "primitive.font.lineHeight",
             "letter-spacing": "primitive.letterSpacing",
+            "delay": "primitive.delay",
         }
     elif collection_lower == "color":
         prefix_map = {
@@ -764,7 +767,7 @@ def main():
     # Write markdown report
     md_path = output_dir / "drift-report.md"
     md_content = generate_markdown(report)
-    with open(md_path, "w") as f:
+    with open(md_path, "w", encoding="utf-8") as f:
         f.write(md_content)
     print(f"📝 Markdown report: {md_path}")
 

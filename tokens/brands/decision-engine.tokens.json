@@ -114,9 +114,9 @@
         "$description": "Subtle info tint #E5EBFC — info alert/banner backgrounds. Promotes the hand-crafted value from decisioning-table."
       },
       "danger": {
-        "$value": "{primitive.color.red.500}",
+        "$value": "{primitive.color.red.600}",
         "$type": "color",
-        "$description": "Danger fill for destructive button backgrounds. Bright red — always pair text/icons on this surface with foreground.on-danger (white). Hex: #D03027."
+        "$description": "Danger fill for destructive button backgrounds. Deep crimson — always pair text/icons on this surface with foreground.on-danger (white). Contrast vs white: 6.0:1 (WCAG AA). Switched from red.500 to red.600 2026-05-22 — red.500 was brightened for base-dark WCAG compliance, reducing white-on-red contrast; red.600 (#C8002E) maintains the DE button contrast."
       },
       "accent-green": {
         "$value": "{primitive.color.green.50}",

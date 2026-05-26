@@ -49,7 +49,7 @@ Use ONLY the semantic CSS custom properties below. Never use hex values. Never r
 | --color-foreground-on-warning | #0A0D0A | — | Text on warning fills |
 | --color-foreground-info | #93C5FD | 7.5:1 AA | Informational text/icons |
 | --color-foreground-on-info | #FFFFFF | — | Text on info fills |
-| --color-foreground-danger | #D03027 | 4.6:1 AA | Error text, delete labels |
+| --color-foreground-danger | #E73027 | 4.5:1 AA | Error text, delete labels |
 | --color-foreground-on-danger | #FFFFFF | — | Text on destructive fills |
 | --color-foreground-accent-green | #4ADE6E | 11.1:1 AAA | Green accent text/icons, pair with bg-accent-green |
 | --color-foreground-accent-blue | #93C5FD | 7.5:1 AA | Blue accent text/icons, pair with bg-accent-blue |

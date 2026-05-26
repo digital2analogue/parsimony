@@ -83,7 +83,7 @@
       },
       "danger": {
         "$value": "{primitive.color.red.500}",
-        "$description": "Danger fill #D03027. Use for filled destructive buttons (delete, remove). Always pair with foreground.on-danger."
+        "$description": "Danger fill #E73027. Use for filled destructive buttons (delete, remove). Always pair with foreground.on-danger."
       },
       "danger-alt": {
         "$value": "{primitive.color.gray.50}",
@@ -166,7 +166,7 @@
       },
       "danger": {
         "$value": "{primitive.color.red.500}",
-        "$description": "Error/destructive text and icons #D03027. Use for delete labels, validation errors, Deny outcomes on background.default or background.alt. Contrast: 4.6:1 AA."
+        "$description": "Error/destructive text and icons #E73027. Use for delete labels, validation errors, Deny outcomes on background.default or background.alt. Contrast vs background.default: 4.51:1 AA."
       },
       "on-danger": {
         "$value": "{primitive.color.neutral.white}",

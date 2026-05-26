@@ -126,19 +126,19 @@
       "red": {
         "$description": "Red ramp for destructive states and deny outcomes in the decision-engine. Not used in the base dark theme.",
         "500": {
-          "$value": "#D03027",
-          "$description": "Destructive action / Deny outcome. Used for delete controls, error states, and Deny rule outcomes in decisioning tables. Contrast vs white: 4.63:1 (WCAG AA). Numbers swapped 2026-04-28 — was formerly red.600; red.500 is now the lighter of the two action reds."
+          "$value": "#E73027",
+          "$description": "Destructive action / Deny outcome. Used for delete controls, error states, and Deny rule outcomes in decisioning tables. Contrast vs background.default (#0A0D0A): 4.51:1 (WCAG AA). Numbers swapped 2026-04-28 — was formerly red.600; red.500 is now the lighter of the two action reds. Brightened 2026-05-22 from #D03027 to reach WCAG AA on the dark canvas."
         },
         "600": {
           "$value": "#C8002E",
           "$description": "Vivid danger/error red. Used for feedback.error and foreground.danger in decision-engine — a deeper, more saturated crimson than red.500. Contrast vs white: 6.01:1 (WCAG AA). Numbers swapped 2026-04-28 — was formerly red.500."
         },
         "700": {
-          "$value": "#B52720",
+          "$value": "#CC2720",
           "$description": "Red hover state. Applied on elements using red.500 when hovered."
         },
         "800": {
-          "$value": "#9A1F1B",
+          "$value": "#B11F1B",
           "$description": "Red active/pressed state. Applied on elements using red.500 when actively pressed."
         },
         "50": {
