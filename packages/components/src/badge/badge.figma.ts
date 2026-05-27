@@ -1,31 +1,29 @@
-import figma from '@figma/code-connect';
+import figma, { html } from '@figma/code-connect';
 
 /**
  * Code Connect mapping for <rr-badge>.
  *
- * TODO: Replace the placeholder Figma URL with the actual component URL
- * once the Figma library is created. The URL format is:
- *   https://figma.com/design/<fileKey>/<fileName>?node-id=<nodeId>
+ * Figma file:  Brand Tokens Design System (4aOEBHcnAv2Kbn0g1arL78)
+ * Component:   Badge ComponentSet — node 96:21
+ * Variant prop: "Variant" — values are lowercase (default, success, …)
  */
 figma.connect(
-  // Figma component URL — update when Figma library exists
-  'https://figma.com/design/PLACEHOLDER/brand-system?node-id=0:1',
+  'https://figma.com/design/4aOEBHcnAv2Kbn0g1arL78/Brand-Tokens-Design-System?node-id=96-21',
   {
     props: {
       variant: figma.enum('Variant', {
-        Default: 'default',
-        Success: 'success',
-        Warning: 'warning',
-        Danger: 'danger',
-        Info: 'info',
-        'Accent Green': 'accent-green',
-        'Accent Blue': 'accent-blue',
-        'Accent Violet': 'accent-violet',
-        'Accent Amber': 'accent-amber',
+        default:         'default',
+        success:         'success',
+        warning:         'warning',
+        danger:          'danger',
+        info:            'info',
+        'accent-green':  'accent-green',
+        'accent-blue':   'accent-blue',
+        'accent-violet': 'accent-violet',
+        'accent-amber':  'accent-amber',
       }),
-      label: figma.string('Label'),
     },
-    example: ({ variant, label }) =>
-      `<rr-badge variant="${variant}">${label}</rr-badge>`,
+    example: ({ variant }) =>
+      html`<rr-badge variant="${variant}">Label</rr-badge>`,
   }
 );

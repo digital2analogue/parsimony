@@ -1,41 +1,38 @@
-import figma from '@figma/code-connect';
+import figma, { html } from '@figma/code-connect';
 
 /**
  * Code Connect mapping for <rr-button>.
  *
- * TODO: Replace the placeholder Figma URL with the actual component URL
- * once the Figma library is created. The URL format is:
- *   https://figma.com/design/<fileKey>/<fileName>?node-id=<nodeId>
+ * Figma file:  Brand Tokens Design System (4aOEBHcnAv2Kbn0g1arL78)
+ * Component:   Button ComponentSet — node 98:56
+ * Variant props:
+ *   "Variant" — primary | secondary | ghost
+ *   "Size"    — sm | md | lg  (maps to small | medium | large on the element)
+ *   "State"   — default | hover | disabled
+ *
+ * Notes:
+ *   - `disabled` derived from State=disabled (no separate boolean prop in Figma).
+ *   - variant and size are always emitted; consumers trim defaults manually.
  */
 figma.connect(
-  // Figma component URL — update when Figma library exists
-  'https://figma.com/design/PLACEHOLDER/brand-system?node-id=0:2',
+  'https://figma.com/design/4aOEBHcnAv2Kbn0g1arL78/Brand-Tokens-Design-System?node-id=98-56',
   {
     props: {
       variant: figma.enum('Variant', {
-        Primary: 'primary',
-        Secondary: 'secondary',
-        Danger: 'danger',
+        primary:   'primary',
+        secondary: 'secondary',
+        ghost:     'ghost',
       }),
       size: figma.enum('Size', {
-        Small: 'small',
-        Medium: 'medium',
-        Large: 'large',
+        sm: 'small',
+        md: 'medium',
+        lg: 'large',
       }),
-      label: figma.string('Label'),
-      disabled: figma.boolean('Disabled'),
-      loading: figma.boolean('Loading'),
+      disabled: figma.enum('State', {
+        disabled: true,
+      }),
     },
-    example: ({ variant, size, label, disabled, loading }) => {
-      const attrs = [
-        variant !== 'primary' ? `variant="${variant}"` : '',
-        size !== 'medium' ? `size="${size}"` : '',
-        disabled ? 'disabled' : '',
-        loading ? 'loading' : '',
-      ]
-        .filter(Boolean)
-        .join(' ');
-      return `<rr-button${attrs ? ' ' + attrs : ''}>${label}</rr-button>`;
-    },
+    example: ({ variant, size, disabled }) =>
+      html`<rr-button variant="${variant}" size="${size}" disabled=${disabled}>Button</rr-button>`,
   }
 );
