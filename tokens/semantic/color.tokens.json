@@ -241,6 +241,11 @@
         "$value": "{primitive.color.neutral.white}",
         "$type": "color",
         "$description": "Text/icons on sky accent fills. White — sky-700 provides 5.90:1 contrast (AA)."
+      },
+      "accent-on-amber-bold": {
+        "$value": "{primitive.color.neutral.white}",
+        "$type": "color",
+        "$description": "Text/icons on amber bold accent fills (background.accent-amber-bold = amber.600 #B45309). White — 5.02:1 AA contrast. Use for avatar initials, identity badge labels on saturated amber surfaces. Do not confuse with foreground.accent-on-amber (near-black), which is for amber tint backgrounds."
       }
     },
     "border": {
