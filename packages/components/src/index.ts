@@ -1,6 +1,9 @@
 export { RrBadge } from './badge/badge.js';
 export { RrButton } from './button/button.js';
 export { RrCard } from './card/card.js';
+export { RrCheckbox } from './checkbox/checkbox.js';
 export { RrIcon } from './icon/icon.js';
 export { RrInput } from './input/input.js';
 export { RrLink } from './link/link.js';
+export { RrSelect } from './select/select.js';
+export { RrToggle } from './toggle/toggle.js';
