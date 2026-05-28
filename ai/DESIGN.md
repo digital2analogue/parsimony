@@ -56,6 +56,7 @@ Use ONLY the semantic CSS custom properties below. Never use hex values. Never r
 | --color-foreground-accent-violet | #C4B5FD | 7.0:1 AA | Violet accent text/icons |
 | --color-foreground-accent-amber | #FCD34D | 12.0:1 AAA | Amber accent text/icons |
 | --color-foreground-accent-on-amber-bold | #FFFFFF | 5.0:1 AA | Text/icons on background-accent-amber-bold (#B45309 fill) — avatars, identity badges |
+| --color-foreground-accent-on-green-bold | #FFFFFF | 5.47:1 AA | Text/icons on background-accent-green-bold (emerald.600 fill) — avatars, identity badges |
 
 ### Border
 | CSS Property | Hex | Usage |

@@ -2,14 +2,11 @@ import figma, { html } from '@figma/code-connect';
 
 /**
  * Code Connect mapping for <rr-radio-group> + <rr-radio>.
- *
- * TODO: Replace PLACEHOLDER with the real Figma node-id once the
- * RadioGroup component is added to the Figma component library.
- *
+ * Figma node: Components page → RadioGroup (node 121-77)
  * Figma file: Brand Tokens Design System (4aOEBHcnAv2Kbn0g1arL78)
  */
 figma.connect(
-  'https://figma.com/design/4aOEBHcnAv2Kbn0g1arL78/Brand-Tokens-Design-System?node-id=PLACEHOLDER',
+  'https://figma.com/design/4aOEBHcnAv2Kbn0g1arL78/Brand-Tokens-Design-System?node-id=121-77',
   {
     props: {
       orientation: figma.enum('Orientation', {
