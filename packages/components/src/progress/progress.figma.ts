@@ -8,17 +8,17 @@ import figma, { html } from '@figma/code-connect';
 figma.connect(
   'https://figma.com/design/4aOEBHcnAv2Kbn0g1arL78/Brand-Tokens-Design-System?node-id=125-6',
   {
-    props: {
-      indeterminate: figma.enum('State', {
-        indeterminate: true,
-      }),
-    },
-    example: ({ indeterminate }) =>
-      html`<rr-progress
-  value="60"
-  max="100"
-  label="Progress"
-  ${indeterminate ? 'indeterminate' : ''}
-></rr-progress>`,
+    variant: { State: 'determinate' },
+    example: () =>
+      html`<rr-progress value="60" max="100" label="Progress"></rr-progress>`,
+  }
+);
+
+figma.connect(
+  'https://figma.com/design/4aOEBHcnAv2Kbn0g1arL78/Brand-Tokens-Design-System?node-id=125-6',
+  {
+    variant: { State: 'indeterminate' },
+    example: () =>
+      html`<rr-progress indeterminate label="Loading…"></rr-progress>`,
   }
 );

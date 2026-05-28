@@ -16,9 +16,8 @@ figma.connect(
     },
     example: ({ disabled }) =>
       html`<rr-select
-        label="Label"
-        .options=${[{ value: 'a', label: 'Option A' }, { value: 'b', label: 'Option B' }]}
-        disabled=${disabled}
-      ></rr-select>`,
+  label="Label"
+  disabled=${disabled}
+></rr-select>`,
   }
 );

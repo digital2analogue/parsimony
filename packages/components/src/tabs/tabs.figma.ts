@@ -8,13 +8,6 @@ import figma, { html } from '@figma/code-connect';
 figma.connect(
   'https://figma.com/design/4aOEBHcnAv2Kbn0g1arL78/Brand-Tokens-Design-System?node-id=125-7',
   {
-    props: {
-      tabCount: figma.enum('Tabs', {
-        two: 2,
-        three: 3,
-        four: 4,
-      }),
-    },
     example: () =>
       html`<rr-tab-list label="View options" value="overview">
   <rr-tab value="overview">Overview</rr-tab>

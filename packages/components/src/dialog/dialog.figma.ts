@@ -8,19 +8,23 @@ import figma, { html } from '@figma/code-connect';
 figma.connect(
   'https://figma.com/design/4aOEBHcnAv2Kbn0g1arL78/Brand-Tokens-Design-System?node-id=124-31',
   {
-    props: {
-      heading: figma.string('Heading'),
-      hasFooter: figma.enum('Footer', {
-        true: true,
-      }),
-    },
-    example: ({ heading, hasFooter }) =>
-      html`<rr-dialog heading="${heading}">
+    variant: { Footer: 'false' },
+    example: () =>
+      html`<rr-dialog heading="Dialog heading">
   Dialog body content goes here.
-  ${hasFooter
-    ? html`<rr-button slot="footer" variant="primary">Confirm</rr-button>
-  <rr-button slot="footer" variant="secondary">Cancel</rr-button>`
-    : html``}
+</rr-dialog>`,
+  }
+);
+
+figma.connect(
+  'https://figma.com/design/4aOEBHcnAv2Kbn0g1arL78/Brand-Tokens-Design-System?node-id=124-31',
+  {
+    variant: { Footer: 'true' },
+    example: () =>
+      html`<rr-dialog heading="Dialog heading">
+  Dialog body content goes here.
+  <rr-button slot="footer" variant="primary">Confirm</rr-button>
+  <rr-button slot="footer" variant="secondary">Cancel</rr-button>
 </rr-dialog>`,
   }
 );
