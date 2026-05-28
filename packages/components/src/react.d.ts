@@ -20,10 +20,14 @@ import type { RrDialog } from './dialog/dialog.js';
 import type { RrIcon } from './icon/icon.js';
 import type { RrInput } from './input/input.js';
 import type { RrLink } from './link/link.js';
+import type { RrProgress } from './progress/progress.js';
 import type { RrRadio } from './radio/radio.js';
 import type { RrRadioGroup } from './radio/radio-group.js';
 import type { RrSelect, SelectOption } from './select/select.js';
+import type { RrSkeleton } from './skeleton/skeleton.js';
 import type { RrSpinner } from './spinner/spinner.js';
+import type { RrTab } from './tabs/tab.js';
+import type { RrTabList } from './tabs/tab-list.js';
 import type { RrTextarea } from './textarea/textarea.js';
 import type { RrToggle } from './toggle/toggle.js';
 
@@ -122,6 +126,11 @@ declare global {
         children?: React.ReactNode;
         onChange?: (e: Event) => void;
       };
+      'rr-skeleton': LitProps<RrSkeleton> & {
+        variant?: RrSkeleton['variant'];
+        width?: string;
+        height?: string;
+      };
       'rr-select': LitProps<RrSelect> & {
         name?: string;
         value?: string;
@@ -134,9 +143,27 @@ declare global {
         disabled?: boolean;
         onChange?: (e: Event) => void;
       };
+      'rr-progress': LitProps<RrProgress> & {
+        value?: number;
+        max?: number;
+        indeterminate?: boolean;
+        label?: string;
+      };
       'rr-spinner': LitProps<RrSpinner> & {
         size?: RrSpinner['size'];
         label?: string;
+      };
+      'rr-tab': LitProps<RrTab> & {
+        value?: string;
+        selected?: boolean;
+        disabled?: boolean;
+        children?: React.ReactNode;
+      };
+      'rr-tab-list': LitProps<RrTabList> & {
+        label?: string;
+        value?: string;
+        children?: React.ReactNode;
+        onChange?: (e: CustomEvent<{ value: string }>) => void;
       };
       'rr-textarea': LitProps<RrTextarea> & {
         name?: string;

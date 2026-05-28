@@ -12,6 +12,7 @@ export { RrProgress } from './progress/progress.js';
 export { RrRadio } from './radio/radio.js';
 export { RrRadioGroup } from './radio/radio-group.js';
 export { RrSelect } from './select/select.js';
+export { RrSkeleton } from './skeleton/skeleton.js';
 export { RrSpinner } from './spinner/spinner.js';
 export { RrTab } from './tabs/tab.js';
 export { RrTabList } from './tabs/tab-list.js';
