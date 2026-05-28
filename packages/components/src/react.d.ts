@@ -10,9 +10,22 @@
  *   // or add to tsconfig: "types": ["@riverromney/components/react"]
  */
 
+import type { RrAlert } from './alert/alert.js';
+import type { RrAvatar } from './avatar/avatar.js';
 import type { RrBadge } from './badge/badge.js';
 import type { RrButton } from './button/button.js';
+import type { RrCard } from './card/card.js';
+import type { RrCheckbox } from './checkbox/checkbox.js';
+import type { RrDialog } from './dialog/dialog.js';
+import type { RrIcon } from './icon/icon.js';
 import type { RrInput } from './input/input.js';
+import type { RrLink } from './link/link.js';
+import type { RrRadio } from './radio/radio.js';
+import type { RrRadioGroup } from './radio/radio-group.js';
+import type { RrSelect, SelectOption } from './select/select.js';
+import type { RrSpinner } from './spinner/spinner.js';
+import type { RrTextarea } from './textarea/textarea.js';
+import type { RrToggle } from './toggle/toggle.js';
 
 type LitProps<T> = Partial<Omit<T, keyof HTMLElement>> & React.HTMLAttributes<HTMLElement>;
 
@@ -20,6 +33,19 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
     interface IntrinsicElements {
+      'rr-alert': LitProps<RrAlert> & {
+        variant?: RrAlert['variant'];
+        title?: string;
+        dismissible?: boolean;
+        children?: React.ReactNode;
+        onClose?: (e: Event) => void;
+      };
+      'rr-avatar': LitProps<RrAvatar> & {
+        size?: RrAvatar['size'];
+        color?: RrAvatar['color'];
+        name?: string;
+        src?: string;
+      };
       'rr-badge': LitProps<RrBadge> & {
         variant?: RrBadge['variant'];
         children?: React.ReactNode;
@@ -31,6 +57,32 @@ declare global {
         loading?: boolean;
         type?: 'button' | 'submit' | 'reset';
         'aria-label'?: string;
+        children?: React.ReactNode;
+      };
+      'rr-card': LitProps<RrCard> & {
+        padding?: RrCard['padding'];
+        children?: React.ReactNode;
+      };
+      'rr-checkbox': LitProps<RrCheckbox> & {
+        name?: string;
+        value?: string;
+        checked?: boolean;
+        indeterminate?: boolean;
+        disabled?: boolean;
+        label?: string;
+        children?: React.ReactNode;
+        onChange?: (e: Event) => void;
+      };
+      'rr-dialog': LitProps<RrDialog> & {
+        heading?: string;
+        open?: boolean;
+        'close-on-backdrop'?: boolean;
+        children?: React.ReactNode;
+        'onRr-dialog-close'?: (e: CustomEvent) => void;
+      };
+      'rr-icon': LitProps<RrIcon> & {
+        size?: RrIcon['size'];
+        label?: string;
         children?: React.ReactNode;
       };
       'rr-input': LitProps<RrInput> & {
@@ -45,6 +97,67 @@ declare global {
         disabled?: boolean;
         autocomplete?: string;
         onInput?: (e: Event) => void;
+        onChange?: (e: Event) => void;
+      };
+      'rr-link': LitProps<RrLink> & {
+        href?: string;
+        target?: string;
+        color?: RrLink['color'];
+        children?: React.ReactNode;
+      };
+      'rr-radio': LitProps<RrRadio> & {
+        value?: string;
+        checked?: boolean;
+        disabled?: boolean;
+        children?: React.ReactNode;
+        'onRr-radio-change'?: (e: CustomEvent) => void;
+      };
+      'rr-radio-group': LitProps<RrRadioGroup> & {
+        name?: string;
+        value?: string;
+        label?: string;
+        orientation?: RrRadioGroup['orientation'];
+        disabled?: boolean;
+        'error-text'?: string;
+        children?: React.ReactNode;
+        onChange?: (e: Event) => void;
+      };
+      'rr-select': LitProps<RrSelect> & {
+        name?: string;
+        value?: string;
+        options?: SelectOption[];
+        placeholder?: string;
+        label?: string;
+        'helper-text'?: string;
+        'error-text'?: string;
+        required?: boolean;
+        disabled?: boolean;
+        onChange?: (e: Event) => void;
+      };
+      'rr-spinner': LitProps<RrSpinner> & {
+        size?: RrSpinner['size'];
+        label?: string;
+      };
+      'rr-textarea': LitProps<RrTextarea> & {
+        name?: string;
+        value?: string;
+        placeholder?: string;
+        label?: string;
+        rows?: number;
+        'helper-text'?: string;
+        'error-text'?: string;
+        required?: boolean;
+        disabled?: boolean;
+        onInput?: (e: Event) => void;
+        onChange?: (e: Event) => void;
+      };
+      'rr-toggle': LitProps<RrToggle> & {
+        name?: string;
+        value?: string;
+        checked?: boolean;
+        disabled?: boolean;
+        label?: string;
+        children?: React.ReactNode;
         onChange?: (e: Event) => void;
       };
     }
