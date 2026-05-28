@@ -1,3 +1,4 @@
+export { RrAlert } from './alert/alert.js';
 export { RrAvatar } from './avatar/avatar.js';
 export { RrBadge } from './badge/badge.js';
 export { RrButton } from './button/button.js';
@@ -6,6 +7,8 @@ export { RrCheckbox } from './checkbox/checkbox.js';
 export { RrIcon } from './icon/icon.js';
 export { RrInput } from './input/input.js';
 export { RrLink } from './link/link.js';
+export { RrRadio } from './radio/radio.js';
+export { RrRadioGroup } from './radio/radio-group.js';
 export { RrSelect } from './select/select.js';
 export { RrTextarea } from './textarea/textarea.js';
 export { RrToggle } from './toggle/toggle.js';
