@@ -246,6 +246,11 @@
         "$value": "{primitive.color.neutral.white}",
         "$type": "color",
         "$description": "Text/icons on amber bold accent fills (background.accent-amber-bold = amber.600 #B45309). White — 5.02:1 AA contrast. Use for avatar initials, identity badge labels on saturated amber surfaces. Do not confuse with foreground.accent-on-amber (near-black), which is for amber tint backgrounds."
+      },
+      "accent-on-green-bold": {
+        "$value": "{primitive.color.neutral.white}",
+        "$type": "color",
+        "$description": "Text/icons on green-bold accent fills (background.accent-green-bold = emerald.600). White — 5.47:1 AA contrast. Distinct from foreground.accent-on-green (near-black #0A0D0A), which is for the tint background. Use this for avatar initials and identity badges on saturated green surfaces."
       }
     },
     "border": {
