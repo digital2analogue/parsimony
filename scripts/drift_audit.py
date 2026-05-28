@@ -199,6 +199,15 @@ FIGMA_ONLY_EXPECTED = {
     "font-style/medium",
 }
 
+# Token source files that are DE (decision-engine) brand-specific.
+# The base-dark Figma file covers only the base dark theme — DE is v2.
+# Tokens from these files that are missing from Figma are expected and
+# excluded from the drift score.
+DE_ONLY_SOURCE_FILES = {
+    "brands/decision-engine.tokens.json",
+    "brands\\decision-engine.tokens.json",
+}
+
 
 def dtcg_path_to_figma_name(dtcg_path: str) -> Optional[str]:
     """Convert a DTCG token path to its expected Figma variable name."""
@@ -482,6 +491,7 @@ def run_audit(tokens_dir: str, figma_export: str) -> dict:
             "total_figma_vars": len(figma_vars),
         },
         "missing_from_figma": [],      # In JSON but not in Figma
+        "de_only": [],                  # DE brand tokens — not in base-dark Figma (expected)
         "orphans_in_figma": [],         # In Figma but not in JSON
         "value_mismatches": [],         # Both exist but values differ
         "alias_mismatches": [],         # Both exist but alias targets differ
@@ -522,13 +532,24 @@ def run_audit(tokens_dir: str, figma_export: str) -> dict:
             continue
 
         if figma_name not in figma_vars:
-            report["missing_from_figma"].append({
-                "dtcg_path": dtcg_path,
-                "expected_figma_name": figma_name,
-                "$value": str(token["$value"]),
-                "$type": token["$type"],
-                "source_file": token["source_file"],
-            })
+            # DE-brand tokens are not in the base-dark Figma file by design
+            if token["source_file"] in DE_ONLY_SOURCE_FILES:
+                report["de_only"].append({
+                    "dtcg_path": dtcg_path,
+                    "expected_figma_name": figma_name,
+                    "$value": str(token["$value"]),
+                    "$type": token["$type"],
+                    "source_file": token["source_file"],
+                    "reason": "DE brand token — base-dark Figma scope only; DE is v2",
+                })
+            else:
+                report["missing_from_figma"].append({
+                    "dtcg_path": dtcg_path,
+                    "expected_figma_name": figma_name,
+                    "$value": str(token["$value"]),
+                    "$type": token["$type"],
+                    "source_file": token["source_file"],
+                })
             continue
 
         matched_figma_names.add(figma_name)
@@ -592,6 +613,7 @@ def run_audit(tokens_dir: str, figma_export: str) -> dict:
         "total_figma_vars": len(figma_vars),
         "matched": len(report["matched"]),
         "missing_from_figma": len(report["missing_from_figma"]),
+        "de_only": len(report["de_only"]),
         "orphans_in_figma": len(report["orphans_in_figma"]),
         "value_mismatches": len(report["value_mismatches"]),
         "alias_mismatches": len(report["alias_mismatches"]),
@@ -642,6 +664,7 @@ def generate_markdown(report: dict) -> str:
     lines.append(f"| Figma variables | {s['total_figma_vars']} |")
     lines.append(f"| Matched | {s['matched']} |")
     lines.append(f"| Missing from Figma | {s['missing_from_figma']} |")
+    lines.append(f"| DE-only (expected, not scored) | {s['de_only']} |")
     lines.append(f"| Orphans in Figma | {s['orphans_in_figma']} |")
     lines.append(f"| Value mismatches | {s['value_mismatches']} |")
     lines.append(f"| Alias mismatches | {s['alias_mismatches']} |")
@@ -682,6 +705,23 @@ def generate_markdown(report: dict) -> str:
         lines.append("|-------|-------------------|------|-------|")
         for m in report["missing_from_figma"]:
             lines.append(f"| `{m['dtcg_path']}` | `{m['expected_figma_name']}` | {m['$type']} | `{m['$value']}` |")
+        lines.append("")
+
+    # DE-only tokens (expected, not scored)
+    if report["de_only"]:
+        lines.append("## DE-Only Tokens (Expected — Not Scored)")
+        lines.append("")
+        lines.append("These tokens are specific to the Decision Engine brand and are absent")
+        lines.append("from the base-dark Figma file by design. DE is a v2 Figma scope.")
+        lines.append("")
+        lines.append("<details><summary>Show DE-only tokens</summary>")
+        lines.append("")
+        lines.append("| Token | Expected Figma Name | Value |")
+        lines.append("|-------|-------------------|-------|")
+        for m in report["de_only"]:
+            lines.append(f"| `{m['dtcg_path']}` | `{m['expected_figma_name']}` | `{m['$value']}` |")
+        lines.append("")
+        lines.append("</details>")
         lines.append("")
 
     # Orphans in Figma
@@ -777,7 +817,7 @@ def main():
     status = "IN SYNC ✅" if score >= 95 else "MINOR DRIFT ⚠️" if score >= 80 else "SIGNIFICANT DRIFT ❌"
     print(f"\n{'='*50}")
     print(f"  DRIFT SCORE: {score}/100 — {status}")
-    print(f"  Matched: {s['matched']} | Mismatched: {s['value_mismatches']+s['alias_mismatches']} | Missing: {s['missing_from_figma']} | Orphans: {s['orphans_in_figma']}")
+    print(f"  Matched: {s['matched']} | Mismatched: {s['value_mismatches']+s['alias_mismatches']} | Missing: {s['missing_from_figma']} | Orphans: {s['orphans_in_figma']} | DE-only: {s['de_only']}")
     print(f"{'='*50}")
 
 

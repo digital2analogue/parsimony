@@ -1,0 +1,2009 @@
+{
+  "metadata": {
+    "timestamp": "2026-05-28T04:37:22.692748+00:00",
+    "tokens_dir": "tokens",
+    "figma_export": "figma-vars.json",
+    "total_dtcg_tokens": 386,
+    "total_figma_vars": 213
+  },
+  "missing_from_figma": [],
+  "de_only": [
+    {
+      "dtcg_path": "color.background.elevated",
+      "expected_figma_name": "color/background/elevated",
+      "$value": "{primitive.color.neutral.white}",
+      "$type": "color",
+      "source_file": "brands\\decision-engine.tokens.json",
+      "reason": "DE brand token \u2014 base-dark Figma scope only; DE is v2"
+    },
+    {
+      "dtcg_path": "color.background.accent-subtle",
+      "expected_figma_name": "color/background/accent-subtle",
+      "$value": "{primitive.color.blue.100}",
+      "$type": "color",
+      "source_file": "brands\\decision-engine.tokens.json",
+      "reason": "DE brand token \u2014 base-dark Figma scope only; DE is v2"
+    },
+    {
+      "dtcg_path": "color.background.accent-hover",
+      "expected_figma_name": "color/background/accent-hover",
+      "$value": "{primitive.color.blue.200}",
+      "$type": "color",
+      "source_file": "brands\\decision-engine.tokens.json",
+      "reason": "DE brand token \u2014 base-dark Figma scope only; DE is v2"
+    },
+    {
+      "dtcg_path": "color.background.danger-subtle",
+      "expected_figma_name": "color/background/danger-subtle",
+      "$value": "{primitive.color.red.100}",
+      "$type": "color",
+      "source_file": "brands\\decision-engine.tokens.json",
+      "reason": "DE brand token \u2014 base-dark Figma scope only; DE is v2"
+    },
+    {
+      "dtcg_path": "color.background.selected",
+      "expected_figma_name": "color/background/selected",
+      "$value": "{primitive.color.blue.100}",
+      "$type": "color",
+      "source_file": "brands\\decision-engine.tokens.json",
+      "reason": "DE brand token \u2014 base-dark Figma scope only; DE is v2"
+    },
+    {
+      "dtcg_path": "color.foreground.accent-purple",
+      "expected_figma_name": "color/foreground/accent-purple",
+      "$value": "{primitive.color.purple.600}",
+      "$type": "color",
+      "source_file": "brands\\decision-engine.tokens.json",
+      "reason": "DE brand token \u2014 base-dark Figma scope only; DE is v2"
+    },
+    {
+      "dtcg_path": "color.foreground.secondary",
+      "expected_figma_name": "color/foreground/secondary",
+      "$value": "{primitive.color.gray.navy}",
+      "$type": "color",
+      "source_file": "brands\\decision-engine.tokens.json",
+      "reason": "DE brand token \u2014 base-dark Figma scope only; DE is v2"
+    },
+    {
+      "dtcg_path": "color.foreground.tertiary",
+      "expected_figma_name": "color/foreground/tertiary",
+      "$value": "{primitive.color.gray.600}",
+      "$type": "color",
+      "source_file": "brands\\decision-engine.tokens.json",
+      "reason": "DE brand token \u2014 base-dark Figma scope only; DE is v2"
+    },
+    {
+      "dtcg_path": "color.foreground.inverse",
+      "expected_figma_name": "color/foreground/inverse",
+      "$value": "{primitive.color.neutral.white}",
+      "$type": "color",
+      "source_file": "brands\\decision-engine.tokens.json",
+      "reason": "DE brand token \u2014 base-dark Figma scope only; DE is v2"
+    },
+    {
+      "dtcg_path": "color.foreground.accent-on-purple",
+      "expected_figma_name": "color/foreground/accent-on-purple",
+      "$value": "{primitive.color.neutral.white}",
+      "$type": "color",
+      "source_file": "brands\\decision-engine.tokens.json",
+      "reason": "DE brand token \u2014 base-dark Figma scope only; DE is v2"
+    },
+    {
+      "dtcg_path": "color.border.accent",
+      "expected_figma_name": "color/border/accent",
+      "$value": "{primitive.color.blue.700}",
+      "$type": "color",
+      "source_file": "brands\\decision-engine.tokens.json",
+      "reason": "DE brand token \u2014 base-dark Figma scope only; DE is v2"
+    }
+  ],
+  "orphans_in_figma": [],
+  "value_mismatches": [],
+  "alias_mismatches": [],
+  "matched": [
+    {
+      "dtcg_path": "color.background.default",
+      "figma_name": "color/background/default",
+      "detail": "alias match -> color/green/950"
+    },
+    {
+      "dtcg_path": "color.background.alt",
+      "figma_name": "color/background/alt",
+      "detail": "alias match -> color/green/900"
+    },
+    {
+      "dtcg_path": "color.background.action",
+      "figma_name": "color/background/action",
+      "detail": "alias match -> color/green/accent"
+    },
+    {
+      "dtcg_path": "color.background.action-hover",
+      "figma_name": "color/background/action-hover",
+      "detail": "alias match -> color/green/accent-hover"
+    },
+    {
+      "dtcg_path": "color.background.action-active",
+      "figma_name": "color/background/action-active",
+      "detail": "alias match -> color/green/accent-active"
+    },
+    {
+      "dtcg_path": "color.background.disabled",
+      "figma_name": "color/background/disabled",
+      "detail": "alias match -> color/green/900"
+    },
+    {
+      "dtcg_path": "color.background.danger-alt",
+      "figma_name": "color/background/danger-alt",
+      "detail": "alias match -> color/gray/50"
+    },
+    {
+      "dtcg_path": "color.background.success",
+      "figma_name": "color/background/success",
+      "detail": "alias match -> color/green/accent"
+    },
+    {
+      "dtcg_path": "color.background.success-alt",
+      "figma_name": "color/background/success-alt",
+      "detail": "alias match -> color/green/chip"
+    },
+    {
+      "dtcg_path": "color.background.warning",
+      "figma_name": "color/background/warning",
+      "detail": "alias match -> color/amber/300"
+    },
+    {
+      "dtcg_path": "color.background.warning-alt",
+      "figma_name": "color/background/warning-alt",
+      "detail": "alias match -> color/amber/950"
+    },
+    {
+      "dtcg_path": "color.background.info",
+      "figma_name": "color/background/info",
+      "detail": "alias match -> color/blue/700"
+    },
+    {
+      "dtcg_path": "color.background.info-alt",
+      "figma_name": "color/background/info-alt",
+      "detail": "alias match -> color/blue/950"
+    },
+    {
+      "dtcg_path": "color.background.danger",
+      "figma_name": "color/background/danger",
+      "detail": "alias match -> color/red/500"
+    },
+    {
+      "dtcg_path": "color.background.accent-green",
+      "figma_name": "color/background/accent-green",
+      "detail": "alias match -> color/green/chip"
+    },
+    {
+      "dtcg_path": "color.background.accent-blue",
+      "figma_name": "color/background/accent-blue",
+      "detail": "alias match -> color/blue/950"
+    },
+    {
+      "dtcg_path": "color.background.accent-violet",
+      "figma_name": "color/background/accent-violet",
+      "detail": "alias match -> color/violet/950"
+    },
+    {
+      "dtcg_path": "color.background.accent-amber",
+      "figma_name": "color/background/accent-amber",
+      "detail": "alias match -> color/amber/950"
+    },
+    {
+      "dtcg_path": "color.foreground.default",
+      "figma_name": "color/foreground/default",
+      "detail": "alias match -> color/green/200"
+    },
+    {
+      "dtcg_path": "color.foreground.alt",
+      "figma_name": "color/foreground/alt",
+      "detail": "alias match -> color/green/400"
+    },
+    {
+      "dtcg_path": "color.foreground.muted",
+      "figma_name": "color/foreground/muted",
+      "detail": "alias match -> color/green/600"
+    },
+    {
+      "dtcg_path": "color.foreground.disabled",
+      "figma_name": "color/foreground/disabled",
+      "detail": "alias match -> color/green/900"
+    },
+    {
+      "dtcg_path": "color.foreground.action",
+      "figma_name": "color/foreground/action",
+      "detail": "alias match -> color/green/accent"
+    },
+    {
+      "dtcg_path": "color.foreground.on-action",
+      "figma_name": "color/foreground/on-action",
+      "detail": "alias match -> color/green/950"
+    },
+    {
+      "dtcg_path": "color.foreground.accent-green",
+      "figma_name": "color/foreground/accent-green",
+      "detail": "alias match -> color/green/accent"
+    },
+    {
+      "dtcg_path": "color.foreground.accent-blue",
+      "figma_name": "color/foreground/accent-blue",
+      "detail": "alias match -> color/blue/sky"
+    },
+    {
+      "dtcg_path": "color.foreground.danger",
+      "figma_name": "color/foreground/danger",
+      "detail": "alias match -> color/red/500"
+    },
+    {
+      "dtcg_path": "color.foreground.accent-on-blue",
+      "figma_name": "color/foreground/accent-on-blue",
+      "detail": "alias match -> color/green/950"
+    },
+    {
+      "dtcg_path": "color.foreground.accent-on-green",
+      "figma_name": "color/foreground/accent-on-green",
+      "detail": "alias match -> color/green/950"
+    },
+    {
+      "dtcg_path": "color.foreground.on-danger",
+      "figma_name": "color/foreground/on-danger",
+      "detail": "alias match -> color/neutral/white"
+    },
+    {
+      "dtcg_path": "color.foreground.success",
+      "figma_name": "color/foreground/success",
+      "detail": "alias match -> color/green/accent"
+    },
+    {
+      "dtcg_path": "color.foreground.on-success",
+      "figma_name": "color/foreground/on-success",
+      "detail": "alias match -> color/green/950"
+    },
+    {
+      "dtcg_path": "color.foreground.warning",
+      "figma_name": "color/foreground/warning",
+      "detail": "alias match -> color/amber/300"
+    },
+    {
+      "dtcg_path": "color.foreground.on-warning",
+      "figma_name": "color/foreground/on-warning",
+      "detail": "alias match -> color/green/950"
+    },
+    {
+      "dtcg_path": "color.foreground.info",
+      "figma_name": "color/foreground/info",
+      "detail": "alias match -> color/blue/sky"
+    },
+    {
+      "dtcg_path": "color.foreground.on-info",
+      "figma_name": "color/foreground/on-info",
+      "detail": "alias match -> color/neutral/white"
+    },
+    {
+      "dtcg_path": "color.border.default",
+      "figma_name": "color/border/default",
+      "detail": "alias match -> color/green/900"
+    },
+    {
+      "dtcg_path": "color.border.elevated",
+      "figma_name": "color/border/elevated",
+      "detail": "alias match -> color/green/800"
+    },
+    {
+      "dtcg_path": "color.border.hover",
+      "figma_name": "color/border/hover",
+      "detail": "alias match -> color/green/600"
+    },
+    {
+      "dtcg_path": "color.border.active",
+      "figma_name": "color/border/active",
+      "detail": "alias match -> color/green/400"
+    },
+    {
+      "dtcg_path": "color.border.focus",
+      "figma_name": "color/border/focus",
+      "detail": "alias match -> color/green/accent"
+    },
+    {
+      "dtcg_path": "color.border.disabled",
+      "figma_name": "color/border/disabled",
+      "detail": "alias match -> color/green/950"
+    },
+    {
+      "dtcg_path": "color.border.muted",
+      "figma_name": "color/border/muted",
+      "detail": "alias match -> color/green/chip"
+    },
+    {
+      "dtcg_path": "primitive.color.green.50",
+      "figma_name": "color/green/50",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.green.100",
+      "figma_name": "color/green/100",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.green.200",
+      "figma_name": "color/green/200",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.green.400",
+      "figma_name": "color/green/400",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.green.600",
+      "figma_name": "color/green/600",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.green.800",
+      "figma_name": "color/green/800",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.green.900",
+      "figma_name": "color/green/900",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.green.950",
+      "figma_name": "color/green/950",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.green.accent",
+      "figma_name": "color/green/accent",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.green.accent-hover",
+      "figma_name": "color/green/accent-hover",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.green.accent-active",
+      "figma_name": "color/green/accent-active",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.green.chip",
+      "figma_name": "color/green/chip",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.green.positive",
+      "figma_name": "color/green/positive",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.green.approve",
+      "figma_name": "color/green/approve",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.neutral.white",
+      "figma_name": "color/neutral/white",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.neutral.black",
+      "figma_name": "color/neutral/black",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.blue.700",
+      "figma_name": "color/blue/700",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.blue.800",
+      "figma_name": "color/blue/800",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.blue.900",
+      "figma_name": "color/blue/900",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.blue.sky",
+      "figma_name": "color/blue/sky",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.blue.100",
+      "figma_name": "color/blue/100",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.blue.150",
+      "figma_name": "color/blue/150",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.blue.200",
+      "figma_name": "color/blue/200",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.blue.250",
+      "figma_name": "color/blue/250",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.blue.950",
+      "figma_name": "color/blue/950",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.red.500",
+      "figma_name": "color/red/500",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.red.600",
+      "figma_name": "color/red/600",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.red.700",
+      "figma_name": "color/red/700",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.red.800",
+      "figma_name": "color/red/800",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.red.50",
+      "figma_name": "color/red/50",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.red.100",
+      "figma_name": "color/red/100",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.purple.600",
+      "figma_name": "color/purple/600",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.purple.700",
+      "figma_name": "color/purple/700",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.purple.800",
+      "figma_name": "color/purple/800",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.gray.50",
+      "figma_name": "color/gray/50",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.gray.100",
+      "figma_name": "color/gray/100",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.gray.200",
+      "figma_name": "color/gray/200",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.gray.500",
+      "figma_name": "color/gray/500",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.gray.navy",
+      "figma_name": "color/gray/navy",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.gray.700",
+      "figma_name": "color/gray/700",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.gray.900",
+      "figma_name": "color/gray/900",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.gray.950",
+      "figma_name": "color/gray/950",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.gray.300",
+      "figma_name": "color/gray/300",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.gray.600",
+      "figma_name": "color/gray/600",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.indigo.700",
+      "figma_name": "color/indigo/700",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.indigo.100",
+      "figma_name": "color/indigo/100",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.sky.700",
+      "figma_name": "color/sky/700",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.sky.100",
+      "figma_name": "color/sky/100",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.emerald.700",
+      "figma_name": "color/emerald/700",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.violet.300",
+      "figma_name": "color/violet/300",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.violet.100",
+      "figma_name": "color/violet/100",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.violet.950",
+      "figma_name": "color/violet/950",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.amber.300",
+      "figma_name": "color/amber/300",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.amber.500",
+      "figma_name": "color/amber/500",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.amber.600",
+      "figma_name": "color/amber/600",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.amber.700",
+      "figma_name": "color/amber/700",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.amber.100",
+      "figma_name": "color/amber/100",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.amber.950",
+      "figma_name": "color/amber/950",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.color.amber.50",
+      "figma_name": "color/amber/50",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.icon.xs",
+      "figma_name": "icon/xs",
+      "detail": "uncompared"
+    },
+    {
+      "dtcg_path": "primitive.icon.sm",
+      "figma_name": "icon/sm",
+      "detail": "uncompared"
+    },
+    {
+      "dtcg_path": "primitive.icon.md",
+      "figma_name": "icon/md",
+      "detail": "uncompared"
+    },
+    {
+      "dtcg_path": "primitive.icon.lg",
+      "figma_name": "icon/lg",
+      "detail": "uncompared"
+    },
+    {
+      "dtcg_path": "primitive.icon.xl",
+      "figma_name": "icon/xl",
+      "detail": "uncompared"
+    },
+    {
+      "dtcg_path": "primitive.letterSpacing.tight",
+      "figma_name": "letter-spacing/tight",
+      "detail": "em-based (skip strict)"
+    },
+    {
+      "dtcg_path": "primitive.letterSpacing.tightest",
+      "figma_name": "letter-spacing/tightest",
+      "detail": "em-based (skip strict)"
+    },
+    {
+      "dtcg_path": "primitive.letterSpacing.normal",
+      "figma_name": "letter-spacing/normal",
+      "detail": "em-based (skip strict)"
+    },
+    {
+      "dtcg_path": "primitive.letterSpacing.wide",
+      "figma_name": "letter-spacing/wide",
+      "detail": "em-based (skip strict)"
+    },
+    {
+      "dtcg_path": "primitive.letterSpacing.wider",
+      "figma_name": "letter-spacing/wider",
+      "detail": "em-based (skip strict)"
+    },
+    {
+      "dtcg_path": "primitive.duration.fast",
+      "figma_name": "duration/fast",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.duration.normal",
+      "figma_name": "duration/normal",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.duration.slow",
+      "figma_name": "duration/slow",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.delay.none",
+      "figma_name": "delay/none",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.easing.default",
+      "figma_name": "easing/default",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.easing.in",
+      "figma_name": "easing/in",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.easing.out",
+      "figma_name": "easing/out",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.easing.in-out",
+      "figma_name": "easing/in-out",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.radius.none",
+      "figma_name": "raw/none",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.radius.sm",
+      "figma_name": "raw/sm",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.radius.md",
+      "figma_name": "raw/md",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.radius.lg",
+      "figma_name": "raw/lg",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.radius.xl",
+      "figma_name": "raw/xl",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.radius.full",
+      "figma_name": "raw/full",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.space.3xs",
+      "figma_name": "space/3xs",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.space.2xs",
+      "figma_name": "space/2xs",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.space.xs",
+      "figma_name": "space/xs",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.space.sm",
+      "figma_name": "space/sm",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.space.md",
+      "figma_name": "space/md",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.space.lg",
+      "figma_name": "space/lg",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.space.xl",
+      "figma_name": "space/xl",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.space.2xl",
+      "figma_name": "space/2xl",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.space.3xl",
+      "figma_name": "space/3xl",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.space.4xl",
+      "figma_name": "space/4xl",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.space.5xl",
+      "figma_name": "space/5xl",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.font.family.sans",
+      "figma_name": "font-family/sans",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.font.family.serif",
+      "figma_name": "font-family/serif",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.font.family.mono",
+      "figma_name": "font-family/mono",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.font.weight.light",
+      "figma_name": "font-weight/light",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.font.weight.regular",
+      "figma_name": "font-weight/regular",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.font.weight.medium",
+      "figma_name": "font-weight/medium",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.font.weight.semibold",
+      "figma_name": "font-weight/semibold",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.font.weight.bold",
+      "figma_name": "font-weight/bold",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.font.size.xs",
+      "figma_name": "font-size/xs",
+      "detail": "em-based (skip strict)"
+    },
+    {
+      "dtcg_path": "primitive.font.size.sm",
+      "figma_name": "font-size/sm",
+      "detail": "em-based (skip strict)"
+    },
+    {
+      "dtcg_path": "primitive.font.size.base",
+      "figma_name": "font-size/base",
+      "detail": "em-based (skip strict)"
+    },
+    {
+      "dtcg_path": "primitive.font.size.md",
+      "figma_name": "font-size/md",
+      "detail": "em-based (skip strict)"
+    },
+    {
+      "dtcg_path": "primitive.font.size.lg",
+      "figma_name": "font-size/lg",
+      "detail": "em-based (skip strict)"
+    },
+    {
+      "dtcg_path": "primitive.font.size.2xl",
+      "figma_name": "font-size/2xl",
+      "detail": "em-based (skip strict)"
+    },
+    {
+      "dtcg_path": "primitive.font.size.3xl",
+      "figma_name": "font-size/3xl",
+      "detail": "em-based (skip strict)"
+    },
+    {
+      "dtcg_path": "primitive.font.size.2xs",
+      "figma_name": "font-size/2xs",
+      "detail": "em-based (skip strict)"
+    },
+    {
+      "dtcg_path": "primitive.font.lineHeight.tight",
+      "figma_name": "line-height/tight",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.font.lineHeight.snug",
+      "figma_name": "line-height/snug",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.font.lineHeight.normal",
+      "figma_name": "line-height/normal",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "primitive.font.lineHeight.relaxed",
+      "figma_name": "line-height/relaxed",
+      "detail": "match"
+    },
+    {
+      "dtcg_path": "color.background.accent",
+      "figma_name": "color/background/accent",
+      "detail": "alias match -> color/green/accent"
+    },
+    {
+      "dtcg_path": "color.background.accent-indigo",
+      "figma_name": "color/background/accent-indigo",
+      "detail": "alias match -> color/indigo/100"
+    },
+    {
+      "dtcg_path": "color.background.accent-indigo-bold",
+      "figma_name": "color/background/accent-indigo-bold",
+      "detail": "alias match -> color/indigo/700"
+    },
+    {
+      "dtcg_path": "color.background.accent-sky",
+      "figma_name": "color/background/accent-sky",
+      "detail": "alias match -> color/sky/100"
+    },
+    {
+      "dtcg_path": "color.background.accent-sky-bold",
+      "figma_name": "color/background/accent-sky-bold",
+      "detail": "alias match -> color/sky/700"
+    },
+    {
+      "dtcg_path": "color.background.accent-green-bold",
+      "figma_name": "color/background/accent-green-bold",
+      "detail": "alias match -> color/emerald/700"
+    },
+    {
+      "dtcg_path": "color.background.accent-amber-bold",
+      "figma_name": "color/background/accent-amber-bold",
+      "detail": "alias match -> color/amber/600"
+    },
+    {
+      "dtcg_path": "color.foreground.accent-violet",
+      "figma_name": "color/foreground/accent-violet",
+      "detail": "alias match -> color/violet/300"
+    },
+    {
+      "dtcg_path": "color.foreground.accent-amber",
+      "figma_name": "color/foreground/accent-amber",
+      "detail": "alias match -> color/amber/300"
+    },
+    {
+      "dtcg_path": "color.foreground.accent-indigo",
+      "figma_name": "color/foreground/accent-indigo",
+      "detail": "alias match -> color/indigo/700"
+    },
+    {
+      "dtcg_path": "color.foreground.accent-sky",
+      "figma_name": "color/foreground/accent-sky",
+      "detail": "alias match -> color/sky/700"
+    },
+    {
+      "dtcg_path": "color.foreground.accent-on-violet",
+      "figma_name": "color/foreground/accent-on-violet",
+      "detail": "alias match -> color/green/950"
+    },
+    {
+      "dtcg_path": "color.foreground.accent-on-amber",
+      "figma_name": "color/foreground/accent-on-amber",
+      "detail": "alias match -> color/green/950"
+    },
+    {
+      "dtcg_path": "color.foreground.accent-on-indigo",
+      "figma_name": "color/foreground/accent-on-indigo",
+      "detail": "alias match -> color/neutral/white"
+    },
+    {
+      "dtcg_path": "color.foreground.accent-on-sky",
+      "figma_name": "color/foreground/accent-on-sky",
+      "detail": "alias match -> color/neutral/white"
+    },
+    {
+      "dtcg_path": "color.foreground.accent-on-amber-bold",
+      "figma_name": "color/foreground/accent-on-amber-bold",
+      "detail": "alias match -> color/neutral/white"
+    },
+    {
+      "dtcg_path": "color.foreground.accent-on-green-bold",
+      "figma_name": "color/foreground/accent-on-green-bold",
+      "detail": "alias match -> color/neutral/white"
+    },
+    {
+      "dtcg_path": "icon.size.compact",
+      "figma_name": "icon-size/compact",
+      "detail": "alias match -> icon/sm"
+    },
+    {
+      "dtcg_path": "icon.size.default",
+      "figma_name": "icon-size/default",
+      "detail": "alias match -> icon/md"
+    },
+    {
+      "dtcg_path": "icon.size.large",
+      "figma_name": "icon-size/large",
+      "detail": "alias match -> icon/lg"
+    },
+    {
+      "dtcg_path": "icon.size.xl",
+      "figma_name": "icon-size/xl",
+      "detail": "alias match -> icon/xl"
+    },
+    {
+      "dtcg_path": "letterSpacing.display",
+      "figma_name": "letter-spacing/display",
+      "detail": "alias match -> letter-spacing/tight"
+    },
+    {
+      "dtcg_path": "letterSpacing.title",
+      "figma_name": "letter-spacing/title",
+      "detail": "alias match -> letter-spacing/tightest"
+    },
+    {
+      "dtcg_path": "letterSpacing.body",
+      "figma_name": "letter-spacing/body",
+      "detail": "alias match -> letter-spacing/normal"
+    },
+    {
+      "dtcg_path": "letterSpacing.label",
+      "figma_name": "letter-spacing/label",
+      "detail": "alias match -> letter-spacing/wide"
+    },
+    {
+      "dtcg_path": "letterSpacing.all-caps",
+      "figma_name": "letter-spacing/all-caps",
+      "detail": "alias match -> letter-spacing/wider"
+    },
+    {
+      "dtcg_path": "motion.duration.instant",
+      "figma_name": "motion/duration/instant",
+      "detail": "alias match -> duration/fast"
+    },
+    {
+      "dtcg_path": "motion.duration.standard",
+      "figma_name": "motion/duration/standard",
+      "detail": "alias match -> duration/normal"
+    },
+    {
+      "dtcg_path": "motion.duration.emphasized",
+      "figma_name": "motion/duration/emphasized",
+      "detail": "alias match -> duration/slow"
+    },
+    {
+      "dtcg_path": "motion.easing.enter",
+      "figma_name": "motion/easing/enter",
+      "detail": "alias match -> easing/out"
+    },
+    {
+      "dtcg_path": "motion.easing.exit",
+      "figma_name": "motion/easing/exit",
+      "detail": "alias match -> easing/in"
+    },
+    {
+      "dtcg_path": "motion.easing.move",
+      "figma_name": "motion/easing/move",
+      "detail": "alias match -> easing/in-out"
+    },
+    {
+      "dtcg_path": "motion.easing.default",
+      "figma_name": "motion/easing/default",
+      "detail": "alias match -> easing/default"
+    },
+    {
+      "dtcg_path": "radius.none",
+      "figma_name": "radius/none",
+      "detail": "alias match -> raw/none"
+    },
+    {
+      "dtcg_path": "radius.sm",
+      "figma_name": "radius/sm",
+      "detail": "alias match -> raw/sm"
+    },
+    {
+      "dtcg_path": "radius.default",
+      "figma_name": "radius/default",
+      "detail": "alias match -> raw/md"
+    },
+    {
+      "dtcg_path": "radius.lg",
+      "figma_name": "radius/lg",
+      "detail": "alias match -> raw/lg"
+    },
+    {
+      "dtcg_path": "radius.xl",
+      "figma_name": "radius/xl",
+      "detail": "alias match -> raw/xl"
+    },
+    {
+      "dtcg_path": "radius.full",
+      "figma_name": "radius/full",
+      "detail": "alias match -> raw/full"
+    },
+    {
+      "dtcg_path": "spacing.micro",
+      "figma_name": "spacing/micro",
+      "detail": "alias match -> space/2xs"
+    },
+    {
+      "dtcg_path": "spacing.tight",
+      "figma_name": "spacing/tight",
+      "detail": "alias match -> space/xs"
+    },
+    {
+      "dtcg_path": "spacing.inline",
+      "figma_name": "spacing/inline",
+      "detail": "alias match -> space/sm"
+    },
+    {
+      "dtcg_path": "spacing.element",
+      "figma_name": "spacing/element",
+      "detail": "alias match -> space/md"
+    },
+    {
+      "dtcg_path": "spacing.component",
+      "figma_name": "spacing/component",
+      "detail": "alias match -> space/lg"
+    },
+    {
+      "dtcg_path": "spacing.group",
+      "figma_name": "spacing/group",
+      "detail": "alias match -> space/xl"
+    },
+    {
+      "dtcg_path": "spacing.layout",
+      "figma_name": "spacing/layout",
+      "detail": "alias match -> space/2xl"
+    },
+    {
+      "dtcg_path": "spacing.block",
+      "figma_name": "spacing/block",
+      "detail": "alias match -> space/3xl"
+    },
+    {
+      "dtcg_path": "spacing.page",
+      "figma_name": "spacing/page",
+      "detail": "alias match -> space/4xl"
+    },
+    {
+      "dtcg_path": "spacing.section",
+      "figma_name": "spacing/section",
+      "detail": "alias match -> space/5xl"
+    },
+    {
+      "dtcg_path": "motion.transition.micro",
+      "figma_name": "motion/transition/micro",
+      "detail": "uncompared"
+    },
+    {
+      "dtcg_path": "motion.transition.standard",
+      "figma_name": "motion/transition/standard",
+      "detail": "uncompared"
+    },
+    {
+      "dtcg_path": "motion.transition.emphasized",
+      "figma_name": "motion/transition/emphasized",
+      "detail": "uncompared"
+    },
+    {
+      "dtcg_path": "motion.transition.move",
+      "figma_name": "motion/transition/move",
+      "detail": "uncompared"
+    }
+  ],
+  "skipped": [
+    {
+      "dtcg_path": "font.title.small",
+      "reason": "composite typography token (maps to text styles, not variables)",
+      "source_file": "semantic\\typography.tokens.json"
+    },
+    {
+      "dtcg_path": "font.body",
+      "reason": "composite typography token (maps to text styles, not variables)",
+      "source_file": "brands\\dot-blog.tokens.json"
+    },
+    {
+      "dtcg_path": "font.display",
+      "reason": "composite typography token (maps to text styles, not variables)",
+      "source_file": "semantic\\typography.tokens.json"
+    },
+    {
+      "dtcg_path": "font.title.large",
+      "reason": "composite typography token (maps to text styles, not variables)",
+      "source_file": "semantic\\typography.tokens.json"
+    },
+    {
+      "dtcg_path": "font.title.medium",
+      "reason": "composite typography token (maps to text styles, not variables)",
+      "source_file": "semantic\\typography.tokens.json"
+    },
+    {
+      "dtcg_path": "font.body.large",
+      "reason": "composite typography token (maps to text styles, not variables)",
+      "source_file": "semantic\\typography.tokens.json"
+    },
+    {
+      "dtcg_path": "font.body.medium",
+      "reason": "composite typography token (maps to text styles, not variables)",
+      "source_file": "semantic\\typography.tokens.json"
+    },
+    {
+      "dtcg_path": "font.body.small",
+      "reason": "composite typography token (maps to text styles, not variables)",
+      "source_file": "semantic\\typography.tokens.json"
+    },
+    {
+      "dtcg_path": "font.label.large",
+      "reason": "composite typography token (maps to text styles, not variables)",
+      "source_file": "semantic\\typography.tokens.json"
+    },
+    {
+      "dtcg_path": "font.label.medium",
+      "reason": "composite typography token (maps to text styles, not variables)",
+      "source_file": "semantic\\typography.tokens.json"
+    },
+    {
+      "dtcg_path": "font.label.small",
+      "reason": "composite typography token (maps to text styles, not variables)",
+      "source_file": "semantic\\typography.tokens.json"
+    },
+    {
+      "dtcg_path": "font.label.xsmall",
+      "reason": "composite typography token (maps to text styles, not variables)",
+      "source_file": "semantic\\typography.tokens.json"
+    },
+    {
+      "dtcg_path": "font.label-strong.large",
+      "reason": "composite typography token (maps to text styles, not variables)",
+      "source_file": "semantic\\typography.tokens.json"
+    },
+    {
+      "dtcg_path": "font.label-strong.medium",
+      "reason": "composite typography token (maps to text styles, not variables)",
+      "source_file": "semantic\\typography.tokens.json"
+    },
+    {
+      "dtcg_path": "font.label-strong.small",
+      "reason": "composite typography token (maps to text styles, not variables)",
+      "source_file": "semantic\\typography.tokens.json"
+    },
+    {
+      "dtcg_path": "font.label-strong.xsmall",
+      "reason": "composite typography token (maps to text styles, not variables)",
+      "source_file": "semantic\\typography.tokens.json"
+    },
+    {
+      "dtcg_path": "font.code",
+      "reason": "composite typography token (maps to text styles, not variables)",
+      "source_file": "semantic\\typography.tokens.json"
+    },
+    {
+      "dtcg_path": "font.mono-label-xsmall",
+      "reason": "composite typography token (maps to text styles, not variables)",
+      "source_file": "semantic\\typography.tokens.json"
+    },
+    {
+      "dtcg_path": "font.mono-label-small",
+      "reason": "composite typography token (maps to text styles, not variables)",
+      "source_file": "semantic\\typography.tokens.json"
+    },
+    {
+      "dtcg_path": "font.mono-label-strong-small",
+      "reason": "composite typography token (maps to text styles, not variables)",
+      "source_file": "semantic\\typography.tokens.json"
+    },
+    {
+      "dtcg_path": "font.family.sans",
+      "reason": "no Figma name mapping defined",
+      "source_file": "semantic\\font-family.tokens.json"
+    },
+    {
+      "dtcg_path": "font.family.mono",
+      "reason": "no Figma name mapping defined",
+      "source_file": "semantic\\font-family.tokens.json"
+    },
+    {
+      "dtcg_path": "color.feedback.success",
+      "reason": "no Figma name mapping defined",
+      "source_file": "brands\\decision-engine.tokens.json"
+    },
+    {
+      "dtcg_path": "color.accent.subtle",
+      "reason": "no Figma name mapping defined",
+      "source_file": "brands\\decision-engine.tokens.json"
+    },
+    {
+      "dtcg_path": "color.accent.subtle-border",
+      "reason": "no Figma name mapping defined",
+      "source_file": "brands\\decision-engine.tokens.json"
+    },
+    {
+      "dtcg_path": "component.alert.success.background",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\alert.tokens.json"
+    },
+    {
+      "dtcg_path": "component.alert.success.foreground",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\alert.tokens.json"
+    },
+    {
+      "dtcg_path": "component.alert.success.border",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\alert.tokens.json"
+    },
+    {
+      "dtcg_path": "component.alert.warning.background",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\alert.tokens.json"
+    },
+    {
+      "dtcg_path": "component.alert.warning.foreground",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\alert.tokens.json"
+    },
+    {
+      "dtcg_path": "component.alert.warning.border",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\alert.tokens.json"
+    },
+    {
+      "dtcg_path": "component.alert.danger.background",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\alert.tokens.json"
+    },
+    {
+      "dtcg_path": "component.alert.danger.foreground",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\alert.tokens.json"
+    },
+    {
+      "dtcg_path": "component.alert.danger.border",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\alert.tokens.json"
+    },
+    {
+      "dtcg_path": "component.alert.info.background",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\alert.tokens.json"
+    },
+    {
+      "dtcg_path": "component.alert.info.foreground",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\alert.tokens.json"
+    },
+    {
+      "dtcg_path": "component.alert.info.border",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\alert.tokens.json"
+    },
+    {
+      "dtcg_path": "component.alert.radius",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\alert.tokens.json"
+    },
+    {
+      "dtcg_path": "component.alert.padding.x",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\alert.tokens.json"
+    },
+    {
+      "dtcg_path": "component.alert.padding.y",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\alert.tokens.json"
+    },
+    {
+      "dtcg_path": "component.avatar.size.sm",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\avatar.tokens.json"
+    },
+    {
+      "dtcg_path": "component.avatar.size.md",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\avatar.tokens.json"
+    },
+    {
+      "dtcg_path": "component.avatar.size.lg",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\avatar.tokens.json"
+    },
+    {
+      "dtcg_path": "component.avatar.size.xl",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\avatar.tokens.json"
+    },
+    {
+      "dtcg_path": "component.avatar.background.default",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\avatar.tokens.json"
+    },
+    {
+      "dtcg_path": "component.avatar.background.indigo",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\avatar.tokens.json"
+    },
+    {
+      "dtcg_path": "component.avatar.background.sky",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\avatar.tokens.json"
+    },
+    {
+      "dtcg_path": "component.avatar.background.green",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\avatar.tokens.json"
+    },
+    {
+      "dtcg_path": "component.avatar.background.amber",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\avatar.tokens.json"
+    },
+    {
+      "dtcg_path": "component.avatar.foreground.default",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\avatar.tokens.json"
+    },
+    {
+      "dtcg_path": "component.avatar.foreground.indigo",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\avatar.tokens.json"
+    },
+    {
+      "dtcg_path": "component.avatar.foreground.sky",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\avatar.tokens.json"
+    },
+    {
+      "dtcg_path": "component.avatar.foreground.green",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\avatar.tokens.json"
+    },
+    {
+      "dtcg_path": "component.avatar.foreground.amber",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\avatar.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.default.background",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.default.foreground",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.default.border",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.success.background",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.success.foreground",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.success.border",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.warning.background",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.warning.foreground",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.warning.border",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.danger.background",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.danger.foreground",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.danger.border",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.info.background",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.info.foreground",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.info.border",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.accent-green.background",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.accent-green.foreground",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.accent-green.border",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.accent-blue.background",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.accent-blue.foreground",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.accent-blue.border",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.accent-violet.background",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.accent-violet.foreground",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.accent-violet.border",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.accent-amber.background",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.accent-amber.foreground",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.accent-amber.border",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.radius",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.padding.x",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.badge.padding.y",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\badge.tokens.json"
+    },
+    {
+      "dtcg_path": "component.button.primary.background.default",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\button.tokens.json"
+    },
+    {
+      "dtcg_path": "component.button.primary.background.hover",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\button.tokens.json"
+    },
+    {
+      "dtcg_path": "component.button.primary.background.active",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\button.tokens.json"
+    },
+    {
+      "dtcg_path": "component.button.primary.foreground.default",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\button.tokens.json"
+    },
+    {
+      "dtcg_path": "component.button.primary.border.default",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\button.tokens.json"
+    },
+    {
+      "dtcg_path": "component.button.primary.border.hover",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\button.tokens.json"
+    },
+    {
+      "dtcg_path": "component.button.primary.border.active",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\button.tokens.json"
+    },
+    {
+      "dtcg_path": "component.button.secondary.background.default",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\button.tokens.json"
+    },
+    {
+      "dtcg_path": "component.button.secondary.background.hover",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\button.tokens.json"
+    },
+    {
+      "dtcg_path": "component.button.secondary.foreground.default",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\button.tokens.json"
+    },
+    {
+      "dtcg_path": "component.button.secondary.border.default",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\button.tokens.json"
+    },
+    {
+      "dtcg_path": "component.button.secondary.border.hover",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\button.tokens.json"
+    },
+    {
+      "dtcg_path": "component.button.danger.background.default",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\button.tokens.json"
+    },
+    {
+      "dtcg_path": "component.button.danger.background.hover",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\button.tokens.json"
+    },
+    {
+      "dtcg_path": "component.button.danger.foreground.default",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\button.tokens.json"
+    },
+    {
+      "dtcg_path": "component.button.danger.border.default",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\button.tokens.json"
+    },
+    {
+      "dtcg_path": "component.button.danger.border.hover",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\button.tokens.json"
+    },
+    {
+      "dtcg_path": "component.checkbox.background.unchecked",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\checkbox.tokens.json"
+    },
+    {
+      "dtcg_path": "component.checkbox.background.checked",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\checkbox.tokens.json"
+    },
+    {
+      "dtcg_path": "component.checkbox.background.disabled",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\checkbox.tokens.json"
+    },
+    {
+      "dtcg_path": "component.checkbox.foreground.checkmark",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\checkbox.tokens.json"
+    },
+    {
+      "dtcg_path": "component.checkbox.foreground.label",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\checkbox.tokens.json"
+    },
+    {
+      "dtcg_path": "component.checkbox.foreground.disabled",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\checkbox.tokens.json"
+    },
+    {
+      "dtcg_path": "component.checkbox.border.default",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\checkbox.tokens.json"
+    },
+    {
+      "dtcg_path": "component.checkbox.border.hover",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\checkbox.tokens.json"
+    },
+    {
+      "dtcg_path": "component.checkbox.border.focus",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\checkbox.tokens.json"
+    },
+    {
+      "dtcg_path": "component.checkbox.border.checked",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\checkbox.tokens.json"
+    },
+    {
+      "dtcg_path": "component.checkbox.border.disabled",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\checkbox.tokens.json"
+    },
+    {
+      "dtcg_path": "component.checkbox.radius",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\checkbox.tokens.json"
+    },
+    {
+      "dtcg_path": "component.input.background.default",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\input.tokens.json"
+    },
+    {
+      "dtcg_path": "component.input.background.hover",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\input.tokens.json"
+    },
+    {
+      "dtcg_path": "component.input.background.focus",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\input.tokens.json"
+    },
+    {
+      "dtcg_path": "component.input.background.disabled",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\input.tokens.json"
+    },
+    {
+      "dtcg_path": "component.input.background.error",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\input.tokens.json"
+    },
+    {
+      "dtcg_path": "component.input.foreground.value",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\input.tokens.json"
+    },
+    {
+      "dtcg_path": "component.input.foreground.placeholder",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\input.tokens.json"
+    },
+    {
+      "dtcg_path": "component.input.foreground.label",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\input.tokens.json"
+    },
+    {
+      "dtcg_path": "component.input.foreground.label-required",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\input.tokens.json"
+    },
+    {
+      "dtcg_path": "component.input.foreground.helper",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\input.tokens.json"
+    },
+    {
+      "dtcg_path": "component.input.foreground.error",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\input.tokens.json"
+    },
+    {
+      "dtcg_path": "component.input.foreground.disabled",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\input.tokens.json"
+    },
+    {
+      "dtcg_path": "component.input.border.default",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\input.tokens.json"
+    },
+    {
+      "dtcg_path": "component.input.border.hover",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\input.tokens.json"
+    },
+    {
+      "dtcg_path": "component.input.border.focus",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\input.tokens.json"
+    },
+    {
+      "dtcg_path": "component.input.border.error",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\input.tokens.json"
+    },
+    {
+      "dtcg_path": "component.input.border.disabled",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\input.tokens.json"
+    },
+    {
+      "dtcg_path": "component.input.radius",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\input.tokens.json"
+    },
+    {
+      "dtcg_path": "component.input.padding.x",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\input.tokens.json"
+    },
+    {
+      "dtcg_path": "component.input.padding.y",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\input.tokens.json"
+    },
+    {
+      "dtcg_path": "component.radio.background.unchecked",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\radio.tokens.json"
+    },
+    {
+      "dtcg_path": "component.radio.background.checked",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\radio.tokens.json"
+    },
+    {
+      "dtcg_path": "component.radio.background.disabled",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\radio.tokens.json"
+    },
+    {
+      "dtcg_path": "component.radio.foreground.dot",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\radio.tokens.json"
+    },
+    {
+      "dtcg_path": "component.radio.foreground.label",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\radio.tokens.json"
+    },
+    {
+      "dtcg_path": "component.radio.foreground.disabled",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\radio.tokens.json"
+    },
+    {
+      "dtcg_path": "component.radio.border.default",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\radio.tokens.json"
+    },
+    {
+      "dtcg_path": "component.radio.border.hover",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\radio.tokens.json"
+    },
+    {
+      "dtcg_path": "component.radio.border.focus",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\radio.tokens.json"
+    },
+    {
+      "dtcg_path": "component.radio.border.checked",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\radio.tokens.json"
+    },
+    {
+      "dtcg_path": "component.radio.border.disabled",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\radio.tokens.json"
+    },
+    {
+      "dtcg_path": "component.toggle.track.background.off",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\toggle.tokens.json"
+    },
+    {
+      "dtcg_path": "component.toggle.track.background.on",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\toggle.tokens.json"
+    },
+    {
+      "dtcg_path": "component.toggle.track.background.disabled",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\toggle.tokens.json"
+    },
+    {
+      "dtcg_path": "component.toggle.track.border.off",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\toggle.tokens.json"
+    },
+    {
+      "dtcg_path": "component.toggle.track.border.on",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\toggle.tokens.json"
+    },
+    {
+      "dtcg_path": "component.toggle.track.border.disabled",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\toggle.tokens.json"
+    },
+    {
+      "dtcg_path": "component.toggle.knob.background.off",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\toggle.tokens.json"
+    },
+    {
+      "dtcg_path": "component.toggle.knob.background.on",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\toggle.tokens.json"
+    },
+    {
+      "dtcg_path": "component.toggle.knob.background.disabled",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\toggle.tokens.json"
+    },
+    {
+      "dtcg_path": "component.toggle.foreground.label",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\toggle.tokens.json"
+    },
+    {
+      "dtcg_path": "component.toggle.foreground.disabled",
+      "reason": "no Figma name mapping defined",
+      "source_file": "components\\toggle.tokens.json"
+    },
+    {
+      "dtcg_path": "primitive.shadow.none",
+      "reason": "no Figma name mapping defined",
+      "source_file": "primitives\\shadow.tokens.json"
+    },
+    {
+      "dtcg_path": "primitive.shadow.sm",
+      "reason": "no Figma name mapping defined",
+      "source_file": "primitives\\shadow.tokens.json"
+    },
+    {
+      "dtcg_path": "primitive.shadow.md",
+      "reason": "no Figma name mapping defined",
+      "source_file": "primitives\\shadow.tokens.json"
+    },
+    {
+      "dtcg_path": "primitive.shadow.lg",
+      "reason": "no Figma name mapping defined",
+      "source_file": "primitives\\shadow.tokens.json"
+    },
+    {
+      "dtcg_path": "primitive.shadow.xl",
+      "reason": "no Figma name mapping defined",
+      "source_file": "primitives\\shadow.tokens.json"
+    },
+    {
+      "dtcg_path": "font.family.serif",
+      "reason": "no Figma name mapping defined",
+      "source_file": "semantic\\font-family.tokens.json"
+    },
+    {
+      "dtcg_path": "shadow.none",
+      "reason": "no Figma name mapping defined",
+      "source_file": "semantic\\shadow.tokens.json"
+    },
+    {
+      "dtcg_path": "shadow.raised",
+      "reason": "no Figma name mapping defined",
+      "source_file": "semantic\\shadow.tokens.json"
+    },
+    {
+      "dtcg_path": "shadow.overlay",
+      "reason": "no Figma name mapping defined",
+      "source_file": "semantic\\shadow.tokens.json"
+    },
+    {
+      "dtcg_path": "shadow.dialog",
+      "reason": "no Figma name mapping defined",
+      "source_file": "semantic\\shadow.tokens.json"
+    },
+    {
+      "figma_name": "font-style/light",
+      "reason": "expected Figma-only variable",
+      "collection": "Typography"
+    },
+    {
+      "figma_name": "font-style/regular",
+      "reason": "expected Figma-only variable",
+      "collection": "Typography"
+    },
+    {
+      "figma_name": "font-style/medium",
+      "reason": "expected Figma-only variable",
+      "collection": "Typography"
+    }
+  ],
+  "summary": {
+    "total_dtcg_tokens": 386,
+    "total_figma_vars": 213,
+    "matched": 210,
+    "missing_from_figma": 0,
+    "de_only": 11,
+    "orphans_in_figma": 0,
+    "value_mismatches": 0,
+    "alias_mismatches": 0,
+    "skipped": 168,
+    "drift_score": 100.0
+  }
+}
