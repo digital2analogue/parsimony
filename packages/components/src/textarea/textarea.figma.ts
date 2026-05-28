@@ -3,13 +3,11 @@ import figma, { html } from '@figma/code-connect';
 /**
  * Code Connect mapping for <rr-textarea>.
  *
- * TODO: Replace PLACEHOLDER with the real Figma node-id once the Textarea
- * component is added to the Figma component library.
- *
  * Figma file: Brand Tokens Design System (4aOEBHcnAv2Kbn0g1arL78)
+ * Component: Textarea (node 119:24)
  */
 figma.connect(
-  'https://figma.com/design/4aOEBHcnAv2Kbn0g1arL78/Brand-Tokens-Design-System?node-id=PLACEHOLDER',
+  'https://figma.com/design/4aOEBHcnAv2Kbn0g1arL78/Brand-Tokens-Design-System?node-id=119-24',
   {
     props: {
       disabled: figma.enum('State', {
