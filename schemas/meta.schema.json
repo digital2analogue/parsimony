@@ -55,7 +55,7 @@
       "type": "array",
       "items": {
         "type": "string",
-        "pattern": "^--(color|font|spacing|radius|motion|shadow|icon|component)-",
+        "pattern": "^--(color|font|letter-spacing|spacing|radius|motion|shadow|icon|component)-",
         "not": { "pattern": "^--primitive-" }
       },
       "description": "CSS custom properties this component references. Must be semantic or component-level tokens — never primitives."

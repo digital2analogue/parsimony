@@ -50,6 +50,7 @@
     "--spacing-element",
     "--spacing-component",
     "--font-title-small",
+    "--letter-spacing-title",
     "--radius-default",
     "--color-foreground-muted",
     "--motion-duration-instant",

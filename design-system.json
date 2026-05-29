@@ -1,6 +1,6 @@
 {
   "$schemaVersion": "1.0.0",
-  "generatedAt": "2026-05-29T22:11:46.938Z",
+  "generatedAt": "2026-05-29T22:29:13.755Z",
   "components": [
     {
       "metaVersion": "1.0.0",
@@ -1553,6 +1553,7 @@
         "--spacing-element",
         "--spacing-component",
         "--font-title-small",
+        "--letter-spacing-title",
         "--radius-default",
         "--color-foreground-muted",
         "--motion-duration-instant",
