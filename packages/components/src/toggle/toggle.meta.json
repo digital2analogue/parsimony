@@ -1,0 +1,136 @@
+{
+  "metaVersion": "1.0.0",
+  "name": "rr-toggle",
+  "summary": "Form-associated switch for binary on/off settings. Pill track and sliding knob; ElementInternals handles form participation.",
+  "package": "@riverromney/components",
+  "props": [
+    {
+      "name": "checked",
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the toggle is on. Reflected to the checked attribute."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the toggle is non-interactive. Reflected to the disabled attribute."
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "default": "on",
+      "description": "Form value submitted when on."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "default": "",
+      "description": "Form field name used for form submission."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "default": "",
+      "description": "Label text. Falls back to slotted content when empty."
+    }
+  ],
+  "slots": [
+    {
+      "name": "default",
+      "description": "Label text, used as an alternative to the label property."
+    }
+  ],
+  "events": [
+    {
+      "name": "change",
+      "detail": "Fires when the toggle state changes. Bubbles and is composed."
+    }
+  ],
+  "cssParts": [
+    {
+      "name": "track",
+      "description": "The pill-shaped track element."
+    },
+    {
+      "name": "knob",
+      "description": "The sliding knob element."
+    },
+    {
+      "name": "label",
+      "description": "The label text element."
+    }
+  ],
+  "tokensUsed": [
+    "--spacing-tight",
+    "--radius-full",
+    "--component-toggle-track-border-off",
+    "--component-toggle-track-background-off",
+    "--motion-duration-instant",
+    "--motion-easing-default",
+    "--component-toggle-track-background-on",
+    "--component-toggle-track-border-on",
+    "--component-toggle-track-background-disabled",
+    "--component-toggle-track-border-disabled",
+    "--component-toggle-knob-background-off",
+    "--motion-easing-move",
+    "--component-toggle-knob-background-on",
+    "--component-toggle-knob-background-disabled",
+    "--color-border-focus",
+    "--font-label-medium",
+    "--component-toggle-foreground-label",
+    "--component-toggle-foreground-disabled"
+  ],
+  "rules": [
+    "Never use hex values — always var(--color-*) or var(--component-*)",
+    "Never reference --primitive-* tokens in component code",
+    "All text/background pairings must pass WCAG AA (4.5:1)",
+    "The label must be associated with the control via the for/id pairing on the native input.",
+    "The focus ring is driven by --color-border-focus on input:focus-visible — never replace it with a bare outline:none.",
+    "The native input carries role=\"switch\" so the control is announced as a switch, not a checkbox."
+  ],
+  "examples": [
+    {
+      "title": "Default (off)",
+      "html": "<rr-toggle name=\"notify\" label=\"Email notifications\"></rr-toggle>"
+    },
+    {
+      "title": "On",
+      "html": "<rr-toggle name=\"darkMode\" label=\"Dark mode\" checked></rr-toggle>"
+    },
+    {
+      "title": "Disabled",
+      "html": "<rr-toggle label=\"Unavailable setting\" disabled></rr-toggle>"
+    },
+    {
+      "title": "Slotted label",
+      "html": "<rr-toggle name=\"notify\">Notifications</rr-toggle>"
+    }
+  ],
+  "accessibility": {
+    "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/switch/",
+    "role": "switch",
+    "focusable": true,
+    "keyboard": [
+      "Space toggles the on/off state",
+      "Tab moves focus to the switch"
+    ],
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast",
+      "2.1.1 Keyboard",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "A hidden native <input type=\"checkbox\" role=\"switch\"> provides focus, keyboard, and label-click semantics; the visual track and knob are decorative.",
+      "Form participation is provided via formAssociated and ElementInternals.setFormValue.",
+      "aria-checked reflects the on/off state (true when on, false when off).",
+      "The label must convey meaning on its own; do not rely solely on color or knob position."
+    ]
+  },
+  "figma": {
+    "componentKey": "",
+    "nodeId": "117:56",
+    "codeConnectFile": "toggle.figma.ts"
+  }
+}

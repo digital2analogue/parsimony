@@ -1,0 +1,84 @@
+{
+  "metaVersion": "1.0.0",
+  "name": "rr-progress",
+  "summary": "Horizontal progress bar with determinate and indeterminate modes. Uses native role=progressbar ARIA attributes.",
+  "package": "@riverromney/components",
+  "props": [
+    {
+      "name": "value",
+      "type": "number",
+      "default": 0,
+      "description": "Current progress value (0–max). Ignored when indeterminate."
+    },
+    {
+      "name": "max",
+      "type": "number",
+      "default": 100,
+      "description": "Maximum value, mapped to aria-valuemax."
+    },
+    {
+      "name": "indeterminate",
+      "type": "boolean",
+      "default": false,
+      "description": "Show an animated indeterminate loading state instead of a fixed value. Reflected to an attribute; sets aria-busy and omits aria-valuenow."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "default": "",
+      "description": "Accessible label for the progress bar, mapped to aria-label. Required when no visible label is nearby."
+    }
+  ],
+  "slots": [],
+  "events": [],
+  "cssParts": [],
+  "tokensUsed": [
+    "--radius-full",
+    "--color-background-disabled",
+    "--color-background-action",
+    "--motion-duration-standard",
+    "--motion-easing-move"
+  ],
+  "rules": [
+    "Never use hex values — always var(--color-*) or var(--component-*)",
+    "Never reference --primitive-* tokens in component code",
+    "All text/background pairings must pass WCAG AA (4.5:1)",
+    "The track uses role=\"progressbar\" with aria-valuemin/aria-valuemax; aria-valuenow is set only in determinate mode.",
+    "Indeterminate mode sets aria-busy=\"true\" and omits aria-valuenow.",
+    "Accent green (background-action) is used as the progress fill (intentional emphasis), not as decoration."
+  ],
+  "examples": [
+    {
+      "title": "Determinate progress",
+      "html": "<rr-progress value=\"60\" label=\"Upload progress\"></rr-progress>"
+    },
+    {
+      "title": "Custom maximum",
+      "html": "<rr-progress value=\"3\" max=\"5\" label=\"Step 3 of 5\"></rr-progress>"
+    },
+    {
+      "title": "Indeterminate progress",
+      "html": "<rr-progress indeterminate label=\"Loading…\"></rr-progress>"
+    }
+  ],
+  "accessibility": {
+    "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/meter/",
+    "role": "progressbar",
+    "focusable": false,
+    "keyboard": [],
+    "wcag": [
+      "1.4.11 Non-text Contrast",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Determinate mode exposes aria-valuenow, aria-valuemin=\"0\", and aria-valuemax (the max prop).",
+      "Indeterminate mode omits aria-valuenow and sets aria-busy=\"true\".",
+      "Provide a label (aria-label) when there is no visible labelling element nearby."
+    ]
+  },
+  "figma": {
+    "componentKey": "",
+    "nodeId": "125:6",
+    "codeConnectFile": "progress.figma.ts"
+  }
+}

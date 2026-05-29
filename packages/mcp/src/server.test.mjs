@@ -46,10 +46,11 @@ function checkUsage(snippet) {
 // ── Tests ───────────────────────────────────────────────────────────────────
 
 describe('list_components', () => {
-  it('returns rr-badge', () => {
+  it('returns a non-empty list including rr-badge', () => {
     const list = designSystem.components.map((c) => ({ name: c.name, summary: c.summary }));
-    expect(list).toHaveLength(1);
-    expect(list[0].name).toBe('rr-badge');
+    expect(list.length).toBeGreaterThan(0);
+    expect(list.map((c) => c.name)).toContain('rr-badge');
+    expect(list.every((c) => typeof c.summary === 'string' && c.summary.length > 0)).toBe(true);
   });
 });
 

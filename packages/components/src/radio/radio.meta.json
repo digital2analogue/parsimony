@@ -1,0 +1,109 @@
+{
+  "metaVersion": "1.0.0",
+  "name": "rr-radio",
+  "summary": "An individual radio button. Must be used inside rr-radio-group, which manages name, form value, and selection state.",
+  "package": "@riverromney/components",
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "default": "",
+      "description": "The value this radio contributes to the parent group when selected. Reflected to the value attribute."
+    },
+    {
+      "name": "checked",
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this radio is selected. Managed by the parent rr-radio-group. Reflected to the checked attribute."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this radio is non-interactive. Reflected to the disabled attribute."
+    }
+  ],
+  "slots": [
+    {
+      "name": "default",
+      "description": "Label text for this radio option."
+    }
+  ],
+  "events": [
+    {
+      "name": "rr-radio-change",
+      "detail": "{ value: string } — bubbles to the parent rr-radio-group when this radio is selected. Bubbles and is composed."
+    }
+  ],
+  "cssParts": [
+    {
+      "name": "circle",
+      "description": "The visual radio circle element."
+    },
+    {
+      "name": "label",
+      "description": "The label text element."
+    }
+  ],
+  "tokensUsed": [
+    "--spacing-tight",
+    "--component-radio-border-default",
+    "--component-radio-background-unchecked",
+    "--motion-duration-instant",
+    "--motion-easing-default",
+    "--component-radio-border-hover",
+    "--component-radio-border-checked",
+    "--component-radio-background-disabled",
+    "--component-radio-border-disabled",
+    "--component-radio-background-checked",
+    "--motion-easing-enter",
+    "--component-radio-foreground-disabled",
+    "--component-radio-border-focus",
+    "--font-label-medium",
+    "--component-radio-foreground-label"
+  ],
+  "rules": [
+    "Never use hex values — always var(--color-*) or var(--component-*)",
+    "Never reference --primitive-* tokens in component code",
+    "All text/background pairings must pass WCAG AA (4.5:1)",
+    "Always render rr-radio inside an rr-radio-group — the group owns name, form value, and single-selection state.",
+    "The label must be associated with the control via the for/id pairing on the native input.",
+    "The focus ring is driven by --component-radio-border-focus on input:focus-visible — never replace it with a bare outline:none."
+  ],
+  "examples": [
+    {
+      "title": "Inside a radio group",
+      "html": "<rr-radio-group name=\"size\" label=\"Size\" value=\"md\">\n  <rr-radio value=\"sm\">Small</rr-radio>\n  <rr-radio value=\"md\">Medium</rr-radio>\n  <rr-radio value=\"lg\">Large</rr-radio>\n</rr-radio-group>"
+    },
+    {
+      "title": "Disabled option",
+      "html": "<rr-radio-group name=\"plan\" label=\"Plan\">\n  <rr-radio value=\"free\">Free</rr-radio>\n  <rr-radio value=\"pro\" disabled>Pro (coming soon)</rr-radio>\n</rr-radio-group>"
+    }
+  ],
+  "accessibility": {
+    "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/radio/",
+    "role": "radio",
+    "focusable": true,
+    "keyboard": [
+      "Space selects the focused radio",
+      "Arrow keys move selection between radios within the group"
+    ],
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast",
+      "2.1.1 Keyboard",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "rr-radio is not form-associated on its own; the parent rr-radio-group handles form participation via ElementInternals.",
+      "A hidden native <input type=\"radio\"> provides focus, keyboard, and label-click semantics; the visual circle and dot are decorative.",
+      "Selecting an already-checked radio is a no-op and does not re-dispatch rr-radio-change.",
+      "The label must convey meaning on its own; do not rely solely on color."
+    ]
+  },
+  "figma": {
+    "componentKey": "",
+    "nodeId": "121:77",
+    "codeConnectFile": "radio.figma.ts"
+  }
+}

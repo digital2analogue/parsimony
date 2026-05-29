@@ -1,0 +1,75 @@
+{
+  "metaVersion": "1.0.0",
+  "name": "rr-avatar",
+  "summary": "Circular identity surface showing an image or auto-derived initials. Four sizes and five WCAG AA color variants.",
+  "package": "@riverromney/components",
+  "props": [
+    { "name": "size", "type": "'sm' | 'md' | 'lg' | 'xl'", "default": "md", "description": "Circle diameter. Reflected to the attribute." },
+    { "name": "color", "type": "'default' | 'indigo' | 'sky' | 'green' | 'amber'", "default": "default", "description": "Fill color variant for the initials surface. Reflected to the attribute." },
+    { "name": "name", "type": "string", "default": "", "description": "Full name used to derive initials (first letter of first and last word) and the accessible label." },
+    { "name": "src", "type": "string", "default": "", "description": "Image URL. When set, an <img> fills the circle instead of initials." },
+    { "name": "alt", "type": "string", "default": "", "description": "Alt text for the image. Falls back to name when omitted." }
+  ],
+  "slots": [
+    { "name": "default", "description": "Optional custom content to replace initials (e.g. an icon). Used only when src is not set." }
+  ],
+  "events": [],
+  "cssParts": [
+    { "name": "avatar", "description": "The root circle element." },
+    { "name": "img", "description": "The <img> element (only when src is set)." },
+    { "name": "initials", "description": "The initials text element (only when no src and no slotted content)." }
+  ],
+  "tokensUsed": [
+    "--component-avatar-background-default",
+    "--component-avatar-background-indigo",
+    "--component-avatar-background-sky",
+    "--component-avatar-background-green",
+    "--component-avatar-background-amber",
+    "--component-avatar-foreground-default",
+    "--component-avatar-foreground-indigo",
+    "--component-avatar-foreground-sky",
+    "--component-avatar-foreground-green",
+    "--component-avatar-foreground-amber",
+    "--component-avatar-size-sm",
+    "--component-avatar-size-md",
+    "--component-avatar-size-lg",
+    "--component-avatar-size-xl",
+    "--font-label-strong-xsmall",
+    "--font-label-strong-small",
+    "--font-label-strong-medium"
+  ],
+  "rules": [
+    "Never use hex values — always var(--color-*) or var(--component-*)",
+    "Never reference --primitive-* tokens in component code",
+    "All text/background pairings must pass WCAG AA (4.5:1)"
+  ],
+  "examples": [
+    { "title": "Initials", "html": "<rr-avatar name=\"River Romney\"></rr-avatar>" },
+    { "title": "Image", "html": "<rr-avatar src=\"/avatar.jpg\" name=\"River Romney\" alt=\"River Romney\"></rr-avatar>" },
+    { "title": "Sizes", "html": "<rr-avatar name=\"R R\" size=\"sm\"></rr-avatar>\n<rr-avatar name=\"R R\" size=\"md\"></rr-avatar>\n<rr-avatar name=\"R R\" size=\"lg\"></rr-avatar>\n<rr-avatar name=\"R R\" size=\"xl\"></rr-avatar>" },
+    { "title": "Color variants", "html": "<rr-avatar name=\"A B\" color=\"indigo\"></rr-avatar>\n<rr-avatar name=\"C D\" color=\"sky\"></rr-avatar>\n<rr-avatar name=\"E F\" color=\"green\"></rr-avatar>\n<rr-avatar name=\"G H\" color=\"amber\"></rr-avatar>" },
+    { "title": "Custom slotted content", "html": "<rr-avatar><svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"></svg></rr-avatar>" }
+  ],
+  "accessibility": {
+    "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/img/",
+    "role": "img",
+    "focusable": false,
+    "keyboard": [],
+    "wcag": [
+      "1.1.1 Non-text Content",
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast"
+    ],
+    "rules": [
+      "Initials avatar: the root gets role=\"img\" and aria-label=name; the initials span is aria-hidden so AT announces the full name, not the letters.",
+      "Image avatar: the <img> carries alt text (falls back to name); no role=\"img\" is added on the root in this case.",
+      "Provide a name (and/or alt) so the avatar has an accessible name; a nameless avatar is treated as decorative.",
+      "Initials text must meet WCAG AA contrast against its fill — all built-in color variants are pre-verified."
+    ]
+  },
+  "figma": {
+    "componentKey": "",
+    "nodeId": "119:65",
+    "codeConnectFile": "avatar.figma.ts"
+  }
+}

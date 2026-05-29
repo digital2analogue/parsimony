@@ -1,0 +1,82 @@
+{
+  "metaVersion": "1.0.0",
+  "name": "rr-card",
+  "summary": "Surface container on the elevated background tier with optional header, body, and footer slots separated by hairline borders.",
+  "package": "@riverromney/components",
+  "props": [
+    {
+      "name": "padding",
+      "type": "'none' | 'sm' | 'md' | 'lg'",
+      "default": "md",
+      "description": "Internal padding around the body slot — none (0), sm (spacing-tight), md (spacing-element), lg (spacing-component). Header/footer padding is fixed. Reflected to the host attribute."
+    }
+  ],
+  "slots": [
+    {
+      "name": "header",
+      "description": "Card heading row (title, actions, avatar). Renders with a bottom hairline border when populated."
+    },
+    {
+      "name": "default",
+      "description": "Card body content."
+    },
+    {
+      "name": "footer",
+      "description": "Card footer row (secondary actions, metadata). Renders with a top hairline border when populated."
+    }
+  ],
+  "events": [],
+  "cssParts": [],
+  "tokensUsed": [
+    "--color-background-alt",
+    "--color-border-default",
+    "--radius-lg",
+    "--spacing-tight",
+    "--spacing-element",
+    "--spacing-component",
+    "--font-label-strong-medium",
+    "--color-foreground-default",
+    "--font-label-small",
+    "--color-foreground-alt"
+  ],
+  "rules": [
+    "Never use hex values — always var(--color-*) or var(--component-*)",
+    "Never reference --primitive-* tokens in component code",
+    "All text/background pairings must pass WCAG AA (4.5:1)",
+    "Use background.alt for surface separation rather than a shadow token — cards are flat by design.",
+    "Header and footer slots auto-hide their wrappers (and dividers) when empty; do not force them visible with empty markup."
+  ],
+  "examples": [
+    {
+      "title": "Body only",
+      "html": "<rr-card>Simple card content</rr-card>"
+    },
+    {
+      "title": "Header, body, and footer",
+      "html": "<rr-card>\n  <h2 slot=\"header\">Card title</h2>\n  <p>Card body text.</p>\n  <span slot=\"footer\">Last updated today</span>\n</rr-card>"
+    },
+    {
+      "title": "Padding variants",
+      "html": "<rr-card padding=\"none\">Edge-to-edge content</rr-card>\n<rr-card padding=\"sm\">Tight padding</rr-card>\n<rr-card padding=\"lg\">Roomy padding</rr-card>"
+    }
+  ],
+  "accessibility": {
+    "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/",
+    "focusable": false,
+    "keyboard": [],
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast"
+    ],
+    "rules": [
+      "rr-card is a generic surface with no implicit role — provide a heading element in the header slot so assistive tech can navigate card structure.",
+      "If the card is interactive (whole-card click target), wrap its content in an explicit interactive element rather than adding handlers to the host.",
+      "Do not rely on the hairline divider colour alone to communicate section boundaries."
+    ]
+  },
+  "figma": {
+    "componentKey": "",
+    "nodeId": "115:19",
+    "codeConnectFile": "card.figma.ts"
+  }
+}

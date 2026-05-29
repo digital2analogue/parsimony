@@ -1,0 +1,112 @@
+{
+  "metaVersion": "1.0.0",
+  "name": "rr-dialog",
+  "summary": "Modal dialog built on the native <dialog> element. Native focus trap, Escape-to-close, and backdrop dismissal.",
+  "package": "@riverromney/components",
+  "props": [
+    {
+      "name": "heading",
+      "type": "string",
+      "default": "",
+      "description": "Dialog title text rendered in the header."
+    },
+    {
+      "name": "open",
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the dialog is open. Reflected to an attribute. Toggling it calls showModal()/close() on the native dialog."
+    },
+    {
+      "name": "closeOnBackdrop",
+      "type": "boolean",
+      "default": true,
+      "description": "Whether clicking outside the dialog (on the backdrop) closes it. Maps to the close-on-backdrop attribute."
+    }
+  ],
+  "slots": [
+    {
+      "name": "default",
+      "description": "Dialog body content."
+    },
+    {
+      "name": "footer",
+      "description": "Action buttons, displayed in a right-aligned footer row. Footer is hidden when empty."
+    }
+  ],
+  "events": [
+    {
+      "name": "rr-dialog-close",
+      "detail": "Fired whenever the dialog closes — via Escape, the close button, backdrop click, or the close() method. Bubbles and is composed."
+    }
+  ],
+  "cssParts": [],
+  "tokensUsed": [
+    "--color-border-default",
+    "--radius-xl",
+    "--color-background-alt",
+    "--color-foreground-default",
+    "--shadow-dialog",
+    "--spacing-tight",
+    "--spacing-element",
+    "--spacing-component",
+    "--font-title-small",
+    "--radius-default",
+    "--color-foreground-muted",
+    "--motion-duration-instant",
+    "--motion-easing-default",
+    "--color-state-hover",
+    "--color-border-focus",
+    "--spacing-inline",
+    "--font-body-large",
+    "--color-foreground-alt"
+  ],
+  "rules": [
+    "Never use hex values — always var(--color-*) or var(--component-*)",
+    "Never reference --primitive-* tokens in component code",
+    "All text/background pairings must pass WCAG AA (4.5:1)",
+    "The dialog is modal — the native <dialog> showModal() traps focus inside the dialog and renders an inert backdrop.",
+    "Escape closes the dialog; the native close event is delegated to close() so behavior is consistent across all dismissal paths.",
+    "Backdrop clicks close the dialog only when close-on-backdrop is true.",
+    "The close button must keep an accessible label (aria-label=\"Close dialog\")."
+  ],
+  "examples": [
+    {
+      "title": "Confirmation dialog with footer actions",
+      "html": "<rr-dialog heading=\"Confirm action\" open>\n  Are you sure you want to delete this item?\n  <rr-button slot=\"footer\" variant=\"danger\">Delete</rr-button>\n  <rr-button slot=\"footer\" variant=\"secondary\">Cancel</rr-button>\n</rr-dialog>"
+    },
+    {
+      "title": "Body-only dialog",
+      "html": "<rr-dialog heading=\"Details\">\n  Dialog body content goes here.\n</rr-dialog>"
+    },
+    {
+      "title": "Disable backdrop dismissal",
+      "html": "<rr-dialog heading=\"Required step\" close-on-backdrop=\"false\">\n  You must complete this step before continuing.\n</rr-dialog>"
+    }
+  ],
+  "accessibility": {
+    "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/",
+    "role": "dialog",
+    "focusable": true,
+    "keyboard": [
+      "Escape closes the dialog",
+      "Tab and Shift+Tab cycle focus within the dialog (native focus trap)"
+    ],
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast",
+      "2.1.2 No Keyboard Trap",
+      "2.4.3 Focus Order"
+    ],
+    "rules": [
+      "Uses the native <dialog> showModal() so focus is trapped and the rest of the page is inert while open.",
+      "Escape must close the dialog — handled via the native close event delegating to close().",
+      "The close button exposes aria-label=\"Close dialog\" for screen readers.",
+      "Provide a heading so the dialog has an accessible name."
+    ]
+  },
+  "figma": {
+    "componentKey": "",
+    "nodeId": "124:31",
+    "codeConnectFile": "dialog.figma.ts"
+  }
+}

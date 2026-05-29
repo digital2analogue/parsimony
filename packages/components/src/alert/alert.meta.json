@@ -1,0 +1,134 @@
+{
+  "metaVersion": "1.0.0",
+  "name": "rr-alert",
+  "summary": "Inline notification banner for success, warning, danger, and info messages. Optional title, icon slot, and dismiss button.",
+  "package": "@riverromney/components",
+  "props": [
+    {
+      "name": "variant",
+      "type": "'success' | 'warning' | 'danger' | 'info'",
+      "default": "success",
+      "description": "Semantic variant driving border, background, and foreground colour. Reflected to the host attribute."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "default": "",
+      "description": "Optional title rendered above the body content. When empty, no title element is rendered."
+    },
+    {
+      "name": "dismissible",
+      "type": "boolean",
+      "default": false,
+      "description": "When true, renders a dismiss button that hides the alert and fires the close event. Reflected to the host attribute."
+    }
+  ],
+  "slots": [
+    {
+      "name": "default",
+      "description": "Alert body content."
+    },
+    {
+      "name": "icon",
+      "description": "Optional icon in front of the title (use <rr-icon>)."
+    }
+  ],
+  "events": [
+    {
+      "name": "close",
+      "detail": "Fires when the dismiss button is clicked (only when dismissible). Bubbles and is composed; no detail payload."
+    }
+  ],
+  "cssParts": [
+    {
+      "name": "alert",
+      "description": "The root alert element."
+    },
+    {
+      "name": "title",
+      "description": "The title text element."
+    },
+    {
+      "name": "content",
+      "description": "The content slot wrapper."
+    },
+    {
+      "name": "dismiss",
+      "description": "The dismiss button."
+    }
+  ],
+  "tokensUsed": [
+    "--spacing-tight",
+    "--component-alert-padding-y",
+    "--component-alert-padding-x",
+    "--component-alert-radius",
+    "--component-alert-success-border",
+    "--component-alert-success-background",
+    "--component-alert-success-foreground",
+    "--component-alert-warning-border",
+    "--component-alert-warning-background",
+    "--component-alert-warning-foreground",
+    "--component-alert-danger-border",
+    "--component-alert-danger-background",
+    "--component-alert-danger-foreground",
+    "--component-alert-info-border",
+    "--component-alert-info-background",
+    "--component-alert-info-foreground",
+    "--font-label-strong-medium",
+    "--font-body-medium",
+    "--radius-sm",
+    "--motion-duration-instant",
+    "--motion-easing-default"
+  ],
+  "rules": [
+    "Never use hex values — always var(--color-*) or var(--component-*)",
+    "Never reference --primitive-* tokens in component code",
+    "All text/background pairings must pass WCAG AA (4.5:1)",
+    "Use rr-alert for form-level feedback, async status, and system notifications — for field-level validation errors use rr-input with error-text instead.",
+    "The dismiss button carries aria-label=\"Dismiss\"; the close event is bubbling and composed so it can be handled on the host.",
+    "Do not rely on variant colour alone to convey severity — include a title or body text that states the message."
+  ],
+  "examples": [
+    {
+      "title": "Success",
+      "html": "<rr-alert variant=\"success\" title=\"Saved\">Your changes were saved.</rr-alert>"
+    },
+    {
+      "title": "Danger (assertive)",
+      "html": "<rr-alert variant=\"danger\" title=\"Upload failed\">Check your connection and try again.</rr-alert>"
+    },
+    {
+      "title": "Info with icon",
+      "html": "<rr-alert variant=\"info\" title=\"Heads up\">\n  <rr-icon slot=\"icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\"><path d=\"...\"/></svg></rr-icon>\n  Maintenance is scheduled for tonight.\n</rr-alert>"
+    },
+    {
+      "title": "Dismissible",
+      "html": "<rr-alert variant=\"warning\" title=\"Heads up\" dismissible>This is important.</rr-alert>"
+    }
+  ],
+  "accessibility": {
+    "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/alert/",
+    "role": "alert",
+    "ariaLive": "assertive",
+    "focusable": false,
+    "keyboard": [
+      "Tab moves focus to the dismiss button when dismissible",
+      "Enter or Space activates the dismiss button"
+    ],
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast",
+      "4.1.3 Status Messages"
+    ],
+    "rules": [
+      "The inner container has role=\"alert\", which implies an assertive live region — appropriate for danger/warning. For non-urgent success or info messages consider role=\"status\" (aria-live polite) so the announcement does not interrupt the user.",
+      "Render the alert by adding it to (or revealing it in) the DOM after page load so the live region announces; content present at initial render is not re-announced.",
+      "The dismiss button must remain keyboard reachable and shows a visible focus outline; do not suppress it."
+    ]
+  },
+  "figma": {
+    "componentKey": "",
+    "nodeId": "121:50",
+    "codeConnectFile": "alert.figma.ts"
+  }
+}

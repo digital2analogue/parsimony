@@ -1,0 +1,136 @@
+{
+  "metaVersion": "1.0.0",
+  "name": "rr-radio-group",
+  "summary": "Form-associated group of rr-radio buttons. Manages selection and form value, renders a fieldset/legend for accessible grouping.",
+  "package": "@riverromney/components",
+  "props": [
+    {
+      "name": "name",
+      "type": "string",
+      "default": "",
+      "description": "Form field name used for form submission."
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "default": "",
+      "description": "The value of the selected radio. Reflected to the value attribute and submitted with the form."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "default": "",
+      "description": "Group label rendered as the fieldset legend."
+    },
+    {
+      "name": "errorText",
+      "type": "string",
+      "default": "",
+      "description": "Error message shown below the group. Sets a custom validity error and toggles the data-invalid attribute. Maps to the error-text attribute."
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "default": false,
+      "description": "Whether a selection is required. Adds an asterisk to the legend and aria-required to the group. Reflected to the required attribute."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the entire group is non-interactive. Disables all child radios. Reflected to the disabled attribute."
+    },
+    {
+      "name": "orientation",
+      "type": "'vertical' | 'horizontal'",
+      "default": "vertical",
+      "description": "Layout direction of the radio options. Reflected to the orientation attribute."
+    }
+  ],
+  "slots": [
+    {
+      "name": "default",
+      "description": "The rr-radio child elements."
+    }
+  ],
+  "events": [
+    {
+      "name": "change",
+      "detail": "Fires when the selected value changes. Bubbles and is composed."
+    }
+  ],
+  "cssParts": [
+    {
+      "name": "fieldset",
+      "description": "The outer fieldset element."
+    },
+    {
+      "name": "legend",
+      "description": "The legend / label element."
+    }
+  ],
+  "tokensUsed": [
+    "--font-label-medium",
+    "--component-radio-foreground-label",
+    "--spacing-tight",
+    "--component-radio-foreground-disabled",
+    "--spacing-element",
+    "--font-label-small",
+    "--component-input-foreground-error",
+    "--component-input-foreground-label-required"
+  ],
+  "rules": [
+    "Never use hex values — always var(--color-*) or var(--component-*)",
+    "Never reference --primitive-* tokens in component code",
+    "All text/background pairings must pass WCAG AA (4.5:1)",
+    "The group label is provided via the legend inside a fieldset for accessible grouping.",
+    "Focus rings live on the child rr-radio controls (driven by --component-radio-border-focus); never replace them with a bare outline:none.",
+    "errorText must be conveyed by text, not color alone, and is exposed via role=\"alert\" plus ElementInternals.setValidity."
+  ],
+  "examples": [
+    {
+      "title": "Vertical group",
+      "html": "<rr-radio-group name=\"size\" label=\"Size\" value=\"md\">\n  <rr-radio value=\"sm\">Small</rr-radio>\n  <rr-radio value=\"md\">Medium</rr-radio>\n  <rr-radio value=\"lg\">Large</rr-radio>\n</rr-radio-group>"
+    },
+    {
+      "title": "Horizontal orientation",
+      "html": "<rr-radio-group name=\"align\" label=\"Alignment\" orientation=\"horizontal\">\n  <rr-radio value=\"left\">Left</rr-radio>\n  <rr-radio value=\"center\">Center</rr-radio>\n  <rr-radio value=\"right\">Right</rr-radio>\n</rr-radio-group>"
+    },
+    {
+      "title": "Required with error",
+      "html": "<rr-radio-group name=\"plan\" label=\"Plan\" required error-text=\"Please select a plan\">\n  <rr-radio value=\"free\">Free</rr-radio>\n  <rr-radio value=\"pro\">Pro</rr-radio>\n</rr-radio-group>"
+    },
+    {
+      "title": "Disabled group",
+      "html": "<rr-radio-group name=\"locked\" label=\"Locked options\" disabled>\n  <rr-radio value=\"a\">Alpha</rr-radio>\n  <rr-radio value=\"b\">Beta</rr-radio>\n</rr-radio-group>"
+    }
+  ],
+  "accessibility": {
+    "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/radio/",
+    "role": "radiogroup",
+    "focusable": false,
+    "keyboard": [
+      "Arrow keys move selection between radios within the group",
+      "Space selects the focused radio",
+      "Tab moves focus into and out of the group"
+    ],
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast",
+      "2.1.1 Keyboard",
+      "3.3.1 Error Identification",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "The group is form-associated via formAssociated and ElementInternals, which set the form value and validity.",
+      "Grouping is conveyed by a fieldset with a legend; the options container also carries role=\"radiogroup\".",
+      "When required, aria-required=\"true\" is set on the radiogroup and a visual asterisk is appended to the legend.",
+      "errorText is announced via role=\"alert\" and registered as a custom validity error on the element internals."
+    ]
+  },
+  "figma": {
+    "componentKey": "",
+    "nodeId": "121:77",
+    "codeConnectFile": "radio.figma.ts"
+  }
+}

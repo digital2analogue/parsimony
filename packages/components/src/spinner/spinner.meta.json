@@ -1,0 +1,68 @@
+{
+  "metaVersion": "1.0.0",
+  "name": "rr-spinner",
+  "summary": "Animated circular loading indicator in three sizes. Announces its label to screen readers via a polite live region.",
+  "package": "@riverromney/components",
+  "props": [
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "default": "md",
+      "description": "Visual size of the spinner. sm = 16px, md = 24px, lg = 32px. Reflected to an attribute."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "default": "Loading",
+      "description": "Accessible label announced to screen readers via the visually hidden status region."
+    }
+  ],
+  "slots": [],
+  "events": [],
+  "cssParts": [],
+  "tokensUsed": [
+    "--color-foreground-action",
+    "--color-border-elevated"
+  ],
+  "rules": [
+    "Never use hex values — always var(--color-*) or var(--component-*)",
+    "Never reference --primitive-* tokens in component code",
+    "All text/background pairings must pass WCAG AA (4.5:1)",
+    "The spinner SVG is aria-hidden; the accessible name comes from the visually hidden role=\"status\" aria-live=\"polite\" region carrying the label.",
+    "Accent green is used here as a loading/progress indicator (intentional non-resting emphasis), not as decoration."
+  ],
+  "examples": [
+    {
+      "title": "Default spinner",
+      "html": "<rr-spinner></rr-spinner>"
+    },
+    {
+      "title": "Small spinner with custom label",
+      "html": "<rr-spinner size=\"sm\" label=\"Saving…\"></rr-spinner>"
+    },
+    {
+      "title": "Large spinner",
+      "html": "<rr-spinner size=\"lg\" label=\"Loading results\"></rr-spinner>"
+    }
+  ],
+  "accessibility": {
+    "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/practices/live-regions/",
+    "role": "status",
+    "ariaLive": "polite",
+    "focusable": false,
+    "keyboard": [],
+    "wcag": [
+      "1.4.11 Non-text Contrast",
+      "4.1.3 Status Messages"
+    ],
+    "rules": [
+      "The animated SVG is decorative (aria-hidden=\"true\", focusable=\"false\"); the label is announced via a separate role=\"status\" aria-live=\"polite\" region.",
+      "Always provide a meaningful label when the default \"Loading\" does not describe the operation."
+    ]
+  },
+  "figma": {
+    "componentKey": "",
+    "nodeId": "124:11",
+    "codeConnectFile": "spinner.figma.ts"
+  }
+}

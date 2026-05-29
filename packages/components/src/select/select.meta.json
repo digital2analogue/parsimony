@@ -1,0 +1,92 @@
+{
+  "metaVersion": "1.0.0",
+  "name": "rr-select",
+  "summary": "Form-associated select dropdown with label, helper/error text, and ElementInternals for native form participation.",
+  "package": "@riverromney/components",
+  "props": [
+    { "name": "name", "type": "string", "default": "", "description": "Form field name for submission." },
+    { "name": "value", "type": "string", "default": "", "description": "Currently selected option value. Reflected to the attribute." },
+    { "name": "label", "type": "string", "default": "", "description": "Visible label text above the select." },
+    { "name": "helper-text", "type": "string", "default": "", "description": "Helper text below the select. Hidden when error-text is set." },
+    { "name": "error-text", "type": "string", "default": "", "description": "Error message below the select. Sets aria-invalid, data-invalid, and replaces helper text." },
+    { "name": "required", "type": "boolean", "default": false, "description": "Marks the field as required. Shows asterisk and sets aria-required." },
+    { "name": "disabled", "type": "boolean", "default": false, "description": "Disables the select." },
+    { "name": "options", "type": "Array<{ value: string; label: string; disabled?: boolean }>", "default": "[]", "description": "Options to render. Set via the options property, not an attribute." }
+  ],
+  "slots": [],
+  "events": [
+    { "name": "change", "detail": "Fired when the selected value changes; bubbles and is composed. Mirrors native change event." }
+  ],
+  "cssParts": [
+    { "name": "label", "description": "The label element above the select." },
+    { "name": "select", "description": "The inner <select> element." },
+    { "name": "helper", "description": "The helper text container." },
+    { "name": "error", "description": "The error message container." }
+  ],
+  "tokensUsed": [
+    "--component-input-background-default",
+    "--component-input-background-disabled",
+    "--component-input-foreground-value",
+    "--component-input-foreground-label",
+    "--component-input-foreground-label-required",
+    "--component-input-foreground-helper",
+    "--component-input-foreground-error",
+    "--component-input-foreground-disabled",
+    "--component-input-border-default",
+    "--component-input-border-hover",
+    "--component-input-border-focus",
+    "--component-input-border-error",
+    "--component-input-border-disabled",
+    "--component-input-radius",
+    "--component-input-padding-x",
+    "--component-input-padding-y",
+    "--font-label-medium",
+    "--font-body-large",
+    "--font-label-small",
+    "--motion-duration-instant",
+    "--motion-easing-default"
+  ],
+  "rules": [
+    "Never use hex values — always var(--color-*) or var(--component-*)",
+    "Never reference --primitive-* tokens in component code",
+    "All text/background pairings must pass WCAG AA (4.5:1)",
+    "Label is associated to the inner <select> via for/id; always provide a label for accessible naming.",
+    "Error linkage: error-text sets aria-invalid and aria-errormessage on the <select>; aria-describedby mirrors the active helper or error id.",
+    "Focus ring is rendered via --component-input-border-focus (resolves through --color-border-focus); never remove the focus indicator."
+  ],
+  "examples": [
+    { "title": "Default", "html": "<rr-select label=\"Country\" id=\"country\"></rr-select>\n<script>document.getElementById('country').options = [{ value: 'us', label: 'United States' }, { value: 'ca', label: 'Canada' }];</script>" },
+    { "title": "With helper text", "html": "<rr-select label=\"Role\" helper-text=\"Choose your primary role\"></rr-select>" },
+    { "title": "Error state", "html": "<rr-select label=\"Plan\" error-text=\"Please select an option\"></rr-select>" },
+    { "title": "Required", "html": "<rr-select label=\"Region\" required></rr-select>" },
+    { "title": "Disabled", "html": "<rr-select label=\"Locked\" disabled></rr-select>" }
+  ],
+  "accessibility": {
+    "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/",
+    "role": "combobox",
+    "focusable": true,
+    "keyboard": [
+      "Tab moves focus to the select",
+      "Up/Down arrows change the selected option natively",
+      "Enter/Space and typeahead work via the native <select>"
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships",
+      "1.4.3 Contrast (Minimum)",
+      "2.4.6 Headings and Labels",
+      "3.3.1 Error Identification",
+      "3.3.2 Labels or Instructions"
+    ],
+    "rules": [
+      "Wraps a native <select>; the browser provides combobox/listbox semantics, so no custom ARIA listbox role is added.",
+      "aria-errormessage points to the error div while invalid; aria-describedby mirrors the helper or error id.",
+      "delegatesFocus forwards host focus to the inner <select>.",
+      "ElementInternals.setFormValue() keeps the form value in sync; setValidity() surfaces the error-text as a custom validity message."
+    ]
+  },
+  "figma": {
+    "componentKey": "",
+    "nodeId": "117:28",
+    "codeConnectFile": "select.figma.ts"
+  }
+}

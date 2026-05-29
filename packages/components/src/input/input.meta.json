@@ -90,7 +90,7 @@
   },
   "figma": {
     "componentKey": "",
-    "nodeId": "",
+    "nodeId": "103:27",
     "codeConnectFile": "input.figma.ts"
   }
 }

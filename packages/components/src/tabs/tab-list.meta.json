@@ -1,0 +1,83 @@
+{
+  "metaVersion": "1.0.0",
+  "name": "rr-tab-list",
+  "summary": "Accessible tab strip that wraps rr-tab elements, manages selection and arrow-key navigation, and emits a change event.",
+  "package": "@riverromney/components",
+  "props": [
+    {
+      "name": "label",
+      "type": "string",
+      "default": "",
+      "description": "Accessible label for the tablist (mapped to aria-label). Required."
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "default": "",
+      "description": "Currently selected tab value. Reflected to an attribute; syncs the selected state of child rr-tab elements."
+    }
+  ],
+  "slots": [
+    {
+      "name": "default",
+      "description": "Place rr-tab elements here."
+    }
+  ],
+  "events": [
+    {
+      "name": "change",
+      "detail": "{ value: string } — fired when the selected tab changes via click or keyboard. Bubbles and is composed."
+    }
+  ],
+  "cssParts": [],
+  "tokensUsed": [
+    "--color-border-default"
+  ],
+  "rules": [
+    "Never use hex values — always var(--color-*) or var(--component-*)",
+    "Never reference --primitive-* tokens in component code",
+    "All text/background pairings must pass WCAG AA (4.5:1)",
+    "Container renders role=\"tablist\" with aria-label from the label prop — always provide a label.",
+    "Implements roving-tabindex keyboard navigation: only the selected tab is in the tab order; arrows move and select.",
+    "Tab panels are owned by the consuming app — listen for the change event to show/hide content."
+  ],
+  "examples": [
+    {
+      "title": "Basic tab list",
+      "html": "<rr-tab-list label=\"View options\" value=\"overview\">\n  <rr-tab value=\"overview\">Overview</rr-tab>\n  <rr-tab value=\"details\">Details</rr-tab>\n  <rr-tab value=\"settings\">Settings</rr-tab>\n</rr-tab-list>"
+    },
+    {
+      "title": "With a disabled tab",
+      "html": "<rr-tab-list label=\"Account\" value=\"profile\">\n  <rr-tab value=\"profile\">Profile</rr-tab>\n  <rr-tab value=\"billing\" disabled>Billing</rr-tab>\n  <rr-tab value=\"security\">Security</rr-tab>\n</rr-tab-list>"
+    }
+  ],
+  "accessibility": {
+    "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/tabs/",
+    "role": "tablist",
+    "focusable": false,
+    "keyboard": [
+      "ArrowRight moves to and selects the next enabled tab (wraps)",
+      "ArrowLeft moves to and selects the previous enabled tab (wraps)",
+      "Home selects the first enabled tab",
+      "End selects the last enabled tab"
+    ],
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast",
+      "2.1.1 Keyboard",
+      "2.4.3 Focus Order",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Renders role=\"tablist\" and requires an accessible name via the label prop (aria-label).",
+      "Disabled tabs are skipped by arrow/Home/End navigation.",
+      "Selection follows focus — moving with arrows updates value and fires change immediately.",
+      "The associated tab panels must reference their controlling tab and be managed by the host app."
+    ]
+  },
+  "figma": {
+    "componentKey": "",
+    "nodeId": "125:7",
+    "codeConnectFile": "tabs.figma.ts"
+  }
+}

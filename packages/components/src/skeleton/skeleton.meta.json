@@ -1,0 +1,78 @@
+{
+  "metaVersion": "1.0.0",
+  "name": "rr-skeleton",
+  "summary": "Animated shimmer placeholder for loading states. Three shape variants — text, circular, rectangular. Decorative and aria-hidden.",
+  "package": "@riverromney/components",
+  "props": [
+    {
+      "name": "variant",
+      "type": "'text' | 'circular' | 'rectangular'",
+      "default": "text",
+      "description": "Shape of the skeleton. Reflected to an attribute. text = line, circular = avatar, rectangular = image/block."
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "default": "",
+      "description": "CSS width value (e.g. '100%', '200px'). Defaults to '40px' for circular, '100%' otherwise."
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "default": "",
+      "description": "CSS height value (e.g. '1em', '40px'). Defaults to '40px' for circular, '1em' otherwise."
+    }
+  ],
+  "slots": [],
+  "events": [],
+  "cssParts": [],
+  "tokensUsed": [
+    "--color-background-disabled",
+    "--color-background-alt",
+    "--radius-sm",
+    "--radius-full",
+    "--radius-default"
+  ],
+  "rules": [
+    "Never use hex values — always var(--color-*) or var(--component-*)",
+    "Never reference --primitive-* tokens in component code",
+    "All text/background pairings must pass WCAG AA (4.5:1)",
+    "The skeleton is decorative — it renders with role=\"presentation\" and aria-hidden=\"true\" and must never carry meaningful content.",
+    "Pair the skeleton with a parent live region or status message so assistive tech is informed that content is loading.",
+    "Respect prefers-reduced-motion at the page level for the shimmer animation."
+  ],
+  "examples": [
+    {
+      "title": "Text line skeleton",
+      "html": "<rr-skeleton></rr-skeleton>"
+    },
+    {
+      "title": "Avatar skeleton",
+      "html": "<rr-skeleton variant=\"circular\" width=\"40px\" height=\"40px\"></rr-skeleton>"
+    },
+    {
+      "title": "Card image skeleton",
+      "html": "<rr-skeleton variant=\"rectangular\" height=\"200px\"></rr-skeleton>"
+    }
+  ],
+  "accessibility": {
+    "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/practices/live-regions/",
+    "role": "presentation",
+    "focusable": false,
+    "keyboard": [],
+    "wcag": [
+      "1.4.11 Non-text Contrast",
+      "4.1.3 Status Messages"
+    ],
+    "rules": [
+      "Rendered with role=\"presentation\" and aria-hidden=\"true\" — purely decorative; conveys no content to assistive tech.",
+      "Announce loading state through a surrounding live region rather than the skeleton itself.",
+      "Honor prefers-reduced-motion to pause or reduce the shimmer animation."
+    ]
+  },
+  "figma": {
+    "componentKey": "",
+    "nodeId": "126:5",
+    "codeConnectFile": "skeleton.figma.ts"
+  }
+}

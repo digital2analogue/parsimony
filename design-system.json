@@ -1,7 +1,1246 @@
 {
   "$schemaVersion": "1.0.0",
-  "generatedAt": "2026-05-11T09:13:31.363Z",
+  "generatedAt": "2026-05-29T22:11:46.938Z",
   "components": [
+    {
+      "metaVersion": "1.0.0",
+      "name": "rr-toggle",
+      "summary": "Form-associated switch for binary on/off settings. Pill track and sliding knob; ElementInternals handles form participation.",
+      "package": "@riverromney/components",
+      "props": [
+        {
+          "name": "checked",
+          "type": "boolean",
+          "default": false,
+          "description": "Whether the toggle is on. Reflected to the checked attribute."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false,
+          "description": "Whether the toggle is non-interactive. Reflected to the disabled attribute."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "default": "on",
+          "description": "Form value submitted when on."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "default": "",
+          "description": "Form field name used for form submission."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": "",
+          "description": "Label text. Falls back to slotted content when empty."
+        }
+      ],
+      "slots": [
+        {
+          "name": "default",
+          "description": "Label text, used as an alternative to the label property."
+        }
+      ],
+      "events": [
+        {
+          "name": "change",
+          "detail": "Fires when the toggle state changes. Bubbles and is composed."
+        }
+      ],
+      "cssParts": [
+        {
+          "name": "track",
+          "description": "The pill-shaped track element."
+        },
+        {
+          "name": "knob",
+          "description": "The sliding knob element."
+        },
+        {
+          "name": "label",
+          "description": "The label text element."
+        }
+      ],
+      "tokensUsed": [
+        "--spacing-tight",
+        "--radius-full",
+        "--component-toggle-track-border-off",
+        "--component-toggle-track-background-off",
+        "--motion-duration-instant",
+        "--motion-easing-default",
+        "--component-toggle-track-background-on",
+        "--component-toggle-track-border-on",
+        "--component-toggle-track-background-disabled",
+        "--component-toggle-track-border-disabled",
+        "--component-toggle-knob-background-off",
+        "--motion-easing-move",
+        "--component-toggle-knob-background-on",
+        "--component-toggle-knob-background-disabled",
+        "--color-border-focus",
+        "--font-label-medium",
+        "--component-toggle-foreground-label",
+        "--component-toggle-foreground-disabled"
+      ],
+      "rules": [
+        "Never use hex values — always var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)",
+        "The label must be associated with the control via the for/id pairing on the native input.",
+        "The focus ring is driven by --color-border-focus on input:focus-visible — never replace it with a bare outline:none.",
+        "The native input carries role=\"switch\" so the control is announced as a switch, not a checkbox."
+      ],
+      "examples": [
+        {
+          "title": "Default (off)",
+          "html": "<rr-toggle name=\"notify\" label=\"Email notifications\"></rr-toggle>"
+        },
+        {
+          "title": "On",
+          "html": "<rr-toggle name=\"darkMode\" label=\"Dark mode\" checked></rr-toggle>"
+        },
+        {
+          "title": "Disabled",
+          "html": "<rr-toggle label=\"Unavailable setting\" disabled></rr-toggle>"
+        },
+        {
+          "title": "Slotted label",
+          "html": "<rr-toggle name=\"notify\">Notifications</rr-toggle>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/switch/",
+        "role": "switch",
+        "focusable": true,
+        "keyboard": [
+          "Space toggles the on/off state",
+          "Tab moves focus to the switch"
+        ],
+        "wcag": [
+          "1.4.3 Contrast (Minimum)",
+          "1.4.11 Non-text Contrast",
+          "2.1.1 Keyboard",
+          "4.1.2 Name, Role, Value"
+        ],
+        "rules": [
+          "A hidden native <input type=\"checkbox\" role=\"switch\"> provides focus, keyboard, and label-click semantics; the visual track and knob are decorative.",
+          "Form participation is provided via formAssociated and ElementInternals.setFormValue.",
+          "aria-checked reflects the on/off state (true when on, false when off).",
+          "The label must convey meaning on its own; do not rely solely on color or knob position."
+        ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "117:56",
+        "codeConnectFile": "toggle.figma.ts"
+      }
+    },
+    {
+      "metaVersion": "1.0.0",
+      "name": "rr-textarea",
+      "summary": "Form-associated multi-line text area with label, helper/error text, and ElementInternals for native form participation.",
+      "package": "@riverromney/components",
+      "props": [
+        {
+          "name": "name",
+          "type": "string",
+          "default": "",
+          "description": "Form field name for submission."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "default": "",
+          "description": "Current textarea value."
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "",
+          "description": "Placeholder text shown when empty."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": "",
+          "description": "Visible label text above the textarea."
+        },
+        {
+          "name": "helper-text",
+          "type": "string",
+          "default": "",
+          "description": "Helper text below the textarea. Hidden when error-text is set."
+        },
+        {
+          "name": "error-text",
+          "type": "string",
+          "default": "",
+          "description": "Error message below the textarea. Sets aria-invalid, data-invalid, and replaces helper text."
+        },
+        {
+          "name": "rows",
+          "type": "number",
+          "default": 3,
+          "description": "Number of visible text rows."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "default": false,
+          "description": "Marks the field as required. Shows asterisk and sets aria-required."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false,
+          "description": "Disables the textarea."
+        }
+      ],
+      "slots": [
+        {
+          "name": "label",
+          "description": "Optional override for the label content."
+        }
+      ],
+      "events": [
+        {
+          "name": "input",
+          "detail": "Fired on each keystroke; bubbles and is composed. Mirrors native input event."
+        },
+        {
+          "name": "change",
+          "detail": "Fired on value commit (blur); bubbles and is composed. Mirrors native change event."
+        }
+      ],
+      "cssParts": [
+        {
+          "name": "label",
+          "description": "The label element above the textarea."
+        },
+        {
+          "name": "textarea",
+          "description": "The inner <textarea> element."
+        },
+        {
+          "name": "helper",
+          "description": "The helper text container."
+        },
+        {
+          "name": "error",
+          "description": "The error message container."
+        }
+      ],
+      "tokensUsed": [
+        "--component-input-background-default",
+        "--component-input-background-disabled",
+        "--component-input-foreground-value",
+        "--component-input-foreground-placeholder",
+        "--component-input-foreground-label",
+        "--component-input-foreground-label-required",
+        "--component-input-foreground-helper",
+        "--component-input-foreground-error",
+        "--component-input-foreground-disabled",
+        "--component-input-border-default",
+        "--component-input-border-hover",
+        "--component-input-border-focus",
+        "--component-input-border-error",
+        "--component-input-border-disabled",
+        "--component-input-radius",
+        "--component-input-padding-x",
+        "--component-input-padding-y",
+        "--font-label-medium",
+        "--font-body-large",
+        "--font-label-small",
+        "--motion-duration-instant",
+        "--motion-easing-default"
+      ],
+      "rules": [
+        "Never use hex values — always var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)",
+        "Label is associated to the inner <textarea> via for/id; always provide a label for accessible naming.",
+        "Error linkage: error-text sets aria-invalid and aria-errormessage on the <textarea>; aria-describedby mirrors the active helper or error id.",
+        "Focus ring is rendered via --component-input-border-focus (resolves through --color-border-focus); never remove the focus indicator."
+      ],
+      "examples": [
+        {
+          "title": "Default",
+          "html": "<rr-textarea label=\"Notes\" placeholder=\"Type your notes...\"></rr-textarea>"
+        },
+        {
+          "title": "With helper text",
+          "html": "<rr-textarea label=\"Bio\" helper-text=\"Max 500 characters\"></rr-textarea>"
+        },
+        {
+          "title": "Error state",
+          "html": "<rr-textarea label=\"Message\" value=\"Hi\" error-text=\"Message is too short\"></rr-textarea>"
+        },
+        {
+          "title": "Required",
+          "html": "<rr-textarea label=\"Feedback\" required></rr-textarea>"
+        },
+        {
+          "title": "Taller field",
+          "html": "<rr-textarea label=\"Description\" rows=\"6\"></rr-textarea>"
+        },
+        {
+          "title": "Disabled",
+          "html": "<rr-textarea label=\"Locked\" value=\"Cannot edit\" disabled></rr-textarea>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/textbox/",
+        "focusable": true,
+        "keyboard": [
+          "Tab moves focus to the textarea",
+          "Standard multi-line text editing keys work natively"
+        ],
+        "wcag": [
+          "1.3.1 Info and Relationships",
+          "1.4.3 Contrast (Minimum)",
+          "2.4.6 Headings and Labels",
+          "3.3.1 Error Identification",
+          "3.3.2 Labels or Instructions"
+        ],
+        "rules": [
+          "Wraps a native multi-line <textarea>; the browser provides the textbox semantics.",
+          "aria-errormessage points to the error div while invalid; aria-describedby mirrors the helper or error id.",
+          "delegatesFocus forwards host focus to the inner <textarea>.",
+          "ElementInternals.setFormValue() keeps the form value in sync; setValidity() surfaces the error-text as a custom validity message."
+        ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "119:24",
+        "codeConnectFile": "textarea.figma.ts"
+      }
+    },
+    {
+      "metaVersion": "1.0.0",
+      "name": "rr-tab-list",
+      "summary": "Accessible tab strip that wraps rr-tab elements, manages selection and arrow-key navigation, and emits a change event.",
+      "package": "@riverromney/components",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "default": "",
+          "description": "Accessible label for the tablist (mapped to aria-label). Required."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "default": "",
+          "description": "Currently selected tab value. Reflected to an attribute; syncs the selected state of child rr-tab elements."
+        }
+      ],
+      "slots": [
+        {
+          "name": "default",
+          "description": "Place rr-tab elements here."
+        }
+      ],
+      "events": [
+        {
+          "name": "change",
+          "detail": "{ value: string } — fired when the selected tab changes via click or keyboard. Bubbles and is composed."
+        }
+      ],
+      "cssParts": [],
+      "tokensUsed": [
+        "--color-border-default"
+      ],
+      "rules": [
+        "Never use hex values — always var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)",
+        "Container renders role=\"tablist\" with aria-label from the label prop — always provide a label.",
+        "Implements roving-tabindex keyboard navigation: only the selected tab is in the tab order; arrows move and select.",
+        "Tab panels are owned by the consuming app — listen for the change event to show/hide content."
+      ],
+      "examples": [
+        {
+          "title": "Basic tab list",
+          "html": "<rr-tab-list label=\"View options\" value=\"overview\">\n  <rr-tab value=\"overview\">Overview</rr-tab>\n  <rr-tab value=\"details\">Details</rr-tab>\n  <rr-tab value=\"settings\">Settings</rr-tab>\n</rr-tab-list>"
+        },
+        {
+          "title": "With a disabled tab",
+          "html": "<rr-tab-list label=\"Account\" value=\"profile\">\n  <rr-tab value=\"profile\">Profile</rr-tab>\n  <rr-tab value=\"billing\" disabled>Billing</rr-tab>\n  <rr-tab value=\"security\">Security</rr-tab>\n</rr-tab-list>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/tabs/",
+        "role": "tablist",
+        "focusable": false,
+        "keyboard": [
+          "ArrowRight moves to and selects the next enabled tab (wraps)",
+          "ArrowLeft moves to and selects the previous enabled tab (wraps)",
+          "Home selects the first enabled tab",
+          "End selects the last enabled tab"
+        ],
+        "wcag": [
+          "1.4.3 Contrast (Minimum)",
+          "1.4.11 Non-text Contrast",
+          "2.1.1 Keyboard",
+          "2.4.3 Focus Order",
+          "4.1.2 Name, Role, Value"
+        ],
+        "rules": [
+          "Renders role=\"tablist\" and requires an accessible name via the label prop (aria-label).",
+          "Disabled tabs are skipped by arrow/Home/End navigation.",
+          "Selection follows focus — moving with arrows updates value and fires change immediately.",
+          "The associated tab panels must reference their controlling tab and be managed by the host app."
+        ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "125:7",
+        "codeConnectFile": "tabs.figma.ts"
+      }
+    },
+    {
+      "metaVersion": "1.0.0",
+      "name": "rr-tab",
+      "summary": "A single tab button used inside rr-tab-list. Selection is controlled by the parent; emits rr-tab-select when clicked.",
+      "package": "@riverromney/components",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "default": "",
+          "description": "Unique identifier for this tab. Required; must match the value rr-tab-list uses for selection. Reflected to an attribute."
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "default": false,
+          "description": "True when this tab is the active selection. Set by the parent rr-tab-list — do not set directly. Reflected to an attribute."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false,
+          "description": "Prevents selection of this tab. Reflected to an attribute."
+        }
+      ],
+      "slots": [
+        {
+          "name": "default",
+          "description": "Tab label text and optional icon."
+        }
+      ],
+      "events": [
+        {
+          "name": "rr-tab-select",
+          "detail": "{ value: string } — bubbles up to rr-tab-list when the tab is clicked while enabled and not already selected. Composed."
+        }
+      ],
+      "cssParts": [],
+      "tokensUsed": [
+        "--spacing-tight",
+        "--spacing-inline",
+        "--font-label-medium",
+        "--color-foreground-muted",
+        "--motion-duration-instant",
+        "--motion-easing-default",
+        "--color-foreground-alt",
+        "--color-border-focus",
+        "--radius-sm",
+        "--color-foreground-action",
+        "--color-background-action",
+        "--font-label-strong-medium",
+        "--color-foreground-disabled"
+      ],
+      "rules": [
+        "Never use hex values — always var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)",
+        "Renders an inner button with role=\"tab\" and aria-selected reflecting the selected prop.",
+        "Roving tabindex: selected tab is tabindex 0, others are -1 — managed in concert with rr-tab-list.",
+        "Selected state uses accent green (foreground-action text + background-action underline) as intentional active emphasis, not decoration.",
+        "Do not set selected directly — control the active tab through rr-tab-list[value]."
+      ],
+      "examples": [
+        {
+          "title": "Tabs inside a tab list",
+          "html": "<rr-tab-list label=\"View options\" value=\"overview\">\n  <rr-tab value=\"overview\">Overview</rr-tab>\n  <rr-tab value=\"details\">Details</rr-tab>\n  <rr-tab value=\"settings\">Settings</rr-tab>\n</rr-tab-list>"
+        },
+        {
+          "title": "Disabled tab",
+          "html": "<rr-tab value=\"billing\" disabled>Billing</rr-tab>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/tabs/",
+        "role": "tab",
+        "focusable": true,
+        "keyboard": [
+          "Enter or Space activates the tab (native button activation, dispatching rr-tab-select)",
+          "Tab order is managed by the parent via roving tabindex"
+        ],
+        "wcag": [
+          "1.4.3 Contrast (Minimum)",
+          "1.4.11 Non-text Contrast",
+          "2.1.1 Keyboard",
+          "4.1.2 Name, Role, Value"
+        ],
+        "rules": [
+          "Inner button exposes role=\"tab\" and aria-selected (\"true\"/\"false\").",
+          "tabindex is 0 only when selected, -1 otherwise (roving tabindex with rr-tab-list).",
+          "Disabled tabs set the native disabled attribute and ignore clicks.",
+          "Do not rely on color alone — the selected tab also changes weight and shows an underline indicator."
+        ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "125:7",
+        "codeConnectFile": "tabs.figma.ts"
+      }
+    },
+    {
+      "metaVersion": "1.0.0",
+      "name": "rr-spinner",
+      "summary": "Animated circular loading indicator in three sizes. Announces its label to screen readers via a polite live region.",
+      "package": "@riverromney/components",
+      "props": [
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "md",
+          "description": "Visual size of the spinner. sm = 16px, md = 24px, lg = 32px. Reflected to an attribute."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": "Loading",
+          "description": "Accessible label announced to screen readers via the visually hidden status region."
+        }
+      ],
+      "slots": [],
+      "events": [],
+      "cssParts": [],
+      "tokensUsed": [
+        "--color-foreground-action",
+        "--color-border-elevated"
+      ],
+      "rules": [
+        "Never use hex values — always var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)",
+        "The spinner SVG is aria-hidden; the accessible name comes from the visually hidden role=\"status\" aria-live=\"polite\" region carrying the label.",
+        "Accent green is used here as a loading/progress indicator (intentional non-resting emphasis), not as decoration."
+      ],
+      "examples": [
+        {
+          "title": "Default spinner",
+          "html": "<rr-spinner></rr-spinner>"
+        },
+        {
+          "title": "Small spinner with custom label",
+          "html": "<rr-spinner size=\"sm\" label=\"Saving…\"></rr-spinner>"
+        },
+        {
+          "title": "Large spinner",
+          "html": "<rr-spinner size=\"lg\" label=\"Loading results\"></rr-spinner>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/practices/live-regions/",
+        "role": "status",
+        "ariaLive": "polite",
+        "focusable": false,
+        "keyboard": [],
+        "wcag": [
+          "1.4.11 Non-text Contrast",
+          "4.1.3 Status Messages"
+        ],
+        "rules": [
+          "The animated SVG is decorative (aria-hidden=\"true\", focusable=\"false\"); the label is announced via a separate role=\"status\" aria-live=\"polite\" region.",
+          "Always provide a meaningful label when the default \"Loading\" does not describe the operation."
+        ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "124:11",
+        "codeConnectFile": "spinner.figma.ts"
+      }
+    },
+    {
+      "metaVersion": "1.0.0",
+      "name": "rr-skeleton",
+      "summary": "Animated shimmer placeholder for loading states. Three shape variants — text, circular, rectangular. Decorative and aria-hidden.",
+      "package": "@riverromney/components",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'text' | 'circular' | 'rectangular'",
+          "default": "text",
+          "description": "Shape of the skeleton. Reflected to an attribute. text = line, circular = avatar, rectangular = image/block."
+        },
+        {
+          "name": "width",
+          "type": "string",
+          "default": "",
+          "description": "CSS width value (e.g. '100%', '200px'). Defaults to '40px' for circular, '100%' otherwise."
+        },
+        {
+          "name": "height",
+          "type": "string",
+          "default": "",
+          "description": "CSS height value (e.g. '1em', '40px'). Defaults to '40px' for circular, '1em' otherwise."
+        }
+      ],
+      "slots": [],
+      "events": [],
+      "cssParts": [],
+      "tokensUsed": [
+        "--color-background-disabled",
+        "--color-background-alt",
+        "--radius-sm",
+        "--radius-full",
+        "--radius-default"
+      ],
+      "rules": [
+        "Never use hex values — always var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)",
+        "The skeleton is decorative — it renders with role=\"presentation\" and aria-hidden=\"true\" and must never carry meaningful content.",
+        "Pair the skeleton with a parent live region or status message so assistive tech is informed that content is loading.",
+        "Respect prefers-reduced-motion at the page level for the shimmer animation."
+      ],
+      "examples": [
+        {
+          "title": "Text line skeleton",
+          "html": "<rr-skeleton></rr-skeleton>"
+        },
+        {
+          "title": "Avatar skeleton",
+          "html": "<rr-skeleton variant=\"circular\" width=\"40px\" height=\"40px\"></rr-skeleton>"
+        },
+        {
+          "title": "Card image skeleton",
+          "html": "<rr-skeleton variant=\"rectangular\" height=\"200px\"></rr-skeleton>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/practices/live-regions/",
+        "role": "presentation",
+        "focusable": false,
+        "keyboard": [],
+        "wcag": [
+          "1.4.11 Non-text Contrast",
+          "4.1.3 Status Messages"
+        ],
+        "rules": [
+          "Rendered with role=\"presentation\" and aria-hidden=\"true\" — purely decorative; conveys no content to assistive tech.",
+          "Announce loading state through a surrounding live region rather than the skeleton itself.",
+          "Honor prefers-reduced-motion to pause or reduce the shimmer animation."
+        ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "126:5",
+        "codeConnectFile": "skeleton.figma.ts"
+      }
+    },
+    {
+      "metaVersion": "1.0.0",
+      "name": "rr-select",
+      "summary": "Form-associated select dropdown with label, helper/error text, and ElementInternals for native form participation.",
+      "package": "@riverromney/components",
+      "props": [
+        {
+          "name": "name",
+          "type": "string",
+          "default": "",
+          "description": "Form field name for submission."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "default": "",
+          "description": "Currently selected option value. Reflected to the attribute."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": "",
+          "description": "Visible label text above the select."
+        },
+        {
+          "name": "helper-text",
+          "type": "string",
+          "default": "",
+          "description": "Helper text below the select. Hidden when error-text is set."
+        },
+        {
+          "name": "error-text",
+          "type": "string",
+          "default": "",
+          "description": "Error message below the select. Sets aria-invalid, data-invalid, and replaces helper text."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "default": false,
+          "description": "Marks the field as required. Shows asterisk and sets aria-required."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false,
+          "description": "Disables the select."
+        },
+        {
+          "name": "options",
+          "type": "Array<{ value: string; label: string; disabled?: boolean }>",
+          "default": "[]",
+          "description": "Options to render. Set via the options property, not an attribute."
+        }
+      ],
+      "slots": [],
+      "events": [
+        {
+          "name": "change",
+          "detail": "Fired when the selected value changes; bubbles and is composed. Mirrors native change event."
+        }
+      ],
+      "cssParts": [
+        {
+          "name": "label",
+          "description": "The label element above the select."
+        },
+        {
+          "name": "select",
+          "description": "The inner <select> element."
+        },
+        {
+          "name": "helper",
+          "description": "The helper text container."
+        },
+        {
+          "name": "error",
+          "description": "The error message container."
+        }
+      ],
+      "tokensUsed": [
+        "--component-input-background-default",
+        "--component-input-background-disabled",
+        "--component-input-foreground-value",
+        "--component-input-foreground-label",
+        "--component-input-foreground-label-required",
+        "--component-input-foreground-helper",
+        "--component-input-foreground-error",
+        "--component-input-foreground-disabled",
+        "--component-input-border-default",
+        "--component-input-border-hover",
+        "--component-input-border-focus",
+        "--component-input-border-error",
+        "--component-input-border-disabled",
+        "--component-input-radius",
+        "--component-input-padding-x",
+        "--component-input-padding-y",
+        "--font-label-medium",
+        "--font-body-large",
+        "--font-label-small",
+        "--motion-duration-instant",
+        "--motion-easing-default"
+      ],
+      "rules": [
+        "Never use hex values — always var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)",
+        "Label is associated to the inner <select> via for/id; always provide a label for accessible naming.",
+        "Error linkage: error-text sets aria-invalid and aria-errormessage on the <select>; aria-describedby mirrors the active helper or error id.",
+        "Focus ring is rendered via --component-input-border-focus (resolves through --color-border-focus); never remove the focus indicator."
+      ],
+      "examples": [
+        {
+          "title": "Default",
+          "html": "<rr-select label=\"Country\" id=\"country\"></rr-select>\n<script>document.getElementById('country').options = [{ value: 'us', label: 'United States' }, { value: 'ca', label: 'Canada' }];</script>"
+        },
+        {
+          "title": "With helper text",
+          "html": "<rr-select label=\"Role\" helper-text=\"Choose your primary role\"></rr-select>"
+        },
+        {
+          "title": "Error state",
+          "html": "<rr-select label=\"Plan\" error-text=\"Please select an option\"></rr-select>"
+        },
+        {
+          "title": "Required",
+          "html": "<rr-select label=\"Region\" required></rr-select>"
+        },
+        {
+          "title": "Disabled",
+          "html": "<rr-select label=\"Locked\" disabled></rr-select>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/",
+        "role": "combobox",
+        "focusable": true,
+        "keyboard": [
+          "Tab moves focus to the select",
+          "Up/Down arrows change the selected option natively",
+          "Enter/Space and typeahead work via the native <select>"
+        ],
+        "wcag": [
+          "1.3.1 Info and Relationships",
+          "1.4.3 Contrast (Minimum)",
+          "2.4.6 Headings and Labels",
+          "3.3.1 Error Identification",
+          "3.3.2 Labels or Instructions"
+        ],
+        "rules": [
+          "Wraps a native <select>; the browser provides combobox/listbox semantics, so no custom ARIA listbox role is added.",
+          "aria-errormessage points to the error div while invalid; aria-describedby mirrors the helper or error id.",
+          "delegatesFocus forwards host focus to the inner <select>.",
+          "ElementInternals.setFormValue() keeps the form value in sync; setValidity() surfaces the error-text as a custom validity message."
+        ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "117:28",
+        "codeConnectFile": "select.figma.ts"
+      }
+    },
+    {
+      "metaVersion": "1.0.0",
+      "name": "rr-radio-group",
+      "summary": "Form-associated group of rr-radio buttons. Manages selection and form value, renders a fieldset/legend for accessible grouping.",
+      "package": "@riverromney/components",
+      "props": [
+        {
+          "name": "name",
+          "type": "string",
+          "default": "",
+          "description": "Form field name used for form submission."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "default": "",
+          "description": "The value of the selected radio. Reflected to the value attribute and submitted with the form."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": "",
+          "description": "Group label rendered as the fieldset legend."
+        },
+        {
+          "name": "errorText",
+          "type": "string",
+          "default": "",
+          "description": "Error message shown below the group. Sets a custom validity error and toggles the data-invalid attribute. Maps to the error-text attribute."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "default": false,
+          "description": "Whether a selection is required. Adds an asterisk to the legend and aria-required to the group. Reflected to the required attribute."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false,
+          "description": "Whether the entire group is non-interactive. Disables all child radios. Reflected to the disabled attribute."
+        },
+        {
+          "name": "orientation",
+          "type": "'vertical' | 'horizontal'",
+          "default": "vertical",
+          "description": "Layout direction of the radio options. Reflected to the orientation attribute."
+        }
+      ],
+      "slots": [
+        {
+          "name": "default",
+          "description": "The rr-radio child elements."
+        }
+      ],
+      "events": [
+        {
+          "name": "change",
+          "detail": "Fires when the selected value changes. Bubbles and is composed."
+        }
+      ],
+      "cssParts": [
+        {
+          "name": "fieldset",
+          "description": "The outer fieldset element."
+        },
+        {
+          "name": "legend",
+          "description": "The legend / label element."
+        }
+      ],
+      "tokensUsed": [
+        "--font-label-medium",
+        "--component-radio-foreground-label",
+        "--spacing-tight",
+        "--component-radio-foreground-disabled",
+        "--spacing-element",
+        "--font-label-small",
+        "--component-input-foreground-error",
+        "--component-input-foreground-label-required"
+      ],
+      "rules": [
+        "Never use hex values — always var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)",
+        "The group label is provided via the legend inside a fieldset for accessible grouping.",
+        "Focus rings live on the child rr-radio controls (driven by --component-radio-border-focus); never replace them with a bare outline:none.",
+        "errorText must be conveyed by text, not color alone, and is exposed via role=\"alert\" plus ElementInternals.setValidity."
+      ],
+      "examples": [
+        {
+          "title": "Vertical group",
+          "html": "<rr-radio-group name=\"size\" label=\"Size\" value=\"md\">\n  <rr-radio value=\"sm\">Small</rr-radio>\n  <rr-radio value=\"md\">Medium</rr-radio>\n  <rr-radio value=\"lg\">Large</rr-radio>\n</rr-radio-group>"
+        },
+        {
+          "title": "Horizontal orientation",
+          "html": "<rr-radio-group name=\"align\" label=\"Alignment\" orientation=\"horizontal\">\n  <rr-radio value=\"left\">Left</rr-radio>\n  <rr-radio value=\"center\">Center</rr-radio>\n  <rr-radio value=\"right\">Right</rr-radio>\n</rr-radio-group>"
+        },
+        {
+          "title": "Required with error",
+          "html": "<rr-radio-group name=\"plan\" label=\"Plan\" required error-text=\"Please select a plan\">\n  <rr-radio value=\"free\">Free</rr-radio>\n  <rr-radio value=\"pro\">Pro</rr-radio>\n</rr-radio-group>"
+        },
+        {
+          "title": "Disabled group",
+          "html": "<rr-radio-group name=\"locked\" label=\"Locked options\" disabled>\n  <rr-radio value=\"a\">Alpha</rr-radio>\n  <rr-radio value=\"b\">Beta</rr-radio>\n</rr-radio-group>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/radio/",
+        "role": "radiogroup",
+        "focusable": false,
+        "keyboard": [
+          "Arrow keys move selection between radios within the group",
+          "Space selects the focused radio",
+          "Tab moves focus into and out of the group"
+        ],
+        "wcag": [
+          "1.4.3 Contrast (Minimum)",
+          "1.4.11 Non-text Contrast",
+          "2.1.1 Keyboard",
+          "3.3.1 Error Identification",
+          "4.1.2 Name, Role, Value"
+        ],
+        "rules": [
+          "The group is form-associated via formAssociated and ElementInternals, which set the form value and validity.",
+          "Grouping is conveyed by a fieldset with a legend; the options container also carries role=\"radiogroup\".",
+          "When required, aria-required=\"true\" is set on the radiogroup and a visual asterisk is appended to the legend.",
+          "errorText is announced via role=\"alert\" and registered as a custom validity error on the element internals."
+        ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "121:77",
+        "codeConnectFile": "radio.figma.ts"
+      }
+    },
+    {
+      "metaVersion": "1.0.0",
+      "name": "rr-radio",
+      "summary": "An individual radio button. Must be used inside rr-radio-group, which manages name, form value, and selection state.",
+      "package": "@riverromney/components",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "default": "",
+          "description": "The value this radio contributes to the parent group when selected. Reflected to the value attribute."
+        },
+        {
+          "name": "checked",
+          "type": "boolean",
+          "default": false,
+          "description": "Whether this radio is selected. Managed by the parent rr-radio-group. Reflected to the checked attribute."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false,
+          "description": "Whether this radio is non-interactive. Reflected to the disabled attribute."
+        }
+      ],
+      "slots": [
+        {
+          "name": "default",
+          "description": "Label text for this radio option."
+        }
+      ],
+      "events": [
+        {
+          "name": "rr-radio-change",
+          "detail": "{ value: string } — bubbles to the parent rr-radio-group when this radio is selected. Bubbles and is composed."
+        }
+      ],
+      "cssParts": [
+        {
+          "name": "circle",
+          "description": "The visual radio circle element."
+        },
+        {
+          "name": "label",
+          "description": "The label text element."
+        }
+      ],
+      "tokensUsed": [
+        "--spacing-tight",
+        "--component-radio-border-default",
+        "--component-radio-background-unchecked",
+        "--motion-duration-instant",
+        "--motion-easing-default",
+        "--component-radio-border-hover",
+        "--component-radio-border-checked",
+        "--component-radio-background-disabled",
+        "--component-radio-border-disabled",
+        "--component-radio-background-checked",
+        "--motion-easing-enter",
+        "--component-radio-foreground-disabled",
+        "--component-radio-border-focus",
+        "--font-label-medium",
+        "--component-radio-foreground-label"
+      ],
+      "rules": [
+        "Never use hex values — always var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)",
+        "Always render rr-radio inside an rr-radio-group — the group owns name, form value, and single-selection state.",
+        "The label must be associated with the control via the for/id pairing on the native input.",
+        "The focus ring is driven by --component-radio-border-focus on input:focus-visible — never replace it with a bare outline:none."
+      ],
+      "examples": [
+        {
+          "title": "Inside a radio group",
+          "html": "<rr-radio-group name=\"size\" label=\"Size\" value=\"md\">\n  <rr-radio value=\"sm\">Small</rr-radio>\n  <rr-radio value=\"md\">Medium</rr-radio>\n  <rr-radio value=\"lg\">Large</rr-radio>\n</rr-radio-group>"
+        },
+        {
+          "title": "Disabled option",
+          "html": "<rr-radio-group name=\"plan\" label=\"Plan\">\n  <rr-radio value=\"free\">Free</rr-radio>\n  <rr-radio value=\"pro\" disabled>Pro (coming soon)</rr-radio>\n</rr-radio-group>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/radio/",
+        "role": "radio",
+        "focusable": true,
+        "keyboard": [
+          "Space selects the focused radio",
+          "Arrow keys move selection between radios within the group"
+        ],
+        "wcag": [
+          "1.4.3 Contrast (Minimum)",
+          "1.4.11 Non-text Contrast",
+          "2.1.1 Keyboard",
+          "4.1.2 Name, Role, Value"
+        ],
+        "rules": [
+          "rr-radio is not form-associated on its own; the parent rr-radio-group handles form participation via ElementInternals.",
+          "A hidden native <input type=\"radio\"> provides focus, keyboard, and label-click semantics; the visual circle and dot are decorative.",
+          "Selecting an already-checked radio is a no-op and does not re-dispatch rr-radio-change.",
+          "The label must convey meaning on its own; do not rely solely on color."
+        ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "121:77",
+        "codeConnectFile": "radio.figma.ts"
+      }
+    },
+    {
+      "metaVersion": "1.0.0",
+      "name": "rr-progress",
+      "summary": "Horizontal progress bar with determinate and indeterminate modes. Uses native role=progressbar ARIA attributes.",
+      "package": "@riverromney/components",
+      "props": [
+        {
+          "name": "value",
+          "type": "number",
+          "default": 0,
+          "description": "Current progress value (0–max). Ignored when indeterminate."
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "default": 100,
+          "description": "Maximum value, mapped to aria-valuemax."
+        },
+        {
+          "name": "indeterminate",
+          "type": "boolean",
+          "default": false,
+          "description": "Show an animated indeterminate loading state instead of a fixed value. Reflected to an attribute; sets aria-busy and omits aria-valuenow."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": "",
+          "description": "Accessible label for the progress bar, mapped to aria-label. Required when no visible label is nearby."
+        }
+      ],
+      "slots": [],
+      "events": [],
+      "cssParts": [],
+      "tokensUsed": [
+        "--radius-full",
+        "--color-background-disabled",
+        "--color-background-action",
+        "--motion-duration-standard",
+        "--motion-easing-move"
+      ],
+      "rules": [
+        "Never use hex values — always var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)",
+        "The track uses role=\"progressbar\" with aria-valuemin/aria-valuemax; aria-valuenow is set only in determinate mode.",
+        "Indeterminate mode sets aria-busy=\"true\" and omits aria-valuenow.",
+        "Accent green (background-action) is used as the progress fill (intentional emphasis), not as decoration."
+      ],
+      "examples": [
+        {
+          "title": "Determinate progress",
+          "html": "<rr-progress value=\"60\" label=\"Upload progress\"></rr-progress>"
+        },
+        {
+          "title": "Custom maximum",
+          "html": "<rr-progress value=\"3\" max=\"5\" label=\"Step 3 of 5\"></rr-progress>"
+        },
+        {
+          "title": "Indeterminate progress",
+          "html": "<rr-progress indeterminate label=\"Loading…\"></rr-progress>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/meter/",
+        "role": "progressbar",
+        "focusable": false,
+        "keyboard": [],
+        "wcag": [
+          "1.4.11 Non-text Contrast",
+          "4.1.2 Name, Role, Value"
+        ],
+        "rules": [
+          "Determinate mode exposes aria-valuenow, aria-valuemin=\"0\", and aria-valuemax (the max prop).",
+          "Indeterminate mode omits aria-valuenow and sets aria-busy=\"true\".",
+          "Provide a label (aria-label) when there is no visible labelling element nearby."
+        ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "125:6",
+        "codeConnectFile": "progress.figma.ts"
+      }
+    },
+    {
+      "metaVersion": "1.0.0",
+      "name": "rr-link",
+      "summary": "Anchor that enforces the design-system link style: underlined by default, underline removed on hover. Three colour variants.",
+      "package": "@riverromney/components",
+      "props": [
+        {
+          "name": "href",
+          "type": "string",
+          "default": "",
+          "description": "Link destination, forwarded to the inner anchor."
+        },
+        {
+          "name": "target",
+          "type": "'_self' | '_blank' | '_parent' | '_top'",
+          "default": "_self",
+          "description": "Browsing context. Use _blank to open in a new tab."
+        },
+        {
+          "name": "rel",
+          "type": "string",
+          "default": "",
+          "description": "Anchor rel attribute. When empty and target is _blank, defaults to \"noopener noreferrer\"."
+        },
+        {
+          "name": "variant",
+          "type": "'default' | 'muted' | 'subtle'",
+          "default": "default",
+          "description": "Colour variant — default (foreground.action), muted (foreground.alt), subtle (foreground.muted). Reflected to the host attribute."
+        },
+        {
+          "name": "ariaLabel",
+          "type": "string | null",
+          "default": null,
+          "description": "Accessible label (aria-label) forwarded to the anchor when link text alone is insufficient."
+        }
+      ],
+      "slots": [
+        {
+          "name": "default",
+          "description": "Link label content."
+        }
+      ],
+      "events": [],
+      "cssParts": [],
+      "tokensUsed": [
+        "--color-foreground-action",
+        "--motion-duration-instant",
+        "--motion-easing-default",
+        "--color-border-focus",
+        "--color-foreground-alt",
+        "--color-foreground-muted"
+      ],
+      "rules": [
+        "Never use hex values — always var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)",
+        "Links are underlined by default and lose the underline on hover — this is the intentional inverse of the common convention. Do not re-add underline on :hover.",
+        "External links (target=\"_blank\") receive rel=\"noopener noreferrer\" automatically unless an explicit rel is supplied.",
+        "The default variant uses accent green (foreground.action) — reserved for genuine interactivity, which a link satisfies."
+      ],
+      "examples": [
+        {
+          "title": "Default link",
+          "html": "<rr-link href=\"/home\">Home</rr-link>"
+        },
+        {
+          "title": "External link (auto rel)",
+          "html": "<rr-link href=\"https://example.com\" target=\"_blank\">Visit site</rr-link>"
+        },
+        {
+          "title": "Colour variants",
+          "html": "<rr-link href=\"/a\">Default</rr-link>\n<rr-link href=\"/b\" variant=\"muted\">Muted</rr-link>\n<rr-link href=\"/c\" variant=\"subtle\">Subtle</rr-link>"
+        },
+        {
+          "title": "With accessible label",
+          "html": "<rr-link href=\"/docs\" aria-label=\"Read the docs\">Docs</rr-link>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/link/",
+        "role": "link",
+        "focusable": true,
+        "keyboard": [
+          "Enter activates the link"
+        ],
+        "wcag": [
+          "1.4.3 Contrast (Minimum)",
+          "2.4.4 Link Purpose (In Context)",
+          "2.4.7 Focus Visible",
+          "2.4.11 Focus Not Obscured (Minimum)"
+        ],
+        "rules": [
+          "A visible focus ring (border.focus) is rendered on :focus-visible — do not suppress it.",
+          "Link text (or aria-label) must describe the destination; avoid bare \"click here\" labels.",
+          "Underline is removed on hover only — never remove it on the resting state, since the default variant's colour alone is not a sufficient affordance."
+        ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "115:26",
+        "codeConnectFile": "link.figma.ts"
+      }
+    },
     {
       "metaVersion": "1.0.0",
       "name": "rr-input",
@@ -183,8 +1422,417 @@
       },
       "figma": {
         "componentKey": "",
-        "nodeId": "",
+        "nodeId": "103:27",
         "codeConnectFile": "input.figma.ts"
+      }
+    },
+    {
+      "metaVersion": "1.0.0",
+      "name": "rr-icon",
+      "summary": "Sized, accessible wrapper for inline SVG icons. Four size tiers map to icon-size tokens; decorative by default.",
+      "package": "@riverromney/components",
+      "props": [
+        {
+          "name": "size",
+          "type": "'compact' | 'default' | 'large' | 'xl'",
+          "default": "default",
+          "description": "Icon size — maps to the icon-size design tokens (16/20/24/32px). Reflected to the host attribute."
+        },
+        {
+          "name": "ariaLabel",
+          "type": "string | null",
+          "default": null,
+          "description": "Accessible label (aria-label attribute). When set, the host gets role=\"img\" and is announced; when omitted, the host is aria-hidden=\"true\" and treated as decorative."
+        }
+      ],
+      "slots": [
+        {
+          "name": "default",
+          "description": "The SVG icon element."
+        }
+      ],
+      "events": [],
+      "cssParts": [],
+      "tokensUsed": [
+        "--icon-size-default",
+        "--icon-size-compact",
+        "--icon-size-large",
+        "--icon-size-xl"
+      ],
+      "rules": [
+        "Never use hex values — always var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)",
+        "Leave decorative icons unlabelled — they are automatically aria-hidden. Only set aria-label for standalone, meaningful icons.",
+        "Icon colour is inherited from the parent (color: inherit) — set colour on the surrounding context, not the icon itself."
+      ],
+      "examples": [
+        {
+          "title": "Decorative (screen readers skip it)",
+          "html": "<rr-icon size=\"default\">\n  <svg viewBox=\"0 0 24 24\"><path d=\"...\"/></svg>\n</rr-icon>"
+        },
+        {
+          "title": "Standalone icon with accessible label",
+          "html": "<rr-icon aria-label=\"Close dialog\">\n  <svg viewBox=\"0 0 24 24\"><path d=\"...\"/></svg>\n</rr-icon>"
+        },
+        {
+          "title": "Sizes",
+          "html": "<rr-icon size=\"compact\"><svg viewBox=\"0 0 24 24\"><path d=\"...\"/></svg></rr-icon>\n<rr-icon size=\"large\"><svg viewBox=\"0 0 24 24\"><path d=\"...\"/></svg></rr-icon>\n<rr-icon size=\"xl\"><svg viewBox=\"0 0 24 24\"><path d=\"...\"/></svg></rr-icon>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/img/",
+        "role": "img",
+        "focusable": false,
+        "keyboard": [],
+        "wcag": [
+          "1.1.1 Non-text Content",
+          "1.4.11 Non-text Contrast"
+        ],
+        "rules": [
+          "When aria-label is set the host receives role=\"img\" and the aria-hidden attribute is removed.",
+          "When no aria-label is provided the host is marked aria-hidden=\"true\" so screen readers skip the decorative glyph.",
+          "Do not rely on icon colour alone to convey meaning — pair meaningful icons with a label or visible text."
+        ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "115:10",
+        "codeConnectFile": "icon.figma.ts"
+      }
+    },
+    {
+      "metaVersion": "1.0.0",
+      "name": "rr-dialog",
+      "summary": "Modal dialog built on the native <dialog> element. Native focus trap, Escape-to-close, and backdrop dismissal.",
+      "package": "@riverromney/components",
+      "props": [
+        {
+          "name": "heading",
+          "type": "string",
+          "default": "",
+          "description": "Dialog title text rendered in the header."
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "default": false,
+          "description": "Whether the dialog is open. Reflected to an attribute. Toggling it calls showModal()/close() on the native dialog."
+        },
+        {
+          "name": "closeOnBackdrop",
+          "type": "boolean",
+          "default": true,
+          "description": "Whether clicking outside the dialog (on the backdrop) closes it. Maps to the close-on-backdrop attribute."
+        }
+      ],
+      "slots": [
+        {
+          "name": "default",
+          "description": "Dialog body content."
+        },
+        {
+          "name": "footer",
+          "description": "Action buttons, displayed in a right-aligned footer row. Footer is hidden when empty."
+        }
+      ],
+      "events": [
+        {
+          "name": "rr-dialog-close",
+          "detail": "Fired whenever the dialog closes — via Escape, the close button, backdrop click, or the close() method. Bubbles and is composed."
+        }
+      ],
+      "cssParts": [],
+      "tokensUsed": [
+        "--color-border-default",
+        "--radius-xl",
+        "--color-background-alt",
+        "--color-foreground-default",
+        "--shadow-dialog",
+        "--spacing-tight",
+        "--spacing-element",
+        "--spacing-component",
+        "--font-title-small",
+        "--radius-default",
+        "--color-foreground-muted",
+        "--motion-duration-instant",
+        "--motion-easing-default",
+        "--color-state-hover",
+        "--color-border-focus",
+        "--spacing-inline",
+        "--font-body-large",
+        "--color-foreground-alt"
+      ],
+      "rules": [
+        "Never use hex values — always var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)",
+        "The dialog is modal — the native <dialog> showModal() traps focus inside the dialog and renders an inert backdrop.",
+        "Escape closes the dialog; the native close event is delegated to close() so behavior is consistent across all dismissal paths.",
+        "Backdrop clicks close the dialog only when close-on-backdrop is true.",
+        "The close button must keep an accessible label (aria-label=\"Close dialog\")."
+      ],
+      "examples": [
+        {
+          "title": "Confirmation dialog with footer actions",
+          "html": "<rr-dialog heading=\"Confirm action\" open>\n  Are you sure you want to delete this item?\n  <rr-button slot=\"footer\" variant=\"danger\">Delete</rr-button>\n  <rr-button slot=\"footer\" variant=\"secondary\">Cancel</rr-button>\n</rr-dialog>"
+        },
+        {
+          "title": "Body-only dialog",
+          "html": "<rr-dialog heading=\"Details\">\n  Dialog body content goes here.\n</rr-dialog>"
+        },
+        {
+          "title": "Disable backdrop dismissal",
+          "html": "<rr-dialog heading=\"Required step\" close-on-backdrop=\"false\">\n  You must complete this step before continuing.\n</rr-dialog>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/",
+        "role": "dialog",
+        "focusable": true,
+        "keyboard": [
+          "Escape closes the dialog",
+          "Tab and Shift+Tab cycle focus within the dialog (native focus trap)"
+        ],
+        "wcag": [
+          "1.4.3 Contrast (Minimum)",
+          "1.4.11 Non-text Contrast",
+          "2.1.2 No Keyboard Trap",
+          "2.4.3 Focus Order"
+        ],
+        "rules": [
+          "Uses the native <dialog> showModal() so focus is trapped and the rest of the page is inert while open.",
+          "Escape must close the dialog — handled via the native close event delegating to close().",
+          "The close button exposes aria-label=\"Close dialog\" for screen readers.",
+          "Provide a heading so the dialog has an accessible name."
+        ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "124:31",
+        "codeConnectFile": "dialog.figma.ts"
+      }
+    },
+    {
+      "metaVersion": "1.0.0",
+      "name": "rr-checkbox",
+      "summary": "Form-associated checkbox with checked, indeterminate, and disabled states. ElementInternals handles form participation.",
+      "package": "@riverromney/components",
+      "props": [
+        {
+          "name": "checked",
+          "type": "boolean",
+          "default": false,
+          "description": "Whether the checkbox is checked. Reflected to the checked attribute."
+        },
+        {
+          "name": "indeterminate",
+          "type": "boolean",
+          "default": false,
+          "description": "Whether the checkbox shows the mixed/indeterminate dash. Cleared once the user toggles. Reflected to the indeterminate attribute."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false,
+          "description": "Whether the checkbox is non-interactive. Reflected to the disabled attribute."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "default": "on",
+          "description": "Form value submitted when checked."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "default": "",
+          "description": "Form field name used for form submission."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": "",
+          "description": "Label text. Falls back to slotted content when empty."
+        }
+      ],
+      "slots": [
+        {
+          "name": "default",
+          "description": "Label text, used as an alternative to the label property."
+        }
+      ],
+      "events": [
+        {
+          "name": "change",
+          "detail": "Fires when the checked state changes. Bubbles and is composed."
+        }
+      ],
+      "cssParts": [
+        {
+          "name": "box",
+          "description": "The visual checkbox square."
+        },
+        {
+          "name": "label",
+          "description": "The label text element."
+        }
+      ],
+      "tokensUsed": [
+        "--spacing-tight",
+        "--component-checkbox-border-default",
+        "--component-checkbox-radius",
+        "--component-checkbox-background-unchecked",
+        "--motion-duration-instant",
+        "--motion-easing-default",
+        "--component-checkbox-border-hover",
+        "--component-checkbox-background-checked",
+        "--component-checkbox-border-checked",
+        "--component-checkbox-background-disabled",
+        "--component-checkbox-border-disabled",
+        "--component-checkbox-border-focus",
+        "--component-checkbox-foreground-checkmark",
+        "--font-label-medium",
+        "--component-checkbox-foreground-label",
+        "--component-checkbox-foreground-disabled"
+      ],
+      "rules": [
+        "Never use hex values — always var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)",
+        "The label must be associated with the control via the for/id pairing on the native input.",
+        "The focus ring is driven by --component-checkbox-border-focus on input:focus-visible — never replace it with a bare outline:none.",
+        "Indeterminate state must expose aria-checked=\"mixed\" on the native input."
+      ],
+      "examples": [
+        {
+          "title": "Default",
+          "html": "<rr-checkbox name=\"notify\" label=\"Send me notifications\"></rr-checkbox>"
+        },
+        {
+          "title": "Checked",
+          "html": "<rr-checkbox name=\"agree\" label=\"I agree to the terms\" checked></rr-checkbox>"
+        },
+        {
+          "title": "Indeterminate (select-all)",
+          "html": "<rr-checkbox label=\"Select all\" indeterminate></rr-checkbox>"
+        },
+        {
+          "title": "Disabled",
+          "html": "<rr-checkbox label=\"Unavailable option\" disabled></rr-checkbox>"
+        },
+        {
+          "title": "Slotted label",
+          "html": "<rr-checkbox name=\"subscribe\">Subscribe</rr-checkbox>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/",
+        "role": "checkbox",
+        "focusable": true,
+        "keyboard": [
+          "Space toggles the checked state",
+          "Tab moves focus to the checkbox"
+        ],
+        "wcag": [
+          "1.4.3 Contrast (Minimum)",
+          "1.4.11 Non-text Contrast",
+          "2.1.1 Keyboard",
+          "4.1.2 Name, Role, Value"
+        ],
+        "rules": [
+          "A hidden native <input type=\"checkbox\"> provides focus, keyboard, and label-click semantics; the visual box is decorative.",
+          "Form participation is provided via formAssociated and ElementInternals.setFormValue.",
+          "Indeterminate state sets aria-checked=\"mixed\"; checked sets aria-checked=\"true\".",
+          "The label must convey meaning on its own; do not rely solely on color."
+        ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "117:43",
+        "codeConnectFile": "checkbox.figma.ts"
+      }
+    },
+    {
+      "metaVersion": "1.0.0",
+      "name": "rr-card",
+      "summary": "Surface container on the elevated background tier with optional header, body, and footer slots separated by hairline borders.",
+      "package": "@riverromney/components",
+      "props": [
+        {
+          "name": "padding",
+          "type": "'none' | 'sm' | 'md' | 'lg'",
+          "default": "md",
+          "description": "Internal padding around the body slot — none (0), sm (spacing-tight), md (spacing-element), lg (spacing-component). Header/footer padding is fixed. Reflected to the host attribute."
+        }
+      ],
+      "slots": [
+        {
+          "name": "header",
+          "description": "Card heading row (title, actions, avatar). Renders with a bottom hairline border when populated."
+        },
+        {
+          "name": "default",
+          "description": "Card body content."
+        },
+        {
+          "name": "footer",
+          "description": "Card footer row (secondary actions, metadata). Renders with a top hairline border when populated."
+        }
+      ],
+      "events": [],
+      "cssParts": [],
+      "tokensUsed": [
+        "--color-background-alt",
+        "--color-border-default",
+        "--radius-lg",
+        "--spacing-tight",
+        "--spacing-element",
+        "--spacing-component",
+        "--font-label-strong-medium",
+        "--color-foreground-default",
+        "--font-label-small",
+        "--color-foreground-alt"
+      ],
+      "rules": [
+        "Never use hex values — always var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)",
+        "Use background.alt for surface separation rather than a shadow token — cards are flat by design.",
+        "Header and footer slots auto-hide their wrappers (and dividers) when empty; do not force them visible with empty markup."
+      ],
+      "examples": [
+        {
+          "title": "Body only",
+          "html": "<rr-card>Simple card content</rr-card>"
+        },
+        {
+          "title": "Header, body, and footer",
+          "html": "<rr-card>\n  <h2 slot=\"header\">Card title</h2>\n  <p>Card body text.</p>\n  <span slot=\"footer\">Last updated today</span>\n</rr-card>"
+        },
+        {
+          "title": "Padding variants",
+          "html": "<rr-card padding=\"none\">Edge-to-edge content</rr-card>\n<rr-card padding=\"sm\">Tight padding</rr-card>\n<rr-card padding=\"lg\">Roomy padding</rr-card>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/",
+        "focusable": false,
+        "keyboard": [],
+        "wcag": [
+          "1.4.3 Contrast (Minimum)",
+          "1.4.11 Non-text Contrast"
+        ],
+        "rules": [
+          "rr-card is a generic surface with no implicit role — provide a heading element in the header slot so assistive tech can navigate card structure.",
+          "If the card is interactive (whole-card click target), wrap its content in an explicit interactive element rather than adding handlers to the host.",
+          "Do not rely on the hairline divider colour alone to communicate section boundaries."
+        ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "115:19",
+        "codeConnectFile": "card.figma.ts"
       }
     },
     {
@@ -354,7 +2002,7 @@
       },
       "figma": {
         "componentKey": "",
-        "nodeId": "",
+        "nodeId": "98:56",
         "codeConnectFile": "button.figma.ts"
       }
     },
@@ -463,8 +2111,269 @@
       },
       "figma": {
         "componentKey": "",
-        "nodeId": "",
+        "nodeId": "96:21",
         "codeConnectFile": "badge.figma.ts"
+      }
+    },
+    {
+      "metaVersion": "1.0.0",
+      "name": "rr-avatar",
+      "summary": "Circular identity surface showing an image or auto-derived initials. Four sizes and five WCAG AA color variants.",
+      "package": "@riverromney/components",
+      "props": [
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg' | 'xl'",
+          "default": "md",
+          "description": "Circle diameter. Reflected to the attribute."
+        },
+        {
+          "name": "color",
+          "type": "'default' | 'indigo' | 'sky' | 'green' | 'amber'",
+          "default": "default",
+          "description": "Fill color variant for the initials surface. Reflected to the attribute."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "default": "",
+          "description": "Full name used to derive initials (first letter of first and last word) and the accessible label."
+        },
+        {
+          "name": "src",
+          "type": "string",
+          "default": "",
+          "description": "Image URL. When set, an <img> fills the circle instead of initials."
+        },
+        {
+          "name": "alt",
+          "type": "string",
+          "default": "",
+          "description": "Alt text for the image. Falls back to name when omitted."
+        }
+      ],
+      "slots": [
+        {
+          "name": "default",
+          "description": "Optional custom content to replace initials (e.g. an icon). Used only when src is not set."
+        }
+      ],
+      "events": [],
+      "cssParts": [
+        {
+          "name": "avatar",
+          "description": "The root circle element."
+        },
+        {
+          "name": "img",
+          "description": "The <img> element (only when src is set)."
+        },
+        {
+          "name": "initials",
+          "description": "The initials text element (only when no src and no slotted content)."
+        }
+      ],
+      "tokensUsed": [
+        "--component-avatar-background-default",
+        "--component-avatar-background-indigo",
+        "--component-avatar-background-sky",
+        "--component-avatar-background-green",
+        "--component-avatar-background-amber",
+        "--component-avatar-foreground-default",
+        "--component-avatar-foreground-indigo",
+        "--component-avatar-foreground-sky",
+        "--component-avatar-foreground-green",
+        "--component-avatar-foreground-amber",
+        "--component-avatar-size-sm",
+        "--component-avatar-size-md",
+        "--component-avatar-size-lg",
+        "--component-avatar-size-xl",
+        "--font-label-strong-xsmall",
+        "--font-label-strong-small",
+        "--font-label-strong-medium"
+      ],
+      "rules": [
+        "Never use hex values — always var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)"
+      ],
+      "examples": [
+        {
+          "title": "Initials",
+          "html": "<rr-avatar name=\"River Romney\"></rr-avatar>"
+        },
+        {
+          "title": "Image",
+          "html": "<rr-avatar src=\"/avatar.jpg\" name=\"River Romney\" alt=\"River Romney\"></rr-avatar>"
+        },
+        {
+          "title": "Sizes",
+          "html": "<rr-avatar name=\"R R\" size=\"sm\"></rr-avatar>\n<rr-avatar name=\"R R\" size=\"md\"></rr-avatar>\n<rr-avatar name=\"R R\" size=\"lg\"></rr-avatar>\n<rr-avatar name=\"R R\" size=\"xl\"></rr-avatar>"
+        },
+        {
+          "title": "Color variants",
+          "html": "<rr-avatar name=\"A B\" color=\"indigo\"></rr-avatar>\n<rr-avatar name=\"C D\" color=\"sky\"></rr-avatar>\n<rr-avatar name=\"E F\" color=\"green\"></rr-avatar>\n<rr-avatar name=\"G H\" color=\"amber\"></rr-avatar>"
+        },
+        {
+          "title": "Custom slotted content",
+          "html": "<rr-avatar><svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"></svg></rr-avatar>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/img/",
+        "role": "img",
+        "focusable": false,
+        "keyboard": [],
+        "wcag": [
+          "1.1.1 Non-text Content",
+          "1.4.3 Contrast (Minimum)",
+          "1.4.11 Non-text Contrast"
+        ],
+        "rules": [
+          "Initials avatar: the root gets role=\"img\" and aria-label=name; the initials span is aria-hidden so AT announces the full name, not the letters.",
+          "Image avatar: the <img> carries alt text (falls back to name); no role=\"img\" is added on the root in this case.",
+          "Provide a name (and/or alt) so the avatar has an accessible name; a nameless avatar is treated as decorative.",
+          "Initials text must meet WCAG AA contrast against its fill — all built-in color variants are pre-verified."
+        ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "119:65",
+        "codeConnectFile": "avatar.figma.ts"
+      }
+    },
+    {
+      "metaVersion": "1.0.0",
+      "name": "rr-alert",
+      "summary": "Inline notification banner for success, warning, danger, and info messages. Optional title, icon slot, and dismiss button.",
+      "package": "@riverromney/components",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'success' | 'warning' | 'danger' | 'info'",
+          "default": "success",
+          "description": "Semantic variant driving border, background, and foreground colour. Reflected to the host attribute."
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "default": "",
+          "description": "Optional title rendered above the body content. When empty, no title element is rendered."
+        },
+        {
+          "name": "dismissible",
+          "type": "boolean",
+          "default": false,
+          "description": "When true, renders a dismiss button that hides the alert and fires the close event. Reflected to the host attribute."
+        }
+      ],
+      "slots": [
+        {
+          "name": "default",
+          "description": "Alert body content."
+        },
+        {
+          "name": "icon",
+          "description": "Optional icon in front of the title (use <rr-icon>)."
+        }
+      ],
+      "events": [
+        {
+          "name": "close",
+          "detail": "Fires when the dismiss button is clicked (only when dismissible). Bubbles and is composed; no detail payload."
+        }
+      ],
+      "cssParts": [
+        {
+          "name": "alert",
+          "description": "The root alert element."
+        },
+        {
+          "name": "title",
+          "description": "The title text element."
+        },
+        {
+          "name": "content",
+          "description": "The content slot wrapper."
+        },
+        {
+          "name": "dismiss",
+          "description": "The dismiss button."
+        }
+      ],
+      "tokensUsed": [
+        "--spacing-tight",
+        "--component-alert-padding-y",
+        "--component-alert-padding-x",
+        "--component-alert-radius",
+        "--component-alert-success-border",
+        "--component-alert-success-background",
+        "--component-alert-success-foreground",
+        "--component-alert-warning-border",
+        "--component-alert-warning-background",
+        "--component-alert-warning-foreground",
+        "--component-alert-danger-border",
+        "--component-alert-danger-background",
+        "--component-alert-danger-foreground",
+        "--component-alert-info-border",
+        "--component-alert-info-background",
+        "--component-alert-info-foreground",
+        "--font-label-strong-medium",
+        "--font-body-medium",
+        "--radius-sm",
+        "--motion-duration-instant",
+        "--motion-easing-default"
+      ],
+      "rules": [
+        "Never use hex values — always var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)",
+        "Use rr-alert for form-level feedback, async status, and system notifications — for field-level validation errors use rr-input with error-text instead.",
+        "The dismiss button carries aria-label=\"Dismiss\"; the close event is bubbling and composed so it can be handled on the host.",
+        "Do not rely on variant colour alone to convey severity — include a title or body text that states the message."
+      ],
+      "examples": [
+        {
+          "title": "Success",
+          "html": "<rr-alert variant=\"success\" title=\"Saved\">Your changes were saved.</rr-alert>"
+        },
+        {
+          "title": "Danger (assertive)",
+          "html": "<rr-alert variant=\"danger\" title=\"Upload failed\">Check your connection and try again.</rr-alert>"
+        },
+        {
+          "title": "Info with icon",
+          "html": "<rr-alert variant=\"info\" title=\"Heads up\">\n  <rr-icon slot=\"icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\"><path d=\"...\"/></svg></rr-icon>\n  Maintenance is scheduled for tonight.\n</rr-alert>"
+        },
+        {
+          "title": "Dismissible",
+          "html": "<rr-alert variant=\"warning\" title=\"Heads up\" dismissible>This is important.</rr-alert>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/alert/",
+        "role": "alert",
+        "ariaLive": "assertive",
+        "focusable": false,
+        "keyboard": [
+          "Tab moves focus to the dismiss button when dismissible",
+          "Enter or Space activates the dismiss button"
+        ],
+        "wcag": [
+          "1.4.3 Contrast (Minimum)",
+          "1.4.11 Non-text Contrast",
+          "4.1.3 Status Messages"
+        ],
+        "rules": [
+          "The inner container has role=\"alert\", which implies an assertive live region — appropriate for danger/warning. For non-urgent success or info messages consider role=\"status\" (aria-live polite) so the announcement does not interrupt the user.",
+          "Render the alert by adding it to (or revealing it in) the DOM after page load so the live region announces; content present at initial render is not re-announced.",
+          "The dismiss button must remain keyboard reachable and shows a visible focus outline; do not suppress it."
+        ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "121:50",
+        "codeConnectFile": "alert.figma.ts"
       }
     }
   ]

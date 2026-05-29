@@ -1,0 +1,104 @@
+{
+  "metaVersion": "1.0.0",
+  "name": "rr-link",
+  "summary": "Anchor that enforces the design-system link style: underlined by default, underline removed on hover. Three colour variants.",
+  "package": "@riverromney/components",
+  "props": [
+    {
+      "name": "href",
+      "type": "string",
+      "default": "",
+      "description": "Link destination, forwarded to the inner anchor."
+    },
+    {
+      "name": "target",
+      "type": "'_self' | '_blank' | '_parent' | '_top'",
+      "default": "_self",
+      "description": "Browsing context. Use _blank to open in a new tab."
+    },
+    {
+      "name": "rel",
+      "type": "string",
+      "default": "",
+      "description": "Anchor rel attribute. When empty and target is _blank, defaults to \"noopener noreferrer\"."
+    },
+    {
+      "name": "variant",
+      "type": "'default' | 'muted' | 'subtle'",
+      "default": "default",
+      "description": "Colour variant — default (foreground.action), muted (foreground.alt), subtle (foreground.muted). Reflected to the host attribute."
+    },
+    {
+      "name": "ariaLabel",
+      "type": "string | null",
+      "default": null,
+      "description": "Accessible label (aria-label) forwarded to the anchor when link text alone is insufficient."
+    }
+  ],
+  "slots": [
+    {
+      "name": "default",
+      "description": "Link label content."
+    }
+  ],
+  "events": [],
+  "cssParts": [],
+  "tokensUsed": [
+    "--color-foreground-action",
+    "--motion-duration-instant",
+    "--motion-easing-default",
+    "--color-border-focus",
+    "--color-foreground-alt",
+    "--color-foreground-muted"
+  ],
+  "rules": [
+    "Never use hex values — always var(--color-*) or var(--component-*)",
+    "Never reference --primitive-* tokens in component code",
+    "All text/background pairings must pass WCAG AA (4.5:1)",
+    "Links are underlined by default and lose the underline on hover — this is the intentional inverse of the common convention. Do not re-add underline on :hover.",
+    "External links (target=\"_blank\") receive rel=\"noopener noreferrer\" automatically unless an explicit rel is supplied.",
+    "The default variant uses accent green (foreground.action) — reserved for genuine interactivity, which a link satisfies."
+  ],
+  "examples": [
+    {
+      "title": "Default link",
+      "html": "<rr-link href=\"/home\">Home</rr-link>"
+    },
+    {
+      "title": "External link (auto rel)",
+      "html": "<rr-link href=\"https://example.com\" target=\"_blank\">Visit site</rr-link>"
+    },
+    {
+      "title": "Colour variants",
+      "html": "<rr-link href=\"/a\">Default</rr-link>\n<rr-link href=\"/b\" variant=\"muted\">Muted</rr-link>\n<rr-link href=\"/c\" variant=\"subtle\">Subtle</rr-link>"
+    },
+    {
+      "title": "With accessible label",
+      "html": "<rr-link href=\"/docs\" aria-label=\"Read the docs\">Docs</rr-link>"
+    }
+  ],
+  "accessibility": {
+    "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/link/",
+    "role": "link",
+    "focusable": true,
+    "keyboard": [
+      "Enter activates the link"
+    ],
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.4.4 Link Purpose (In Context)",
+      "2.4.7 Focus Visible",
+      "2.4.11 Focus Not Obscured (Minimum)"
+    ],
+    "rules": [
+      "A visible focus ring (border.focus) is rendered on :focus-visible — do not suppress it.",
+      "Link text (or aria-label) must describe the destination; avoid bare \"click here\" labels.",
+      "Underline is removed on hover only — never remove it on the resting state, since the default variant's colour alone is not a sufficient affordance."
+    ]
+  },
+  "figma": {
+    "componentKey": "",
+    "nodeId": "115:26",
+    "codeConnectFile": "link.figma.ts"
+  }
+}
