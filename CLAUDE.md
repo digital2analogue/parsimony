@@ -20,7 +20,7 @@ scripts/
   build-brands.mjs   Runs Style Dictionary for all brands. The only build command.
   generate-docs.mjs  Regenerates the color primitives section in docs/index.html from token JSON.
   build-design-system-json.mjs  Merges every *.meta.json into design-system.json (MCP source).
-  validate.mjs       Validates *.meta.json against schemas/meta.schema.json + lints component sources.
+  validate.mjs       Validates *.meta.json against the schema, lints component sources, checks every <rr-*> has a meta.json, and verifies design-system.json is in sync. Run by CI on every push/PR.
 docs/
   index.html         Base dark theme design system reference. Open file:// directly in browser.
 packages/

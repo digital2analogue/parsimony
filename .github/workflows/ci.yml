@@ -1,0 +1,52 @@
+name: CI
+
+# Runs the design-system consistency gate + test suites on every push and PR.
+# This is what prevents the drift class of bugs: a component shipped without a
+# *.meta.json, a stale design-system.json, or a rotted test now fail the build
+# instead of accumulating silently.
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # ── Root: tokens build + the consistency gate ──────────────────────────
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Build tokens (Style Dictionary)
+        run: npm run build
+
+      - name: Validate meta schema, token rules, component coverage, and design-system.json sync
+        run: npm run validate
+
+      # ── Components package: unit + a11y tests ──────────────────────────────
+      - name: Install component dependencies
+        working-directory: packages/components
+        run: npm ci
+
+      - name: Run component tests
+        working-directory: packages/components
+        run: npx vitest run
+
+      # ── MCP package: server logic tests ────────────────────────────────────
+      - name: Install MCP dependencies
+        working-directory: packages/mcp
+        run: npm ci
+
+      - name: Run MCP tests
+        working-directory: packages/mcp
+        run: npx vitest run
