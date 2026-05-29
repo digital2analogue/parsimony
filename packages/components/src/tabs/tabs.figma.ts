@@ -2,7 +2,8 @@ import figma, { html } from '@figma/code-connect';
 
 /**
  * Code Connect mapping for <rr-tab-list> + <rr-tab>.
- * Figma node: Components page → TabList (node 125-7)
+ * Figma node: Components page → Tabs (node 125-7). Figma models the whole
+ * tab strip as one "Tabs" component; <rr-tab> has no standalone Figma node.
  * Figma file: Brand Tokens Design System (4aOEBHcnAv2Kbn0g1arL78)
  */
 figma.connect(

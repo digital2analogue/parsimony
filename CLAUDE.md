@@ -64,6 +64,7 @@ schemas/
 - `@ai/DESIGN.md` — resolved token tables for the **base dark theme** only.
 - `@ai/DECISION-ENGINE.md` — token decisions, naming conventions, deleted tokens, and architecture intent for the decision-engine sub-brand. Read this before touching any DE tokens.
 - `@ai/rules.md` — hard and soft rules for token usage across all sites.
+- `@ai/FIGMA.md` — Figma file key, the code↔design node-ID map, and why `figma.componentKey` is empty (Code Connect needs a Developer seat). Read before touching any `figma` block in a `*.meta.json`.
 
 ## Hard Rules
 

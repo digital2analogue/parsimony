@@ -1,6 +1,6 @@
 {
   "$schemaVersion": "1.0.0",
-  "generatedAt": "2026-05-29T22:29:13.755Z",
+  "generatedAt": "2026-05-29T22:37:39.612Z",
   "components": [
     {
       "metaVersion": "1.0.0",
@@ -496,7 +496,7 @@
       },
       "figma": {
         "componentKey": "",
-        "nodeId": "125:7",
+        "nodeId": "",
         "codeConnectFile": "tabs.figma.ts"
       }
     },
@@ -1049,7 +1049,7 @@
       },
       "figma": {
         "componentKey": "",
-        "nodeId": "121:77",
+        "nodeId": "",
         "codeConnectFile": "radio.figma.ts"
       }
     },

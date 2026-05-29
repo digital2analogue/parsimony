@@ -93,7 +93,7 @@
   },
   "figma": {
     "componentKey": "",
-    "nodeId": "125:7",
+    "nodeId": "",
     "codeConnectFile": "tabs.figma.ts"
   }
 }
