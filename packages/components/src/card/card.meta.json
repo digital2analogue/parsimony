@@ -1,0 +1,52 @@
+{
+  "metaVersion": "1.0.0",
+  "name": "rr-card",
+  "summary": "Surface container on the elevated background tier with optional header, body, and footer slots.",
+  "package": "@riverromney/components",
+  "props": [
+    { "name": "padding", "type": "'none' | 'sm' | 'md' | 'lg'", "default": "md", "description": "Internal padding around the body slot. Header and footer padding is fixed." }
+  ],
+  "slots": [
+    { "name": "header", "description": "Card heading row (title, actions, avatar). Hidden when empty." },
+    { "name": "default", "description": "Card body content." },
+    { "name": "footer", "description": "Card footer row (secondary actions, metadata). Hidden when empty." }
+  ],
+  "events": [],
+  "cssParts": [],
+  "tokensUsed": [
+    "--color-background-alt",
+    "--color-border-default",
+    "--radius-lg",
+    "--spacing-tight",
+    "--spacing-element",
+    "--spacing-component",
+    "--font-label-strong-medium",
+    "--color-foreground-default",
+    "--color-foreground-alt",
+    "--font-label-small"
+  ],
+  "rules": [
+    "Never use hex values — always var(--color-*) or var(--component-*)",
+    "Never reference --primitive-* tokens in component code",
+    "All text/background pairings must pass WCAG AA (4.5:1)",
+    "Use background.alt for surface separation rather than a shadow token"
+  ],
+  "examples": [
+    { "title": "Body only", "html": "<rr-card>Simple card content.</rr-card>" },
+    { "title": "Header, body, footer", "html": "<rr-card>\n  <h2 slot=\"header\">Card title</h2>\n  <p>Card body text.</p>\n  <span slot=\"footer\">Last updated today</span>\n</rr-card>" },
+    { "title": "Large padding", "html": "<rr-card padding=\"lg\">Roomy card.</rr-card>" }
+  ],
+  "accessibility": {
+    "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/",
+    "focusable": false,
+    "keyboard": [],
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast"
+    ],
+    "rules": [
+      "Card is a presentational container with no implicit role; use a heading element in the header slot for document structure"
+    ]
+  },
+  "figma": { "componentKey": "", "nodeId": "115:19", "codeConnectFile": "card.figma.ts" }
+}

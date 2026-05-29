@@ -103,7 +103,7 @@
   },
   "figma": {
     "componentKey": "",
-    "nodeId": "",
+    "nodeId": "96:21",
     "codeConnectFile": "badge.figma.ts"
   }
 }

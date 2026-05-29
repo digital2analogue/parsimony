@@ -1,0 +1,89 @@
+{
+  "metaVersion": "1.0.0",
+  "name": "rr-textarea",
+  "summary": "Form-associated multi-line text area with label, helper text, and error state.",
+  "package": "@riverromney/components",
+  "props": [
+    { "name": "name", "type": "string", "default": "", "description": "Form field name submitted with the form value." },
+    { "name": "value", "type": "string", "default": "", "description": "Current text value; set as the form value via ElementInternals." },
+    { "name": "placeholder", "type": "string", "default": "", "description": "Placeholder text shown when empty." },
+    { "name": "label", "type": "string", "default": "", "description": "Label text; renders a label element when non-empty." },
+    { "name": "helperText", "type": "string", "default": "", "description": "Helper text shown below the field (attribute: helper-text). Hidden when an error is present." },
+    { "name": "errorText", "type": "string", "default": "", "description": "Error message (attribute: error-text); when set, marks the field invalid and replaces the helper text." },
+    { "name": "rows", "type": "number", "default": 3, "description": "Number of visible text rows on the inner textarea." },
+    { "name": "required", "type": "boolean", "default": false, "description": "Marks the field required; shows a required indicator. Reflected." },
+    { "name": "disabled", "type": "boolean", "default": false, "description": "Disables the field. Reflected." }
+  ],
+  "slots": [
+    { "name": "label", "description": "Optional override for the label text." }
+  ],
+  "events": [
+    { "name": "input", "detail": "Fired (bubbles, composed) as the value changes; mirrors the native input event." },
+    { "name": "change", "detail": "Fired (bubbles, composed) when the value is committed; mirrors the native change event." }
+  ],
+  "cssParts": [
+    { "name": "label", "description": "The label element." },
+    { "name": "textarea", "description": "The inner textarea element." },
+    { "name": "helper", "description": "The helper text container." },
+    { "name": "error", "description": "The error message container." }
+  ],
+  "tokensUsed": [
+    "--font-label-medium",
+    "--component-input-foreground-label",
+    "--component-input-foreground-label-required",
+    "--font-body-large",
+    "--component-input-foreground-value",
+    "--component-input-background-default",
+    "--component-input-border-default",
+    "--component-input-radius",
+    "--component-input-padding-y",
+    "--component-input-padding-x",
+    "--motion-duration-instant",
+    "--motion-easing-default",
+    "--component-input-foreground-placeholder",
+    "--component-input-border-hover",
+    "--component-input-border-focus",
+    "--component-input-background-disabled",
+    "--component-input-border-disabled",
+    "--component-input-foreground-disabled",
+    "--component-input-border-error",
+    "--font-label-small",
+    "--component-input-foreground-helper",
+    "--component-input-foreground-error"
+  ],
+  "rules": [
+    "Never use hex values — always var(--color-*) or var(--component-*)",
+    "Never reference --primitive-* tokens in component code",
+    "All text/background pairings must pass WCAG AA (4.5:1)",
+    "Setting error-text marks the field invalid via ElementInternals.setValidity and replaces the helper text."
+  ],
+  "examples": [
+    { "title": "Default", "html": "<rr-textarea label=\"Notes\" placeholder=\"Type here…\"></rr-textarea>" },
+    { "title": "With helper text", "html": "<rr-textarea label=\"Bio\" helper-text=\"Max 500 characters\" rows=\"6\"></rr-textarea>" },
+    { "title": "Required", "html": "<rr-textarea label=\"Feedback\" required></rr-textarea>" },
+    { "title": "Error state", "html": "<rr-textarea label=\"Notes\" error-text=\"This field is required\"></rr-textarea>" },
+    { "title": "Disabled", "html": "<rr-textarea label=\"Notes\" disabled></rr-textarea>" }
+  ],
+  "accessibility": {
+    "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/textbox/",
+    "role": "textbox",
+    "focusable": true,
+    "keyboard": [
+      "Standard textarea editing keys apply to the inner native textarea"
+    ],
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "3.3.1 Error Identification",
+      "3.3.2 Labels or Instructions",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Host uses delegatesFocus so focus forwards to the inner native textarea.",
+      "Error state sets aria-invalid and aria-errormessage; helper/error are wired via aria-describedby. The error container has role=alert.",
+      "Form-associated via ElementInternals (formAssociated = true); the value participates in native form submission."
+    ]
+  },
+  "figma": { "componentKey": "", "nodeId": "119:24", "codeConnectFile": "textarea.figma.ts" }
+}

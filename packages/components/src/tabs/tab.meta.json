@@ -1,0 +1,62 @@
+{
+  "metaVersion": "1.0.0",
+  "name": "rr-tab",
+  "summary": "A single tab button used inside rr-tab-list; its selection state is managed by the parent.",
+  "package": "@riverromney/components",
+  "props": [
+    { "name": "value", "type": "string", "default": "", "description": "Unique identifier for this tab; must match the value rr-tab-list uses for selection. Reflected." },
+    { "name": "selected", "type": "boolean", "default": false, "description": "Marks the active tab. Set by the parent rr-tab-list — do not set directly. Reflected." },
+    { "name": "disabled", "type": "boolean", "default": false, "description": "Prevents selection. Reflected." }
+  ],
+  "slots": [
+    { "name": "default", "description": "Tab label text (and optional icon)." }
+  ],
+  "events": [
+    { "name": "rr-tab-select", "detail": "Bubbles (composed) to rr-tab-list when the tab is clicked; detail.value is this tab's value. Not fired when disabled or already selected." }
+  ],
+  "cssParts": [],
+  "tokensUsed": [
+    "--spacing-tight",
+    "--spacing-inline",
+    "--font-label-medium",
+    "--color-foreground-muted",
+    "--motion-duration-instant",
+    "--motion-easing-default",
+    "--color-foreground-alt",
+    "--color-border-focus",
+    "--radius-sm",
+    "--color-foreground-action",
+    "--color-background-action",
+    "--font-label-strong-medium",
+    "--color-foreground-disabled"
+  ],
+  "rules": [
+    "Never use hex values — always var(--color-*) or var(--component-*)",
+    "Never reference --primitive-* tokens in component code",
+    "All text/background pairings must pass WCAG AA (4.5:1)",
+    "Do not set selected directly — control the active tab via rr-tab-list[value]."
+  ],
+  "examples": [
+    { "title": "Tab", "html": "<rr-tab value=\"overview\">Overview</rr-tab>" },
+    { "title": "Disabled tab", "html": "<rr-tab value=\"settings\" disabled>Settings</rr-tab>" }
+  ],
+  "accessibility": {
+    "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/tabs/",
+    "role": "tab",
+    "focusable": true,
+    "keyboard": [
+      "Enter or Space activates the focused tab via its native button"
+    ],
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Roving tabindex (selected tab is 0, others -1) and aria-selected are managed in concert with rr-tab-list.",
+      "Host uses delegatesFocus so focus forwards to the inner button."
+    ]
+  },
+  "figma": { "componentKey": "", "nodeId": "125:7", "codeConnectFile": "tabs.figma.ts" }
+}
