@@ -19,15 +19,23 @@ build/
 scripts/
   build-brands.mjs   Runs Style Dictionary for all brands. The only build command.
   generate-docs.mjs  Regenerates the color primitives section in docs/index.html from token JSON.
+  build-design-system-json.mjs  Merges every *.meta.json into design-system.json (MCP source).
+  validate.mjs       Validates *.meta.json against schemas/meta.schema.json + lints component sources.
 docs/
   index.html         Base dark theme design system reference. Open file:// directly in browser.
+packages/
+  components/        Framework-agnostic Lit web components (rr-*). One dir per component with .ts, .test.ts, .figma.ts, .meta.json.
+  mcp/              In-repo MCP server serving design-system.json (list_components, get_component, check_usage).
+design-system.json  Generated artifact merging all *.meta.json — the MCP's source of truth. Regenerate after editing any .meta.json.
+schemas/
+  meta.schema.json  JSON Schema every *.meta.json must validate against.
 ```
 
 ## Token Layers
 
 1. **Primitives** (`tokens/primitives/`) — raw hex values. Never use in UI code.
 2. **Semantic** (`tokens/base/`, `tokens/brands/`) — named roles (background, foreground, border). These are what UI code imports.
-3. **Component** — not yet in this repo; currently lives as local CSS in each product repo.
+3. **Component** (`tokens/components/*.tokens.json`) — maps semantic tokens to component-specific roles (e.g. `component.button.primary.background.default`). Consumed by the Lit web components in `packages/components/`, whose shadow CSS references these `--component-*` variables only — never hex or semantic tokens directly.
 
 ## Workflow: Making a Token Change
 

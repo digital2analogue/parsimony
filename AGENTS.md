@@ -20,13 +20,45 @@ Each file declares its scope in YAML front-matter (`scope`, `applies-to`, `alway
 
 ## Components
 
-`@riverromney/components` ships three framework-agnostic Lit web components:
+`@riverromney/components` ships framework-agnostic Lit web components. The canonical, machine-readable inventory — props, slots, events, tokens used, and accessibility contracts — lives in `design-system.json` and is served by the in-repo MCP server (`list_components`, `get_component`). The table below is a human-readable index; query the MCP for the full contract.
+
+**Forms**
 
 | Component | Summary |
 |---|---|
-| `<rr-badge>` | Status badge / chip. 9 variants map to component tokens. |
-| `<rr-button>` | Button with primary/secondary/danger variants, 3 sizes, loading spinner. |
 | `<rr-input>` | Form-associated text input with label, helper/error text, ElementInternals. |
+| `<rr-textarea>` | Form-associated multi-line text area with label and helper/error text. |
+| `<rr-select>` | Form-associated select dropdown with label and helper/error text. |
+| `<rr-checkbox>` | Form-associated checkbox with checked, indeterminate, and disabled states. |
+| `<rr-radio-group>` / `<rr-radio>` | Form-associated radio group managing selection; individual radios go inside it. |
+| `<rr-toggle>` | Form-associated switch for binary on/off settings. |
+
+**Actions & navigation**
+
+| Component | Summary |
+|---|---|
+| `<rr-button>` | Button with primary/secondary/danger variants, three sizes, loading spinner. |
+| `<rr-link>` | Anchor enforcing the link style: underlined by default, underline removed on hover. |
+| `<rr-tab-list>` / `<rr-tab>` | Accessible tab strip with arrow-key navigation; tabs go inside the list. |
+
+**Feedback & status**
+
+| Component | Summary |
+|---|---|
+| `<rr-alert>` | Inline notification banner (success/warning/danger/info) with optional title, icon, dismiss. |
+| `<rr-badge>` | Status badge / accent chip. 9 variants map to component tokens. |
+| `<rr-dialog>` | Modal dialog on native `<dialog>` — focus trap, Escape-to-close, backdrop dismissal. |
+| `<rr-spinner>` | Circular loading indicator (3 sizes) announcing its label via a polite live region. |
+| `<rr-progress>` | Horizontal progress bar with determinate and indeterminate modes. |
+| `<rr-skeleton>` | Animated shimmer placeholder for loading states. Decorative and `aria-hidden`. |
+
+**Content & media**
+
+| Component | Summary |
+|---|---|
+| `<rr-card>` | Surface container with optional header, body, and footer slots. |
+| `<rr-avatar>` | Circular identity surface showing an image or auto-derived initials. |
+| `<rr-icon>` | Sized, accessible wrapper for inline SVG icons. Decorative by default. |
 
 ### Installation
 

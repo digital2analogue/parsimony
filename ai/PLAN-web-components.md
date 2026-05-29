@@ -1,9 +1,9 @@
 ---
 id: plan-web-components
 scope: planning
-status: draft-rev5
+status: draft-rev6
 applies-to: [base, decision-engine, dot-art, dot-blog]
-last-updated: 2026-05-16
+last-updated: 2026-05-29
 ---
 
 # Web Components Plan
@@ -17,7 +17,8 @@ This is a **plan**, not an implementation. Each step ships as its own PR and is 
 > - **rev2** — incorporated independent design-systems review. Cut `validate_token_addition`; narrowed `check_usage`; deferred trust-level table; deepened Input a11y; added schema + CEM + versioning + theming + motion + visual regression + AGENTS.md outline; deferred `packages/react`, Storybook, MCP publishing.
 > - **rev3** — second review pass. Reordered migration so the merged JSON artifact ships **before** the first component; added a precursor step extracting `--font-family-sans/serif/mono` as semantic tokens (the existing decision-engine "Inter exception" is currently unimplemented); added a CSS-sourcing section naming `tokens/components/*.tokens.json` as the styling source; replaced the schema *example* with an actual JSON Schema skeleton; resolved AGENTS.md audience conflation; added `aria-errormessage` AT-fallback note; added browser-support floor, bundle budget, token-rename protocol, design-system.json consumer contract, Code Connect step; tightened benchmark methodology; fixed step 11 self-contradiction.
 > - **rev4** — third review pass. Rewrites step 3 (font-family extraction) with concrete mechanics — the previous "non-breaking, additive" claim was asserted not verified, and the existing typography tokens reference primitive `fontFamily` from inside composite values, which Style Dictionary's default typography transform doesn't decompose. Adds a "Known follow-ups" section listing in-flight fixes (schema bugs, CSS-sourcing mechanism statement, codemod directory creation, merge-conflict policy for `design-system.json`, Code Connect authorship, distribution decision, drift-grep scope clarification). All non-step-3 issues fix during execution PRs, not before merge.
-> - **rev5** *(this revision)* — solo-practitioner scope correction. Removes step 2 (the npm workspaces move): with one maintainer/consumer (River) and `sync-tokens` scripts already working against current repo-root paths, the move adds monorepo toolchain and consumer path-migration churn for no practical benefit. **Tokens stay at the repository root permanently.** Marks the MCP server complete — no further investment until external client demand exists. Sets the next priority explicitly: wire the real Figma library into Code Connect (replace placeholder `componentKey`/`nodeId`/URLs) **before** building any new components.
+> - **rev6** *(this revision)* — reconciles the plan with what actually shipped. The component set grew well past the planned first six: 19 components are now built and tested (`alert, avatar, badge, button, card, checkbox, dialog, icon, input, link, progress, radio, radio-group, select, skeleton, spinner, tab, tab-list, textarea, toggle`). Every component now has a schema-validated `*.meta.json`, and `design-system.json` was regenerated from 3 → 20 entries so the MCP exposes the full library. `figma.nodeId` is backfilled on all components from their `.figma.ts` Code Connect node IDs; `figma.componentKey` is still empty pending real Figma keys. **The rev5 "Figma before new components" gate was overtaken by events** — components were built first; the remaining Figma work (real `componentKey` values) is now the genuine next priority, alongside widening the `tokensUsed` schema pattern to admit `--letter-spacing-*` (currently unrepresentable; `rr-dialog` uses one).
+> - **rev5** — solo-practitioner scope correction. Removes step 2 (the npm workspaces move): with one maintainer/consumer (River) and `sync-tokens` scripts already working against current repo-root paths, the move adds monorepo toolchain and consumer path-migration churn for no practical benefit. **Tokens stay at the repository root permanently.** Marks the MCP server complete — no further investment until external client demand exists. Sets the next priority explicitly: wire the real Figma library into Code Connect (replace placeholder `componentKey`/`nodeId`/URLs) **before** building any new components.
 
 ---
 
@@ -282,6 +283,8 @@ Defines the shape of every component's `*.meta.json`. Authored at **step 4**, be
 Subsequent (after these three ship cleanly): `<rr-icon>`, `<rr-card>`, `<rr-link>`. Pull from real product-repo needs, not speculation.
 
 > **Next priority (rev5): Figma before new components.** Before `<rr-icon>`/`<rr-card>`/`<rr-link>` or any new component, wire the real Figma library into Code Connect: build the Figma component library and replace the placeholder `figma.componentKey`/`nodeId`/URLs in every `*.meta.json` and `*.figma.ts` (step 12 currently ships placeholders) with real values. Closing the Figma↔code loop on the three existing components delivers more than a fourth component does.
+>
+> **rev6 update:** This gate was not held — all 19 components were built before the Figma loop closed. `.figma.ts` files and `figma.nodeId` values are now in place for every component, but `figma.componentKey` is still empty across the board. **Completing those real component keys is the actual next priority**, no longer blocking any component work (the components already exist).
 
 ---
 
