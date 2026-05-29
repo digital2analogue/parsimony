@@ -78,8 +78,9 @@ variants match the code.
   through the parent's `*.figma.ts` (`radio.figma.ts`, `tabs.figma.ts`), whose
   `example` shows the full composition including the child elements. (An earlier
   revision incorrectly gave `rr-radio`/`rr-tab` their container's node ID.)
-- **Button variant divergence:** Figma's Button has variants
-  `primary / secondary / ghost`, but the code component exposes
-  `primary / secondary / danger`. The `ghost`↔`danger` mismatch is a design/code
-  divergence to reconcile separately (decide which is canonical); it is not a
-  node-ID problem.
+- **Button is missing the `danger` variant in Figma.** The canonical set is
+  `primary / secondary / ghost / danger`. The code component now implements all
+  four; the Figma Button set (`98:56`) still only has `primary / secondary / ghost`.
+  **Design follow-up:** add a `danger` variant to the Figma Button component set,
+  then add `danger: 'danger'` to the `Variant` enum in `button.figma.ts`. Until
+  then `button.figma.ts` maps only the three variants that exist in Figma.

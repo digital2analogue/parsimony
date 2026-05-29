@@ -1,7 +1,7 @@
 import { LitElement, html, css, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'danger';
+export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
 export type ButtonSize = 'small' | 'medium' | 'large';
 
 /**
@@ -86,6 +86,17 @@ export class RrButton extends LitElement {
     :host([variant='secondary']) button:hover {
       background: var(--component-button-secondary-background-hover);
       border-color: var(--component-button-secondary-border-hover);
+    }
+
+    /* --- Variant: ghost --- */
+    :host([variant='ghost']) button {
+      background: var(--component-button-ghost-background-default);
+      color: var(--component-button-ghost-foreground-default);
+      border-color: var(--component-button-ghost-border-default);
+    }
+    :host([variant='ghost']) button:hover {
+      background: var(--component-button-ghost-background-hover);
+      border-color: var(--component-button-ghost-border-hover);
     }
 
     /* --- Variant: danger --- */

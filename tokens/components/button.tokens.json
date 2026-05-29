@@ -2,7 +2,7 @@
   "$description": "Button component tokens. Third layer above primitives and semantics \u2014 maps semantic color tokens to specific button roles and states. Use these in UI code instead of semantic tokens directly, so button styles can be updated system-wide without touching components.",
   "component": {
     "button": {
-      "$description": "Button variants: primary (one per page, main CTA), secondary (supporting actions), danger (destructive). Each variant defines default and hover states.",
+      "$description": "Button variants: primary (one per page, main CTA), secondary (supporting actions), ghost (chromeless/tertiary), danger (destructive). Each variant defines default and hover states.",
       "primary": {
         "$description": "Primary button \u2014 filled, high-emphasis. One per page maximum.",
         "background": {
@@ -78,6 +78,40 @@
             "$value": "{color.border.default}",
             "$type": "color",
             "$description": "Border unchanged on hover \u2014 background shift is the only state signal."
+          }
+        }
+      },
+      "ghost": {
+        "$description": "Ghost button \u2014 transparent fill and no border, low-emphasis. Neutral text with a subtle surface tint on hover. Use for tertiary actions, toolbars, and dense UI.",
+        "background": {
+          "default": {
+            "$value": "transparent",
+            "$type": "color",
+            "$description": "No fill \u2014 ghost buttons are chromeless at rest, sitting flush on any surface."
+          },
+          "hover": {
+            "$value": "{color.background.alt}",
+            "$type": "color",
+            "$description": "Subtle surface tint on hover \u2014 the resting-state affordance for an otherwise chromeless button. Same lift as secondary's hover."
+          }
+        },
+        "foreground": {
+          "default": {
+            "$value": "{color.foreground.default}",
+            "$type": "color",
+            "$description": "Neutral primary text \u2014 ghost buttons never use accent green as resting text."
+          }
+        },
+        "border": {
+          "default": {
+            "$value": "transparent",
+            "$type": "color",
+            "$description": "No border at rest."
+          },
+          "hover": {
+            "$value": "transparent",
+            "$type": "color",
+            "$description": "No border on hover \u2014 the background tint is the only state signal."
           }
         }
       },

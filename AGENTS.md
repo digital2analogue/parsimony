@@ -37,7 +37,7 @@ Each file declares its scope in YAML front-matter (`scope`, `applies-to`, `alway
 
 | Component | Summary |
 |---|---|
-| `<rr-button>` | Button with primary/secondary/danger variants, three sizes, loading spinner. |
+| `<rr-button>` | Button with primary/secondary/ghost/danger variants, three sizes, loading spinner. |
 | `<rr-link>` | Anchor enforcing the link style: underlined by default, underline removed on hover. |
 | `<rr-tab-list>` / `<rr-tab>` | Accessible tab strip with arrow-key navigation; tabs go inside the list. |
 
