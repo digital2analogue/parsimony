@@ -3,11 +3,18 @@ name: Publish @riverromney/tokens
 # On-demand only — never publishes automatically. Trigger from the Actions tab
 # (workflow_dispatch) or by pushing a tag like `tokens-v0.1.0`.
 #
-# PREREQUISITE: GitHub Packages associates a package with the repository owner
-# (digital2analogue). The package scope is @riverromney, so the first publish
-# needs either a GitHub org named `riverromney`, or the scope switched to
-# @digital2analogue. See packages/tokens/README.md. Until then this workflow is
-# wired and ready but the publish step will be rejected by the registry.
+# Target: GitHub Packages, scope @riverromney (Option A — brand-consistent scope
+# matching @riverromney/components and @riverromney/mcp).
+#
+# PREREQUISITES (one-time, owner-only):
+#   GitHub Packages routes a package by the account matching its scope, so
+#   @riverromney/* publishes to a `riverromney` GitHub org. This repo stays
+#   under `digital2analogue` (to keep the Vercel wiring intact), so:
+#     1. Create a free GitHub org named `riverromney`.
+#     2. Create a PAT with `write:packages` on that org and add it to this repo
+#        as the secret `PACKAGES_TOKEN`.
+#   (Alternatively, transfer this repo into the `riverromney` org — then the
+#   default GITHUB_TOKEN works and PACKAGES_TOKEN is unnecessary.)
 
 on:
   workflow_dispatch:
@@ -40,4 +47,7 @@ jobs:
       - name: Publish to GitHub Packages
         run: npm publish --workspace @riverromney/tokens
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # PACKAGES_TOKEN (PAT with write:packages on the riverromney org) is
+          # required while this repo lives under a different owner. Falls back to
+          # GITHUB_TOKEN, which only works if the repo is moved into the org.
+          NODE_AUTH_TOKEN: ${{ secrets.PACKAGES_TOKEN || secrets.GITHUB_TOKEN }}

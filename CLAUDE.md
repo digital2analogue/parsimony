@@ -77,12 +77,13 @@ CI (`.github/workflows/ci.yml`) runs steps 4–5 plus the workspace tests on eve
 versioned dependency so consumers stop hand-copying the token block. Preview the
 publish tarball anytime with `npm pack --workspace @riverromney/tokens --dry-run`.
 
-Publishing targets **GitHub Packages** via `.github/workflows/publish.yml`
-(on-demand only). One account decision is outstanding before the first publish
-will succeed: GitHub Packages associates a package with the **repo owner**
-(`digital2analogue`), but the scope is `@riverromney`. Resolve by creating a
-GitHub org named `riverromney`, or by publishing under `@digital2analogue`. See
-`packages/tokens/README.md`. The components/mcp packages are not published yet.
+Publishing targets **GitHub Packages** under the `@riverromney` scope via
+`.github/workflows/publish.yml` (on-demand only). Because GitHub Packages routes
+by the account matching the scope, the one-time setup is: create a `riverromney`
+GitHub org and add a `write:packages` PAT as the `PACKAGES_TOKEN` Actions secret
+(the repo stays under `digital2analogue` so the Vercel wiring is untouched).
+Steps in `packages/tokens/README.md`. The components/mcp packages are not
+published yet.
 
 ## Sub-Brands
 

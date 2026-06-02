@@ -58,18 +58,26 @@ copied CSS block.
 
 ---
 
-### Maintainer note — publishing
+### Maintainer note — publishing (Option A: GitHub Packages, `@riverromney` scope)
 
-Publishing targets GitHub Packages (`publishConfig.registry`). GitHub Packages
-associates a package with the **owner of the repository** in the `repository`
-field (`digital2analogue`). Because the package scope (`@riverromney`) differs
-from that owner login, the first publish needs one of:
+The scope stays `@riverromney` to match `@riverromney/components` and
+`@riverromney/mcp`. GitHub Packages routes a package by the account matching its
+scope, so `@riverromney/*` belongs to a `riverromney` GitHub org. This repo
+stays under `digital2analogue` (to keep the Vercel integration untouched).
 
-- a GitHub organization named **`riverromney`** that owns (or is granted access
-  to) this package, **or**
-- publishing under the owner scope instead (`@digital2analogue/tokens`).
+**One-time setup before the first publish:**
 
-Until that's decided, `npm run build` produces the package contents locally and
-`npm pack --dry-run` shows exactly what would ship — the plumbing is ready; only
-the account/scope decision is outstanding. The publish workflow lives at
-`.github/workflows/publish.yml` and runs on demand (never automatically).
+1. Create a free GitHub organization named **`riverromney`**.
+2. Create a Personal Access Token with the **`write:packages`** scope on that
+   org, and add it to this repo's Actions secrets as **`PACKAGES_TOKEN`**.
+3. Run the **Publish @riverromney/tokens** workflow (Actions tab → Run workflow),
+   or push a `tokens-v*` tag.
+
+That's it — the package, build, and workflow (`.github/workflows/publish.yml`)
+are ready. Preview the exact tarball anytime with
+`npm pack --workspace @riverromney/tokens --dry-run`.
+
+> Alternative: transfer this repo into the `riverromney` org instead of using a
+> PAT — then the workflow's default `GITHUB_TOKEN` is sufficient. Heavier (it
+> moves the repo URL and re-points the Vercel integration), so the PAT path
+> above is the lighter default.
