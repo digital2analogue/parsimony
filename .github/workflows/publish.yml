@@ -3,18 +3,15 @@ name: Publish @riverromney/tokens
 # On-demand only — never publishes automatically. Trigger from the Actions tab
 # (workflow_dispatch) or by pushing a tag like `tokens-v0.1.0`.
 #
-# Target: GitHub Packages, scope @riverromney (Option A — brand-consistent scope
-# matching @riverromney/components and @riverromney/mcp).
+# Target: the public npm registry, scope @riverromney. Public npm decouples the
+# package scope from the GitHub repo owner, so this repo stays under
+# `digital2analogue` with no transfer and the Vercel wiring untouched.
 #
 # PREREQUISITES (one-time, owner-only):
-#   GitHub Packages routes a package by the account matching its scope, so
-#   @riverromney/* publishes to a `riverromney` GitHub org. This repo stays
-#   under `digital2analogue` (to keep the Vercel wiring intact), so:
-#     1. Create a free GitHub org named `riverromney`.
-#     2. Create a PAT with `write:packages` on that org and add it to this repo
-#        as the secret `PACKAGES_TOKEN`.
-#   (Alternatively, transfer this repo into the `riverromney` org — then the
-#   default GITHUB_TOKEN works and PACKAGES_TOKEN is unnecessary.)
+#   1. Own the @riverromney scope on npmjs.com — create the free `riverromney`
+#      npm organization (public scoped packages are free).
+#   2. Create an npm "Automation" access token and add it to this repo as the
+#      Actions secret `NPM_TOKEN`.
 
 on:
   workflow_dispatch:
@@ -24,7 +21,6 @@ on:
 
 permissions:
   contents: read
-  packages: write
 
 jobs:
   publish:
@@ -35,7 +31,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          registry-url: https://npm.pkg.github.com
+          registry-url: https://registry.npmjs.org
           scope: '@riverromney'
 
       - name: Install
@@ -44,10 +40,7 @@ jobs:
       - name: Build token CSS
         run: npm run build --workspace @riverromney/tokens
 
-      - name: Publish to GitHub Packages
-        run: npm publish --workspace @riverromney/tokens
+      - name: Publish to npm
+        run: npm publish --workspace @riverromney/tokens --access public
         env:
-          # PACKAGES_TOKEN (PAT with write:packages on the riverromney org) is
-          # required while this repo lives under a different owner. Falls back to
-          # GITHUB_TOKEN, which only works if the repo is moved into the org.
-          NODE_AUTH_TOKEN: ${{ secrets.PACKAGES_TOKEN || secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

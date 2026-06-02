@@ -77,13 +77,12 @@ CI (`.github/workflows/ci.yml`) runs steps 4–5 plus the workspace tests on eve
 versioned dependency so consumers stop hand-copying the token block. Preview the
 publish tarball anytime with `npm pack --workspace @riverromney/tokens --dry-run`.
 
-Publishing targets **GitHub Packages** under the `@riverromney` scope via
-`.github/workflows/publish.yml` (on-demand only). Because GitHub Packages routes
-by the account matching the scope, the one-time setup is: create a `riverromney`
-GitHub org and add a `write:packages` PAT as the `PACKAGES_TOKEN` Actions secret
-(the repo stays under `digital2analogue` so the Vercel wiring is untouched).
-Steps in `packages/tokens/README.md`. The components/mcp packages are not
-published yet.
+Publishing targets the **public npm registry** under the `@riverromney` scope
+via `.github/workflows/publish.yml` (on-demand only). Public npm keeps the scope
+independent of the GitHub repo owner, so the repo stays under `digital2analogue`
+with no transfer. One-time setup: own the `@riverromney` npm org and add an
+npm automation token as the `NPM_TOKEN` Actions secret. Steps in
+`packages/tokens/README.md`. The components/mcp packages are not published yet.
 
 ## Sub-Brands
 

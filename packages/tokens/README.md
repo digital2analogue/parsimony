@@ -15,22 +15,11 @@ Ships one stylesheet per brand:
 
 ## Install
 
-This package is published to **GitHub Packages**, so consumers need a one-line
-`.npmrc` telling npm where the `@riverromney` scope lives:
-
-```ini
-# .npmrc
-@riverromney:registry=https://npm.pkg.github.com
-```
-
-Then:
+Published to the **public npm registry** — no scope config or auth needed:
 
 ```bash
 npm install @riverromney/tokens
 ```
-
-(Installing from GitHub Packages requires authenticating npm with a GitHub
-token that has `read:packages`.)
 
 ## Use
 
@@ -58,18 +47,19 @@ copied CSS block.
 
 ---
 
-### Maintainer note — publishing (Option A: GitHub Packages, `@riverromney` scope)
+### Maintainer note — publishing (public npm, `@riverromney` scope)
 
 The scope stays `@riverromney` to match `@riverromney/components` and
-`@riverromney/mcp`. GitHub Packages routes a package by the account matching its
-scope, so `@riverromney/*` belongs to a `riverromney` GitHub org. This repo
-stays under `digital2analogue` (to keep the Vercel integration untouched).
+`@riverromney/mcp`. Publishing to public npm keeps the scope independent of the
+GitHub repo owner, so this repo stays under `digital2analogue` — no transfer, no
+change to the Vercel wiring.
 
 **One-time setup before the first publish:**
 
-1. Create a free GitHub organization named **`riverromney`**.
-2. Create a Personal Access Token with the **`write:packages`** scope on that
-   org, and add it to this repo's Actions secrets as **`PACKAGES_TOKEN`**.
+1. Own the **`@riverromney`** scope on [npmjs.com](https://www.npmjs.com) — create
+   the free `riverromney` npm organization (public scoped packages are free).
+2. Create an npm **Automation** access token and add it to this repo's Actions
+   secrets as **`NPM_TOKEN`**.
 3. Run the **Publish @riverromney/tokens** workflow (Actions tab → Run workflow),
    or push a `tokens-v*` tag.
 
@@ -77,7 +67,6 @@ That's it — the package, build, and workflow (`.github/workflows/publish.yml`)
 are ready. Preview the exact tarball anytime with
 `npm pack --workspace @riverromney/tokens --dry-run`.
 
-> Alternative: transfer this repo into the `riverromney` org instead of using a
-> PAT — then the workflow's default `GITHUB_TOKEN` is sufficient. Heavier (it
-> moves the repo URL and re-points the Vercel integration), so the PAT path
-> above is the lighter default.
+> The package ships `"license": "UNLICENSED"` — publicly visible (a portfolio
+> artifact), but not licensed for third-party reuse. Change the license field if
+> you want to grant reuse.
