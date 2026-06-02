@@ -20,6 +20,8 @@ build/
 packages/
   components/       Framework-agnostic Lit web components (rr-*). Each ships its own
                     *.meta.json (props/tokens/a11y/rules) and *.figma.ts (Code Connect).
+  tokens/           Publishable @riverromney/tokens — ships the built brand CSS so
+                    consumers `npm install` instead of hand-copying. Built by prepack.
   mcp/              MCP server — list_components, get_component, check_usage.
 schemas/
   meta.schema.json  JSON Schema each component *.meta.json validates against.
@@ -35,6 +37,7 @@ design-system.json   Generated artifact — merged component metadata + Custom E
 .github/workflows/
   ci.yml             Runs on every push/PR: validate → build → build:meta → artifact-staleness check → tests.
   drift-lint.yml     Manual (workflow_dispatch) scan of a consumer repo for drift.
+  publish.yml        On-demand publish of @riverromney/tokens to GitHub Packages.
 docs/
   index.html         Base dark theme design system reference. Open file:// directly in browser.
 AGENTS.md            Vendor-neutral guide for agents *consuming* the system in product repos.
@@ -67,6 +70,19 @@ AGENTS.md            Vendor-neutral guide for agents *consuming* the system in p
 7. Go to the consumer repo and run `npm run sync-tokens` to surface any drift
 
 CI (`.github/workflows/ci.yml`) runs steps 4–5 plus the workspace tests on every push/PR, so a broken reference, a malformed `meta.json`, or a stale artifact can't land.
+
+## Distribution
+
+`@riverromney/tokens` (`packages/tokens/`) makes the built brand CSS a real,
+versioned dependency so consumers stop hand-copying the token block. Preview the
+publish tarball anytime with `npm pack --workspace @riverromney/tokens --dry-run`.
+
+Publishing targets **GitHub Packages** via `.github/workflows/publish.yml`
+(on-demand only). One account decision is outstanding before the first publish
+will succeed: GitHub Packages associates a package with the **repo owner**
+(`digital2analogue`), but the scope is `@riverromney`. Resolve by creating a
+GitHub org named `riverromney`, or by publishing under `@digital2analogue`. See
+`packages/tokens/README.md`. The components/mcp packages are not published yet.
 
 ## Sub-Brands
 

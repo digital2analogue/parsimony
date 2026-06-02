@@ -1,0 +1,43 @@
+name: Publish @riverromney/tokens
+
+# On-demand only — never publishes automatically. Trigger from the Actions tab
+# (workflow_dispatch) or by pushing a tag like `tokens-v0.1.0`.
+#
+# PREREQUISITE: GitHub Packages associates a package with the repository owner
+# (digital2analogue). The package scope is @riverromney, so the first publish
+# needs either a GitHub org named `riverromney`, or the scope switched to
+# @digital2analogue. See packages/tokens/README.md. Until then this workflow is
+# wired and ready but the publish step will be rejected by the registry.
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'tokens-v*'
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://npm.pkg.github.com
+          scope: '@riverromney'
+
+      - name: Install
+        run: npm ci
+
+      - name: Build token CSS
+        run: npm run build --workspace @riverromney/tokens
+
+      - name: Publish to GitHub Packages
+        run: npm publish --workspace @riverromney/tokens
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
