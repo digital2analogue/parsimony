@@ -49,8 +49,12 @@ for (const entry of metaFiles) {
     process.exit(1);
   }
 }
-// Stable order by component name.
-components.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+// Stable order by component name (plain code-unit compare — locale-independent).
+components.sort((a, b) => {
+  const x = a.name ?? '';
+  const y = b.name ?? '';
+  return x < y ? -1 : x > y ? 1 : 0;
+});
 
 // ── Merge with Custom Elements Manifest (if it exists) ──────────────────────
 

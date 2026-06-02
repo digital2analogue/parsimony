@@ -473,179 +473,6 @@
     "modules": [
       {
         "kind": "javascript-module",
-        "path": "src/index.ts",
-        "declarations": [],
-        "exports": [
-          {
-            "kind": "js",
-            "name": "RrAlert",
-            "declaration": {
-              "name": "RrAlert",
-              "module": "./alert/alert.js"
-            }
-          },
-          {
-            "kind": "js",
-            "name": "RrAvatar",
-            "declaration": {
-              "name": "RrAvatar",
-              "module": "./avatar/avatar.js"
-            }
-          },
-          {
-            "kind": "js",
-            "name": "RrBadge",
-            "declaration": {
-              "name": "RrBadge",
-              "module": "./badge/badge.js"
-            }
-          },
-          {
-            "kind": "js",
-            "name": "RrButton",
-            "declaration": {
-              "name": "RrButton",
-              "module": "./button/button.js"
-            }
-          },
-          {
-            "kind": "js",
-            "name": "RrCard",
-            "declaration": {
-              "name": "RrCard",
-              "module": "./card/card.js"
-            }
-          },
-          {
-            "kind": "js",
-            "name": "RrCheckbox",
-            "declaration": {
-              "name": "RrCheckbox",
-              "module": "./checkbox/checkbox.js"
-            }
-          },
-          {
-            "kind": "js",
-            "name": "RrDialog",
-            "declaration": {
-              "name": "RrDialog",
-              "module": "./dialog/dialog.js"
-            }
-          },
-          {
-            "kind": "js",
-            "name": "RrIcon",
-            "declaration": {
-              "name": "RrIcon",
-              "module": "./icon/icon.js"
-            }
-          },
-          {
-            "kind": "js",
-            "name": "RrInput",
-            "declaration": {
-              "name": "RrInput",
-              "module": "./input/input.js"
-            }
-          },
-          {
-            "kind": "js",
-            "name": "RrLink",
-            "declaration": {
-              "name": "RrLink",
-              "module": "./link/link.js"
-            }
-          },
-          {
-            "kind": "js",
-            "name": "RrProgress",
-            "declaration": {
-              "name": "RrProgress",
-              "module": "./progress/progress.js"
-            }
-          },
-          {
-            "kind": "js",
-            "name": "RrRadio",
-            "declaration": {
-              "name": "RrRadio",
-              "module": "./radio/radio.js"
-            }
-          },
-          {
-            "kind": "js",
-            "name": "RrRadioGroup",
-            "declaration": {
-              "name": "RrRadioGroup",
-              "module": "./radio/radio-group.js"
-            }
-          },
-          {
-            "kind": "js",
-            "name": "RrSelect",
-            "declaration": {
-              "name": "RrSelect",
-              "module": "./select/select.js"
-            }
-          },
-          {
-            "kind": "js",
-            "name": "RrSkeleton",
-            "declaration": {
-              "name": "RrSkeleton",
-              "module": "./skeleton/skeleton.js"
-            }
-          },
-          {
-            "kind": "js",
-            "name": "RrSpinner",
-            "declaration": {
-              "name": "RrSpinner",
-              "module": "./spinner/spinner.js"
-            }
-          },
-          {
-            "kind": "js",
-            "name": "RrTab",
-            "declaration": {
-              "name": "RrTab",
-              "module": "./tabs/tab.js"
-            }
-          },
-          {
-            "kind": "js",
-            "name": "RrTabList",
-            "declaration": {
-              "name": "RrTabList",
-              "module": "./tabs/tab-list.js"
-            }
-          },
-          {
-            "kind": "js",
-            "name": "RrTextarea",
-            "declaration": {
-              "name": "RrTextarea",
-              "module": "./textarea/textarea.js"
-            }
-          },
-          {
-            "kind": "js",
-            "name": "RrToggle",
-            "declaration": {
-              "name": "RrToggle",
-              "module": "./toggle/toggle.js"
-            }
-          }
-        ]
-      },
-      {
-        "kind": "javascript-module",
-        "path": "src/test-setup.ts",
-        "declarations": [],
-        "exports": []
-      },
-      {
-        "kind": "javascript-module",
         "path": "src/alert/alert.figma.ts",
         "declarations": [],
         "exports": []
@@ -1813,6 +1640,173 @@
             "declaration": {
               "name": "RrIcon",
               "module": "src/icon/icon.ts"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/index.ts",
+        "declarations": [],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrAlert",
+            "declaration": {
+              "name": "RrAlert",
+              "module": "./alert/alert.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrAvatar",
+            "declaration": {
+              "name": "RrAvatar",
+              "module": "./avatar/avatar.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrBadge",
+            "declaration": {
+              "name": "RrBadge",
+              "module": "./badge/badge.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrButton",
+            "declaration": {
+              "name": "RrButton",
+              "module": "./button/button.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrCard",
+            "declaration": {
+              "name": "RrCard",
+              "module": "./card/card.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrCheckbox",
+            "declaration": {
+              "name": "RrCheckbox",
+              "module": "./checkbox/checkbox.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrDialog",
+            "declaration": {
+              "name": "RrDialog",
+              "module": "./dialog/dialog.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrIcon",
+            "declaration": {
+              "name": "RrIcon",
+              "module": "./icon/icon.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrInput",
+            "declaration": {
+              "name": "RrInput",
+              "module": "./input/input.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrLink",
+            "declaration": {
+              "name": "RrLink",
+              "module": "./link/link.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrProgress",
+            "declaration": {
+              "name": "RrProgress",
+              "module": "./progress/progress.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrRadio",
+            "declaration": {
+              "name": "RrRadio",
+              "module": "./radio/radio.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrRadioGroup",
+            "declaration": {
+              "name": "RrRadioGroup",
+              "module": "./radio/radio-group.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrSelect",
+            "declaration": {
+              "name": "RrSelect",
+              "module": "./select/select.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrSkeleton",
+            "declaration": {
+              "name": "RrSkeleton",
+              "module": "./skeleton/skeleton.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrSpinner",
+            "declaration": {
+              "name": "RrSpinner",
+              "module": "./spinner/spinner.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrTab",
+            "declaration": {
+              "name": "RrTab",
+              "module": "./tabs/tab.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrTabList",
+            "declaration": {
+              "name": "RrTabList",
+              "module": "./tabs/tab-list.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrTextarea",
+            "declaration": {
+              "name": "RrTextarea",
+              "module": "./textarea/textarea.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrToggle",
+            "declaration": {
+              "name": "RrToggle",
+              "module": "./toggle/toggle.js"
             }
           }
         ]
@@ -3502,6 +3496,12 @@
       {
         "kind": "javascript-module",
         "path": "src/tabs/tabs.figma.ts",
+        "declarations": [],
+        "exports": []
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/test-setup.ts",
         "declarations": [],
         "exports": []
       },
