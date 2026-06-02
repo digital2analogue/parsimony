@@ -20,7 +20,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22 # fs.promises.glob (used by validate + build:meta) requires Node 22+
           cache: npm
 
       - name: Install (workspaces)

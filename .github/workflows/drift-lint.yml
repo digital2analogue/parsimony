@@ -26,7 +26,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22 # fs.promises.glob requires Node 22+
 
       - name: Checkout consumer repo
         uses: actions/checkout@v4

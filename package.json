@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "River Romney's cross-site design token system",
   "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "workspaces": [
     "packages/*"
   ],
