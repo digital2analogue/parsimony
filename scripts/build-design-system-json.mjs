@@ -30,22 +30,27 @@ const metaGlobs = [
   'src/**/*.meta.json',
 ];
 
-const components = [];
-
+// Collect file paths first, then sort, so the artifact is deterministic
+// regardless of filesystem glob order — required for the CI staleness check.
+const metaFiles = [];
 for (const pattern of metaGlobs) {
-  for await (const entry of glob(pattern, { cwd: ROOT })) {
-    const filePath = resolve(ROOT, entry);
-    const rel = relative(ROOT, filePath);
-    try {
-      const data = JSON.parse(readFileSync(filePath, 'utf8'));
-      components.push(data);
-      console.log(`  + ${rel}`);
-    } catch (e) {
-      console.error(`  ✗ ${rel}: ${e.message}`);
-      process.exit(1);
-    }
+  for await (const entry of glob(pattern, { cwd: ROOT })) metaFiles.push(entry);
+}
+metaFiles.sort();
+
+const components = [];
+for (const entry of metaFiles) {
+  const rel = relative(ROOT, resolve(ROOT, entry));
+  try {
+    components.push(JSON.parse(readFileSync(resolve(ROOT, entry), 'utf8')));
+    console.log(`  + ${rel}`);
+  } catch (e) {
+    console.error(`  ✗ ${rel}: ${e.message}`);
+    process.exit(1);
   }
 }
+// Stable order by component name.
+components.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
 
 // ── Merge with Custom Elements Manifest (if it exists) ──────────────────────
 
@@ -71,9 +76,10 @@ for (const cemPath of cemPaths) {
 
 // ── Build merged artifact ───────────────────────────────────────────────────
 
+// No timestamp: the artifact is a pure function of its inputs, so CI can verify
+// it is up to date with `git diff --exit-code`. Provenance comes from the commit.
 const artifact = {
   $schemaVersion: SCHEMA_VERSION,
-  generatedAt: new Date().toISOString(),
   components,
 };
 

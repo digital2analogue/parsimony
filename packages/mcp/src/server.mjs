@@ -18,6 +18,7 @@ import { resolve } from 'node:path';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { z } from 'zod';
+import { lintSnippet } from '../../../scripts/rules.mjs';
 
 // ── Load design-system.json ─────────────────────────────────────────────────
 
@@ -43,23 +44,8 @@ if (actualMajor !== EXPECTED_MAJOR) {
   process.exit(1);
 }
 
-// ── Lint patterns for check_usage ───────────────────────────────────────────
-
-const HEX_RE = /#(?:[0-9a-fA-F]{3}){1,2}\b/g;
-const PRIMITIVE_RE = /--primitive-[a-z][a-z-]*/g;
-
-// Deprecated tokens (add entries here as tokens are removed)
-const DEPRECATED_TOKENS = [
-  '--color-foreground-accent',
-  '--color-background-accent',
-  '--color-foreground-on-accent',
-  '--color-foreground-primary',
-  '--color-feedback-error',
-  '--color-feedback-danger-foreground',
-  '--color-foreground-accent-red',
-  '--color-foreground-on-accent-red',
-  '--color-state-hover',
-];
+// Lint rules for check_usage live in scripts/rules.mjs — the single source of
+// truth shared with validate.mjs and the drift Action.
 
 // ── MCP Server ──────────────────────────────────────────────────────────────
 
@@ -116,36 +102,8 @@ server.tool(
   'Lint a CSS/HTML snippet for design system violations: hex literals, primitive token refs, deprecated tokens',
   { snippet: z.string().describe('CSS or HTML string to check') },
   async ({ snippet }) => {
-    const violations = [];
-
-    // Check hex literals
-    const hexMatches = snippet.match(HEX_RE);
-    if (hexMatches) {
-      const unique = [...new Set(hexMatches)];
-      violations.push({
-        rule: 'No hardcoded colors — use var(--color-*) custom properties',
-        matches: unique,
-      });
-    }
-
-    // Check primitive token references
-    const primMatches = snippet.match(PRIMITIVE_RE);
-    if (primMatches) {
-      const unique = [...new Set(primMatches)];
-      violations.push({
-        rule: 'Never reference primitive tokens (--primitive-*) in UI code — use semantic layer',
-        matches: unique,
-      });
-    }
-
-    // Check deprecated tokens
-    const depFound = DEPRECATED_TOKENS.filter((t) => snippet.includes(t));
-    if (depFound.length > 0) {
-      violations.push({
-        rule: 'Deprecated token — see ai/DECISION-ENGINE.md "Tokens That Were Deleted"',
-        matches: depFound,
-      });
-    }
+    // lintSnippet returns { id, rule, matches }[]; expose rule + matches.
+    const violations = lintSnippet(snippet).map(({ rule, matches }) => ({ rule, matches }));
 
     if (violations.length === 0) {
       return {

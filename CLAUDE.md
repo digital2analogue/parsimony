@@ -26,14 +26,23 @@ schemas/
 scripts/
   build-brands.mjs            Runs Style Dictionary for all brands. The token build command.
   generate-docs.mjs           Regenerates docs/index.html from token JSON.
-  build-design-system-json.mjs Merges *.meta.json + CEM into design-system.json.
-  validate.mjs                Lints tokens/components for hard-rule violations (no hex, no primitives).
-  drift-grep.sh / drift_audit.py  Drift detection across consumer repos.
-design-system.json   Generated artifact — merged component metadata the MCP server reads.
+  build-design-system-json.mjs Merges *.meta.json + CEM into design-system.json (deterministic — sorted, no timestamp).
+  rules.mjs                   Single source of truth for the lint rules (no hex / no primitive / no hardcoded size / deprecated). Imported by validate, the MCP, and drift-lint.
+  validate.mjs                Build gate: meta.json schema + lint rules + token-reference resolution.
+  drift-lint.mjs              Scans a consumer repo using the shared rules. `npm run drift -- <dir>`.
+  drift_audit.py              Figma-variable-vs-token drift auditor (separate concern from code linting).
+design-system.json   Generated artifact — merged component metadata + Custom Elements Manifest, read by the MCP server.
+.github/workflows/
+  ci.yml             Runs on every push/PR: validate → build → build:meta → artifact-staleness check → tests.
+  drift-lint.yml     Manual (workflow_dispatch) scan of a consumer repo for drift.
 docs/
   index.html         Base dark theme design system reference. Open file:// directly in browser.
 AGENTS.md            Vendor-neutral guide for agents *consuming* the system in product repos.
 ```
+
+> **One repo, real workspaces.** `packages/*` are npm workspaces — run `npm ci`
+> once at the root. The lint rules live in exactly one place (`scripts/rules.mjs`);
+> never re-implement a regex in a checker, import from there.
 
 ## Token Layers
 
@@ -52,10 +61,12 @@ AGENTS.md            Vendor-neutral guide for agents *consuming* the system in p
 2. Build tokens: `npm run build` (or `node scripts/build-brands.mjs`)
 3. Regenerate docs: `npm run docs` (or `node scripts/generate-docs.mjs`)
    - Or run both at once: `npm run build:all`
-4. Validate token usage: `npm run validate` (rejects hex literals and primitive refs)
-5. If a component's metadata changed, rebuild the artifact: `npm run build:meta` → `design-system.json`
+4. Validate: `npm run validate` (rejects hex literals, primitive/deprecated refs, and dangling token references)
+5. If a component's metadata changed, rebuild the artifact: `npm run build:meta` → regenerates the CEM and `design-system.json`. **Commit the regenerated artifact** — CI fails if it's stale.
 6. Check the output in `build/css/<brand>.css`
 7. Go to the consumer repo and run `npm run sync-tokens` to surface any drift
+
+CI (`.github/workflows/ci.yml`) runs steps 4–5 plus the workspace tests on every push/PR, so a broken reference, a malformed `meta.json`, or a stale artifact can't land.
 
 ## Sub-Brands
 

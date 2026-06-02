@@ -1,0 +1,46 @@
+name: CI
+
+# The contract gate for brand-tokens itself. Before this existed, nothing
+# verified the system on a PR — a malformed meta.json, a hex literal in a
+# component, or a stale artifact could land clean. This closes that gap.
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install (workspaces)
+        run: npm ci
+
+      - name: Validate — schema, lint rules, reference resolution
+        run: npm run validate
+
+      - name: Build all brand CSS
+        run: npm run build
+
+      - name: Rebuild generated artifacts (CEM + design-system.json)
+        run: npm run build:meta
+
+      - name: Fail if committed artifacts are stale
+        run: |
+          if ! git diff --exit-code -- design-system.json packages/components/custom-elements.json; then
+            echo "::error::Generated artifacts are out of date. Run 'npm run build:meta' and commit the result."
+            exit 1
+          fi
+
+      - name: Test (components + mcp)
+        run: npm test --workspaces --if-present
