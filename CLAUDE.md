@@ -20,7 +20,7 @@ build/
 packages/
   components/       Framework-agnostic Lit web components (rr-*). Each ships its own
                     *.meta.json (props/tokens/a11y/rules) and *.figma.ts (Code Connect).
-  tokens/           Publishable @riverromney/tokens — ships the built brand CSS so
+  tokens/           Publishable @digital2analogue2/tokens — ships the built brand CSS so
                     consumers `npm install` instead of hand-copying. Built by prepack.
   mcp/              MCP server — list_components, get_component, check_usage.
 schemas/
@@ -37,7 +37,7 @@ design-system.json   Generated artifact — merged component metadata + Custom E
 .github/workflows/
   ci.yml             Runs on every push/PR: validate → build → build:meta → artifact-staleness check → tests.
   drift-lint.yml     Manual (workflow_dispatch) scan of a consumer repo for drift.
-  publish.yml        On-demand publish of @riverromney/tokens to GitHub Packages.
+  publish.yml        On-demand publish of @digital2analogue2/tokens to GitHub Packages.
 docs/
   index.html         Base dark theme design system reference. Open file:// directly in browser.
 AGENTS.md            Vendor-neutral guide for agents *consuming* the system in product repos.
@@ -73,9 +73,9 @@ CI (`.github/workflows/ci.yml`) runs steps 4–5 plus the workspace tests on eve
 
 ## Distribution
 
-`@riverromney/tokens` (`packages/tokens/`) makes the built brand CSS a real,
+`@digital2analogue2/tokens` (`packages/tokens/`) makes the built brand CSS a real,
 versioned dependency so consumers stop hand-copying the token block. Preview the
-publish tarball anytime with `npm pack --workspace @riverromney/tokens --dry-run`.
+publish tarball anytime with `npm pack --workspace @digital2analogue2/tokens --dry-run`.
 
 Publishing targets the **public npm registry** under the `@riverromney` scope
 via `.github/workflows/publish.yml` (on-demand only). Public npm keeps the scope
