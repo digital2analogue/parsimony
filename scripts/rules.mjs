@@ -48,26 +48,26 @@ export const RULES = [
   {
     id: 'no-hex',
     hardRule: 1,
-    message: 'No hardcoded colors — use var(--color-*) custom properties',
+    message: 'No hardcoded colors. Use var(--color-*) custom properties',
     find: (text) => matchAll(text, HEX),
     allowlist: HEX_ALLOWLIST,
   },
   {
     id: 'no-primitive',
     hardRule: 9,
-    message: 'Never reference primitive tokens (--primitive-*) in UI code — use the semantic layer',
+    message: 'Never reference primitive tokens (--primitive-*) in UI code. Use the semantic layer',
     find: (text) => matchAll(text, PRIMITIVE),
   },
   {
     id: 'no-hardcoded-font-size',
     hardRule: 8,
-    message: 'No hardcoded font sizes — use var(--font-size-*) primitives or a font shorthand token',
+    message: 'No hardcoded font sizes. Use var(--font-size-*) primitives or a font shorthand token',
     find: (text) => matchAll(text, FONT_SIZE),
   },
   {
     id: 'deprecated-token',
     hardRule: null,
-    message: 'Deprecated token — see ai/DECISION-ENGINE.md "Tokens That Were Deleted"',
+    message: 'Deprecated token. See ai/DECISION-ENGINE.md "Tokens That Were Deleted"',
     find: (text) => DEPRECATED_TOKENS.filter((t) => text.includes(t)),
   },
 ];

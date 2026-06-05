@@ -53,7 +53,7 @@
     "--font-label-small"
   ],
   "rules": [
-    "Never use hex values — always var(--color-*) or var(--component-*)",
+    "Never use hex values. Always use var(--color-*) or var(--component-*)",
     "Never reference --primitive-* tokens in component code",
     "All text/background pairings must pass WCAG AA (4.5:1)",
     "Variants use a subtle style: a tinted background with accent-colored text, not a solid fill. component-badge-{variant}-foreground is the accent color itself (e.g. foreground-success), not foreground-on-{variant}.",
@@ -99,7 +99,7 @@
     ],
     "rules": [
       "Add role=\"status\" on the host element when badge content updates dynamically to create an ARIA live region.",
-      "Decorative badges (accent-*) do not need role=\"status\" — they are static labels.",
+      "Decorative badges (accent-*) do not need role=\"status\"; they are static labels.",
       "Badge text alone must convey meaning; do not rely solely on color to distinguish variants."
     ]
   },

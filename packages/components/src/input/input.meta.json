@@ -54,7 +54,7 @@
     "--font-label-small"
   ],
   "rules": [
-    "Never use hex values — always var(--color-*) or var(--component-*)",
+    "Never use hex values. Always use var(--color-*) or var(--component-*)",
     "Never reference --primitive-* tokens in component code",
     "All text/background pairings must pass WCAG AA (4.5:1)"
   ],
