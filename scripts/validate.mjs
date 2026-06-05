@@ -1,28 +1,28 @@
 /**
- * Validate *.meta.json files against schemas/meta.schema.json
- * and lint component source files for token rule violations.
+ * validate.mjs — the build-time gate for the token system.
  *
- * Usage: node scripts/validate.mjs
+ * Usage: node scripts/validate.mjs   (npm run validate)
  *
  * Checks:
- *   1. Every *.meta.json validates against the schema
- *   2. No hex color literals (#xxx or #xxxxxx) in component source files
- *   3. No --primitive-* references in component source files
+ *   1. Every *.meta.json validates against schemas/meta.schema.json
+ *   2. Component source files obey the lint rules (scripts/rules.mjs)
+ *   3. Every token reference {a.b.c} resolves to a token that exists
+ *      — this is what makes "a rename is a breaking change" actually true.
  *
- * Consumer-side enforcement is step 13 (drift grep Action).
+ * Consumer-side enforcement lives in scripts/drift-lint.mjs (the CI Action).
  */
 
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { resolve, relative } from 'node:path';
 import { glob } from 'node:fs/promises';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
+import { lintLines } from './rules.mjs';
 
 const ROOT = resolve(import.meta.dirname, '..');
 const SCHEMA_PATH = resolve(ROOT, 'schemas/meta.schema.json');
 
 let exitCode = 0;
-
 function fail(msg) {
   console.error(`  ✗ ${msg}`);
   exitCode = 1;
@@ -37,22 +37,16 @@ const ajv = new Ajv2020({ allErrors: true });
 addFormats(ajv);
 const validate = ajv.compile(schema);
 
-// Collect meta.json files from anywhere components might live
-const metaGlobs = [
-  'packages/components/**/*.meta.json',
-  'src/**/*.meta.json',
-];
+const metaGlobs = ['packages/components/**/*.meta.json', 'src/**/*.meta.json'];
 
 let metaCount = 0;
 for (const pattern of metaGlobs) {
   for await (const entry of glob(pattern, { cwd: ROOT })) {
     metaCount++;
-    const filePath = resolve(ROOT, entry);
-    const rel = relative(ROOT, filePath);
+    const rel = relative(ROOT, resolve(ROOT, entry));
     try {
-      const data = JSON.parse(readFileSync(filePath, 'utf8'));
-      const valid = validate(data);
-      if (!valid) {
+      const data = JSON.parse(readFileSync(resolve(ROOT, entry), 'utf8'));
+      if (!validate(data)) {
         fail(`${rel}: schema validation failed`);
         for (const err of validate.errors) {
           console.error(`    ${err.instancePath || '/'} ${err.message}`);
@@ -65,25 +59,11 @@ for (const pattern of metaGlobs) {
     }
   }
 }
+console.log(metaCount === 0 ? '  (no *.meta.json files found)\n' : '');
 
-if (metaCount === 0) {
-  console.log('  (no *.meta.json files found — skipping schema validation)\n');
-} else {
-  console.log();
-}
-
-// ── 2. Token lint: no hex literals, no --primitive-* in component sources ───
+// ── 2. Token lint on component sources ──────────────────────────────────────
 
 console.log('Linting component sources for token violations...\n');
-
-const HEX_RE = /#(?:[0-9a-fA-F]{3}){1,2}\b/g;
-const PRIMITIVE_RE = /--primitive-[a-z]/g;
-
-// Allowlist: these patterns are false positives (e.g. inside comments, schema refs)
-const HEX_ALLOWLIST = [
-  /url\(#/,          // SVG fragment IDs
-  /sourceMappingURL/, // source maps
-];
 
 const lintGlobs = [
   'packages/components/src/**/*.{ts,js,css}',
@@ -93,41 +73,95 @@ const lintGlobs = [
 let lintCount = 0;
 for (const pattern of lintGlobs) {
   for await (const entry of glob(pattern, { cwd: ROOT })) {
+    // .figma.ts files reference Figma node URLs; tests contain sample violations.
+    if (entry.endsWith('.figma.ts') || entry.endsWith('.test.ts')) continue;
     lintCount++;
-    const filePath = resolve(ROOT, entry);
-    const rel = relative(ROOT, filePath);
-    const content = readFileSync(filePath, 'utf8');
-    const lines = content.split('\n');
+    const rel = relative(ROOT, resolve(ROOT, entry));
+    const content = readFileSync(resolve(ROOT, entry), 'utf8');
+    for (const v of lintLines(content)) {
+      fail(`${rel}:${v.line}: ${v.match} — ${v.rule}`);
+    }
+  }
+}
+console.log(lintCount === 0 ? '  (no component source files found)\n' : '');
 
-    lines.forEach((line, i) => {
-      // Skip allowlisted patterns
-      if (HEX_ALLOWLIST.some(re => re.test(line))) return;
+// ── 3. Token reference resolution ───────────────────────────────────────────
+// Every {a.b.c} alias must point at a token that actually exists, including
+// across brand override layers. A dangling reference = a rename that wasn't
+// propagated; it fails the build here instead of silently shipping.
 
-      const hexMatches = line.match(HEX_RE);
-      if (hexMatches) {
-        fail(`${rel}:${i + 1}: hex literal ${hexMatches[0]} — use var(--color-*) instead`);
+console.log('Resolving token references...\n');
+
+const REF_RE = /\{([^}]+)\}/g;
+
+/** Pull {a.b.c} references from a token value's string leaves only.
+ *  Composite values (typography, transition) are objects whose own JSON braces
+ *  must not be mistaken for references — so we recurse to strings, not stringify. */
+function extractRefs(value, out = []) {
+  if (typeof value === 'string') {
+    for (const m of value.matchAll(REF_RE)) out.push(m[1]);
+  } else if (Array.isArray(value)) {
+    value.forEach((v) => extractRefs(v, out));
+  } else if (value && typeof value === 'object') {
+    Object.values(value).forEach((v) => extractRefs(v, out));
+  }
+  return out;
+}
+
+/** Walk a token tree; record the dotted path of every token (node with $value),
+ *  and every {reference} found inside a token's $value. */
+function collectTokens(obj, prefix, paths, refs, file) {
+  for (const [key, val] of Object.entries(obj)) {
+    if (key.startsWith('$')) continue;
+    if (val && typeof val === 'object') {
+      const path = prefix ? `${prefix}.${key}` : key;
+      if ('$value' in val) {
+        paths.add(path);
+        for (const ref of extractRefs(val.$value)) refs.push({ ref, from: path, file });
+      } else {
+        collectTokens(val, path, paths, refs, file);
       }
-
-      const primMatches = line.match(PRIMITIVE_RE);
-      if (primMatches) {
-        fail(`${rel}:${i + 1}: primitive token ${primMatches[0]}* — use semantic tokens instead`);
-      }
-    });
+    }
   }
 }
 
-if (lintCount === 0) {
-  console.log('  (no component source files found — skipping lint)\n');
-} else {
-  console.log();
+async function scan(globPattern, paths, refs) {
+  for await (const entry of glob(globPattern, { cwd: ROOT })) {
+    const data = JSON.parse(readFileSync(resolve(ROOT, entry), 'utf8'));
+    collectTokens(data, '', paths, refs, relative(ROOT, resolve(ROOT, entry)));
+  }
 }
+
+// Base layer = primitives + semantic + components.
+const basePaths = new Set();
+const baseRefs = [];
+await scan('tokens/primitives/**/*.tokens.json', basePaths, baseRefs);
+await scan('tokens/semantic/**/*.tokens.json', basePaths, baseRefs);
+await scan('tokens/components/**/*.tokens.json', basePaths, baseRefs);
+
+let refCount = baseRefs.length;
+for (const { ref, from, file } of baseRefs) {
+  if (!basePaths.has(ref)) fail(`${file}: ${from} references {${ref}} which does not exist`);
+}
+
+// Each brand may reference base tokens plus whatever it defines itself.
+for await (const entry of glob('tokens/brands/**/*.tokens.json', { cwd: ROOT })) {
+  const file = relative(ROOT, resolve(ROOT, entry));
+  const brandPaths = new Set(basePaths);
+  const brandRefs = [];
+  const data = JSON.parse(readFileSync(resolve(ROOT, entry), 'utf8'));
+  collectTokens(data, '', brandPaths, brandRefs, file);
+  refCount += brandRefs.length;
+  for (const { ref, from } of brandRefs) {
+    if (!brandPaths.has(ref)) fail(`${file}: ${from} references {${ref}} which does not exist`);
+  }
+}
+
+console.log(exitCode === 0 ? `  ✓ all ${refCount} references resolve\n` : '');
 
 // ── Result ──────────────────────────────────────────────────────────────────
 
-if (exitCode === 0) {
-  console.log('All checks passed.');
-} else {
-  console.error('Validation failed — see errors above.');
-}
+if (exitCode === 0) console.log('All checks passed.');
+else console.error('Validation failed — see errors above.');
 
 process.exit(exitCode);

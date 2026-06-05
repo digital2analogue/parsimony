@@ -90,7 +90,7 @@ export class RrDialog extends LitElement {
 
     .close-btn:hover {
       color: var(--color-foreground-default);
-      background: var(--color-state-hover);
+      background: var(--color-background-alt);
     }
 
     .close-btn:focus-visible {

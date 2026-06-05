@@ -1,0 +1,52 @@
+name: Drift Lint
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo:
+        description: 'Consumer repo to scan (owner/name)'
+        required: true
+        type: string
+      ref:
+        description: 'Branch or ref to scan (default: main)'
+        required: false
+        default: 'main'
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  drift-lint:
+    runs-on: ubuntu-latest
+    steps:
+      # brand-tokens itself — provides scripts/drift-lint.mjs + scripts/rules.mjs
+      - name: Checkout brand-tokens
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22 # fs.promises.glob requires Node 22+
+
+      - name: Checkout consumer repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ inputs.repo }}
+          ref: ${{ inputs.ref }}
+          path: consumer
+
+      - name: Scan consumer for drift
+        id: scan
+        shell: bash
+        run: |
+          # Same rules as the build gate and the MCP check_usage tool.
+          if node scripts/drift-lint.mjs ./consumer --md > /tmp/report.md; then
+            echo "result=clean" >> "$GITHUB_OUTPUT"
+          else
+            echo "result=violations" >> "$GITHUB_OUTPUT"
+          fi
+          cat /tmp/report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Fail if violations found
+        if: steps.scan.outputs.result == 'violations'
+        run: exit 1

@@ -1,7 +1,288 @@
 {
   "$schemaVersion": "1.0.0",
-  "generatedAt": "2026-05-11T09:13:31.363Z",
   "components": [
+    {
+      "metaVersion": "1.0.0",
+      "name": "rr-badge",
+      "summary": "Status badge and accent chip. 9 variants map to component tokens; brand theming cascades via CSS custom properties.",
+      "package": "@riverromney/components",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'default' | 'success' | 'warning' | 'danger' | 'info' | 'accent-green' | 'accent-blue' | 'accent-violet' | 'accent-amber'",
+          "default": "default",
+          "description": "Visual variant. Status variants (success, warning, danger, info) convey semantic meaning. Accent variants are decorative emphasis tags."
+        }
+      ],
+      "slots": [
+        {
+          "name": "default",
+          "description": "Badge label text."
+        }
+      ],
+      "events": [],
+      "cssParts": [],
+      "tokensUsed": [
+        "--component-badge-default-background",
+        "--component-badge-default-foreground",
+        "--component-badge-default-border",
+        "--component-badge-success-background",
+        "--component-badge-success-foreground",
+        "--component-badge-success-border",
+        "--component-badge-warning-background",
+        "--component-badge-warning-foreground",
+        "--component-badge-warning-border",
+        "--component-badge-danger-background",
+        "--component-badge-danger-foreground",
+        "--component-badge-danger-border",
+        "--component-badge-info-background",
+        "--component-badge-info-foreground",
+        "--component-badge-info-border",
+        "--component-badge-accent-green-background",
+        "--component-badge-accent-green-foreground",
+        "--component-badge-accent-green-border",
+        "--component-badge-accent-blue-background",
+        "--component-badge-accent-blue-foreground",
+        "--component-badge-accent-blue-border",
+        "--component-badge-accent-violet-background",
+        "--component-badge-accent-violet-foreground",
+        "--component-badge-accent-violet-border",
+        "--component-badge-accent-amber-background",
+        "--component-badge-accent-amber-foreground",
+        "--component-badge-accent-amber-border",
+        "--component-badge-radius",
+        "--component-badge-padding-x",
+        "--component-badge-padding-y",
+        "--font-label-small"
+      ],
+      "rules": [
+        "Never use hex values. Always use var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)",
+        "Variants use a subtle style: a tinted background with accent-colored text, not a solid fill. component-badge-{variant}-foreground is the accent color itself (e.g. foreground-success), not foreground-on-{variant}.",
+        "To make a variant solid instead (bright fill + dark text), repoint its component tokens to background-{variant} and foreground-on-{variant}; consumer code does not change."
+      ],
+      "examples": [
+        {
+          "title": "Default",
+          "html": "<rr-badge>Label</rr-badge>"
+        },
+        {
+          "title": "Success",
+          "html": "<rr-badge variant=\"success\">Active</rr-badge>"
+        },
+        {
+          "title": "Warning",
+          "html": "<rr-badge variant=\"warning\">Pending</rr-badge>"
+        },
+        {
+          "title": "Danger",
+          "html": "<rr-badge variant=\"danger\">Error</rr-badge>"
+        },
+        {
+          "title": "Info",
+          "html": "<rr-badge variant=\"info\">In Review</rr-badge>"
+        },
+        {
+          "title": "Accent chips",
+          "html": "<rr-badge variant=\"accent-green\">Tag</rr-badge>\n<rr-badge variant=\"accent-blue\">Category</rr-badge>\n<rr-badge variant=\"accent-violet\">Feature</rr-badge>\n<rr-badge variant=\"accent-amber\">New</rr-badge>"
+        },
+        {
+          "title": "Live region",
+          "html": "<rr-badge variant=\"success\" role=\"status\">Connected</rr-badge>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/badge/",
+        "focusable": false,
+        "keyboard": [],
+        "wcag": [
+          "1.4.3 Contrast (Minimum)",
+          "1.4.11 Non-text Contrast"
+        ],
+        "rules": [
+          "Add role=\"status\" on the host element when badge content updates dynamically to create an ARIA live region.",
+          "Decorative badges (accent-*) do not need role=\"status\"; they are static labels.",
+          "Badge text alone must convey meaning; do not rely solely on color to distinguish variants."
+        ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "",
+        "codeConnectFile": "badge.figma.ts"
+      }
+    },
+    {
+      "metaVersion": "1.0.0",
+      "name": "rr-button",
+      "summary": "Button with primary/secondary/danger variants, three sizes, loading spinner, and full keyboard/form semantics.",
+      "package": "@riverromney/components",
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "primary",
+          "description": "Visual variant: primary (filled CTA), secondary (outlined), danger (destructive)."
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "default": "medium",
+          "description": "Size: small, medium, large. Controls padding and font size."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false,
+          "description": "Disables the button. Prevents click and removes from tab order."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "default": false,
+          "description": "Shows a spinner and sets aria-busy. Click suppressed while loading."
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "default": "button",
+          "description": "Button type attribute: button, submit, or reset."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "default": null,
+          "description": "Accessible label. Required for icon-only buttons."
+        }
+      ],
+      "slots": [
+        {
+          "name": "(default)",
+          "description": "Button label text."
+        },
+        {
+          "name": "prefix",
+          "description": "Icon or element before the label."
+        },
+        {
+          "name": "suffix",
+          "description": "Icon or element after the label."
+        }
+      ],
+      "events": [
+        {
+          "name": "click",
+          "detail": "Native click event. Suppressed when disabled or loading."
+        }
+      ],
+      "cssParts": [
+        {
+          "name": "button",
+          "description": "The inner <button> element."
+        }
+      ],
+      "tokensUsed": [
+        "--component-button-primary-background-default",
+        "--component-button-primary-background-hover",
+        "--component-button-primary-background-active",
+        "--component-button-primary-foreground-default",
+        "--component-button-primary-border-default",
+        "--component-button-primary-border-hover",
+        "--component-button-primary-border-active",
+        "--component-button-secondary-background-default",
+        "--component-button-secondary-background-hover",
+        "--component-button-secondary-foreground-default",
+        "--component-button-secondary-border-default",
+        "--component-button-secondary-border-hover",
+        "--component-button-danger-background-default",
+        "--component-button-danger-background-hover",
+        "--component-button-danger-foreground-default",
+        "--component-button-danger-border-default",
+        "--component-button-danger-border-hover",
+        "--color-background-disabled",
+        "--color-foreground-disabled",
+        "--color-border-disabled",
+        "--color-border-focus",
+        "--font-label-strong-small",
+        "--font-label-strong-medium",
+        "--font-label-strong-large",
+        "--spacing-micro",
+        "--spacing-tight",
+        "--spacing-inline",
+        "--spacing-element",
+        "--radius-default",
+        "--motion-duration-instant",
+        "--motion-easing-default"
+      ],
+      "rules": [
+        "Never use hex values. Always use var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)",
+        "Primary button: one per page maximum",
+        "Icon-only buttons must have aria-label"
+      ],
+      "examples": [
+        {
+          "title": "Primary",
+          "html": "<rr-button>Save changes</rr-button>"
+        },
+        {
+          "title": "Secondary",
+          "html": "<rr-button variant=\"secondary\">Cancel</rr-button>"
+        },
+        {
+          "title": "Danger",
+          "html": "<rr-button variant=\"danger\">Delete</rr-button>"
+        },
+        {
+          "title": "Small",
+          "html": "<rr-button size=\"small\">Tag</rr-button>"
+        },
+        {
+          "title": "Large",
+          "html": "<rr-button size=\"large\">Get started</rr-button>"
+        },
+        {
+          "title": "Loading",
+          "html": "<rr-button loading>Saving...</rr-button>"
+        },
+        {
+          "title": "Disabled",
+          "html": "<rr-button disabled>Unavailable</rr-button>"
+        },
+        {
+          "title": "Icon-only",
+          "html": "<rr-button aria-label=\"Close\"><span slot=\"prefix\">X</span></rr-button>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/button/",
+        "focusable": true,
+        "keyboard": [
+          "Enter activates the button",
+          "Space activates the button",
+          "Tab moves focus to/from the button"
+        ],
+        "wcag": [
+          "1.4.3 Contrast (Minimum)",
+          "2.1.1 Keyboard",
+          "2.4.6 Headings and Labels",
+          "4.1.2 Name, Role, Value"
+        ],
+        "rules": [
+          "delegatesFocus ensures host element forwards focus to inner <button>.",
+          "aria-busy='true' set during loading state to communicate to AT.",
+          "Icon-only buttons require aria-label for accessible name.",
+          "disabled attribute removes from tab order and prevents activation.",
+          "Click events are suppressed when disabled or loading."
+        ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "",
+        "codeConnectFile": "button.figma.ts"
+      }
+    },
     {
       "metaVersion": "1.0.0",
       "name": "rr-input",
@@ -129,7 +410,7 @@
         "--font-label-small"
       ],
       "rules": [
-        "Never use hex values — always var(--color-*) or var(--component-*)",
+        "Never use hex values. Always use var(--color-*) or var(--component-*)",
         "Never reference --primitive-* tokens in component code",
         "All text/background pairings must pass WCAG AA (4.5:1)"
       ],
@@ -186,286 +467,3538 @@
         "nodeId": "",
         "codeConnectFile": "input.figma.ts"
       }
-    },
-    {
-      "metaVersion": "1.0.0",
-      "name": "rr-button",
-      "summary": "Button with primary/secondary/danger variants, three sizes, loading spinner, and full keyboard/form semantics.",
-      "package": "@riverromney/components",
-      "props": [
-        {
-          "name": "variant",
-          "type": "string",
-          "default": "primary",
-          "description": "Visual variant: primary (filled CTA), secondary (outlined), danger (destructive)."
-        },
-        {
-          "name": "size",
-          "type": "string",
-          "default": "medium",
-          "description": "Size: small, medium, large. Controls padding and font size."
-        },
-        {
-          "name": "disabled",
-          "type": "boolean",
-          "default": false,
-          "description": "Disables the button. Prevents click and removes from tab order."
-        },
-        {
-          "name": "loading",
-          "type": "boolean",
-          "default": false,
-          "description": "Shows a spinner and sets aria-busy. Click suppressed while loading."
-        },
-        {
-          "name": "type",
-          "type": "string",
-          "default": "button",
-          "description": "Button type attribute: button, submit, or reset."
-        },
-        {
-          "name": "aria-label",
-          "type": "string",
-          "default": null,
-          "description": "Accessible label. Required for icon-only buttons."
-        }
-      ],
-      "slots": [
-        {
-          "name": "(default)",
-          "description": "Button label text."
-        },
-        {
-          "name": "prefix",
-          "description": "Icon or element before the label."
-        },
-        {
-          "name": "suffix",
-          "description": "Icon or element after the label."
-        }
-      ],
-      "events": [
-        {
-          "name": "click",
-          "detail": "Native click event. Suppressed when disabled or loading."
-        }
-      ],
-      "cssParts": [
-        {
-          "name": "button",
-          "description": "The inner <button> element."
-        }
-      ],
-      "tokensUsed": [
-        "--component-button-primary-background-default",
-        "--component-button-primary-background-hover",
-        "--component-button-primary-background-active",
-        "--component-button-primary-foreground-default",
-        "--component-button-primary-border-default",
-        "--component-button-primary-border-hover",
-        "--component-button-primary-border-active",
-        "--component-button-secondary-background-default",
-        "--component-button-secondary-background-hover",
-        "--component-button-secondary-foreground-default",
-        "--component-button-secondary-border-default",
-        "--component-button-secondary-border-hover",
-        "--component-button-danger-background-default",
-        "--component-button-danger-background-hover",
-        "--component-button-danger-foreground-default",
-        "--component-button-danger-border-default",
-        "--component-button-danger-border-hover",
-        "--color-background-disabled",
-        "--color-foreground-disabled",
-        "--color-border-disabled",
-        "--color-border-focus",
-        "--font-label-strong-small",
-        "--font-label-strong-medium",
-        "--font-label-strong-large",
-        "--spacing-micro",
-        "--spacing-tight",
-        "--spacing-inline",
-        "--spacing-element",
-        "--radius-default",
-        "--motion-duration-instant",
-        "--motion-easing-default"
-      ],
-      "rules": [
-        "Never use hex values — always var(--color-*) or var(--component-*)",
-        "Never reference --primitive-* tokens in component code",
-        "All text/background pairings must pass WCAG AA (4.5:1)",
-        "Primary button: one per page maximum",
-        "Icon-only buttons must have aria-label"
-      ],
-      "examples": [
-        {
-          "title": "Primary",
-          "html": "<rr-button>Save changes</rr-button>"
-        },
-        {
-          "title": "Secondary",
-          "html": "<rr-button variant=\"secondary\">Cancel</rr-button>"
-        },
-        {
-          "title": "Danger",
-          "html": "<rr-button variant=\"danger\">Delete</rr-button>"
-        },
-        {
-          "title": "Small",
-          "html": "<rr-button size=\"small\">Tag</rr-button>"
-        },
-        {
-          "title": "Large",
-          "html": "<rr-button size=\"large\">Get started</rr-button>"
-        },
-        {
-          "title": "Loading",
-          "html": "<rr-button loading>Saving...</rr-button>"
-        },
-        {
-          "title": "Disabled",
-          "html": "<rr-button disabled>Unavailable</rr-button>"
-        },
-        {
-          "title": "Icon-only",
-          "html": "<rr-button aria-label=\"Close\"><span slot=\"prefix\">X</span></rr-button>"
-        }
-      ],
-      "accessibility": {
-        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/button/",
-        "focusable": true,
-        "keyboard": [
-          "Enter activates the button",
-          "Space activates the button",
-          "Tab moves focus to/from the button"
-        ],
-        "wcag": [
-          "1.4.3 Contrast (Minimum)",
-          "2.1.1 Keyboard",
-          "2.4.6 Headings and Labels",
-          "4.1.2 Name, Role, Value"
-        ],
-        "rules": [
-          "delegatesFocus ensures host element forwards focus to inner <button>.",
-          "aria-busy='true' set during loading state to communicate to AT.",
-          "Icon-only buttons require aria-label for accessible name.",
-          "disabled attribute removes from tab order and prevents activation.",
-          "Click events are suppressed when disabled or loading."
-        ]
-      },
-      "figma": {
-        "componentKey": "",
-        "nodeId": "",
-        "codeConnectFile": "button.figma.ts"
-      }
-    },
-    {
-      "metaVersion": "1.0.0",
-      "name": "rr-badge",
-      "summary": "Status badge and accent chip. 9 variants map to component tokens; brand theming cascades via CSS custom properties.",
-      "package": "@riverromney/components",
-      "props": [
-        {
-          "name": "variant",
-          "type": "'default' | 'success' | 'warning' | 'danger' | 'info' | 'accent-green' | 'accent-blue' | 'accent-violet' | 'accent-amber'",
-          "default": "default",
-          "description": "Visual variant. Status variants (success, warning, danger, info) convey semantic meaning. Accent variants are decorative emphasis tags."
-        }
-      ],
-      "slots": [
-        {
-          "name": "default",
-          "description": "Badge label text."
-        }
-      ],
-      "events": [],
-      "cssParts": [],
-      "tokensUsed": [
-        "--component-badge-default-background",
-        "--component-badge-default-foreground",
-        "--component-badge-default-border",
-        "--component-badge-success-background",
-        "--component-badge-success-foreground",
-        "--component-badge-success-border",
-        "--component-badge-warning-background",
-        "--component-badge-warning-foreground",
-        "--component-badge-warning-border",
-        "--component-badge-danger-background",
-        "--component-badge-danger-foreground",
-        "--component-badge-danger-border",
-        "--component-badge-info-background",
-        "--component-badge-info-foreground",
-        "--component-badge-info-border",
-        "--component-badge-accent-green-background",
-        "--component-badge-accent-green-foreground",
-        "--component-badge-accent-green-border",
-        "--component-badge-accent-blue-background",
-        "--component-badge-accent-blue-foreground",
-        "--component-badge-accent-blue-border",
-        "--component-badge-accent-violet-background",
-        "--component-badge-accent-violet-foreground",
-        "--component-badge-accent-violet-border",
-        "--component-badge-accent-amber-background",
-        "--component-badge-accent-amber-foreground",
-        "--component-badge-accent-amber-border",
-        "--component-badge-radius",
-        "--component-badge-padding-x",
-        "--component-badge-padding-y",
-        "--font-label-small"
-      ],
-      "rules": [
-        "Never use hex values — always var(--color-*) or var(--component-*)",
-        "Never reference --primitive-* tokens in component code",
-        "All text/background pairings must pass WCAG AA (4.5:1)"
-      ],
-      "examples": [
-        {
-          "title": "Default",
-          "html": "<rr-badge>Label</rr-badge>"
-        },
-        {
-          "title": "Success",
-          "html": "<rr-badge variant=\"success\">Active</rr-badge>"
-        },
-        {
-          "title": "Warning",
-          "html": "<rr-badge variant=\"warning\">Pending</rr-badge>"
-        },
-        {
-          "title": "Danger",
-          "html": "<rr-badge variant=\"danger\">Error</rr-badge>"
-        },
-        {
-          "title": "Info",
-          "html": "<rr-badge variant=\"info\">In Review</rr-badge>"
-        },
-        {
-          "title": "Accent chips",
-          "html": "<rr-badge variant=\"accent-green\">Tag</rr-badge>\n<rr-badge variant=\"accent-blue\">Category</rr-badge>\n<rr-badge variant=\"accent-violet\">Feature</rr-badge>\n<rr-badge variant=\"accent-amber\">New</rr-badge>"
-        },
-        {
-          "title": "Live region",
-          "html": "<rr-badge variant=\"success\" role=\"status\">Connected</rr-badge>"
-        }
-      ],
-      "accessibility": {
-        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/badge/",
-        "focusable": false,
-        "keyboard": [],
-        "wcag": [
-          "1.4.3 Contrast (Minimum)",
-          "1.4.11 Non-text Contrast"
-        ],
-        "rules": [
-          "Add role=\"status\" on the host element when badge content updates dynamically to create an ARIA live region.",
-          "Decorative badges (accent-*) do not need role=\"status\" — they are static labels.",
-          "Badge text alone must convey meaning; do not rely solely on color to distinguish variants."
-        ]
-      },
-      "figma": {
-        "componentKey": "",
-        "nodeId": "",
-        "codeConnectFile": "badge.figma.ts"
-      }
     }
-  ]
+  ],
+  "customElements": {
+    "schemaVersion": "1.0.0",
+    "readme": "",
+    "modules": [
+      {
+        "kind": "javascript-module",
+        "path": "src/alert/alert.figma.ts",
+        "declarations": [],
+        "exports": []
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/alert/alert.ts",
+        "declarations": [
+          {
+            "kind": "class",
+            "description": "An inline notification banner for success, warning, danger, and info messages.\n\nUse for form-level feedback, async status messages, and system notifications.\nFor field-level validation errors, use `<rr-input error-text=\"...\">` instead.",
+            "name": "RrAlert",
+            "cssParts": [
+              {
+                "description": "The root alert element",
+                "name": "alert"
+              },
+              {
+                "description": "The title text element",
+                "name": "title"
+              },
+              {
+                "description": "The content slot wrapper",
+                "name": "content"
+              },
+              {
+                "description": "The dismiss button",
+                "name": "dismiss"
+              }
+            ],
+            "slots": [
+              {
+                "description": "Alert body content",
+                "name": ""
+              },
+              {
+                "description": "Optional icon in front of the title (use <rr-icon>)",
+                "name": "icon"
+              }
+            ],
+            "members": [
+              {
+                "kind": "field",
+                "name": "variant",
+                "type": {
+                  "text": "AlertVariant"
+                },
+                "default": "'success'",
+                "attribute": "variant",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "title",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "title"
+              },
+              {
+                "kind": "field",
+                "name": "dismissible",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "attribute": "dismissible",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "_dismissed",
+                "type": {
+                  "text": "boolean"
+                },
+                "privacy": "private",
+                "default": "false"
+              },
+              {
+                "kind": "method",
+                "name": "_dismiss",
+                "privacy": "private"
+              },
+              {
+                "kind": "method",
+                "name": "show",
+                "description": "Reshow the alert after it has been dismissed."
+              }
+            ],
+            "events": [
+              {
+                "name": "close",
+                "type": {
+                  "text": "Event"
+                },
+                "description": "When the dismiss button is clicked (only fires when dismissible)"
+              }
+            ],
+            "attributes": [
+              {
+                "name": "variant",
+                "type": {
+                  "text": "AlertVariant"
+                },
+                "default": "'success'",
+                "fieldName": "variant"
+              },
+              {
+                "name": "title",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "title"
+              },
+              {
+                "name": "dismissible",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "fieldName": "dismissible"
+              }
+            ],
+            "superclass": {
+              "name": "LitElement",
+              "package": "lit"
+            },
+            "tagName": "rr-alert",
+            "customElement": true
+          }
+        ],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrAlert",
+            "declaration": {
+              "name": "RrAlert",
+              "module": "src/alert/alert.ts"
+            }
+          },
+          {
+            "kind": "custom-element-definition",
+            "name": "rr-alert",
+            "declaration": {
+              "name": "RrAlert",
+              "module": "src/alert/alert.ts"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/avatar/avatar.figma.ts",
+        "declarations": [],
+        "exports": []
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/avatar/avatar.ts",
+        "declarations": [
+          {
+            "kind": "class",
+            "description": "A circular identity surface showing initials or an image.\n\nWhen `src` is provided an `<img>` fills the circle. When omitted, up to two\ninitials are derived from `name` (first letter of each word, max two words).\nColorized variants use the accent-bold fill tier with matching on-* foreground\ntokens — all pairs are WCAG AA verified.",
+            "name": "RrAvatar",
+            "cssParts": [
+              {
+                "description": "The root circle element",
+                "name": "avatar"
+              },
+              {
+                "description": "The img element (only when src is set)",
+                "name": "img"
+              },
+              {
+                "description": "The initials text element",
+                "name": "initials"
+              }
+            ],
+            "slots": [
+              {
+                "description": "Optional custom content to replace initials (e.g. an icon)",
+                "name": ""
+              }
+            ],
+            "members": [
+              {
+                "kind": "field",
+                "name": "size",
+                "type": {
+                  "text": "AvatarSize"
+                },
+                "default": "'md'",
+                "attribute": "size",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "color",
+                "type": {
+                  "text": "AvatarColor"
+                },
+                "default": "'default'",
+                "attribute": "color",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "name",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "name"
+              },
+              {
+                "kind": "field",
+                "name": "src",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "src"
+              },
+              {
+                "kind": "field",
+                "name": "imgAlt",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "alt"
+              },
+              {
+                "kind": "field",
+                "name": "_initials",
+                "type": {
+                  "text": "string"
+                },
+                "privacy": "private",
+                "readonly": true
+              }
+            ],
+            "attributes": [
+              {
+                "name": "size",
+                "type": {
+                  "text": "AvatarSize"
+                },
+                "default": "'md'",
+                "fieldName": "size"
+              },
+              {
+                "name": "color",
+                "type": {
+                  "text": "AvatarColor"
+                },
+                "default": "'default'",
+                "fieldName": "color"
+              },
+              {
+                "name": "name",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "name"
+              },
+              {
+                "name": "src",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "src"
+              },
+              {
+                "name": "alt",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "imgAlt"
+              }
+            ],
+            "superclass": {
+              "name": "LitElement",
+              "package": "lit"
+            },
+            "tagName": "rr-avatar",
+            "customElement": true
+          }
+        ],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrAvatar",
+            "declaration": {
+              "name": "RrAvatar",
+              "module": "src/avatar/avatar.ts"
+            }
+          },
+          {
+            "kind": "custom-element-definition",
+            "name": "rr-avatar",
+            "declaration": {
+              "name": "RrAvatar",
+              "module": "src/avatar/avatar.ts"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/badge/badge.figma.ts",
+        "declarations": [],
+        "exports": []
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/badge/badge.ts",
+        "declarations": [
+          {
+            "kind": "class",
+            "description": "A status badge / chip component.\n\nUses component-level design tokens for all visual properties.\nBrand theming cascades automatically via CSS custom properties on `:root`.",
+            "name": "RrBadge",
+            "cssProperties": [
+              {
+                "name": "--component-badge-{variant}-background"
+              },
+              {
+                "name": "--component-badge-{variant}-foreground"
+              },
+              {
+                "name": "--component-badge-{variant}-border"
+              },
+              {
+                "name": "--component-badge-radius"
+              },
+              {
+                "name": "--component-badge-padding-x"
+              },
+              {
+                "name": "--component-badge-padding-y"
+              }
+            ],
+            "slots": [
+              {
+                "description": "Badge label text",
+                "name": ""
+              }
+            ],
+            "members": [
+              {
+                "kind": "field",
+                "name": "variant",
+                "type": {
+                  "text": "BadgeVariant"
+                },
+                "default": "'default'",
+                "attribute": "variant",
+                "reflects": true
+              }
+            ],
+            "attributes": [
+              {
+                "name": "variant",
+                "type": {
+                  "text": "BadgeVariant"
+                },
+                "default": "'default'",
+                "fieldName": "variant"
+              }
+            ],
+            "superclass": {
+              "name": "LitElement",
+              "package": "lit"
+            },
+            "tagName": "rr-badge",
+            "customElement": true
+          }
+        ],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrBadge",
+            "declaration": {
+              "name": "RrBadge",
+              "module": "src/badge/badge.ts"
+            }
+          },
+          {
+            "kind": "custom-element-definition",
+            "name": "rr-badge",
+            "declaration": {
+              "name": "RrBadge",
+              "module": "src/badge/badge.ts"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/button/button.figma.ts",
+        "declarations": [],
+        "exports": []
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/button/button.ts",
+        "declarations": [
+          {
+            "kind": "class",
+            "description": "A button with variant, size, loading, and disabled states.\n\nRenders a native `<button>` inside its shadow root for full\nkeyboard and form semantics. Uses `delegatesFocus` so the host\nforwards focus to the inner button.",
+            "name": "RrButton",
+            "cssParts": [
+              {
+                "description": "The inner <button> element",
+                "name": "button"
+              }
+            ],
+            "slots": [
+              {
+                "description": "Button label text",
+                "name": ""
+              },
+              {
+                "description": "Icon or element before the label",
+                "name": "prefix"
+              },
+              {
+                "description": "Icon or element after the label",
+                "name": "suffix"
+              }
+            ],
+            "members": [
+              {
+                "kind": "field",
+                "name": "formAssociated",
+                "type": {
+                  "text": "boolean"
+                },
+                "static": true,
+                "default": "true"
+              },
+              {
+                "kind": "field",
+                "name": "shadowRootOptions",
+                "type": {
+                  "text": "object"
+                },
+                "static": true,
+                "default": "{ ...LitElement.shadowRootOptions, delegatesFocus: true, }"
+              },
+              {
+                "kind": "field",
+                "name": "variant",
+                "type": {
+                  "text": "ButtonVariant"
+                },
+                "default": "'primary'",
+                "attribute": "variant",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "size",
+                "type": {
+                  "text": "ButtonSize"
+                },
+                "default": "'medium'",
+                "attribute": "size",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "disabled",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "attribute": "disabled",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "loading",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "attribute": "loading",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "type",
+                "type": {
+                  "text": "'button' | 'submit' | 'reset'"
+                },
+                "default": "'button'",
+                "attribute": "type"
+              },
+              {
+                "kind": "field",
+                "name": "ariaLabel",
+                "type": {
+                  "text": "string | null"
+                },
+                "default": "null",
+                "attribute": "aria-label"
+              },
+              {
+                "kind": "field",
+                "name": "_internals",
+                "type": {
+                  "text": "ElementInternals"
+                },
+                "privacy": "private"
+              },
+              {
+                "kind": "method",
+                "name": "_handleClick",
+                "privacy": "private",
+                "parameters": [
+                  {
+                    "name": "e",
+                    "type": {
+                      "text": "Event"
+                    }
+                  }
+                ]
+              }
+            ],
+            "events": [
+              {
+                "description": "Native click (suppressed when disabled or loading)",
+                "name": "click"
+              }
+            ],
+            "attributes": [
+              {
+                "name": "variant",
+                "type": {
+                  "text": "ButtonVariant"
+                },
+                "default": "'primary'",
+                "fieldName": "variant"
+              },
+              {
+                "name": "size",
+                "type": {
+                  "text": "ButtonSize"
+                },
+                "default": "'medium'",
+                "fieldName": "size"
+              },
+              {
+                "name": "disabled",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "fieldName": "disabled"
+              },
+              {
+                "name": "loading",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "fieldName": "loading"
+              },
+              {
+                "name": "type",
+                "type": {
+                  "text": "'button' | 'submit' | 'reset'"
+                },
+                "default": "'button'",
+                "fieldName": "type"
+              },
+              {
+                "name": "aria-label",
+                "type": {
+                  "text": "string | null"
+                },
+                "default": "null",
+                "fieldName": "ariaLabel"
+              }
+            ],
+            "superclass": {
+              "name": "LitElement",
+              "package": "lit"
+            },
+            "tagName": "rr-button",
+            "customElement": true
+          }
+        ],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrButton",
+            "declaration": {
+              "name": "RrButton",
+              "module": "src/button/button.ts"
+            }
+          },
+          {
+            "kind": "custom-element-definition",
+            "name": "rr-button",
+            "declaration": {
+              "name": "RrButton",
+              "module": "src/button/button.ts"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/card/card.figma.ts",
+        "declarations": [],
+        "exports": []
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/card/card.ts",
+        "declarations": [
+          {
+            "kind": "class",
+            "description": "A surface container using the elevated background tier.\n\nRenders on `background.alt` with `border.default` and `radius.lg`.\nComposed of three optional slots — header, default body, footer —\nseparated by hairline borders when adjacent content is present.",
+            "name": "RrCard",
+            "cssProperties": [
+              {
+                "name": "--color-background-alt"
+              },
+              {
+                "name": "--color-border-default"
+              },
+              {
+                "name": "--radius-lg"
+              }
+            ],
+            "slots": [
+              {
+                "description": "Card heading row (title, actions, avatar).",
+                "name": "header"
+              },
+              {
+                "description": "Card body content.",
+                "name": ""
+              },
+              {
+                "description": "Card footer row (secondary actions, metadata).",
+                "name": "footer"
+              }
+            ],
+            "members": [
+              {
+                "kind": "field",
+                "name": "padding",
+                "type": {
+                  "text": "CardPadding"
+                },
+                "default": "'md'",
+                "description": "Internal padding around the body slot.\nHeader and footer padding is always fixed at `tight/element`.",
+                "attribute": "padding",
+                "reflects": true
+              }
+            ],
+            "attributes": [
+              {
+                "name": "padding",
+                "type": {
+                  "text": "CardPadding"
+                },
+                "default": "'md'",
+                "description": "Internal padding around the body slot.\nHeader and footer padding is always fixed at `tight/element`.",
+                "fieldName": "padding"
+              }
+            ],
+            "superclass": {
+              "name": "LitElement",
+              "package": "lit"
+            },
+            "tagName": "rr-card",
+            "customElement": true
+          }
+        ],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrCard",
+            "declaration": {
+              "name": "RrCard",
+              "module": "src/card/card.ts"
+            }
+          },
+          {
+            "kind": "custom-element-definition",
+            "name": "rr-card",
+            "declaration": {
+              "name": "RrCard",
+              "module": "src/card/card.ts"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/checkbox/checkbox.figma.ts",
+        "declarations": [],
+        "exports": []
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/checkbox/checkbox.ts",
+        "declarations": [
+          {
+            "kind": "class",
+            "description": "A form-associated checkbox with checked, indeterminate, and disabled states.\n\nThe visual control is rendered in shadow DOM; the hidden native\n`<input type=\"checkbox\">` provides focus, keyboard, and label-click semantics.\n`ElementInternals` handles form participation.\n\nUsage:\n  <rr-checkbox name=\"agree\" label=\"I agree to the terms\" checked></rr-checkbox>\n  <rr-checkbox name=\"notify\">Send me notifications</rr-checkbox>",
+            "name": "RrCheckbox",
+            "cssParts": [
+              {
+                "description": "The visual checkbox square",
+                "name": "box"
+              },
+              {
+                "description": "The label text element",
+                "name": "label"
+              }
+            ],
+            "slots": [
+              {
+                "description": "Label text (alternative to the `label` property)",
+                "name": ""
+              }
+            ],
+            "members": [
+              {
+                "kind": "field",
+                "name": "formAssociated",
+                "type": {
+                  "text": "boolean"
+                },
+                "static": true,
+                "default": "true"
+              },
+              {
+                "kind": "field",
+                "name": "checked",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "attribute": "checked",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "indeterminate",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "attribute": "indeterminate",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "disabled",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "attribute": "disabled",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "value",
+                "type": {
+                  "text": "string"
+                },
+                "default": "'on'",
+                "attribute": "value"
+              },
+              {
+                "kind": "field",
+                "name": "name",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "name"
+              },
+              {
+                "kind": "field",
+                "name": "label",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "label"
+              },
+              {
+                "kind": "field",
+                "name": "_internals",
+                "type": {
+                  "text": "ElementInternals"
+                },
+                "privacy": "private"
+              },
+              {
+                "kind": "method",
+                "name": "_onChange",
+                "privacy": "private"
+              }
+            ],
+            "events": [
+              {
+                "name": "change",
+                "type": {
+                  "text": "Event"
+                },
+                "description": "When the checked state changes"
+              }
+            ],
+            "attributes": [
+              {
+                "name": "checked",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "fieldName": "checked"
+              },
+              {
+                "name": "indeterminate",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "fieldName": "indeterminate"
+              },
+              {
+                "name": "disabled",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "fieldName": "disabled"
+              },
+              {
+                "name": "value",
+                "type": {
+                  "text": "string"
+                },
+                "default": "'on'",
+                "fieldName": "value"
+              },
+              {
+                "name": "name",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "name"
+              },
+              {
+                "name": "label",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "label"
+              }
+            ],
+            "superclass": {
+              "name": "LitElement",
+              "package": "lit"
+            },
+            "tagName": "rr-checkbox",
+            "customElement": true
+          }
+        ],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrCheckbox",
+            "declaration": {
+              "name": "RrCheckbox",
+              "module": "src/checkbox/checkbox.ts"
+            }
+          },
+          {
+            "kind": "custom-element-definition",
+            "name": "rr-checkbox",
+            "declaration": {
+              "name": "RrCheckbox",
+              "module": "src/checkbox/checkbox.ts"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/dialog/dialog.figma.ts",
+        "declarations": [],
+        "exports": []
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/dialog/dialog.ts",
+        "declarations": [
+          {
+            "kind": "class",
+            "description": "`<rr-dialog>` — modal dialog using the native `<dialog>` element.\n\nLeverages native focus trap, Escape-to-close, and `::backdrop`.\nProgrammatic control via `show()` / `close()` methods, or bind the\n`open` property/attribute.",
+            "name": "RrDialog",
+            "slots": [
+              {
+                "description": "Dialog body content",
+                "name": "—"
+              },
+              {
+                "description": "— Action buttons (displayed in a right-aligned footer row)",
+                "name": "footer"
+              }
+            ],
+            "members": [
+              {
+                "kind": "field",
+                "name": "heading",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "description": "Dialog heading text.",
+                "attribute": "heading"
+              },
+              {
+                "kind": "field",
+                "name": "open",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "description": "Whether the dialog is open.",
+                "attribute": "open",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "closeOnBackdrop",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "true",
+                "description": "Whether clicking the backdrop closes the dialog.",
+                "attribute": "close-on-backdrop"
+              },
+              {
+                "kind": "field",
+                "name": "_dialog",
+                "type": {
+                  "text": "HTMLDialogElement"
+                },
+                "privacy": "private"
+              },
+              {
+                "kind": "method",
+                "name": "show",
+                "description": "Open the dialog as a modal."
+              },
+              {
+                "kind": "method",
+                "name": "close",
+                "description": "Close the dialog. Single source of truth — always dispatches `rr-dialog-close`.\nAlso called internally when Escape is pressed (via native `close` event)."
+              },
+              {
+                "kind": "method",
+                "name": "_onBackdropClick",
+                "privacy": "private",
+                "parameters": [
+                  {
+                    "name": "e",
+                    "type": {
+                      "text": "MouseEvent"
+                    }
+                  }
+                ]
+              },
+              {
+                "kind": "method",
+                "name": "_onNativeClose",
+                "privacy": "private"
+              }
+            ],
+            "events": [
+              {
+                "name": "rr-dialog-close",
+                "type": {
+                  "text": "CustomEvent"
+                },
+                "description": "Fired whenever the dialog closes (Escape, close button, or programmatic)"
+              }
+            ],
+            "attributes": [
+              {
+                "description": "Dialog heading text.",
+                "name": "heading",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "heading"
+              },
+              {
+                "type": {
+                  "text": "boolean"
+                },
+                "description": "Whether the dialog is open.",
+                "name": "open",
+                "default": "false",
+                "fieldName": "open"
+              },
+              {
+                "type": {
+                  "text": "boolean"
+                },
+                "description": "Whether clicking the backdrop closes the dialog.",
+                "name": "close-on-backdrop",
+                "default": "true",
+                "fieldName": "closeOnBackdrop"
+              }
+            ],
+            "superclass": {
+              "name": "LitElement",
+              "package": "lit"
+            },
+            "tagName": "rr-dialog",
+            "customElement": true
+          }
+        ],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrDialog",
+            "declaration": {
+              "name": "RrDialog",
+              "module": "src/dialog/dialog.ts"
+            }
+          },
+          {
+            "kind": "custom-element-definition",
+            "name": "rr-dialog",
+            "declaration": {
+              "name": "RrDialog",
+              "module": "src/dialog/dialog.ts"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/icon/icon.figma.ts",
+        "declarations": [],
+        "exports": []
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/icon/icon.ts",
+        "declarations": [
+          {
+            "kind": "class",
+            "description": "A sized, accessible wrapper for inline SVG icons.\n\nSlot any SVG icon inside — the component handles sizing via icon-size\ntokens and accessibility attributes. By default the icon is decorative\n(aria-hidden=\"true\"). Set `aria-label` to make it a meaningful image.",
+            "name": "RrIcon",
+            "cssProperties": [
+              {
+                "description": "16px",
+                "name": "--icon-size-compact"
+              },
+              {
+                "description": "20px",
+                "name": "--icon-size-default"
+              },
+              {
+                "description": "24px",
+                "name": "--icon-size-large"
+              },
+              {
+                "description": "32px",
+                "name": "--icon-size-xl"
+              }
+            ],
+            "slots": [
+              {
+                "description": "The SVG icon element.",
+                "name": ""
+              }
+            ],
+            "members": [
+              {
+                "kind": "field",
+                "name": "size",
+                "type": {
+                  "text": "IconSize"
+                },
+                "default": "'default'",
+                "description": "Icon size — maps to the icon-size design tokens.",
+                "attribute": "size",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "ariaLabel",
+                "type": {
+                  "text": "string | null"
+                },
+                "default": "null",
+                "description": "Accessible label. When set, the icon has role=\"img\" and is announced\nby screen readers. Omit for purely decorative icons.",
+                "attribute": "aria-label"
+              }
+            ],
+            "attributes": [
+              {
+                "name": "size",
+                "type": {
+                  "text": "IconSize"
+                },
+                "default": "'default'",
+                "description": "Icon size — maps to the icon-size design tokens.",
+                "fieldName": "size"
+              },
+              {
+                "name": "aria-label",
+                "type": {
+                  "text": "string | null"
+                },
+                "default": "null",
+                "description": "Accessible label. When set, the icon has role=\"img\" and is announced\nby screen readers. Omit for purely decorative icons.",
+                "fieldName": "ariaLabel"
+              }
+            ],
+            "superclass": {
+              "name": "LitElement",
+              "package": "lit"
+            },
+            "tagName": "rr-icon",
+            "customElement": true
+          }
+        ],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrIcon",
+            "declaration": {
+              "name": "RrIcon",
+              "module": "src/icon/icon.ts"
+            }
+          },
+          {
+            "kind": "custom-element-definition",
+            "name": "rr-icon",
+            "declaration": {
+              "name": "RrIcon",
+              "module": "src/icon/icon.ts"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/index.ts",
+        "declarations": [],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrAlert",
+            "declaration": {
+              "name": "RrAlert",
+              "module": "./alert/alert.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrAvatar",
+            "declaration": {
+              "name": "RrAvatar",
+              "module": "./avatar/avatar.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrBadge",
+            "declaration": {
+              "name": "RrBadge",
+              "module": "./badge/badge.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrButton",
+            "declaration": {
+              "name": "RrButton",
+              "module": "./button/button.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrCard",
+            "declaration": {
+              "name": "RrCard",
+              "module": "./card/card.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrCheckbox",
+            "declaration": {
+              "name": "RrCheckbox",
+              "module": "./checkbox/checkbox.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrDialog",
+            "declaration": {
+              "name": "RrDialog",
+              "module": "./dialog/dialog.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrIcon",
+            "declaration": {
+              "name": "RrIcon",
+              "module": "./icon/icon.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrInput",
+            "declaration": {
+              "name": "RrInput",
+              "module": "./input/input.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrLink",
+            "declaration": {
+              "name": "RrLink",
+              "module": "./link/link.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrProgress",
+            "declaration": {
+              "name": "RrProgress",
+              "module": "./progress/progress.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrRadio",
+            "declaration": {
+              "name": "RrRadio",
+              "module": "./radio/radio.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrRadioGroup",
+            "declaration": {
+              "name": "RrRadioGroup",
+              "module": "./radio/radio-group.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrSelect",
+            "declaration": {
+              "name": "RrSelect",
+              "module": "./select/select.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrSkeleton",
+            "declaration": {
+              "name": "RrSkeleton",
+              "module": "./skeleton/skeleton.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrSpinner",
+            "declaration": {
+              "name": "RrSpinner",
+              "module": "./spinner/spinner.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrTab",
+            "declaration": {
+              "name": "RrTab",
+              "module": "./tabs/tab.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrTabList",
+            "declaration": {
+              "name": "RrTabList",
+              "module": "./tabs/tab-list.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrTextarea",
+            "declaration": {
+              "name": "RrTextarea",
+              "module": "./textarea/textarea.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrToggle",
+            "declaration": {
+              "name": "RrToggle",
+              "module": "./toggle/toggle.js"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/input/input.figma.ts",
+        "declarations": [],
+        "exports": []
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/input/input.ts",
+        "declarations": [
+          {
+            "kind": "class",
+            "description": "A form-associated text input with label, helper text, and error state.\n\nUses `ElementInternals` for native form participation and\n`delegatesFocus` so the host forwards focus to the inner `<input>`.",
+            "name": "RrInput",
+            "cssParts": [
+              {
+                "description": "The label element",
+                "name": "label"
+              },
+              {
+                "description": "The inner input element",
+                "name": "input"
+              },
+              {
+                "description": "The helper text container",
+                "name": "helper"
+              },
+              {
+                "description": "The error message container",
+                "name": "error"
+              }
+            ],
+            "slots": [
+              {
+                "description": "Optional override for the label text",
+                "name": "label"
+              }
+            ],
+            "members": [
+              {
+                "kind": "field",
+                "name": "formAssociated",
+                "type": {
+                  "text": "boolean"
+                },
+                "static": true,
+                "default": "true"
+              },
+              {
+                "kind": "field",
+                "name": "shadowRootOptions",
+                "type": {
+                  "text": "object"
+                },
+                "static": true,
+                "default": "{ ...LitElement.shadowRootOptions, delegatesFocus: true, }"
+              },
+              {
+                "kind": "field",
+                "name": "type",
+                "type": {
+                  "text": "string"
+                },
+                "default": "'text'",
+                "attribute": "type"
+              },
+              {
+                "kind": "field",
+                "name": "name",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "name"
+              },
+              {
+                "kind": "field",
+                "name": "value",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "value"
+              },
+              {
+                "kind": "field",
+                "name": "placeholder",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "placeholder"
+              },
+              {
+                "kind": "field",
+                "name": "label",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "label"
+              },
+              {
+                "kind": "field",
+                "name": "helperText",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "helper-text"
+              },
+              {
+                "kind": "field",
+                "name": "errorText",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "error-text"
+              },
+              {
+                "kind": "field",
+                "name": "required",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "attribute": "required",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "disabled",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "attribute": "disabled",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "autoComplete",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "autocomplete"
+              },
+              {
+                "kind": "field",
+                "name": "_input",
+                "type": {
+                  "text": "HTMLInputElement"
+                },
+                "privacy": "private"
+              },
+              {
+                "kind": "field",
+                "name": "_internals",
+                "type": {
+                  "text": "ElementInternals"
+                },
+                "privacy": "private"
+              },
+              {
+                "kind": "field",
+                "name": "_isInvalid",
+                "type": {
+                  "text": "boolean"
+                },
+                "privacy": "private",
+                "readonly": true
+              },
+              {
+                "kind": "method",
+                "name": "_onInput",
+                "privacy": "private",
+                "parameters": [
+                  {
+                    "name": "e",
+                    "type": {
+                      "text": "Event"
+                    }
+                  }
+                ]
+              },
+              {
+                "kind": "method",
+                "name": "_onChange",
+                "privacy": "private",
+                "parameters": [
+                  {
+                    "name": "e",
+                    "type": {
+                      "text": "Event"
+                    }
+                  }
+                ]
+              }
+            ],
+            "events": [
+              {
+                "name": "input",
+                "type": {
+                  "text": "Event"
+                },
+                "description": "When the input value changes (mirrors native input event)"
+              },
+              {
+                "name": "change",
+                "type": {
+                  "text": "Event"
+                },
+                "description": "When the input value is committed (mirrors native change event)"
+              }
+            ],
+            "attributes": [
+              {
+                "name": "type",
+                "type": {
+                  "text": "string"
+                },
+                "default": "'text'",
+                "fieldName": "type"
+              },
+              {
+                "name": "name",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "name"
+              },
+              {
+                "name": "value",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "value"
+              },
+              {
+                "name": "placeholder",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "placeholder"
+              },
+              {
+                "name": "label",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "label"
+              },
+              {
+                "name": "helper-text",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "helperText"
+              },
+              {
+                "name": "error-text",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "errorText"
+              },
+              {
+                "name": "required",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "fieldName": "required"
+              },
+              {
+                "name": "disabled",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "fieldName": "disabled"
+              },
+              {
+                "name": "autocomplete",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "autoComplete"
+              }
+            ],
+            "superclass": {
+              "name": "LitElement",
+              "package": "lit"
+            },
+            "tagName": "rr-input",
+            "customElement": true
+          }
+        ],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrInput",
+            "declaration": {
+              "name": "RrInput",
+              "module": "src/input/input.ts"
+            }
+          },
+          {
+            "kind": "custom-element-definition",
+            "name": "rr-input",
+            "declaration": {
+              "name": "RrInput",
+              "module": "src/input/input.ts"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/link/link.figma.ts",
+        "declarations": [],
+        "exports": []
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/link/link.ts",
+        "declarations": [
+          {
+            "kind": "class",
+            "description": "An anchor element that enforces the design system link style.\n\nGlobal rule: links are underlined by default and lose the underline on hover.\nThis component encapsulates that behaviour so it applies consistently across\nshadow-DOM boundaries.\n\nFor external links (`target=\"_blank\"`), `rel=\"noopener noreferrer\"` is added\nautomatically unless overridden.",
+            "name": "RrLink",
+            "cssProperties": [
+              {
+                "description": "default link colour",
+                "name": "--color-foreground-action"
+              },
+              {
+                "description": "muted variant",
+                "name": "--color-foreground-alt"
+              },
+              {
+                "description": "subtle variant",
+                "name": "--color-foreground-muted"
+              }
+            ],
+            "slots": [
+              {
+                "description": "Link label content.",
+                "name": ""
+              }
+            ],
+            "members": [
+              {
+                "kind": "field",
+                "name": "href",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "description": "Link destination.",
+                "attribute": "href"
+              },
+              {
+                "kind": "field",
+                "name": "target",
+                "type": {
+                  "text": "'_self' | '_blank' | '_parent' | '_top'"
+                },
+                "default": "'_self'",
+                "description": "Browsing context. Use \"_blank\" for new tab.",
+                "attribute": "target"
+              },
+              {
+                "kind": "field",
+                "name": "rel",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "description": "Link rel attribute.\nDefaults to \"noopener noreferrer\" when target=\"_blank\".",
+                "attribute": "rel"
+              },
+              {
+                "kind": "field",
+                "name": "variant",
+                "type": {
+                  "text": "LinkVariant"
+                },
+                "default": "'default'",
+                "description": "Colour variant.",
+                "attribute": "variant",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "ariaLabel",
+                "type": {
+                  "text": "string | null"
+                },
+                "default": "null",
+                "description": "Accessible label when link text alone is insufficient.",
+                "attribute": "aria-label"
+              },
+              {
+                "kind": "field",
+                "name": "_rel",
+                "type": {
+                  "text": "string"
+                },
+                "privacy": "private",
+                "readonly": true
+              }
+            ],
+            "attributes": [
+              {
+                "name": "href",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "description": "Link destination.",
+                "fieldName": "href"
+              },
+              {
+                "name": "target",
+                "type": {
+                  "text": "'_self' | '_blank' | '_parent' | '_top'"
+                },
+                "default": "'_self'",
+                "description": "Browsing context. Use \"_blank\" for new tab.",
+                "fieldName": "target"
+              },
+              {
+                "name": "rel",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "description": "Link rel attribute.\nDefaults to \"noopener noreferrer\" when target=\"_blank\".",
+                "fieldName": "rel"
+              },
+              {
+                "name": "variant",
+                "type": {
+                  "text": "LinkVariant"
+                },
+                "default": "'default'",
+                "description": "Colour variant.",
+                "fieldName": "variant"
+              },
+              {
+                "name": "aria-label",
+                "type": {
+                  "text": "string | null"
+                },
+                "default": "null",
+                "description": "Accessible label when link text alone is insufficient.",
+                "fieldName": "ariaLabel"
+              }
+            ],
+            "superclass": {
+              "name": "LitElement",
+              "package": "lit"
+            },
+            "tagName": "rr-link",
+            "customElement": true
+          }
+        ],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrLink",
+            "declaration": {
+              "name": "RrLink",
+              "module": "src/link/link.ts"
+            }
+          },
+          {
+            "kind": "custom-element-definition",
+            "name": "rr-link",
+            "declaration": {
+              "name": "RrLink",
+              "module": "src/link/link.ts"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/progress/progress.figma.ts",
+        "declarations": [],
+        "exports": []
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/progress/progress.ts",
+        "declarations": [
+          {
+            "kind": "class",
+            "description": "`<rr-progress>` — horizontal progress bar.\n\nSupports determinate (0–max) and indeterminate (animated) modes.\nFully accessible via native `role=\"progressbar\"` ARIA attributes.",
+            "name": "RrProgress",
+            "members": [
+              {
+                "kind": "field",
+                "name": "value",
+                "type": {
+                  "text": "number"
+                },
+                "default": "0",
+                "description": "Current progress value.",
+                "attribute": "value"
+              },
+              {
+                "kind": "field",
+                "name": "max",
+                "type": {
+                  "text": "number"
+                },
+                "default": "100",
+                "description": "Maximum value.",
+                "attribute": "max"
+              },
+              {
+                "kind": "field",
+                "name": "indeterminate",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "description": "Show an animated indeterminate state instead of a fixed value.",
+                "attribute": "indeterminate",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "label",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "description": "Accessible label for the progress bar.",
+                "attribute": "label"
+              },
+              {
+                "kind": "field",
+                "name": "_pct",
+                "type": {
+                  "text": "number"
+                },
+                "privacy": "private",
+                "readonly": true
+              }
+            ],
+            "attributes": [
+              {
+                "type": {
+                  "text": "number"
+                },
+                "description": "Current progress value.",
+                "name": "value",
+                "default": "0",
+                "fieldName": "value"
+              },
+              {
+                "type": {
+                  "text": "number"
+                },
+                "description": "Maximum value.",
+                "name": "max",
+                "default": "100",
+                "fieldName": "max"
+              },
+              {
+                "description": "Show an animated indeterminate state instead of a fixed value.",
+                "name": "indeterminate",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "fieldName": "indeterminate"
+              },
+              {
+                "description": "Accessible label for the progress bar.",
+                "name": "label",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "label"
+              }
+            ],
+            "superclass": {
+              "name": "LitElement",
+              "package": "lit"
+            },
+            "tagName": "rr-progress",
+            "customElement": true
+          }
+        ],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrProgress",
+            "declaration": {
+              "name": "RrProgress",
+              "module": "src/progress/progress.ts"
+            }
+          },
+          {
+            "kind": "custom-element-definition",
+            "name": "rr-progress",
+            "declaration": {
+              "name": "RrProgress",
+              "module": "src/progress/progress.ts"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/radio/radio-group.ts",
+        "declarations": [
+          {
+            "kind": "class",
+            "description": "A form-associated group of radio buttons.\n\nManages selection state and form participation for its `<rr-radio>` children.\nRenders a `<fieldset>` + `<legend>` for accessible grouping.\n\nUsage:\n  <rr-radio-group name=\"size\" label=\"Size\" value=\"md\">\n    <rr-radio value=\"sm\">Small</rr-radio>\n    <rr-radio value=\"md\">Medium</rr-radio>\n    <rr-radio value=\"lg\">Large</rr-radio>\n  </rr-radio-group>",
+            "name": "RrRadioGroup",
+            "cssParts": [
+              {
+                "description": "The outer fieldset element",
+                "name": "fieldset"
+              },
+              {
+                "description": "The legend / label element",
+                "name": "legend"
+              }
+            ],
+            "slots": [
+              {
+                "description": "rr-radio elements",
+                "name": ""
+              }
+            ],
+            "members": [
+              {
+                "kind": "field",
+                "name": "formAssociated",
+                "type": {
+                  "text": "boolean"
+                },
+                "static": true,
+                "default": "true"
+              },
+              {
+                "kind": "field",
+                "name": "name",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "name"
+              },
+              {
+                "kind": "field",
+                "name": "value",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "value",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "label",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "label"
+              },
+              {
+                "kind": "field",
+                "name": "errorText",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "error-text"
+              },
+              {
+                "kind": "field",
+                "name": "required",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "attribute": "required",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "disabled",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "attribute": "disabled",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "orientation",
+                "type": {
+                  "text": "'vertical' | 'horizontal'"
+                },
+                "default": "'vertical'",
+                "attribute": "orientation",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "_internals",
+                "type": {
+                  "text": "ElementInternals"
+                },
+                "privacy": "private"
+              },
+              {
+                "kind": "method",
+                "name": "_syncRadios",
+                "privacy": "private"
+              },
+              {
+                "kind": "field",
+                "name": "_radios",
+                "type": {
+                  "text": "RrRadio[]"
+                },
+                "privacy": "private",
+                "readonly": true
+              },
+              {
+                "kind": "field",
+                "name": "_onRadioChange",
+                "privacy": "private"
+              }
+            ],
+            "events": [
+              {
+                "description": "When the selected value changes",
+                "name": "change"
+              }
+            ],
+            "attributes": [
+              {
+                "name": "name",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "name"
+              },
+              {
+                "name": "value",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "value"
+              },
+              {
+                "name": "label",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "label"
+              },
+              {
+                "name": "error-text",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "errorText"
+              },
+              {
+                "name": "required",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "fieldName": "required"
+              },
+              {
+                "name": "disabled",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "fieldName": "disabled"
+              },
+              {
+                "name": "orientation",
+                "type": {
+                  "text": "'vertical' | 'horizontal'"
+                },
+                "default": "'vertical'",
+                "fieldName": "orientation"
+              }
+            ],
+            "superclass": {
+              "name": "LitElement",
+              "package": "lit"
+            },
+            "tagName": "rr-radio-group",
+            "customElement": true
+          }
+        ],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrRadioGroup",
+            "declaration": {
+              "name": "RrRadioGroup",
+              "module": "src/radio/radio-group.ts"
+            }
+          },
+          {
+            "kind": "custom-element-definition",
+            "name": "rr-radio-group",
+            "declaration": {
+              "name": "RrRadioGroup",
+              "module": "src/radio/radio-group.ts"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/radio/radio.figma.ts",
+        "declarations": [],
+        "exports": []
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/radio/radio.ts",
+        "declarations": [
+          {
+            "kind": "class",
+            "description": "An individual radio button. Must be used inside `<rr-radio-group>`.\n\nThe group manages the name, form value, and selection state — individual\nradios only hold their own `value` prop and visual `checked` state.",
+            "name": "RrRadio",
+            "cssParts": [
+              {
+                "description": "The visual radio circle element",
+                "name": "circle"
+              },
+              {
+                "description": "The label text element",
+                "name": "label"
+              }
+            ],
+            "slots": [
+              {
+                "description": "Label text",
+                "name": ""
+              }
+            ],
+            "members": [
+              {
+                "kind": "field",
+                "name": "value",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "value",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "checked",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "attribute": "checked",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "disabled",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "attribute": "disabled",
+                "reflects": true
+              },
+              {
+                "kind": "method",
+                "name": "_onChange",
+                "privacy": "private"
+              }
+            ],
+            "events": [
+              {
+                "name": "rr-radio-change",
+                "type": {
+                  "text": "CustomEvent"
+                },
+                "description": "Bubbles to the parent rr-radio-group when selected"
+              }
+            ],
+            "attributes": [
+              {
+                "name": "value",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "value"
+              },
+              {
+                "name": "checked",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "fieldName": "checked"
+              },
+              {
+                "name": "disabled",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "fieldName": "disabled"
+              }
+            ],
+            "superclass": {
+              "name": "LitElement",
+              "package": "lit"
+            },
+            "tagName": "rr-radio",
+            "customElement": true
+          }
+        ],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrRadio",
+            "declaration": {
+              "name": "RrRadio",
+              "module": "src/radio/radio.ts"
+            }
+          },
+          {
+            "kind": "custom-element-definition",
+            "name": "rr-radio",
+            "declaration": {
+              "name": "RrRadio",
+              "module": "src/radio/radio.ts"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/select/select.figma.ts",
+        "declarations": [],
+        "exports": []
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/select/select.ts",
+        "declarations": [
+          {
+            "kind": "class",
+            "description": "A form-associated select dropdown with label, helper text, and error state.\n\nPass options via the `options` property (array of `{ value, label, disabled? }`).\nUses `ElementInternals` for native form participation and `delegatesFocus`\nso the host forwards focus to the inner `<select>`.\n\nReuses `--component-input-*` tokens — the input token set covers\ntext input, textarea, and select (see tokens/components/input.tokens.json).",
+            "name": "RrSelect",
+            "cssParts": [
+              {
+                "description": "The label element",
+                "name": "label"
+              },
+              {
+                "description": "The inner select element",
+                "name": "select"
+              },
+              {
+                "description": "The helper text container",
+                "name": "helper"
+              },
+              {
+                "description": "The error message container",
+                "name": "error"
+              }
+            ],
+            "members": [
+              {
+                "kind": "field",
+                "name": "formAssociated",
+                "type": {
+                  "text": "boolean"
+                },
+                "static": true,
+                "default": "true"
+              },
+              {
+                "kind": "field",
+                "name": "shadowRootOptions",
+                "type": {
+                  "text": "object"
+                },
+                "static": true,
+                "default": "{ ...LitElement.shadowRootOptions, delegatesFocus: true, }"
+              },
+              {
+                "kind": "field",
+                "name": "name",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "name"
+              },
+              {
+                "kind": "field",
+                "name": "value",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "value",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "label",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "label"
+              },
+              {
+                "kind": "field",
+                "name": "helperText",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "helper-text"
+              },
+              {
+                "kind": "field",
+                "name": "errorText",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "error-text"
+              },
+              {
+                "kind": "field",
+                "name": "required",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "attribute": "required",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "disabled",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "attribute": "disabled",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "options",
+                "type": {
+                  "text": "SelectOption[]"
+                },
+                "default": "[]",
+                "attribute": "options"
+              },
+              {
+                "kind": "field",
+                "name": "_select",
+                "type": {
+                  "text": "HTMLSelectElement"
+                },
+                "privacy": "private"
+              },
+              {
+                "kind": "field",
+                "name": "_internals",
+                "type": {
+                  "text": "ElementInternals"
+                },
+                "privacy": "private"
+              },
+              {
+                "kind": "field",
+                "name": "_isInvalid",
+                "type": {
+                  "text": "boolean"
+                },
+                "privacy": "private",
+                "readonly": true
+              },
+              {
+                "kind": "method",
+                "name": "_onChange",
+                "privacy": "private",
+                "parameters": [
+                  {
+                    "name": "e",
+                    "type": {
+                      "text": "Event"
+                    }
+                  }
+                ]
+              }
+            ],
+            "events": [
+              {
+                "name": "change",
+                "type": {
+                  "text": "Event"
+                },
+                "description": "When the selected value changes"
+              }
+            ],
+            "attributes": [
+              {
+                "name": "name",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "name"
+              },
+              {
+                "name": "value",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "value"
+              },
+              {
+                "name": "label",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "label"
+              },
+              {
+                "name": "helper-text",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "helperText"
+              },
+              {
+                "name": "error-text",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "errorText"
+              },
+              {
+                "name": "required",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "fieldName": "required"
+              },
+              {
+                "name": "disabled",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "fieldName": "disabled"
+              },
+              {
+                "name": "options",
+                "type": {
+                  "text": "SelectOption[]"
+                },
+                "default": "[]",
+                "fieldName": "options"
+              }
+            ],
+            "superclass": {
+              "name": "LitElement",
+              "package": "lit"
+            },
+            "tagName": "rr-select",
+            "customElement": true
+          }
+        ],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrSelect",
+            "declaration": {
+              "name": "RrSelect",
+              "module": "src/select/select.ts"
+            }
+          },
+          {
+            "kind": "custom-element-definition",
+            "name": "rr-select",
+            "declaration": {
+              "name": "RrSelect",
+              "module": "src/select/select.ts"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/skeleton/skeleton.figma.ts",
+        "declarations": [],
+        "exports": []
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/skeleton/skeleton.ts",
+        "declarations": [
+          {
+            "kind": "class",
+            "description": "`<rr-skeleton>` — animated shimmer placeholder for loading states.\n\nUse in place of content while data is being fetched. Three shape\nvariants match common content types: text lines, avatars, and image blocks.",
+            "name": "RrSkeleton",
+            "members": [
+              {
+                "kind": "field",
+                "name": "variant",
+                "type": {
+                  "text": "SkeletonVariant"
+                },
+                "default": "'text'",
+                "description": "Shape variant.",
+                "attribute": "variant",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "width",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "description": "CSS width (e.g. '100%', '200px').",
+                "attribute": "width"
+              },
+              {
+                "kind": "field",
+                "name": "height",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "description": "CSS height (e.g. '1em', '40px').",
+                "attribute": "height"
+              },
+              {
+                "kind": "field",
+                "name": "_style",
+                "type": {
+                  "text": "string"
+                },
+                "privacy": "private",
+                "readonly": true
+              }
+            ],
+            "attributes": [
+              {
+                "type": {
+                  "text": "SkeletonVariant"
+                },
+                "description": "Shape variant.",
+                "name": "variant",
+                "default": "'text'",
+                "fieldName": "variant"
+              },
+              {
+                "description": "CSS width (e.g. '100%', '200px').",
+                "name": "width",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "width"
+              },
+              {
+                "description": "CSS height (e.g. '1em', '40px').",
+                "name": "height",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "height"
+              }
+            ],
+            "superclass": {
+              "name": "LitElement",
+              "package": "lit"
+            },
+            "tagName": "rr-skeleton",
+            "customElement": true
+          }
+        ],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrSkeleton",
+            "declaration": {
+              "name": "RrSkeleton",
+              "module": "src/skeleton/skeleton.ts"
+            }
+          },
+          {
+            "kind": "custom-element-definition",
+            "name": "rr-skeleton",
+            "declaration": {
+              "name": "RrSkeleton",
+              "module": "src/skeleton/skeleton.ts"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/spinner/spinner.figma.ts",
+        "declarations": [],
+        "exports": []
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/spinner/spinner.ts",
+        "declarations": [
+          {
+            "kind": "class",
+            "description": "`<rr-spinner>` — animated loading indicator.\n\nRenders a circular SVG spinner using the action color token.\nAnnounces to screen readers via an `aria-live` region.",
+            "name": "RrSpinner",
+            "members": [
+              {
+                "kind": "field",
+                "name": "size",
+                "type": {
+                  "text": "SpinnerSize"
+                },
+                "default": "'md'",
+                "description": "Visual size of the spinner.",
+                "attribute": "size",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "label",
+                "type": {
+                  "text": "string"
+                },
+                "default": "'Loading'",
+                "description": "Accessible label announced to screen readers.",
+                "attribute": "label"
+              }
+            ],
+            "attributes": [
+              {
+                "type": {
+                  "text": "SpinnerSize"
+                },
+                "description": "Visual size of the spinner.",
+                "name": "size",
+                "default": "'md'",
+                "fieldName": "size"
+              },
+              {
+                "description": "Accessible label announced to screen readers.",
+                "name": "label",
+                "type": {
+                  "text": "string"
+                },
+                "default": "'Loading'",
+                "fieldName": "label"
+              }
+            ],
+            "superclass": {
+              "name": "LitElement",
+              "package": "lit"
+            },
+            "tagName": "rr-spinner",
+            "customElement": true
+          }
+        ],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrSpinner",
+            "declaration": {
+              "name": "RrSpinner",
+              "module": "src/spinner/spinner.ts"
+            }
+          },
+          {
+            "kind": "custom-element-definition",
+            "name": "rr-spinner",
+            "declaration": {
+              "name": "RrSpinner",
+              "module": "src/spinner/spinner.ts"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/tabs/tab-list.ts",
+        "declarations": [
+          {
+            "kind": "class",
+            "description": "`<rr-tab-list>` — the accessible tab strip container.\n\nWraps `<rr-tab>` elements and manages selection state, keyboard navigation\n(left/right arrows, Home, End), and ARIA attributes.\n\nThe tab panels are managed by the consuming app — listen for the `change`\nevent and show/hide content accordingly.",
+            "name": "RrTabList",
+            "slots": [
+              {
+                "description": "Place `<rr-tab>` elements here",
+                "name": ""
+              }
+            ],
+            "members": [
+              {
+                "kind": "field",
+                "name": "label",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "description": "Accessible label for the tablist (e.g. \"Navigation\", \"View options\").",
+                "attribute": "label"
+              },
+              {
+                "kind": "field",
+                "name": "value",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "description": "Currently selected tab value.",
+                "attribute": "value",
+                "reflects": true
+              },
+              {
+                "kind": "method",
+                "name": "_getTabs",
+                "privacy": "private",
+                "return": {
+                  "type": {
+                    "text": "RrTab[]"
+                  }
+                }
+              },
+              {
+                "kind": "method",
+                "name": "_syncTabs",
+                "privacy": "private"
+              },
+              {
+                "kind": "field",
+                "name": "_onTabSelect",
+                "privacy": "private"
+              },
+              {
+                "kind": "field",
+                "name": "_onKeyDown",
+                "privacy": "private"
+              }
+            ],
+            "events": [
+              {
+                "description": "When a tab is selected; detail: { value: string }",
+                "name": "change"
+              }
+            ],
+            "attributes": [
+              {
+                "description": "Accessible label for the tablist (e.g. \"Navigation\", \"View options\").",
+                "name": "label",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "label"
+              },
+              {
+                "description": "Currently selected tab value.",
+                "name": "value",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "value"
+              }
+            ],
+            "superclass": {
+              "name": "LitElement",
+              "package": "lit"
+            },
+            "tagName": "rr-tab-list",
+            "customElement": true
+          }
+        ],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrTabList",
+            "declaration": {
+              "name": "RrTabList",
+              "module": "src/tabs/tab-list.ts"
+            }
+          },
+          {
+            "kind": "custom-element-definition",
+            "name": "rr-tab-list",
+            "declaration": {
+              "name": "RrTabList",
+              "module": "src/tabs/tab-list.ts"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/tabs/tab.ts",
+        "declarations": [
+          {
+            "kind": "class",
+            "description": "`<rr-tab>` — a single tab button, used inside `<rr-tab-list>`.\n\nSelection state is managed by the parent `<rr-tab-list>`. Do not set\n`selected` directly — use `rr-tab-list[value]` to control which tab is active.",
+            "name": "RrTab",
+            "slots": [
+              {
+                "description": "Tab label text (and optional icon)",
+                "name": ""
+              }
+            ],
+            "members": [
+              {
+                "kind": "field",
+                "name": "shadowRootOptions",
+                "type": {
+                  "text": "object"
+                },
+                "static": true,
+                "default": "{ ...LitElement.shadowRootOptions, delegatesFocus: true }"
+              },
+              {
+                "kind": "field",
+                "name": "value",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "description": "Identifier value — must match what rr-tab-list uses for selection.",
+                "attribute": "value",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "selected",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "description": "True when this tab is the active selection. Managed by rr-tab-list.",
+                "attribute": "selected",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "disabled",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "description": "Prevents tab selection.",
+                "attribute": "disabled",
+                "reflects": true
+              },
+              {
+                "kind": "method",
+                "name": "_handleClick",
+                "privacy": "private"
+              }
+            ],
+            "events": [
+              {
+                "name": "rr-tab-select",
+                "type": {
+                  "text": "CustomEvent"
+                },
+                "description": "Bubbles up to rr-tab-list when clicked"
+              }
+            ],
+            "attributes": [
+              {
+                "description": "Identifier value — must match what rr-tab-list uses for selection.",
+                "name": "value",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "value"
+              },
+              {
+                "description": "True when this tab is the active selection. Managed by rr-tab-list.",
+                "name": "selected",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "fieldName": "selected"
+              },
+              {
+                "description": "Prevents tab selection.",
+                "name": "disabled",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "fieldName": "disabled"
+              }
+            ],
+            "superclass": {
+              "name": "LitElement",
+              "package": "lit"
+            },
+            "tagName": "rr-tab",
+            "customElement": true
+          }
+        ],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrTab",
+            "declaration": {
+              "name": "RrTab",
+              "module": "src/tabs/tab.ts"
+            }
+          },
+          {
+            "kind": "custom-element-definition",
+            "name": "rr-tab",
+            "declaration": {
+              "name": "RrTab",
+              "module": "src/tabs/tab.ts"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/tabs/tabs.figma.ts",
+        "declarations": [],
+        "exports": []
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/test-setup.ts",
+        "declarations": [],
+        "exports": []
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/textarea/textarea.figma.ts",
+        "declarations": [],
+        "exports": []
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/textarea/textarea.ts",
+        "declarations": [
+          {
+            "kind": "class",
+            "description": "A form-associated multi-line text area with label, helper text, and error state.\n\nMirrors `<rr-input>` in API and token usage. Uses `ElementInternals` for\nnative form participation and `delegatesFocus` so the host forwards focus\nto the inner `<textarea>`.",
+            "name": "RrTextarea",
+            "cssParts": [
+              {
+                "description": "The label element",
+                "name": "label"
+              },
+              {
+                "description": "The inner textarea element",
+                "name": "textarea"
+              },
+              {
+                "description": "The helper text container",
+                "name": "helper"
+              },
+              {
+                "description": "The error message container",
+                "name": "error"
+              }
+            ],
+            "slots": [
+              {
+                "description": "Optional override for the label text",
+                "name": "label"
+              }
+            ],
+            "members": [
+              {
+                "kind": "field",
+                "name": "formAssociated",
+                "type": {
+                  "text": "boolean"
+                },
+                "static": true,
+                "default": "true"
+              },
+              {
+                "kind": "field",
+                "name": "shadowRootOptions",
+                "type": {
+                  "text": "object"
+                },
+                "static": true,
+                "default": "{ ...LitElement.shadowRootOptions, delegatesFocus: true, }"
+              },
+              {
+                "kind": "field",
+                "name": "name",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "name"
+              },
+              {
+                "kind": "field",
+                "name": "value",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "value"
+              },
+              {
+                "kind": "field",
+                "name": "placeholder",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "placeholder"
+              },
+              {
+                "kind": "field",
+                "name": "label",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "label"
+              },
+              {
+                "kind": "field",
+                "name": "helperText",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "helper-text"
+              },
+              {
+                "kind": "field",
+                "name": "errorText",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "error-text"
+              },
+              {
+                "kind": "field",
+                "name": "rows",
+                "type": {
+                  "text": "number"
+                },
+                "default": "3",
+                "attribute": "rows"
+              },
+              {
+                "kind": "field",
+                "name": "required",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "attribute": "required",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "disabled",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "attribute": "disabled",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "_textarea",
+                "type": {
+                  "text": "HTMLTextAreaElement"
+                },
+                "privacy": "private"
+              },
+              {
+                "kind": "field",
+                "name": "_internals",
+                "type": {
+                  "text": "ElementInternals"
+                },
+                "privacy": "private"
+              },
+              {
+                "kind": "field",
+                "name": "_isInvalid",
+                "type": {
+                  "text": "boolean"
+                },
+                "privacy": "private",
+                "readonly": true
+              },
+              {
+                "kind": "method",
+                "name": "_onInput",
+                "privacy": "private",
+                "parameters": [
+                  {
+                    "name": "e",
+                    "type": {
+                      "text": "Event"
+                    }
+                  }
+                ]
+              },
+              {
+                "kind": "method",
+                "name": "_onChange",
+                "privacy": "private",
+                "parameters": [
+                  {
+                    "name": "e",
+                    "type": {
+                      "text": "Event"
+                    }
+                  }
+                ]
+              }
+            ],
+            "events": [
+              {
+                "name": "input",
+                "type": {
+                  "text": "Event"
+                },
+                "description": "When the value changes (mirrors native input event)"
+              },
+              {
+                "name": "change",
+                "type": {
+                  "text": "Event"
+                },
+                "description": "When the value is committed (mirrors native change event)"
+              }
+            ],
+            "attributes": [
+              {
+                "name": "name",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "name"
+              },
+              {
+                "name": "value",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "value"
+              },
+              {
+                "name": "placeholder",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "placeholder"
+              },
+              {
+                "name": "label",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "label"
+              },
+              {
+                "name": "helper-text",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "helperText"
+              },
+              {
+                "name": "error-text",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "errorText"
+              },
+              {
+                "name": "rows",
+                "type": {
+                  "text": "number"
+                },
+                "default": "3",
+                "fieldName": "rows"
+              },
+              {
+                "name": "required",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "fieldName": "required"
+              },
+              {
+                "name": "disabled",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "fieldName": "disabled"
+              }
+            ],
+            "superclass": {
+              "name": "LitElement",
+              "package": "lit"
+            },
+            "tagName": "rr-textarea",
+            "customElement": true
+          }
+        ],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrTextarea",
+            "declaration": {
+              "name": "RrTextarea",
+              "module": "src/textarea/textarea.ts"
+            }
+          },
+          {
+            "kind": "custom-element-definition",
+            "name": "rr-textarea",
+            "declaration": {
+              "name": "RrTextarea",
+              "module": "src/textarea/textarea.ts"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/toggle/toggle.figma.ts",
+        "declarations": [],
+        "exports": []
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/toggle/toggle.ts",
+        "declarations": [
+          {
+            "kind": "class",
+            "description": "A form-associated toggle switch for binary on/off settings.\n\nThe pill-shaped track and sliding knob are rendered in shadow DOM;\nthe hidden native `<input type=\"checkbox\">` provides focus, keyboard,\nand label-click semantics. `ElementInternals` handles form participation.\n\nUsage:\n  <rr-toggle name=\"darkMode\" label=\"Dark mode\" checked></rr-toggle>\n  <rr-toggle name=\"notify\">Email notifications</rr-toggle>",
+            "name": "RrToggle",
+            "cssParts": [
+              {
+                "description": "The pill-shaped track element",
+                "name": "track"
+              },
+              {
+                "description": "The sliding knob element",
+                "name": "knob"
+              },
+              {
+                "description": "The label text element",
+                "name": "label"
+              }
+            ],
+            "slots": [
+              {
+                "description": "Label text (alternative to the `label` property)",
+                "name": ""
+              }
+            ],
+            "members": [
+              {
+                "kind": "field",
+                "name": "formAssociated",
+                "type": {
+                  "text": "boolean"
+                },
+                "static": true,
+                "default": "true"
+              },
+              {
+                "kind": "field",
+                "name": "checked",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "attribute": "checked",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "disabled",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "attribute": "disabled",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "value",
+                "type": {
+                  "text": "string"
+                },
+                "default": "'on'",
+                "attribute": "value"
+              },
+              {
+                "kind": "field",
+                "name": "name",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "name"
+              },
+              {
+                "kind": "field",
+                "name": "label",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "attribute": "label"
+              },
+              {
+                "kind": "field",
+                "name": "_internals",
+                "type": {
+                  "text": "ElementInternals"
+                },
+                "privacy": "private"
+              },
+              {
+                "kind": "method",
+                "name": "_onChange",
+                "privacy": "private"
+              }
+            ],
+            "events": [
+              {
+                "name": "change",
+                "type": {
+                  "text": "Event"
+                },
+                "description": "When the toggle state changes"
+              }
+            ],
+            "attributes": [
+              {
+                "name": "checked",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "fieldName": "checked"
+              },
+              {
+                "name": "disabled",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "fieldName": "disabled"
+              },
+              {
+                "name": "value",
+                "type": {
+                  "text": "string"
+                },
+                "default": "'on'",
+                "fieldName": "value"
+              },
+              {
+                "name": "name",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "name"
+              },
+              {
+                "name": "label",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "fieldName": "label"
+              }
+            ],
+            "superclass": {
+              "name": "LitElement",
+              "package": "lit"
+            },
+            "tagName": "rr-toggle",
+            "customElement": true
+          }
+        ],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrToggle",
+            "declaration": {
+              "name": "RrToggle",
+              "module": "src/toggle/toggle.ts"
+            }
+          },
+          {
+            "kind": "custom-element-definition",
+            "name": "rr-toggle",
+            "declaration": {
+              "name": "RrToggle",
+              "module": "src/toggle/toggle.ts"
+            }
+          }
+        ]
+      }
+    ]
+  }
 }
