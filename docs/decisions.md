@@ -111,8 +111,20 @@ mapping, instead of maintaining the same button three times and keeping them in
 sync.
 
 **Alternative considered:** React components (smoother in the dominant framework).
-Rejected; the accepted cost is that web components are slightly clunkier *inside*
-React.
+Rejected. The real cost is sharper than "clunkier in React": it's *styling across
+the Shadow DOM boundary* — the encapsulation bubble that protects a component's
+internals also stops a consumer from reaching in with ordinary CSS to restyle
+them. Token-based theming largely neutralizes this: CSS custom properties inherit
+*through* the shadow boundary, so the components retheme by setting token values
+(e.g. `--component-badge-*`, `--color-*`) without piercing encapsulation. The
+harder cases (restyling internal *structure*) only arise for composite components,
+which aren't built yet.
+
+**Reference:** the five-strategy spectrum in "Web Component Style Flexibility"
+(https://its-hcd.github.io/learn-webcomponent-style-flexibility/) — sealed
+→ open: variables-only (Locked) → `::part()` → `exportparts` → `<slot>`/`::slotted()`
+→ Light DOM. Our atomic components (badge, button, input) sit at the variable-themed
+"Locked" end, which the page recommends for exactly that class of component.
 
 **Status:** Shipped (18 components). Reverses the PRD non-goal "no component
 library yet."
