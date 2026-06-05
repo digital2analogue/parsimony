@@ -58,7 +58,9 @@
       "rules": [
         "Never use hex values — always var(--color-*) or var(--component-*)",
         "Never reference --primitive-* tokens in component code",
-        "All text/background pairings must pass WCAG AA (4.5:1)"
+        "All text/background pairings must pass WCAG AA (4.5:1)",
+        "Variants use a subtle style: a tinted background with accent-colored text, not a solid fill. component-badge-{variant}-foreground is the accent color itself (e.g. foreground-success), not foreground-on-{variant}.",
+        "To make a variant solid instead (bright fill + dark text), repoint its component tokens to background-{variant} and foreground-on-{variant}; consumer code does not change."
       ],
       "examples": [
         {
