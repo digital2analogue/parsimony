@@ -40,6 +40,8 @@ design-system.json   Generated artifact — merged component metadata + Custom E
   publish.yml        On-demand publish of @digital2analogue2/tokens to GitHub Packages.
 docs/
   index.html         Base dark theme design system reference. Open file:// directly in browser.
+  brand-design-system-prd.md  Product requirements. v1 + the v2 (agentic) scope that reversed several v1 non-goals.
+  decisions.md       Running decision log (ADR-lite). Add an entry when a choice is costly to reverse.
 AGENTS.md            Vendor-neutral guide for agents *consuming* the system in product repos.
 ```
 

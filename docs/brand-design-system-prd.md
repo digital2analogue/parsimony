@@ -1,9 +1,16 @@
 # PRD: River Romney Brand Design System
 
 **Author:** River Romney
-**Status:** Active
+**Status:** Active — v2 (Agentic)
 **Created:** 2026-04-06
-**Last updated:** 2026-04-10
+**Last updated:** 2026-06-05
+
+> **Note (v2).** This PRD was written for v1: a token-only system consumed by
+> copying CSS, with components, an MCP server, and CI/CD all listed as non-goals.
+> The system has since grown past that scope on purpose — see the new
+> [Agentic System (v2)](#agentic-system-v2--delivered) section and the
+> [decision log](decisions.md) for the choices that reversed those non-goals.
+> v1 sections below are kept as the historical record; v2 additions are marked.
 
 ---
 
@@ -21,12 +28,23 @@ As the number of sites grows and AI-assisted development becomes the primary wor
 4. **Multi-site theming** — Support per-site overrides (e.g., pure black background for .art, larger body type for .blog, fintech palette for decisioning-table) without duplicating the shared foundation.
 5. **Standards-aligned** — Follow the W3C Design Tokens Community Group spec (DTCG 2025.10) so the system is interoperable with Figma, Tokens Studio, Style Dictionary, and future tooling.
 
-## Non-Goals
+## Non-Goals (v1 — most since reversed in v2)
 
-- **Component library**: This system covers design tokens and visual foundations only. Shared UI components (buttons, cards, nav) are a future initiative that would build on top of this token layer. Not enough sites or complexity to justify it yet.
-- **Figma integration**: While the DTCG format is Figma-compatible and the architecture supports Tokens Studio sync, setting up Figma variables and the Figma MCP server is a follow-on project.
-- **Custom MCP server**: Spotify and other teams have built dedicated MCP servers for their design systems. At the current scale (4 personal sites, 1 person), a DESIGN.md in the repo is sufficient. MCP becomes relevant if the system is ever consumed by a team.
-- **Build pipeline automation**: v1 uses Style Dictionary manually or via a simple npm script. CI/CD integration (auto-generating CSS on token changes, publishing to a registry) is future work.
+> Every non-goal below except Tokens Studio sync was deliberately reversed once
+> agents became the primary consumer. See the [decision log](decisions.md).
+
+- ~~**Component library**~~ → **Delivered (v2).** 18 framework-agnostic Lit web
+  components (`rr-*`), wired to Figma via Code Connect; three carry a full
+  machine-readable contract.
+- **Figma integration**: Partially delivered — Code Connect maps every component.
+  Full Tokens Studio variable sync is still a follow-on project.
+- ~~**Custom MCP server**~~ → **Delivered (v2).** An MCP server
+  (`list_components`, `get_component`, `check_usage`) is the headline interface.
+  The v1 assumption ("a DESIGN.md is sufficient at this scale") was abandoned
+  because the agent, not a person, became the main reader.
+- ~~**Build pipeline automation**~~ → **Delivered (v2).** CI runs validate →
+  build → artifact-staleness → tests on every push; tokens publish as a versioned
+  npm package.
 
 ---
 
@@ -127,13 +145,13 @@ Acceptance criteria:
 - [ ] Overrides produce separate CSS output files via Style Dictionary
 - [ ] Decisioning-table brand override file created with fintech palette
 
-**P1-2: CSS linter / audit rule**
-A lint rule that flags any hardcoded color, font-weight, or spacing value not in the token allowlist.
+**P1-2: CSS linter / audit rule** ✅ (delivered v2)
+A lint rule that flags any hardcoded color, primitive reference, or hardcoded font size. Lives once in `scripts/rules.mjs` and is imported by the build gate (`validate`), the MCP `check_usage` tool, and the consumer `drift-lint` scan.
 
 Acceptance criteria:
 
-- [ ] Running the linter against a CSS file reports any value that doesn't use a `--token-*` custom property
-- [ ] Allowlist is auto-generated from the DTCG token files (not manually maintained)
+- [x] Running the linter against a file reports any hardcoded hex, `--primitive-*` reference, hardcoded font size, or deprecated token
+- [~] Rules are defined once and shared by every checker (regex rule set rather than an auto-generated allowlist; same single-source intent)
 
 **P1-3: llms.txt for external AI tools**
 A lightweight llms.txt file at the design system's documentation URL for non-Claude AI tools to discover the system.
@@ -160,14 +178,46 @@ The architecture supports light themes via the brand override layer. The decisio
 **P2-2: Figma variable sync**
 Connect the DTCG tokens to Figma via Tokens Studio. This enables visual design in Figma that stays in sync with the code tokens, and unlocks Figma's MCP server for AI-powered design-to-code workflows.
 
-**P2-3: Component tokens (Tier 3)**
-Scoped tokens like `button.bg.primary`, `link.hover.color`, `nav.border.bottom`. These become valuable when there are shared UI components across sites. Semantic spacing categories (inset, stack, inline, section, page) can be added at this stage when usage patterns emerge.
+**P2-3: Component tokens (Tier 3)** ✅ (delivered v2)
+Scoped tokens like `component-badge-success-background` now exist in `tokens/components/`, consumed by the matching `rr-*` component. Semantic spacing categories (inset/stack/inline/section/page) remain primitive-based for now.
 
-**P2-4: CI/CD pipeline**
-Auto-build CSS on token changes via GitHub Actions. Publish CSS as an npm package or push directly to each site repo via a workflow.
+**P2-4: CI/CD pipeline** ✅ (delivered v2)
+`.github/workflows/ci.yml` runs validate → build → build:meta → artifact-staleness → tests on every push. Tokens publish as a versioned npm package via `publish.yml`. Auto-build-on-token-change for consumers is the next step (see drift detection in the v2 section).
 
 **P2-5: Design system documentation site**
 A dedicated site (e.g., system.riverromney.design) documenting the token taxonomy, usage guidelines, and component patterns. This is where the llms.txt (P1-3) would live.
+
+---
+
+## Agentic System (v2) — delivered
+
+v1 assumed the main reader was a person and the main risk was manual
+propagation. v2 started from a different premise: the main reader is an **agent**,
+and the system should be **enforceable as data**, not just documented in prose.
+The choices that got it there are in the [decision log](decisions.md); the
+summary:
+
+- **Components as contracts.** 18 Lit web components ship with an auto-generated
+  Custom Elements Manifest; three add a hand-authored `meta.json` (tokens, rules,
+  a11y). Merged deterministically into `design-system.json`.
+- **One agent interface (MCP).** `list_components`, `get_component`,
+  `check_usage` read that artifact. `check_usage` lets an agent lint a snippet
+  *before* it writes UI.
+- **One rule set, three checkers.** `scripts/rules.mjs` is imported by the build
+  gate, the MCP, and the consumer drift scan — they cannot disagree.
+- **Versioned distribution.** Built CSS ships as `@digital2analogue2/tokens` on
+  public npm; consumers add a dependency instead of hand-copying.
+- **Governance moved upstream.** The same rules that fail the build are the ones
+  an agent gets from `check_usage`, so violations are caught before code exists.
+
+### v2 — Still open
+
+- **Self-healing drift loop** (in progress): the drift scan runs in CI and opens
+  a PR/issue when a consumer drifts. Auto-fix (codemod) is deferred.
+- **Full contract on all 18 components**: the richer `meta.json` is on three so
+  far; the CEM covers the rest.
+- **Consumer migration onto the published package**: live on npm; each site still
+  has to move off its inlined copy.
 
 ---
 
@@ -383,8 +433,11 @@ For themed projects (like decisioning-table), the approach is to import the base
 
 - **Phase 1 (complete):** Created the repo, wrote DESIGN.md + CLAUDE.md, defined primitive and semantic token JSON files.
 - **Phase 2 (complete):** Added Style Dictionary config, generated CSS output, integrated into .com and .design repos. Added border radius, shadow, and motion primitives. Renamed color semantics to background/foreground convention. Added action color tokens.
-- **Phase 3 (in progress):** Decisioning-table atomic design refactor and brand-token integration. Validating the override architecture with a themed project.
-- **Phase 4 (future):** Validate brand override architecture with .art. Add CSS linter rule. Explore Figma sync.
+- **Phase 3 (complete):** Decisioning-table atomic design refactor and brand-token integration. Validated the override architecture with a themed project.
+- **Phase 4 (complete):** Shared CSS lint rules (`rules.mjs`), the validate build gate, and four brand override outputs.
+- **Phase 5 (complete) — Agentic:** Lit component library + Custom Elements Manifest, hand-authored `meta.json` contracts, `design-system.json`, the MCP server, Figma Code Connect, and versioned npm distribution. See the [Agentic System (v2)](#agentic-system-v2--delivered) section.
+- **Phase 6 (in progress):** Self-healing drift detection in CI; richer contracts on the remaining components; migrating consumers onto the published package.
+- **Phase 7 (future):** Validate brand override architecture with .art. Tokens Studio / Figma variable sync.
 
 ---
 
