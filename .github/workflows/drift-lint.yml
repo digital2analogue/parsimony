@@ -1,24 +1,38 @@
 name: Drift Lint
 
+# Self-healing drift detection. Runs on a schedule (and on demand), scans a
+# consumer repo with the shared rule set (scripts/rules.mjs — the same rules the
+# build gate and the MCP check_usage tool enforce), and reflects the result as a
+# single tracked issue: opened/updated when drift is found, closed when the
+# consumer comes back clean. Auto-fixing the drift (a codemod that opens a PR) is
+# intentionally deferred; detecting and reporting is the honest first step.
+
 on:
+  schedule:
+    - cron: '0 9 * * 1' # Mondays 09:00 UTC
   workflow_dispatch:
     inputs:
       repo:
         description: 'Consumer repo to scan (owner/name)'
-        required: true
+        required: false
+        default: 'digital2analogue/portfolio-vercel'
         type: string
       ref:
-        description: 'Branch or ref to scan (default: main)'
+        description: 'Branch or ref to scan'
         required: false
         default: 'main'
         type: string
 
 permissions:
   contents: read
+  issues: write
 
 jobs:
   drift-lint:
     runs-on: ubuntu-latest
+    env:
+      CONSUMER: ${{ inputs.repo || 'digital2analogue/portfolio-vercel' }}
+      CONSUMER_REF: ${{ inputs.ref || 'main' }}
     steps:
       # brand-tokens itself — provides scripts/drift-lint.mjs + scripts/rules.mjs
       - name: Checkout brand-tokens
@@ -31,15 +45,15 @@ jobs:
       - name: Checkout consumer repo
         uses: actions/checkout@v4
         with:
-          repository: ${{ inputs.repo }}
-          ref: ${{ inputs.ref }}
+          repository: ${{ env.CONSUMER }}
+          ref: ${{ env.CONSUMER_REF }}
           path: consumer
 
       - name: Scan consumer for drift
         id: scan
         shell: bash
         run: |
-          # Same rules as the build gate and the MCP check_usage tool.
+          # Honors the consumer's own .driftignore (sanctioned token blocks, etc.)
           if node scripts/drift-lint.mjs ./consumer --md > /tmp/report.md; then
             echo "result=clean" >> "$GITHUB_OUTPUT"
           else
@@ -47,6 +61,47 @@ jobs:
           fi
           cat /tmp/report.md >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Fail if violations found
-        if: steps.scan.outputs.result == 'violations'
-        run: exit 1
+      - name: Reflect result as a tracked issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('/tmp/report.md', 'utf8');
+            const consumer = process.env.CONSUMER;
+            const ref = process.env.CONSUMER_REF;
+            const clean = '${{ steps.scan.outputs.result }}' === 'clean';
+            const title = `Drift detected in ${consumer}`;
+            const label = 'drift';
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const stamp = new Date().toISOString().slice(0, 16).replace('T', ' ');
+
+            const open = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo,
+              state: 'open', labels: label, per_page: 100,
+            });
+            const existing = open.data.find((i) => i.title === title);
+
+            const body = [
+              report,
+              '',
+              '---',
+              `Scanned \`${consumer}@${ref}\` at ${stamp} UTC by the [drift-lint workflow](${runUrl}).`,
+              'Rules: `scripts/rules.mjs` (the same set the build gate and `check_usage` enforce).',
+            ].join('\n');
+
+            if (!clean) {
+              if (existing) {
+                await github.rest.issues.update({ ...context.repo, issue_number: existing.number, body });
+                await github.rest.issues.createComment({ ...context.repo, issue_number: existing.number,
+                  body: `Drift still present on the ${stamp} UTC scan — issue body refreshed.` });
+              } else {
+                try { await github.rest.issues.getLabel({ ...context.repo, name: label }); }
+                catch { await github.rest.issues.createLabel({ ...context.repo, name: label,
+                  color: 'D03027', description: 'Design-system drift detected in a consumer repo' }); }
+                await github.rest.issues.create({ ...context.repo, title, body, labels: [label] });
+              }
+            } else if (existing) {
+              await github.rest.issues.createComment({ ...context.repo, issue_number: existing.number,
+                body: `Latest scan (${stamp} UTC) is clean — drift resolved. Closing.` });
+              await github.rest.issues.update({ ...context.repo, issue_number: existing.number, state: 'closed' });
+            }

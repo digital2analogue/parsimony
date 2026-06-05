@@ -14,19 +14,45 @@ reverse or would surprise someone reading the code later.
 ## 2026-06-05 — Self-healing drift detection runs in CI
 
 **Decided:** A scheduled GitHub Action runs the shared drift scan against a
-consumer repo and surfaces violations as an actionable report (a PR/issue),
-rather than only on manual `workflow_dispatch`.
+consumer repo and reflects the result as a single tracked issue — opened/updated
+when drift is found, closed automatically when the consumer comes back clean —
+rather than only on manual `workflow_dispatch`. The scanner gained `--ignore` and
+`.driftignore` support so a consumer can exempt its own sanctioned token block
+(e.g. an inlined primitive layer) and the scan reports real UI drift, not the
+consumer's copy of the source of truth.
 
 **Why:** The rules already exist in one place (`scripts/rules.mjs`) and the
-manual `drift` command already works; making it run on a schedule closes the
-loop the architecture diagram promises (consumers → drift scan → source) without
-waiting for a human to remember to run it.
+manual `drift` command already works; making it run on a schedule and surface an
+actionable, self-resolving issue closes the loop the architecture diagram
+promises (consumers → drift scan → source) without waiting for a human to run it.
 
-**Alternative considered:** Full auto-*fix* (a codemod that rewrites violations
-and opens a fix PR). Deferred — auto-rewriting UI code safely is a much larger
-surface; detection + report is the honest, useful first step.
+**Alternative considered:** Open a fix *PR* via a codemod that auto-rewrites
+violations. Deferred — safely rewriting UI code is a much larger surface; an issue
+is the honest artifact when there is no fix to commit.
 
-**Status:** In progress.
+**Status:** Workflow + scanner shipped on the feature branch. First real scan of
+the portfolio caught genuine drift (primitive spacing refs, a deprecated token),
+which is being fixed in the consumer. Auto-fix PR remains deferred.
+
+## 2026-06-05 — No semantic font-family token yet; the JS bridge is the sanctioned adapter
+
+**Decided:** Leave `lib/tokens.ts` in the portfolio (the `sans`/`serif`/`mono`
+exports) as the single, documented place allowed to reference
+`--primitive-font-family-*`, and exempt it in `.driftignore`. UI code imports the
+bridge constant instead of inlining the primitive.
+
+**Why:** The drift scan surfaced that there is no *semantic* family-only token —
+this system bundles family into the `--font-*` shorthands, so code that needs only
+the family (an inline `fontFamily`) has nowhere semantic to go. A single
+controlled adapter is a legitimate pattern and avoids inventing a niche token
+under time pressure.
+
+**Alternative considered:** Add semantic `--font-family-{sans,serif,mono}` tokens
+to brand-tokens. The "more correct" long-term fix, but it touches the published
+token surface and the shorthand model; deferred, not rejected.
+
+**Status:** Deferred. Bridge sanctioned now; revisit semantic family tokens if a
+second consumer needs family-only access.
 
 ## 2026-06-05 — Lint and component rule messages are em-dash-free
 
