@@ -17,6 +17,7 @@
     "build:cem": "npm run cem --workspace @riverromney/components && node scripts/normalize-cem.mjs",
     "build:meta": "npm run build:cem && node scripts/build-design-system-json.mjs",
     "drift": "node scripts/drift-lint.mjs",
+    "check:publish-fresh": "node scripts/check-publish-fresh.mjs",
     "test": "npm test --workspaces --if-present"
   },
   "devDependencies": {

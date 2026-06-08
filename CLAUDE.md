@@ -32,12 +32,14 @@ scripts/
   rules.mjs                   Single source of truth for the lint rules (no hex / no primitive / no hardcoded size / deprecated). Imported by validate, the MCP, and drift-lint.
   validate.mjs                Build gate: meta.json schema + lint rules + token-reference resolution.
   drift-lint.mjs              Scans a consumer repo using the shared rules. `npm run drift -- <dir>`.
+  check-publish-fresh.mjs     Diffs source-built tokens vs the published npm package; flags a needed republish. `npm run check:publish-fresh`.
   drift_audit.py              Figma-variable-vs-token drift auditor (separate concern from code linting).
 design-system.json   Generated artifact — merged component metadata + Custom Elements Manifest, read by the MCP server.
 .github/workflows/
   ci.yml             Runs on every push/PR: validate → build → build:meta → artifact-staleness check → tests.
-  drift-lint.yml     Manual (workflow_dispatch) scan of a consumer repo for drift.
-  publish.yml        On-demand publish of @digital2analogue2/tokens to GitHub Packages.
+  drift-lint.yml     Scheduled (weekly) + manual scan of a consumer repo for drift; opens/closes a tracked issue.
+  publish.yml        On-demand publish of @digital2analogue2/tokens to public npm.
+  publish-freshness.yml  Scheduled (weekly) + manual check that the published package matches the source tokens; opens/closes a tracked issue when a republish is due.
 docs/
   index.html         Base dark theme design system reference. Open file:// directly in browser.
   brand-design-system-prd.md  Product requirements. v1 + the v2 (agentic) scope that reversed several v1 non-goals.

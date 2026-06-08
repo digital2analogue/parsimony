@@ -11,6 +11,31 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-06-09 — Staleness guards on the token propagation chain
+
+**Decided:** Add two scheduled checks (mirroring the drift-loop's open/close-an-issue
+pattern) covering the path a token value travels from source to a live site:
+- **publish-freshness** (brand-tokens): builds CSS from source and diffs it,
+  token by token, against the published npm package; opens an issue when a
+  republish is due. Closes the "source → published" arrow.
+- **tokens-freshness** (portfolio): runs `sync-tokens` to check the installed
+  package against the latest published; opens an issue when behind. Closes the
+  "published → consumer install" arrow.
+
+**Why:** Once the portfolio started consuming the package, a token edit could
+silently fail to reach production at two points — never republished, or never
+reinstalled. Both arrows were manual and uncaught. These make staleness loud
+without blocking normal commits.
+
+**Alternative considered:** A blocking CI gate that fails the build whenever the
+package is behind source. Rejected — between a token change landing and the
+on-demand republish there's a legitimate transient window; failing every commit
+in it would be noise. A scheduled issue nags without blocking.
+
+**Status:** Shipped (detection + tracked issue). Comparison is by token
+declaration, so comments/ordering/whitespace don't cause false positives;
+verified locally against the published 0.1.0 (reports in sync).
+
 ## 2026-06-09 — First consumer (portfolio) migrated onto the published package
 
 **Decided:** The portfolio (riverromney.design) consumes
