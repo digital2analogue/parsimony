@@ -126,6 +126,13 @@ which aren't built yet.
 → Light DOM. Our atomic components (badge, button, input) sit at the variable-themed
 "Locked" end, which the page recommends for exactly that class of component.
 
+**Watch:** progressive-enhancement web-component libraries (e.g. ElenaJS,
+https://elenajs.com/) render HTML/CSS first and hydrate after, addressing Lit's
+main weakness — client-only rendering (SSR gaps, layout shift, no-JS blankness).
+The tradeoff cuts against us: PE leans light-DOM, which trades away the Shadow DOM
+encapsulation our token theming relies on. Not a switch to make now; the thing to
+evaluate if a consumer ever needs the components to render before JS.
+
 **Status:** Shipped (18 components). Reverses the PRD non-goal "no component
 library yet."
 
