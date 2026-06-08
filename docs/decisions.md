@@ -11,6 +11,30 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-06-09 — First consumer (portfolio) migrated onto the published package
+
+**Decided:** The portfolio (riverromney.design) consumes
+`@digital2analogue2/tokens` via `@import ".../base.css"` plus a thin override
+`:root`, instead of a hand-copied token block. The override re-declares only the
+portfolio's deltas (responsive `clamp()` scaling, next/font-aware font families);
+everything else cascades from the package. `sync-tokens` now checks installed vs
+latest-published version instead of diffing a copied block.
+
+**Why:** Closes the distribution loop — the system now dogfoods its own package,
+so "single source of truth, consumed by real sites" is literally true and the
+hand-copied snapshot (a drift vector) is gone.
+
+**Alternative considered:** Keep inlining the block (zero new dependency, smaller
+CSS). Rejected — it perpetuated the copy-paste drift the package exists to remove.
+The cost accepted: the package's base CSS is heavier on the wire than the trimmed
+inline block (verbose comments + DE-only primitives); revisit with a minified
+build if it matters.
+
+**Status:** Shipped for the portfolio. Surfaced and fixed a latent bug on the way
+(consumers referenced `--spacing-group`/`--spacing-block`, which the inlined
+subset never defined; the full package does). Other sites migrate as they come
+online.
+
 ## 2026-06-05 — Self-healing drift detection runs in CI
 
 **Decided:** A scheduled GitHub Action runs the shared drift scan against a

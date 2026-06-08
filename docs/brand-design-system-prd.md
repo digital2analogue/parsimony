@@ -216,8 +216,10 @@ summary:
   a PR/issue when a consumer drifts. Auto-fix (codemod) is deferred.
 - **Full contract on all 18 components**: the richer `meta.json` is on three so
   far; the CEM covers the rest.
-- **Consumer migration onto the published package**: live on npm; each site still
-  has to move off its inlined copy.
+- **Consumer migration onto the published package**: the portfolio
+  (riverromney.design) now consumes `@digital2analogue2/tokens` instead of an
+  inlined block — the system dogfoods its own distribution. Remaining sites
+  (.com, .art, .blog, decision-engine) still to move as they come online.
 
 ---
 
