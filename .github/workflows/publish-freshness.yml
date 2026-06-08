@@ -1,0 +1,81 @@
+name: Publish Freshness
+
+# Closes the "source → published" staleness arrow: if the token source has
+# changed since @digital2analogue2/tokens was last published, consumers that
+# install the package silently get old values. This builds the CSS from source,
+# diffs it (token by token) against the published package, and reflects the
+# result as a single tracked issue — opened/updated when a republish is due,
+# closed automatically once the published package catches up.
+
+on:
+  schedule:
+    - cron: '0 9 * * 1' # Mondays 09:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  publish-freshness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22 # build scripts use fs.promises.glob (Node 22+)
+      - run: npm ci
+
+      - name: Compare source tokens against the published package
+        id: check
+        shell: bash
+        run: |
+          if node scripts/check-publish-fresh.mjs --md > /tmp/report.md; then
+            echo "result=fresh" >> "$GITHUB_OUTPUT"
+          else
+            echo "result=stale" >> "$GITHUB_OUTPUT"
+          fi
+          cat /tmp/report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Reflect result as a tracked issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('/tmp/report.md', 'utf8');
+            const stale = '${{ steps.check.outputs.result }}' === 'stale';
+            const title = 'Token source has changed since the last publish';
+            const label = 'publish-freshness';
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const stamp = new Date().toISOString().slice(0, 16).replace('T', ' ');
+
+            const open = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo,
+              state: 'open', labels: label, per_page: 100,
+            });
+            const existing = open.data.find((i) => i.title === title);
+
+            const body = [
+              report,
+              '',
+              '---',
+              `Checked at ${stamp} UTC by the [publish-freshness workflow](${runUrl}).`,
+              'To resolve: run the **Publish** workflow to ship the new token values.',
+            ].join('\n');
+
+            if (stale) {
+              if (existing) {
+                await github.rest.issues.update({ ...context.repo, issue_number: existing.number, body });
+                await github.rest.issues.createComment({ ...context.repo, issue_number: existing.number,
+                  body: `Still ahead of the published package on the ${stamp} UTC check.` });
+              } else {
+                try { await github.rest.issues.getLabel({ ...context.repo, name: label }); }
+                catch { await github.rest.issues.createLabel({ ...context.repo, name: label,
+                  color: 'FCD34D', description: 'Published token package is behind the source' }); }
+                await github.rest.issues.create({ ...context.repo, title, body, labels: [label] });
+              }
+            } else if (existing) {
+              await github.rest.issues.createComment({ ...context.repo, issue_number: existing.number,
+                body: `Published package now matches the source (${stamp} UTC). Closing.` });
+              await github.rest.issues.update({ ...context.repo, issue_number: existing.number, state: 'closed' });
+            }
