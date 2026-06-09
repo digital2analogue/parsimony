@@ -31,10 +31,6 @@
         "$type": "color",
         "$description": "Fill for disabled interactive elements (inputs, buttons, selects). Same value as background.alt — disabled controls blend into elevated surfaces, signalling they are part of the layout but not actionable."
       },
-      "accent": {
-        "$value": "{primitive.color.green.accent}",
-        "$description": "Default decorative fill #4ADE6E. Use for non-interactive emphasis surfaces when no specific color is needed. Pair with foreground.on-accent. Kept separate from action — may diverge."
-      },
       "accent-green": {
         "$value": "{primitive.color.green.chip}",
         "$description": "Dark green tint #0F2016. Subtle chip/tag fills, callout panels with green emphasis. Pair with foreground.accent-green for text."
@@ -51,20 +47,10 @@
         "$value": "{primitive.color.amber.950}",
         "$description": "Dark amber tint #221B08. Subtle chip/tag fills, callout panels with warm amber emphasis. Pair with foreground.accent-amber for text."
       },
-      "accent-indigo": {
-        "$value": "{primitive.color.indigo.100}",
-        "$type": "color",
-        "$description": "Light indigo tint for chip/tag fills. Pair with foreground.accent-indigo for text."
-      },
       "accent-indigo-bold": {
         "$value": "{primitive.color.indigo.700}",
         "$type": "color",
         "$description": "Saturated indigo fill for bold accent surfaces — avatar backgrounds, identity badges. Pair with foreground.accent-on-indigo (white). Contrast vs white: 7.98:1 AAA."
-      },
-      "accent-sky": {
-        "$value": "{primitive.color.sky.100}",
-        "$type": "color",
-        "$description": "Light sky blue tint for chip/tag fills. Pair with foreground.accent-sky for text."
       },
       "accent-sky-bold": {
         "$value": "{primitive.color.sky.700}",
@@ -86,8 +72,8 @@
         "$description": "Danger fill #E73027. Use for filled destructive buttons (delete, remove). Always pair with foreground.on-danger."
       },
       "danger-alt": {
-        "$value": "{primitive.color.gray.50}",
-        "$description": "Subtle danger tint. Use for error alert backgrounds. Never use for text — foreground.danger handles that. DE overrides to warm red tint."
+        "$value": "{primitive.color.red.950}",
+        "$description": "Subtle danger tint #2A0A0A — dark red for error alert/badge backgrounds, matching the other feedback -alt tints. Pair with foreground.danger (light red) for text. DE overrides to a warm light-red tint."
       },
       "success": {
         "$value": "{primitive.color.green.accent}",
@@ -165,8 +151,8 @@
         "$description": "Text/icons on background.action #0A0D0A. Use for labels inside filled interactive components (e.g. primary button). Contrast vs action: 11.13:1 AAA."
       },
       "danger": {
-        "$value": "{primitive.color.red.500}",
-        "$description": "Error/destructive text and icons #E73027. Use for delete labels, validation errors, Deny outcomes on background.default or background.alt. Contrast vs background.default: 4.51:1 AA."
+        "$value": "{primitive.color.red.400}",
+        "$description": "Error/destructive text and icons #F87171. Use for delete labels, validation errors, Deny outcomes, and danger alert/badge text. Light red so it reads on the canvas (7.06:1 AAA) and on the dark danger-alt tint (6.62:1 AA). Consistent with the other bright feedback foregrounds."
       },
       "on-danger": {
         "$value": "{primitive.color.neutral.white}",
@@ -201,16 +187,6 @@
         "$value": "{primitive.color.neutral.white}",
         "$type": "color",
         "$description": "Text/icons on info fill backgrounds. White on blue fill."
-      },
-      "accent-indigo": {
-        "$value": "{primitive.color.indigo.700}",
-        "$type": "color",
-        "$description": "Indigo accent for text and icons. Pair with background.accent-indigo for tinted surfaces."
-      },
-      "accent-sky": {
-        "$value": "{primitive.color.sky.700}",
-        "$type": "color",
-        "$description": "Sky blue accent for text and icons. Pair with background.accent-sky for tinted surfaces."
       },
       "accent-on-green": {
         "$value": "{primitive.color.green.950}",

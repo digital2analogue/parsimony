@@ -11,6 +11,35 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-06-09 — Dark-theme palette cleanup (danger tint, dead/orphan accents)
+
+**Decided:**
+- **danger-alt** was `gray.50` (#F5F6F7, near-white) — a light box in a dark
+  theme, inconsistent with the other feedback `-alt` tints. Repointed to a new
+  `red.950` (#2A0A0A) dark tint, and lightened `foreground.danger` (`red.500`
+  #E73027 → `red.400` #F87171) so danger text passes AA on both the canvas
+  (7.06:1) and the dark danger-alt (6.62:1), matching the other bright feedback
+  foregrounds. Added `red.400`/`red.950` primitives (the ramp had no dark-theme
+  reds).
+- **Removed dead/orphan tokens:** `background.accent` (deprecated, unused) and
+  the unused light-theme-pairing chips `background/foreground.accent-indigo` and
+  `.accent-sky` (#E0E7FF / #E0F2FE — near-white). Their `-bold` avatar variants
+  stay. Kept the removed names in `DEPRECATED_TOKENS` to flag any lingering use.
+
+**Why:** the now-complete, auto-generated `/tokens` catalog surfaced these as
+visibly wrong — a near-white danger background and near-white "accent" chips in a
+dark theme. The catalog doing its job as an audit surface.
+
+**Alternative considered:** keep `foreground.danger` at #E73027 and add a
+separate light-red just for alerts/badges. Rejected — lightening the one token is
+simpler, improves canvas contrast too, and makes danger consistent with the other
+feedback foregrounds.
+
+**Status:** Shipped to source; published as `@digital2analogue2/tokens@0.1.1`;
+portfolio reinstalled. DESIGN.md tables updated to match.
+
+---
+
 ## 2026-06-09 — Staleness guards on the token propagation chain
 
 **Decided:** Add two scheduled checks (mirroring the drift-loop's open/close-an-issue

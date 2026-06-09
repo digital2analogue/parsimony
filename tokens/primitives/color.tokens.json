@@ -149,6 +149,16 @@
           "$value": "#FBEBEE",
           "$type": "color",
           "$description": "Very light red tint — danger hover surfaces, error row highlights. DE background.danger-subtle. Computed from white 92% + red.600 8% (the deeper crimson). Slightly more saturated than red.50 (#FEF2F2); use for interactive hover signals, red.50 for static alert fills."
+        },
+        "400": {
+          "$value": "#F87171",
+          "$type": "color",
+          "$description": "Light red — danger text/icons on the dark theme. Reads on the near-black canvas (7.06:1 AAA) and on the dark danger tint red.950 (6.62:1 AA). Referenced by foreground.danger (base dark)."
+        },
+        "950": {
+          "$value": "#2A0A0A",
+          "$type": "color",
+          "$description": "Darkest red tint — subtle danger surface for the dark theme (error alert/badge backgrounds). Dark-theme counterpart to red.50; matches the other feedback -alt tints (green.chip, blue.950, amber.950). Referenced by background.danger-alt (base dark)."
         }
       },
       "purple": {
