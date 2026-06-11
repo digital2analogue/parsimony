@@ -212,6 +212,76 @@ a:hover { text-decoration: none; }
 | DE `font-size-2xs` fix in decisioning-table | P1 | Hardcoded 10px/9px → `var(--primitive-font-size-2xs)` |
 | CSS lint rule (flag hardcoded values) | P1 | Auto-generated from token JSON |
 
+#### AI-Native & Presentation (added 2026-05-29)
+
+*Context: Following review of Peter Nowell's DesignerPunk.ai — what to steal from his packaging and what to adapt for River's positioning.*
+
+**P1-6: AI agent validation demo**
+Build a demonstrable proof that an LLM prompted to generate UI using the token system produces correct, on-brand output. The most compelling portfolio artifact — shows the system works, not just that it exists.
+
+- [ ] Create 2–3 test prompts ("build a card component", "create a hero section", "generate a contact form") exercising color, typography, and spacing tokens
+- [ ] Run each in a Claude Code session with CLAUDE.md / DESIGN.md context loaded
+- [ ] Capture: prompt → generated code → rendered screenshot
+- [ ] Document corrections needed (target: zero) — validates the AI-readability layer
+- [ ] Package as case study content showing the workflow end-to-end
+
+**P1-7: AI-readability architecture doc**
+Document the architectural decisions behind making the system AI-readable — why DTCG, why intent descriptions in `$description` fields, why the `ai/` folder structure, how it differs from traditional documentation. Portfolio talking point and Substack content.
+
+- [ ] Covers: machine-readable tokens, intent descriptions, CLAUDE.md import pattern, `agents/` prompt scaffolds
+- [ ] Explains tradeoffs vs. alternatives (MCP server, Figma-only, custom tooling)
+- [ ] Under 1000 words, presentable in a portfolio review
+- [ ] Saved as `docs/ai-readability-decisions.md`
+
+**P1-8: Cross-platform token output (research spike)**
+Document how the DTCG + Style Dictionary setup extends to iOS/Swift and Android/Kotlin output. Research only — know the path well enough to discuss credibly in interviews and consulting.
+
+- [ ] How Style Dictionary v4 transforms handle multi-platform output from DTCG source
+- [ ] Compare with alternatives (unitless math-based like DesignerPunk's Rosetta, Theo, custom transforms)
+- [ ] What would change in current token structure (likely nothing — `$type` handles this)
+- [ ] Saved as `docs/cross-platform-tokens-research.md`
+
+**P1-9: Quantifiable stats for portfolio case study**
+Surface the system's real numbers in the case study page. Numbers read as credibility; descriptions read as claims.
+
+- [ ] Compile stats: token counts (primitive, semantic, component), component count, test count, contrast ratios documented, drift audit score, consuming properties
+- [ ] Design a compact stats display for the portfolio case study (fits riverromney.design aesthetic)
+- [ ] Keep stats derivable from source (not hardcoded numbers that drift)
+
+**P1-10: Named subsystem framing**
+Give the system's natural modules names and one-sentence descriptions. Changes perception from "a repo with folders" to a considered architecture.
+
+Subsystems already exist:
+- Token architecture — three-tier DTCG primitives → semantic → brand overrides
+- AI-readability layer — DESIGN.md, rules.md, CLAUDE.md imports, agents/ scaffolds
+- Governance / drift detection — drift_audit.py, contrast validation, rules enforcement
+- Component library — LitElement web components, React CE support, Figma Code Connect
+- Build pipeline — Style Dictionary v4 → per-brand CSS → sync-tokens to consumers
+
+- [ ] Choose names for each subsystem (plain-language or with personality — not cyberpunk)
+- [ ] One-sentence responsibility description per subsystem
+- [ ] Use names consistently in case study, README, and presentations
+- [ ] Architecture diagram showing subsystem relationships (mermaid or SVG in repo)
+
+**P1-11: Narrative case study structure**
+Extract the story from this PRD into a portfolio-ready case study page. Problem Statement + Goals + Architecture already contain 80% of the narrative.
+
+- [ ] Structure: Challenge → Insight → Approach → Results
+- [ ] Challenge = manual propagation, AI fabricating values, accessibility regressions
+- [ ] Insight = why tokens + AI-readability solves it differently than traditional docs
+- [ ] Approach = architecture decisions and what makes them distinctive
+- [ ] Results = validation demo (P1-6), stats (P1-9), before/after evidence
+- [ ] Written in River's voice (concrete anchor, no thesis-first, land on an image)
+- [ ] Lives on riverromney.design as a case study page
+
+**P1-12: Structured governance rules with IDs**
+Upgrade `ai/rules.md` from informal guardrails to named, scoped rules with enforcement mechanisms. Reads as infrastructure, not documentation.
+
+- [ ] Each rule: ID (e.g., `DRIFT-001`), name, scope, rule text, enforcement mechanism
+- [ ] Cover: no hardcoded colors, no hardcoded spacing, semantic-only in consuming code, accent usage, font weight restrictions
+- [ ] Format is human-readable and AI-parseable
+- [ ] `drift_audit.py` output references rule IDs so violations map to specific rules
+
 ### P2 — Future
 
 | Requirement | Priority | Notes |
@@ -261,7 +331,7 @@ a:hover { text-decoration: none; }
 | 8 | Opacity tokens? | Not added. Low priority until component library is mature. |
 | 9 | Monorepo workspaces? | Permanently removed in rev5. Tokens stay at repo root. See D-04. |
 | 10 | React wrappers (@lit/react)? | Not needed. React 19 native CE support. See D-20. |
-| 11 | MCP server investment? | Complete and frozen. See D-26. |
+| 11 | MCP server investment? | Unfrozen for external-agent expansion. See D-34 and `docs/mcp-expansion-prd.md` (D-26 superseded). |
 
 ---
 

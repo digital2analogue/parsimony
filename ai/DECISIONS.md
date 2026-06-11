@@ -179,7 +179,8 @@ Add an entry when you make a call that a future contributor (or AI session) migh
 ### D-26 · MCP server — complete and frozen
 **Date:** 2026-05-16 (plan rev5)  
 **Decision:** The MCP server (step 8 of the web components plan) is complete. No further investment until external client demand exists.  
-**Why:** At current scale (one maintainer, two consumer repos), the `DESIGN.md` + `CLAUDE.md` approach gives AI sessions full design context without running an MCP server. MCP adds value when a team needs programmatic component lookup or when the system is consumed across organizational boundaries.
+**Why:** At current scale (one maintainer, two consumer repos), the `DESIGN.md` + `CLAUDE.md` approach gives AI sessions full design context without running an MCP server. MCP adds value when a team needs programmatic component lookup or when the system is consumed across organizational boundaries.  
+**Superseded:** D-34 (2026-06-11) — expansion approved for external-agent consumption; always-on context remains the internal path.
 
 ---
 
@@ -228,6 +229,17 @@ See `ai/DECISION-ENGINE.md` for the full deleted-token registry. Key deletions:
 - `foreground.primary` → renamed `foreground.default`
 - `feedback.error` → redundant with `foreground.danger`
 - `foreground.accent-red` → red is semantic in this system; non-semantic red slot creates ambiguity
+
+---
+
+## MCP Server
+
+### D-34 · MCP expansion — supersedes the D-26 freeze
+**Date:** 2026-06-11  
+**Decision:** Expand the MCP server per `docs/mcp-expansion-prd.md` — Phase 1 token awareness (`get_token`, `find_token`, `get_spacing`), Phase 2 design reasoning (`get_rule`, `get_decision`, `check_assembly`), Phase 3 brand-aware (`get_brand`, `compare_brands`). Supersedes D-26.  
+**Why:** The rationale changed, not the facts. D-26's reasoning — always-on `DESIGN.md` + `CLAUDE.md` context covers internal sessions — still holds and remains the internal path. The expansion targets **external agents that don't have the repo checked out**, and makes the server itself demonstrate the Parsimony thesis: a design system an AI can reason with, not just query. Prompted by comparison with DesignerPunk ([github.com/3fn/DesignerPunk](https://github.com/3fn/DesignerPunk)), whose Civitas layer validates queryable rationale as an approach — adopted here at parsimony scale: one server, ~8 tools, parsing files that already exist, versus 88 steering docs and 3 servers.  
+**Rejected:** Waiting for external client demand (D-26's unfreeze trigger) — the MCP is positioning/portfolio infrastructure now, not demand-driven tooling. Also rejected: DesignerPunk-style multi-server / named-agent architecture — wrong scale for one maintainer and contrary to the project's name.  
+**Constraints carried forward:** read-only forever; token values resolve from `tokens/**/*.tokens.json` (DESIGN.md supplies usage prose only); deprecation is brand-scoped so `get_token` and `check_usage` cannot disagree; `check_assembly` v1 is an enumerated three-rule set, not general design-intent inference.
 
 ---
 
