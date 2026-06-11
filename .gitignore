@@ -4,3 +4,4 @@ packages/components/dist/
 .DS_Store
 .claude/
 scripts/output/
+__pycache__/
