@@ -1,0 +1,34 @@
+{
+  "name": "@digital2analogue2/tokens",
+  "version": "0.1.1",
+  "description": "Built CSS custom properties for the River Romney design system — base dark theme plus the decision-engine, dot-art, and dot-blog brand themes.",
+  "license": "UNLICENSED",
+  "type": "module",
+  "files": [
+    "css",
+    "README.md"
+  ],
+  "exports": {
+    "./base.css": "./css/variables.css",
+    "./decision-engine.css": "./css/decision-engine.css",
+    "./dot-art.css": "./css/dot-art.css",
+    "./dot-blog.css": "./css/dot-blog.css",
+    "./package.json": "./package.json"
+  },
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "build": "node build.mjs",
+    "prepack": "node build.mjs"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/digital2analogue/brand-tokens.git",
+    "directory": "packages/tokens"
+  }
+}

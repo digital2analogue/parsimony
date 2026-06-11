@@ -18,7 +18,6 @@ Use ONLY the semantic CSS custom properties below. Never use hex values. Never r
 | --color-background-action | #4ADE6E | Primary button fill, selected states, active toggles |
 | --color-background-action-hover | #3EBA5C | Hovered action fill |
 | --color-background-action-active | #349B4D | Pressed action fill |
-| --color-background-accent | #4ADE6E | Decorative fills (non-interactive) |
 | --color-background-success | #4ADE6E | Success badges, status pills |
 | --color-background-success-alt | #0F2016 | Success alert/banner backgrounds |
 | --color-background-warning | #FCD34D | Warning badges, status pills |
@@ -26,7 +25,7 @@ Use ONLY the semantic CSS custom properties below. Never use hex values. Never r
 | --color-background-info | #2456E4 | Info badges, banners |
 | --color-background-info-alt | #0D1830 | Info alert/banner backgrounds |
 | --color-background-danger | #D03027 | Destructive button fill, error surfaces |
-| --color-background-danger-alt | #F5F6F7 | Error alert backgrounds |
+| --color-background-danger-alt | #2A0A0A | Error alert / badge backgrounds (dark red tint) |
 | --color-background-accent-green | #0F2016 | Green chip/tag fills |
 | --color-background-accent-blue | #0D1830 | Blue chip/tag fills |
 | --color-background-accent-violet | #18102E | Violet chip/tag fills |
@@ -41,15 +40,13 @@ Use ONLY the semantic CSS custom properties below. Never use hex values. Never r
 | --color-foreground-disabled | #1E241E | exempt | Disabled element labels |
 | --color-foreground-action | #4ADE6E | 11.1:1 AAA | Links, active nav, text CTAs |
 | --color-foreground-on-action | #0A0D0A | 11.1:1 AAA | Text on background-action fills |
-| --color-foreground-accent | #4ADE6E | 11.1:1 AAA | Emphasis text (non-interactive) |
-| --color-foreground-on-accent | #0A0D0A | 11.1:1 AAA | Text on background-accent fills |
 | --color-foreground-success | #4ADE6E | 11.1:1 AAA | Success text/icons |
 | --color-foreground-on-success | #0A0D0A | 11.1:1 AAA | Text on success fills |
 | --color-foreground-warning | #FCD34D | 12.0:1 AAA | Warning text/icons |
 | --color-foreground-on-warning | #0A0D0A | — | Text on warning fills |
 | --color-foreground-info | #93C5FD | 7.5:1 AA | Informational text/icons |
 | --color-foreground-on-info | #FFFFFF | — | Text on info fills |
-| --color-foreground-danger | #E73027 | 4.5:1 AA | Error text, delete labels |
+| --color-foreground-danger | #F87171 | 7.06:1 AAA | Error text, delete labels, danger alert/badge text |
 | --color-foreground-on-danger | #FFFFFF | — | Text on destructive fills |
 | --color-foreground-accent-green | #4ADE6E | 11.1:1 AAA | Green accent text/icons, pair with bg-accent-green |
 | --color-foreground-accent-blue | #93C5FD | 7.5:1 AA | Blue accent text/icons, pair with bg-accent-blue |

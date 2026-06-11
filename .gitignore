@@ -1,6 +1,7 @@
 node_modules/
 build/css/
 packages/components/dist/
+packages/tokens/css/
 .DS_Store
 .claude/
 scripts/output/

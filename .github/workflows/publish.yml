@@ -1,0 +1,46 @@
+name: Publish @digital2analogue2/tokens
+
+# On-demand only — never publishes automatically. Trigger from the Actions tab
+# (workflow_dispatch) or by pushing a tag like `tokens-v0.1.0`.
+#
+# Target: the public npm registry, scope @digital2analogue2 (the maintainer's
+# npm username, used as a privacy handle). Public npm decouples the package
+# scope from the GitHub repo owner, so this repo stays under `digital2analogue`
+# with no transfer and the Vercel wiring untouched.
+#
+# PREREQUISITE (one-time): create an npm "Automation" access token for the
+# digital2analogue2 account and add it to this repo as the Actions secret
+# `NPM_TOKEN`. The username is its own scope, so no npm org is needed and the
+# first publish creates the package.
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'tokens-v*'
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+          scope: '@digital2analogue2'
+
+      - name: Install
+        run: npm ci
+
+      - name: Build token CSS
+        run: npm run build --workspace @digital2analogue2/tokens
+
+      - name: Publish to npm
+        run: npm publish --workspace @digital2analogue2/tokens --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
