@@ -14,9 +14,9 @@ The current MCP server (`packages/mcp/src/server.mjs`) has 3 tools:
 
 These are useful but limited to component lookup and basic linting. The server doesn't expose tokens, spacing decisions, design reasoning, or help agents choose *between* components or assemble them together. An agent using this MCP today can find parts — it can't make design decisions.
 
-### Relationship to D-26 ("MCP server — complete and frozen")
+### Relationship to the earlier freeze (archived ADR D-26)
 
-This expansion deliberately supersedes D-26 — see **D-34** in `ai/DECISIONS.md`. The freeze rationale (`DESIGN.md` + `CLAUDE.md` give internal sessions full context) still holds for sessions inside this repo, and always-on context remains the internal path. What changed is the audience: the expanded MCP serves **external agents that don't have the repo checked out**, and makes the system itself demonstrate the Parsimony thesis. The server header comment in `server.mjs` ("Foundations are NOT served here") must be updated alongside the code.
+This expansion deliberately supersedes the MCP freeze — see the **2026-06-11 "MCP expansion approved"** entry in [`docs/decisions.md`](decisions.md). The freeze rationale (`DESIGN.md` + `CLAUDE.md` give internal sessions full context) still holds for sessions inside this repo, and always-on context remains the internal path. What changed is the audience: the expanded MCP serves **external agents that don't have the repo checked out**, and makes the system itself demonstrate the Parsimony thesis. The server header comment in `server.mjs` ("Foundations are NOT served here") must be updated alongside the code.
 
 **Provenance:** the queryable-rationale approach is adapted from DesignerPunk's Civitas layer ([github.com/3fn/DesignerPunk](https://github.com/3fn/DesignerPunk)) — scoped down from 88 steering docs and 3 MCP servers to one server parsing files this repo already maintains.
 
@@ -32,7 +32,7 @@ These files already exist in the repo and contain the information the new tools 
 |---|---|
 | `ai/DESIGN.md` | Resolved token tables for base dark theme (color, typography, spacing, motion, radius, shadow, icon) |
 | `ai/rules.md` | Hard rules (9) and soft rules (6) for token usage |
-| `ai/DECISIONS.md` | Decision log with what/why/rejected for architecture and token choices |
+| `docs/decisions.md` | Decision log (dated entries + archived ADR section) with what/why/rejected for architecture and token choices |
 | `ai/DECISION-ENGINE.md` | Sub-brand decisions, deleted tokens, naming conventions |
 | `tokens/primitives/*.tokens.json` | Raw primitive values |
 | `tokens/semantic/*.tokens.json` | Semantic token definitions with `{alias}` references |
@@ -108,8 +108,8 @@ Anything outside these three returns "no opinion" rather than guessing.
 
 - All new tools are read-only. The MCP server never modifies token files.
 - **Source of truth:** token *values* resolve from `tokens/**/*.tokens.json` (authoritative — it holds the `{alias}` graph). `ai/DESIGN.md` contributes only the usage prose. If a token exists in one source but not the other, log a startup warning — this doubles as a free drift guard for DESIGN.md, which the Figma drift audit does not cover.
-- **Brand-scoped deprecation:** the current `DEPRECATED_TOKENS` list in `check_usage` contains DE-only deletions — `--color-foreground-accent`, `--color-background-accent`, and `--color-state-hover` are *live* tokens in the base dark theme. Restructure as `{ token, scope: "decision-engine" | "all" }` (sourced from the deleted-token registry in `ai/DECISION-ENGINE.md`) so `get_token` and `check_usage` cannot contradict each other. `check_usage` gains an optional `brand` param defaulting to base.
-- Parse `ai/DESIGN.md`, `ai/rules.md`, and `ai/DECISIONS.md` at startup (they're small enough to hold in memory). Structure them as queryable maps.
+- **Brand-scoped deprecation:** `DEPRECATED_TOKENS` now lives in `scripts/rules.mjs` (single source shared by `validate`, `check_usage`, and `drift-lint` — keep it there). The list mixes globally-deleted tokens (`--color-background-accent`, removed 2026-06-09) with DE-only deletions (`--color-state-hover` and `--color-foreground-accent` are *live* in the base dark theme). Restructure entries as `{ token, scope: "decision-engine" | "all" }` (sourced from the deleted-token registry in `ai/DECISION-ENGINE.md` and the dated decision log entries) so `get_token` and `check_usage` cannot contradict each other. `check_usage` gains an optional `brand` param defaulting to base.
+- Parse `ai/DESIGN.md`, `ai/rules.md`, and `docs/decisions.md` at startup (they're small enough to hold in memory). Structure them as queryable maps. For `get_decision`, parse both the dated entries and the archived ADR section.
 - `find_token` needs a lightweight keyword matching approach — start with simple substring matching against token names and usage descriptions. No need for embeddings.
 - `check_assembly` implements only the three-rule v1 scope defined above.
 - Bump server version to `0.2.0` for Phase 1, `0.3.0` for Phase 2.
