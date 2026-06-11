@@ -50,7 +50,11 @@ cannot disagree; `check_assembly` v1 is an enumerated three-rule set.
 **Decided:** This file is the single decision log. The parallel
 `ai/DECISIONS.md` (a numbered ADR log, D-01…D-34, written in a local-only
 branch of history) is merged in below as an **archived ADR section** —
-D-numbers remain citable — and the original file is now a pointer here.
+D-numbers remain citable — and the original file is deleted. A hard rule in
+`CLAUDE.md` now names this file as the only decision log so no session
+(local or cloud) creates another. `ai/DECISION-ENGINE.md` is not a log — it
+is the decision-engine sub-brand reference spec (deleted-token registry,
+naming conventions) and stays where code and docs point at it.
 
 **Why:** Local and cloud sessions independently created two decision logs in
 the same week. Two logs is drift waiting to happen; this one was already the

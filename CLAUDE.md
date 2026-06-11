@@ -43,7 +43,7 @@ design-system.json   Generated artifact — merged component metadata + Custom E
 docs/
   index.html         Base dark theme design system reference. Open file:// directly in browser.
   brand-design-system-prd.md  Product requirements. v1 + the v2 (agentic) scope that reversed several v1 non-goals.
-  decisions.md       Running decision log (ADR-lite). Add an entry when a choice is costly to reverse.
+  decisions.md       THE decision log — the only one. Dated entries, newest first.
 AGENTS.md            Vendor-neutral guide for agents *consuming* the system in product repos.
 ```
 
@@ -119,3 +119,4 @@ npm automation token as the `NPM_TOKEN` Actions secret. Steps in
 - Never reference primitive tokens (`--primitive-color-*`) in UI code
 - All text/background pairings must pass WCAG AA (4.5:1). Verify before adding a new semantic token.
 - `build/` is generated — never hand-edit it
+- **One decision log: `docs/decisions.md`.** Record decisions as dated entries there (newest first, what/why/alternative/status). NEVER create another DECISIONS, ADR, or decision-log file anywhere in the repo — two parallel logs already had to be merged once (see the 2026-06-11 consolidation entry). The archived D-numbers inside it are frozen; do not extend the D-sequence. `ai/DECISION-ENGINE.md` is a sub-brand reference spec, not a decision log.
