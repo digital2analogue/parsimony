@@ -329,7 +329,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A status badge / chip component.\r\n\r\nUses component-level design tokens for all visual properties.\r\nBrand theming cascades automatically via CSS custom properties on `:root`.",
+          "description": "A status badge / chip component.\n\nUses component-level design tokens for all visual properties.\nBrand theming cascades automatically via CSS custom properties on `:root`.",
           "name": "RrBadge",
           "cssProperties": [
             {
@@ -418,7 +418,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A button with variant, size, loading, and disabled states.\r\n\r\nRenders a native `<button>` inside its shadow root for full\r\nkeyboard and form semantics. Uses `delegatesFocus` so the host\r\nforwards focus to the inner button.",
+          "description": "A button with variant, size, loading, and disabled states.\n\nRenders a native `<button>` inside its shadow root for full\nkeyboard and form semantics. Uses `delegatesFocus` so the host\nforwards focus to the inner button.",
           "name": "RrButton",
           "cssParts": [
             {
@@ -921,7 +921,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "`<rr-dialog>` — modal dialog using the native `<dialog>` element.\r\n\r\nLeverages native focus trap, Escape-to-close, and `::backdrop`.\r\nProgrammatic control via `show()` / `close()` methods, or bind the\r\n`open` property/attribute.",
+          "description": "`<rr-dialog>` — modal dialog using the native `<dialog>` element.\n\nLeverages native focus trap, Escape-to-close, and `::backdrop`.\nProgrammatic control via `show()` / `close()` methods, or bind the\n`open` property/attribute.",
           "name": "RrDialog",
           "slots": [
             {
@@ -981,7 +981,7 @@
             {
               "kind": "method",
               "name": "close",
-              "description": "Close the dialog. Single source of truth — always dispatches `rr-dialog-close`.\r\nAlso called internally when Escape is pressed (via native `close` event)."
+              "description": "Close the dialog. Single source of truth — always dispatches `rr-dialog-close`.\nAlso called internally when Escape is pressed (via native `close` event)."
             },
             {
               "kind": "method",
@@ -1354,7 +1354,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A form-associated text input with label, helper text, and error state.\r\n\r\nUses `ElementInternals` for native form participation and\r\n`delegatesFocus` so the host forwards focus to the inner `<input>`.",
+          "description": "A form-associated text input with label, helper text, and error state.\n\nUses `ElementInternals` for native form participation and\n`delegatesFocus` so the host forwards focus to the inner `<input>`.",
           "name": "RrInput",
           "cssParts": [
             {
