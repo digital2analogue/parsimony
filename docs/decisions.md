@@ -11,6 +11,44 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-06-17 — Branch & PR workflow rules (stop the merge pileup)
+
+**Decided:** Adopt five lightweight PR/merge rules, codified as a hard-rule
+section in `CLAUDE.md` so every session (local + cloud) loads them: (1) branch
+fresh and rebase onto `main` before opening/updating a PR; (2) small,
+single-purpose PRs (~200 lines); (3) validate before push and commit
+regenerated artifacts in the same PR; (4) declare intent (check open
+PRs/branches) before non-trivial work; (5) land or close a PR within ~7 days.
+
+**Why:** A process-optimization pass found the project wasn't stuck for ideas —
+it was stuck at the *merge* step. Four PRs had piled up (aged 6 weeks / 4 weeks
+/ 3 weeks / new) and the damage was concrete: a real bug fix (#16, `.blog` body
+type silently broken) sat a month; a 6-week-old branch (#13) rotted until it
+*regressed* shipped state (reverted the npm scope, claimed components were
+unshipped); the highest-value PR (#18, the 18-vs-20 component backfill) drifted
+into merge conflict; and two decision logs were independently created and had to
+be hand-merged. The common root cause: autonomous sessions boot with no memory
+of each other, branch from a stale `main`, and never rebase — so work drifts and
+a lone maintainer has no forcing function to land it. The one PR branched from
+current `main` (#19) was the only one that stayed clean — the fix was visible in
+our own data.
+
+**Alternative considered:** A heavyweight team process (CODEOWNERS, review
+rotations, required approvals). Rejected — team-shaped solutions for a non-team
+problem; the real "team" is AI sessions, and the mechanism that actually reaches
+them is `CLAUDE.md` (the same hard-rule lever that fixed the decision-log split).
+Also considered: do nothing and triage reactively. Rejected — the pileup was
+already compounding (drift makes PRs *harder* to land the longer they wait).
+
+**Status:** Rules live in `CLAUDE.md` ("Branch & PR Workflow"). Backlog cleared
+the same session: #16 merged, #13 closed (regressive), #18 merged (18-vs-20
+discrepancy closed), #19 reviewed. Still optional, not yet built: a scheduled
+stale-PR Action and a CI freshness check (branch-behind-`main` gate) to make
+rules #1 and #5 self-enforcing rather than convention — mirrors the existing
+`drift-lint.yml` scheduled-Action pattern.
+
+---
+
 ## 2026-06-11 — MCP expansion approved (lookup → reasoning)
 
 **Decided:** Expand the MCP server from the 3 lookup tools to ~11, per
