@@ -1,3 +1,9 @@
+---
+scope: rules
+applies-to: [base, dot-art, dot-blog, decision-engine]
+always-on: true
+---
+
 # Design System Rules
 
 ## Hard Rules (never break these)

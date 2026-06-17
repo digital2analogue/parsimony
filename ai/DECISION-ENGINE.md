@@ -1,3 +1,9 @@
+---
+scope: tokens
+applies-to: [decision-engine]
+always-on: true
+---
+
 # Decision-Engine Sub-Brand — AI Context
 
 This file covers token decisions, naming conventions, and architectural intent for the `decision-engine` sub-brand. It is the companion to `ai/DESIGN.md` (which covers the base dark theme only).

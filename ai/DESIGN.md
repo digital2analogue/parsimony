@@ -1,3 +1,9 @@
+---
+scope: tokens
+applies-to: [base, dot-art, dot-blog]
+always-on: true
+---
+
 # River Romney Design System — Base Dark Theme
 
 ## Visual Identity
