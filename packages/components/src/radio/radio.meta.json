@@ -1,0 +1,65 @@
+{
+  "metaVersion": "1.0.0",
+  "name": "rr-radio",
+  "summary": "Individual radio button. Must be used inside rr-radio-group, which manages name, value, and selection.",
+  "package": "@riverromney/components",
+  "props": [
+    { "name": "value", "type": "string", "default": "", "description": "The value this radio contributes to the group when selected." },
+    { "name": "checked", "type": "boolean", "default": "false", "description": "Visual checked state. Managed by the parent rr-radio-group." },
+    { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables the radio." }
+  ],
+  "slots": [
+    { "name": "default", "description": "Label text." }
+  ],
+  "events": [
+    { "name": "rr-radio-change", "detail": "{ value: string }" }
+  ],
+  "cssParts": [
+    { "name": "circle", "description": "The visual radio circle element." },
+    { "name": "label", "description": "The label text element." }
+  ],
+  "tokensUsed": [
+    "--component-radio-border-default",
+    "--component-radio-background-unchecked",
+    "--component-radio-border-hover",
+    "--component-radio-border-checked",
+    "--component-radio-background-disabled",
+    "--component-radio-border-disabled",
+    "--component-radio-background-checked",
+    "--component-radio-foreground-disabled",
+    "--component-radio-border-focus",
+    "--component-radio-foreground-label",
+    "--font-label-medium",
+    "--spacing-tight",
+    "--motion-duration-instant",
+    "--motion-easing-default",
+    "--motion-easing-enter"
+  ],
+  "rules": [
+    "Never use hex values — always var(--color-*) or var(--component-*)",
+    "Never reference --primitive-* tokens in component code",
+    "All text/background pairings must pass WCAG AA (4.5:1)",
+    "Always use rr-radio inside an rr-radio-group — selection, name, and form value are managed by the group"
+  ],
+  "examples": [
+    { "title": "Default", "html": "<rr-radio value=\"sm\">Small</rr-radio>" },
+    { "title": "Checked", "html": "<rr-radio value=\"md\" checked>Medium</rr-radio>" },
+    { "title": "Disabled", "html": "<rr-radio value=\"lg\" disabled>Large</rr-radio>" }
+  ],
+  "accessibility": {
+    "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/radio/",
+    "role": "radio",
+    "focusable": true,
+    "keyboard": [
+      "Space selects the focused radio",
+      "Arrow-key navigation and roving focus are handled by the parent rr-radio-group"
+    ],
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": []
+  },
+  "figma": { "componentKey": "", "nodeId": "121:77", "codeConnectFile": "radio.figma.ts" }
+}

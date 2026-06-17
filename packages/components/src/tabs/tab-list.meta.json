@@ -1,0 +1,52 @@
+{
+  "metaVersion": "1.0.0",
+  "name": "rr-tab-list",
+  "summary": "Accessible tab strip that wraps rr-tab elements, managing selection and arrow-key navigation.",
+  "package": "@riverromney/components",
+  "props": [
+    { "name": "label", "type": "string", "default": "", "description": "Accessible label for the tablist (required); sets aria-label on the role=tablist element." },
+    { "name": "value", "type": "string", "default": "", "description": "Currently selected tab value. Reflected; syncs the matching rr-tab child's selected state." }
+  ],
+  "slots": [
+    { "name": "default", "description": "Place rr-tab elements here." }
+  ],
+  "events": [
+    { "name": "change", "detail": "Fired (bubbles, composed) when a tab is selected by click or keyboard; detail.value is the newly selected tab value." }
+  ],
+  "cssParts": [],
+  "tokensUsed": [
+    "--color-border-default"
+  ],
+  "rules": [
+    "Never use hex values — always var(--color-*) or var(--component-*)",
+    "Never reference --primitive-* tokens in component code",
+    "All text/background pairings must pass WCAG AA (4.5:1)",
+    "Tab panels are managed by the consuming app — listen for the change event and show/hide content accordingly."
+  ],
+  "examples": [
+    { "title": "Default", "html": "<rr-tab-list label=\"View options\" value=\"overview\">\n  <rr-tab value=\"overview\">Overview</rr-tab>\n  <rr-tab value=\"details\">Details</rr-tab>\n  <rr-tab value=\"settings\">Settings</rr-tab>\n</rr-tab-list>" },
+    { "title": "With a disabled tab", "html": "<rr-tab-list label=\"Actions\" value=\"first\">\n  <rr-tab value=\"first\">First</rr-tab>\n  <rr-tab value=\"second\" disabled>Second</rr-tab>\n</rr-tab-list>" }
+  ],
+  "accessibility": {
+    "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/tabs/",
+    "role": "tablist",
+    "focusable": false,
+    "keyboard": [
+      "ArrowRight moves selection to the next enabled tab (wraps)",
+      "ArrowLeft moves selection to the previous enabled tab (wraps)",
+      "Home selects the first enabled tab",
+      "End selects the last enabled tab"
+    ],
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Implements roving tabindex across child rr-tab elements; disabled tabs are skipped during arrow navigation.",
+      "label is required so the tablist has an accessible name via aria-label."
+    ]
+  },
+  "figma": { "componentKey": "", "nodeId": "125:7", "codeConnectFile": "tabs.figma.ts" }
+}

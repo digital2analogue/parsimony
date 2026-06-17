@@ -20,13 +20,30 @@ Each file declares its scope in YAML front-matter (`scope`, `applies-to`, `alway
 
 ## Components
 
-`@riverromney/components` ships three framework-agnostic Lit web components:
+`@riverromney/components` ships framework-agnostic Lit web components. Query the MCP server (`list_components` / `get_component`) for the authoritative, always-current contract — the table below is a convenience index generated from `design-system.json`.
 
 | Component | Summary |
 |---|---|
-| `<rr-badge>` | Status badge / chip. 9 variants map to component tokens. |
-| `<rr-button>` | Button with primary/secondary/danger variants, 3 sizes, loading spinner. |
-| `<rr-input>` | Form-associated text input with label, helper/error text, ElementInternals. |
+| `<rr-alert>` | Inline notification banner for success, warning, danger, and info messages. Optionally dismissible. |
+| `<rr-avatar>` | Circular identity surface showing initials or an image, with size and accent-color variants. |
+| `<rr-badge>` | Status badge and accent chip. 9 variants map to component tokens; brand theming cascades via CSS custom properties. |
+| `<rr-button>` | Button with primary/secondary/danger variants, three sizes, loading spinner, and full keyboard/form semantics. |
+| `<rr-card>` | Surface container on the elevated background tier with optional header, body, and footer slots. |
+| `<rr-checkbox>` | Form-associated checkbox with checked, indeterminate, and disabled states. Backed by ElementInternals. |
+| `<rr-dialog>` | Modal dialog built on the native `<dialog>` element with focus trap and Escape-to-close. |
+| `<rr-icon>` | Sized, accessible wrapper for inline SVG icons. Decorative by default; labelled icons become `role="img"`. |
+| `<rr-input>` | Form-associated text input with label, helper/error text, and ElementInternals for native form participation. |
+| `<rr-link>` | Anchor enforcing the design system link style — underlined by default, underline removed on hover. |
+| `<rr-progress>` | Horizontal progress bar with determinate and indeterminate modes, using native `role="progressbar"`. |
+| `<rr-radio>` | Individual radio button. Must be used inside `<rr-radio-group>`, which manages name, value, and selection. |
+| `<rr-radio-group>` | Form-associated group of radio buttons. Renders a fieldset/legend and manages selection and form value for its `<rr-radio>` children. |
+| `<rr-select>` | Form-associated select dropdown with label, helper text, and error state. Options supplied via the `options` property. |
+| `<rr-skeleton>` | Animated shimmer placeholder for loading states. Text, circular, and rectangular shape variants. |
+| `<rr-spinner>` | Animated circular loading indicator that announces its status to screen readers. |
+| `<rr-tab>` | A single tab button used inside `<rr-tab-list>`; its selection state is managed by the parent. |
+| `<rr-tab-list>` | Accessible tab strip that wraps `<rr-tab>` elements, managing selection and arrow-key navigation. |
+| `<rr-textarea>` | Form-associated multi-line text area with label, helper text, and error state. |
+| `<rr-toggle>` | Form-associated toggle switch for binary on/off settings. |
 
 ### Installation
 

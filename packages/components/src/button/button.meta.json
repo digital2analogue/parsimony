@@ -96,7 +96,7 @@
   },
   "figma": {
     "componentKey": "",
-    "nodeId": "",
+    "nodeId": "98:56",
     "codeConnectFile": "button.figma.ts"
   }
 }

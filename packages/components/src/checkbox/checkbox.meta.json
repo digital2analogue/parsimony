@@ -1,0 +1,75 @@
+{
+  "metaVersion": "1.0.0",
+  "name": "rr-checkbox",
+  "summary": "Form-associated checkbox with checked, indeterminate, and disabled states. Backed by ElementInternals.",
+  "package": "@riverromney/components",
+  "props": [
+    { "name": "checked", "type": "boolean", "default": "false", "description": "Whether the checkbox is checked." },
+    { "name": "indeterminate", "type": "boolean", "default": "false", "description": "Mixed state; cleared when the user toggles the checkbox." },
+    { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables interaction and form participation." },
+    { "name": "value", "type": "string", "default": "on", "description": "Form value submitted when checked." },
+    { "name": "name", "type": "string", "default": "", "description": "Form field name." },
+    { "name": "label", "type": "string", "default": "", "description": "Label text; falls back to slotted content when empty." }
+  ],
+  "slots": [
+    { "name": "default", "description": "Label text (alternative to the label property)." }
+  ],
+  "events": [
+    { "name": "change", "detail": "Fired when the checked state changes." }
+  ],
+  "cssParts": [
+    { "name": "box", "description": "The visual checkbox square." },
+    { "name": "label", "description": "The label text element." }
+  ],
+  "tokensUsed": [
+    "--spacing-tight",
+    "--component-checkbox-border-default",
+    "--component-checkbox-radius",
+    "--component-checkbox-background-unchecked",
+    "--motion-duration-instant",
+    "--motion-easing-default",
+    "--component-checkbox-border-hover",
+    "--component-checkbox-background-checked",
+    "--component-checkbox-border-checked",
+    "--component-checkbox-background-disabled",
+    "--component-checkbox-border-disabled",
+    "--component-checkbox-border-focus",
+    "--component-checkbox-foreground-checkmark",
+    "--font-label-medium",
+    "--component-checkbox-foreground-label",
+    "--component-checkbox-foreground-disabled"
+  ],
+  "rules": [
+    "Never use hex values — always var(--color-*) or var(--component-*)",
+    "Never reference --primitive-* tokens in component code",
+    "All text/background pairings must pass WCAG AA (4.5:1)",
+    "Always provide a label (via the label prop or slotted content) so the control is named"
+  ],
+  "examples": [
+    { "title": "Unchecked", "html": "<rr-checkbox name=\"notify\" label=\"Send me notifications\"></rr-checkbox>" },
+    { "title": "Checked", "html": "<rr-checkbox name=\"agree\" label=\"I agree to the terms\" checked></rr-checkbox>" },
+    { "title": "Indeterminate", "html": "<rr-checkbox label=\"Select all\" indeterminate></rr-checkbox>" },
+    { "title": "Disabled", "html": "<rr-checkbox label=\"Unavailable option\" disabled></rr-checkbox>" },
+    { "title": "Slotted label", "html": "<rr-checkbox name=\"subscribe\">Subscribe</rr-checkbox>" }
+  ],
+  "accessibility": {
+    "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/",
+    "role": "checkbox",
+    "focusable": true,
+    "keyboard": [
+      "Tab moves focus to the checkbox",
+      "Space toggles the checked state"
+    ],
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast",
+      "2.1.1 Keyboard",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "A hidden native input provides focus, keyboard, and label-click semantics",
+      "aria-checked is set to \"mixed\" while indeterminate, otherwise \"true\"/\"false\""
+    ]
+  },
+  "figma": { "componentKey": "", "nodeId": "117:43", "codeConnectFile": "checkbox.figma.ts" }
+}
