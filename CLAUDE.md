@@ -51,6 +51,16 @@ AGENTS.md            Vendor-neutral guide for agents *consuming* the system in p
 > once at the root. The lint rules live in exactly one place (`scripts/rules.mjs`);
 > never re-implement a regex in a checker, import from there.
 
+## Branch & PR Workflow
+
+Multiple autonomous sessions (local + cloud) work this repo in parallel. Each boots without memory of the others, so branches and PRs drift unless every session follows these rules. (Context: a 6-week-old PR regressed shipped state, a real bug fix sat a month, and the highest-value PR rotted into conflict — all from branches that never caught up to `main`. See `docs/decisions.md`.)
+
+1. **Branch fresh; rebase before opening or updating a PR.** Always `git fetch origin && git rebase origin/main` before you push a PR. A branch behind `main` is the root cause of every drift incident here — the one PR that was branched from current `main` was the only one that stayed clean.
+2. **Small and single-purpose.** One concern per PR; aim for under ~200 changed lines. Large omnibus PRs don't get reviewed — they sit. Split mechanical changes (regenerated artifacts) from logic.
+3. **Validate before you push.** Run `npm run validate` (and `npm run build:all` if tokens changed, `npm run build:meta` if component metadata changed). Commit regenerated artifacts in the same PR — CI fails on staleness.
+4. **Declare intent before non-trivial work.** Check open PRs/branches first (`gh pr list`, `git branch -r`); if your work overlaps, open a draft PR or coordinate rather than starting a parallel branch. Two sessions independently created duplicate work (two decision logs, overlapping docs) by skipping this.
+5. **Land or close within ~7 days.** A PR with no movement for a week is merged or closed — never left to rot. The longer it waits, the harder it is to land.
+
 ## Token Layers
 
 1. **Primitives** (`tokens/primitives/`) — raw hex values. Never use in UI code.
