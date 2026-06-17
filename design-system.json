@@ -2296,49 +2296,6 @@
     "modules": [
       {
         "kind": "javascript-module",
-        "path": "dist/badge/badge.js",
-        "declarations": [
-          {
-            "kind": "variable",
-            "name": "RrBadge",
-            "default": "class RrBadge extends LitElement { constructor() { super(...arguments); this.variant = 'default'; } render() { return html `<slot></slot>`; } }",
-            "description": "A status badge / chip component.\n\nUses component-level design tokens for all visual properties.\nBrand theming cascades automatically via CSS custom properties on `:root`."
-          }
-        ],
-        "exports": [
-          {
-            "kind": "js",
-            "name": "RrBadge",
-            "declaration": {
-              "name": "RrBadge",
-              "module": "dist/badge/badge.js"
-            }
-          }
-        ]
-      },
-      {
-        "kind": "javascript-module",
-        "path": "dist/index.js",
-        "declarations": [],
-        "exports": [
-          {
-            "kind": "js",
-            "name": "RrBadge",
-            "declaration": {
-              "name": "RrBadge",
-              "module": "./badge/badge.js"
-            }
-          }
-        ]
-      },
-      {
-        "kind": "javascript-module",
-        "path": "dist/test-setup.js",
-        "declarations": [],
-        "exports": []
-      },
-      {
-        "kind": "javascript-module",
         "path": "src/alert/alert.figma.ts",
         "declarations": [],
         "exports": []
