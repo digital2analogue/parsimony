@@ -11,6 +11,67 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-06-18 — MCP Phase 1: token JSON is authoritative for value AND usage
+
+**Decided:** The MCP token tools (`get_token`, `find_token`, `get_spacing`, in
+`scripts/tokens.mjs`) read both the resolved value and the usage prose from the
+`*.tokens.json` `$description` fields. `ai/DESIGN.md` is NOT a value or usage
+source for the server — it is only a startup **drift cross-check** (warn when a
+semantic token's CSS property never appears in DESIGN.md). Token loading +
+resolution lives once in `scripts/tokens.mjs`, imported by both the server and
+`validate.mjs` (which was refactored off its inline walker — same single-source
+principle as `rules.mjs`).
+
+**Why:** The `$description` fields are richer than DESIGN.md's tables (they carry
+the *why*, e.g. "at 4px the gap signals two things are one unit") and are
+co-located with `$value`, so value and usage cannot drift apart. A parallel
+DESIGN.md table is a drift vector, not a source. Running the cross-check on
+startup immediately surfaced 15 undocumented semantic tokens (accent-bold tier,
+`font.family.*`, `motion.transition.*`) — proving DESIGN.md is the thing that
+drifts, not the JSON.
+
+**Alternative considered:** The PRD amendment's split — values from JSON, usage
+prose from DESIGN.md. Rejected once the `$description` fields turned out to be the
+better usage source; keeping DESIGN.md authoritative for usage would have
+re-introduced the exact drift the token system exists to remove.
+
+**Status:** Shipped in PR #21 (server v0.2.0). Phase-1 introduces no deprecation
+claims; brand-scoped deprecation is a separate change (so `get_token` and
+`check_usage` can't disagree). The 15-token DESIGN.md gap is tracked as a docs
+follow-up.
+
+---
+
+## 2026-06-18 — Generated artifacts must be built with LF line endings
+
+**Decided:** `design-system.json` and `packages/components/custom-elements.json`
+must be committed with LF line endings and no embedded `\r`. Enforced by a
+`.gitattributes` (`* text=auto eol=lf`). On Windows, regenerate them only with
+`core.autocrlf=false` and an LF working tree (`git rm --cached -rq . && git
+reset --hard`), then `npm run build:meta`; verify the result hashes to the same
+blob CI builds.
+
+**Why:** With `core.autocrlf=true` (the Windows default), component `.ts` sources
+check out as CRLF, so the CEM analyzer embeds `\r` into the artifact description
+strings. CI builds on Linux (LF), so the committed artifact never matches a fresh
+build — the "Fail if committed artifacts are stale" gate fails on *every* commit,
+even docs-only ones. Worse, local git autocrlf **masks** the `\r` on read (`git
+cat-file`, `git show`, even the GitHub contents API piped through Windows all
+showed the blob as clean while CI correctly saw the difference), so the mismatch
+is invisible without comparing against CI's own build hash.
+
+**Alternative considered:** Strip `\r` from the artifacts post-build, or only ever
+regenerate them in a Linux/cloud session. Rejected — stripping is fragile (the
+masking made "is it clean?" unanswerable locally) and a Linux-only rule is a
+footgun for the Windows maintainer. `.gitattributes` fixes it for every
+contributor and platform; verified `git add --renormalize .` produced zero change
+(all repo blobs were already LF), so it's pure prevention.
+
+**Status:** Shipped (`.gitattributes` on main). Recorded in project memory with the
+masking gotcha flagged, since it cost significant debugging time.
+
+---
+
 ## 2026-06-17 — Branch & PR workflow rules (stop the merge pileup)
 
 **Decided:** Adopt five lightweight PR/merge rules, codified as a hard-rule
