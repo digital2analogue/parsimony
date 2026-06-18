@@ -8,9 +8,11 @@ import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { lintSnippet } from '../../../scripts/rules.mjs';
+import { loadTokens, resolveToken, findTokens, tokensUnder, toCssVar } from '../../../scripts/tokens.mjs';
 
 const ROOT = resolve(import.meta.dirname, '..', '..', '..');
 const designSystem = JSON.parse(readFileSync(resolve(ROOT, 'design-system.json'), 'utf8'));
+const tokenStore = await loadTokens();
 
 // ── Tests ───────────────────────────────────────────────────────────────────
 
@@ -65,5 +67,64 @@ describe('check_usage (via shared rules)', () => {
   it('detects multiple violations', () => {
     const v = lintSnippet('color: #fff; border: 1px solid var(--primitive-color-gray-200);');
     expect(v).toHaveLength(2);
+  });
+});
+
+describe('get_token (via tokens.mjs)', () => {
+  it('resolves a semantic color to its primitive value', () => {
+    const t = resolveToken(tokenStore, 'color.background.alt');
+    expect(t).not.toBeNull();
+    expect(t.cssProperty).toBe('--color-background-alt');
+    expect(t.value).toBe('#1E241E');
+    expect(t.primitive).toBe('primitive.color.green.900');
+    expect(t.usage.length).toBeGreaterThan(0);
+  });
+
+  it('surfaces sub-brand overrides', () => {
+    // dot-art overrides the page canvas to pure black.
+    const t = resolveToken(tokenStore, 'color.background.default');
+    expect(t.brands?.['dot-art']).toBe('#000000');
+  });
+
+  it('applies a brand override layer when asked', () => {
+    const base = resolveToken(tokenStore, 'color.background.default');
+    const art = resolveToken(tokenStore, 'color.background.default', { brand: 'dot-art' });
+    expect(base.value).not.toBe('#000000');
+    expect(art.value).toBe('#000000');
+  });
+
+  it('returns null for an unknown token', () => {
+    expect(resolveToken(tokenStore, 'color.background.nope')).toBeNull();
+  });
+
+  it('toCssVar round-trips a dotted path', () => {
+    expect(toCssVar('color.background.action-hover')).toBe('--color-background-action-hover');
+  });
+});
+
+describe('find_token (via tokens.mjs)', () => {
+  it('finds the card background by intent, not name', () => {
+    const hits = findTokens(tokenStore, 'card background');
+    expect(hits.length).toBeGreaterThan(0);
+    expect(hits.some((h) => h.name === 'color.background.alt')).toBe(true);
+  });
+
+  it('ranks name matches ahead of usage-only matches', () => {
+    const hits = findTokens(tokenStore, 'spacing');
+    expect(hits[0].match).toBe('name');
+  });
+
+  it('returns nothing for gibberish', () => {
+    expect(findTokens(tokenStore, 'zzzznotarealtoken')).toHaveLength(0);
+  });
+});
+
+describe('get_spacing (via tokens.mjs)', () => {
+  it('returns the full scale with resolved values and usage', () => {
+    const scale = tokensUnder(tokenStore, 'spacing');
+    expect(scale.length).toBeGreaterThanOrEqual(10);
+    const micro = scale.find((t) => t.cssProperty === '--spacing-micro');
+    expect(micro.value).toBe('4px');
+    expect(micro.usage.length).toBeGreaterThan(0);
   });
 });

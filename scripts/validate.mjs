@@ -18,6 +18,7 @@ import { glob } from 'node:fs/promises';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import { lintLines } from './rules.mjs';
+import { loadTokens } from './tokens.mjs';
 
 const ROOT = resolve(import.meta.dirname, '..');
 const SCHEMA_PATH = resolve(ROOT, 'schemas/meta.schema.json');
@@ -92,67 +93,23 @@ console.log(lintCount === 0 ? '  (no component source files found)\n' : '');
 
 console.log('Resolving token references...\n');
 
-const REF_RE = /\{([^}]+)\}/g;
+// Token walking + layering lives in scripts/tokens.mjs (shared with the MCP
+// server). Here we only assert existence: every {ref} must point at a real
+// token, including across the brand override layers.
+const { base, brands, baseRefs, brandRefs } = await loadTokens();
 
-/** Pull {a.b.c} references from a token value's string leaves only.
- *  Composite values (typography, transition) are objects whose own JSON braces
- *  must not be mistaken for references — so we recurse to strings, not stringify. */
-function extractRefs(value, out = []) {
-  if (typeof value === 'string') {
-    for (const m of value.matchAll(REF_RE)) out.push(m[1]);
-  } else if (Array.isArray(value)) {
-    value.forEach((v) => extractRefs(v, out));
-  } else if (value && typeof value === 'object') {
-    Object.values(value).forEach((v) => extractRefs(v, out));
-  }
-  return out;
-}
-
-/** Walk a token tree; record the dotted path of every token (node with $value),
- *  and every {reference} found inside a token's $value. */
-function collectTokens(obj, prefix, paths, refs, file) {
-  for (const [key, val] of Object.entries(obj)) {
-    if (key.startsWith('$')) continue;
-    if (val && typeof val === 'object') {
-      const path = prefix ? `${prefix}.${key}` : key;
-      if ('$value' in val) {
-        paths.add(path);
-        for (const ref of extractRefs(val.$value)) refs.push({ ref, from: path, file });
-      } else {
-        collectTokens(val, path, paths, refs, file);
-      }
-    }
-  }
-}
-
-async function scan(globPattern, paths, refs) {
-  for await (const entry of glob(globPattern, { cwd: ROOT })) {
-    const data = JSON.parse(readFileSync(resolve(ROOT, entry), 'utf8'));
-    collectTokens(data, '', paths, refs, relative(ROOT, resolve(ROOT, entry)));
-  }
-}
-
-// Base layer = primitives + semantic + components.
-const basePaths = new Set();
-const baseRefs = [];
-await scan('tokens/primitives/**/*.tokens.json', basePaths, baseRefs);
-await scan('tokens/semantic/**/*.tokens.json', basePaths, baseRefs);
-await scan('tokens/components/**/*.tokens.json', basePaths, baseRefs);
-
+const basePaths = new Set(base.keys());
 let refCount = baseRefs.length;
 for (const { ref, from, file } of baseRefs) {
   if (!basePaths.has(ref)) fail(`${file}: ${from} references {${ref}} which does not exist`);
 }
 
 // Each brand may reference base tokens plus whatever it defines itself.
-for await (const entry of glob('tokens/brands/**/*.tokens.json', { cwd: ROOT })) {
-  const file = relative(ROOT, resolve(ROOT, entry));
-  const brandPaths = new Set(basePaths);
-  const brandRefs = [];
-  const data = JSON.parse(readFileSync(resolve(ROOT, entry), 'utf8'));
-  collectTokens(data, '', brandPaths, brandRefs, file);
-  refCount += brandRefs.length;
-  for (const { ref, from } of brandRefs) {
+for (const [name, nodes] of brands) {
+  const brandPaths = new Set([...basePaths, ...nodes.keys()]);
+  const refs = brandRefs.get(name);
+  refCount += refs.length;
+  for (const { ref, from, file } of refs) {
     if (!brandPaths.has(ref)) fail(`${file}: ${from} references {${ref}} which does not exist`);
   }
 }
