@@ -24,7 +24,7 @@ import { resolve } from 'node:path';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { z } from 'zod';
-import { lintSnippet } from '../../../scripts/rules.mjs';
+import { lintSnippet, DEPRECATED } from '../../../scripts/rules.mjs';
 import { loadTokens, resolveToken, findTokens, tokensUnder, toCssVar } from '../../../scripts/tokens.mjs';
 
 // ── Load design-system.json ─────────────────────────────────────────────────
@@ -174,6 +174,14 @@ server.tool(
     const path = tokenStore.base.has(name) ? name : cssToPath.get(name) ?? name;
     const token = resolveToken(tokenStore, path, { brand });
     if (!token) {
+      // Removed token? Point at the live replacement rather than a fuzzy guess.
+      const dep = DEPRECATED.get(name) ?? DEPRECATED.get(toCssVar(path));
+      if (dep) {
+        return {
+          content: [{ type: 'text', text: `Token "${name}" was removed (deprecated). Use ${dep.replacement} instead.` }],
+          isError: true,
+        };
+      }
       const near = findTokens(tokenStore, name, { limit: 5 }).map((t) => t.name);
       const hint = near.length ? ` Did you mean: ${near.join(', ')}?` : '';
       return {

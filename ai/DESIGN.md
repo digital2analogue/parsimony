@@ -72,12 +72,6 @@ Use ONLY the semantic CSS custom properties below. Never use hex values. Never r
 | --color-border-focus | #4ADE6E | Focus ring — phosphor green for keyboard nav |
 | --color-border-disabled | #0A0D0A | Border on disabled elements |
 
-### State
-| CSS Property | Hex | Usage |
-|---|---|---|
-| --color-state-hover | #1E241E | Background on hovered surfaces |
-| --color-state-selected | #2E3A2E | Background on selected rows/items |
-
 ---
 
 ## Typography — Semantic Tokens
