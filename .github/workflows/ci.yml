@@ -29,6 +29,9 @@ jobs:
       - name: Validate — schema, lint rules, reference resolution
         run: npm run validate
 
+      - name: Lint Storybook stories — token rules (incl. story-ui generated)
+        run: npm run lint:stories
+
       - name: Build all brand CSS
         run: npm run build
 
@@ -44,3 +47,12 @@ jobs:
 
       - name: Test (components + mcp)
         run: npm test --workspaces --if-present
+
+      # Storybook is how the rr-* components (and story-ui's output) are viewed.
+      # Building it in CI proves the stories still compile against the tokens and
+      # the component barrel — the dist build is required for the barrel import.
+      - name: Build components (dist for the Storybook barrel import)
+        run: npm run build --workspace @riverromney/components
+
+      - name: Build Storybook
+        run: npm run build-storybook --workspace @riverromney/components
