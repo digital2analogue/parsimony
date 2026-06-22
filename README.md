@@ -43,7 +43,7 @@ This generates `build/css/variables.css` with all CSS custom properties.
 ```css
 body {
   background-color: var(--color-background-default);
-  color: var(--color-foreground-primary);
+  color: var(--color-foreground-default);
   font-family: var(--font-family-serif);
 }
 ```

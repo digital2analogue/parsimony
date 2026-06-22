@@ -30,7 +30,6 @@
     "--radius-default",
     "--motion-duration-instant",
     "--motion-easing-default",
-    "--color-state-hover",
     "--color-border-focus",
     "--font-body-large",
     "--color-foreground-alt",

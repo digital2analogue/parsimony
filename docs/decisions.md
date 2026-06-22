@@ -11,6 +11,35 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-06-22 — Brand-scoped deprecation unnecessary; deprecation made replacement-aware instead
+
+**Decided:** Do NOT add brand-scoped deprecation to `scripts/rules.mjs` (the PRD's
+proposed PR-B). Instead: enrich `DEPRECATED_TOKENS` from `string[]` to
+`[{ token, replacement }]` (replacements grounded in `ai/DECISION-ENGINE.md`),
+export a `DEPRECATED` map, and make `get_token` answer "removed — use X" for dead
+names. Also fixed the dead-token drift the investigation exposed.
+
+**Why:** The PRD assumed a contradiction — `get_token` calling a token live while
+`check_usage` calls it deprecated (`--color-state-hover` was the example). Checked
+against the actual token JSON: all deprecated tokens are fully removed from every
+layer. `get_token` is JSON-backed, so it can only return tokens that exist — it
+cannot disagree with `check_usage`. No contradiction, so no brand-scoping needed.
+The PRD's premise came from stale DESIGN.md, which still documented removed tokens.
+
+**Alternative considered:** Implement the brand-scoped `{ token, scope }` refactor
+as written. Rejected — it solves a problem that doesn't exist and adds complexity
+to the shared rule module for no correctness gain.
+
+**Status:** Shipped (PR-B). Dead-token drift fixed in the same change:
+`dialog.meta.json` (dropped phantom `--color-state-hover`; it already lists the
+`--color-background-alt` the component actually uses), `ai/DESIGN.md` (removed the
+dead `### State` section — that token category was eliminated; hover/selected route
+through `action-hover`/`border-hover`/`action`/`background-alt`), and a `README.md`
+example. The 15 *missing* DESIGN.md tokens (the other drift direction) are a
+separate PR.
+
+---
+
 ## 2026-06-18 — MCP Phase 1: token JSON is authoritative for value AND usage
 
 **Decided:** The MCP token tools (`get_token`, `find_token`, `get_spacing`, in

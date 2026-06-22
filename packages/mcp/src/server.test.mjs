@@ -7,7 +7,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { lintSnippet } from '../../../scripts/rules.mjs';
+import { lintSnippet, DEPRECATED } from '../../../scripts/rules.mjs';
 import { loadTokens, resolveToken, findTokens, tokensUnder, toCssVar } from '../../../scripts/tokens.mjs';
 
 const ROOT = resolve(import.meta.dirname, '..', '..', '..');
@@ -126,5 +126,23 @@ describe('get_spacing (via tokens.mjs)', () => {
     const micro = scale.find((t) => t.cssProperty === '--spacing-micro');
     expect(micro.value).toBe('4px');
     expect(micro.usage.length).toBeGreaterThan(0);
+  });
+});
+
+describe('deprecation guidance', () => {
+  it('maps removed tokens to their live replacements', () => {
+    expect(DEPRECATED.get('--color-foreground-primary').replacement).toBe('--color-foreground-default');
+    expect(DEPRECATED.get('--color-state-hover').replacement).toContain('--color-background-action-hover');
+  });
+
+  it('get_token not-found→guidance path: a removed token is absent from the store but present in DEPRECATED', () => {
+    // This is exactly what the server's get_token handler keys on.
+    expect(resolveToken(tokenStore, 'color.state.hover')).toBeNull();
+    expect(DEPRECATED.get(toCssVar('color.state.hover'))).toBeDefined();
+  });
+
+  it('check_usage still flags a deprecated token under the {token,replacement} shape', () => {
+    const v = lintSnippet('color: var(--color-state-hover);');
+    expect(v.some((x) => x.id === 'deprecated-token' && x.matches.includes('--color-state-hover'))).toBe(true);
   });
 });

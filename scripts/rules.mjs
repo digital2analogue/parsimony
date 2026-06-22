@@ -20,19 +20,27 @@ const PRIMITIVE = '--primitive-[a-z][a-z-]*';
 // Hardcoded numeric font-size (e.g. `font-size: 14px`) — use font tokens.
 const FONT_SIZE = 'font-size:\\s*[0-9]';
 
-// Deprecated tokens — removed from the system; flag any lingering references.
-// See ai/DECISION-ENGINE.md "Tokens That Were Deleted".
+// Deprecated tokens — removed from the system; flag any lingering references and
+// point at the live replacement. Replacements are grounded in ai/DECISION-ENGINE.md
+// ("Tokens That Were Deleted" / "Tokens That Were Renamed"). The whole color.state.*
+// category was eliminated — hover/selected route through action-hover/border-hover/
+// action/background-alt now.
 export const DEPRECATED_TOKENS = [
-  '--color-foreground-accent',
-  '--color-background-accent',
-  '--color-foreground-on-accent',
-  '--color-foreground-primary',
-  '--color-feedback-error',
-  '--color-feedback-danger-foreground',
-  '--color-foreground-accent-red',
-  '--color-foreground-on-accent-red',
-  '--color-state-hover',
+  { token: '--color-foreground-accent', replacement: '--color-foreground-accent-{green|blue|violet|amber} (named slots)' },
+  { token: '--color-background-accent', replacement: '--color-background-action' },
+  { token: '--color-foreground-on-accent', replacement: '--color-foreground-accent-on-{color} (named)' },
+  { token: '--color-foreground-primary', replacement: '--color-foreground-default' },
+  { token: '--color-feedback-error', replacement: '--color-foreground-danger' },
+  { token: '--color-feedback-danger-foreground', replacement: '--color-foreground-danger' },
+  { token: '--color-foreground-accent-red', replacement: '--color-foreground-danger' },
+  { token: '--color-foreground-on-accent-red', replacement: '--color-foreground-on-danger' },
+  { token: '--color-state-hover', replacement: '--color-background-action-hover (or --color-border-hover for outlines)' },
+  { token: '--color-state-selected', replacement: '--color-background-action (or --color-background-alt for subtle)' },
 ];
+
+// Fast lookup by token name → { token, replacement }. Used by the MCP get_token
+// tool to answer "this token was removed; use X instead".
+export const DEPRECATED = new Map(DEPRECATED_TOKENS.map((d) => [d.token, d]));
 
 // Lines matching these are exempt from the hex rule (false positives).
 export const HEX_ALLOWLIST = [
@@ -68,7 +76,8 @@ export const RULES = [
     id: 'deprecated-token',
     hardRule: null,
     message: 'Deprecated token. See ai/DECISION-ENGINE.md "Tokens That Were Deleted"',
-    find: (text) => DEPRECATED_TOKENS.filter((t) => text.includes(t)),
+    // Returns matched token-name strings (shape unchanged for validate + drift-lint).
+    find: (text) => DEPRECATED_TOKENS.filter((d) => text.includes(d.token)).map((d) => d.token),
   },
 ];
 
