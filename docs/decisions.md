@@ -139,6 +139,44 @@ rules #1 and #5 self-enforcing rather than convention — mirrors the existing
 
 ---
 
+## 2026-06-11 — Storybook + story-ui for AI-native story generation
+
+**Decided:** Adopt Storybook (`@storybook/web-components-vite`) for the `rr-*`
+components and wire in [story-ui](https://github.com/southleft/story-ui)
+(`@tpitre/story-ui`) to generate stories from natural language. Three supporting
+choices:
+- **Barrel import only.** Stories register elements via the side-effect import
+  `import '@riverromney/components'`; the package `exports` map deliberately
+  exposes only the barrel, so per-component deep imports are unavailable.
+- **The AI briefing is generated, not hand-written.** `story-ui-considerations.md`
+  is produced by `scripts/build-considerations.mjs` from `design-system.json` +
+  `ai/rules.md` (folded into `build:meta`), so it can never drift from the source
+  of truth — the same discipline as every other generated artifact here.
+- **Generated stories are gated like everything else.** `cem analyze` is pinned
+  to `src/**/*.ts` excluding `*.test.ts`/`*.stories.ts` (so stories never leak
+  into `custom-elements.json`), and a new `scripts/lint-stories.mjs` runs the
+  shared `rules.mjs` over every `*.stories.*` — making it the fourth caller of
+  the one rule set, alongside `validate`, `drift-lint`, and the MCP. CI also
+  builds Storybook to prove stories still compile.
+
+**Why:** the system already emits exactly the structured context an AI story
+generator needs (`design-system.json`, per-component `*.meta.json`, the hard
+rules). Feeding that to story-ui turns "describe a screen" into on-token stories,
+and the existing rule engine keeps the AI inside the guardrails instead of
+trusting it to stay there.
+
+**Alternative considered:** keep the hand-written `*.stories.html` dev harnesses
+and skip Storybook. Rejected — they can't be driven by story-ui, carry no
+controls/args, and don't exercise the components the way consumers do. Also
+considered letting `validate` keep linting stories incidentally; moved to a
+dedicated gate so the responsibility (and the generated-stories path) is explicit.
+
+**Status:** Shipped as a POC (merged via #19; badge/button/input baseline
+stories). Not yet productionized: story-ui needs an LLM key to run, and the
+generated-stories directory ships empty.
+
+---
+
 ## 2026-06-11 — MCP expansion approved (lookup → reasoning)
 
 **Decided:** Expand the MCP server from the 3 lookup tools to ~11, per

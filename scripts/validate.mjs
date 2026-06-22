@@ -74,8 +74,14 @@ const lintGlobs = [
 let lintCount = 0;
 for (const pattern of lintGlobs) {
   for await (const entry of glob(pattern, { cwd: ROOT })) {
-    // .figma.ts files reference Figma node URLs; tests contain sample violations.
-    if (entry.endsWith('.figma.ts') || entry.endsWith('.test.ts')) continue;
+    // .figma.ts files reference Figma node URLs; tests contain sample violations;
+    // *.stories.* (incl. story-ui's generated ones) are gated by scripts/lint-stories.mjs.
+    if (
+      entry.endsWith('.figma.ts') ||
+      entry.endsWith('.test.ts') ||
+      entry.includes('.stories.')
+    )
+      continue;
     lintCount++;
     const rel = relative(ROOT, resolve(ROOT, entry));
     const content = readFileSync(resolve(ROOT, entry), 'utf8');

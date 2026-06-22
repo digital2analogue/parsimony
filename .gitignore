@@ -1,6 +1,7 @@
 node_modules/
 build/css/
 packages/components/dist/
+packages/components/storybook-static/
 packages/tokens/css/
 .DS_Store
 .claude/
