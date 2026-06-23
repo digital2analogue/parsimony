@@ -65,6 +65,46 @@ Storybook story; tokens are now consistent for when it gets one or is consumed.)
 
 ---
 
+## 2026-06-23 — Work tracking moved to GitHub Issues (workflow improvement)
+
+**Decided:** GitHub issues are the single board for roadmap / next / in-flight
+work. `gh issue list` is how any session orients; `--label roadmap` filters the
+plan. Decisions stay in this log (*why*); git/PRs stay as *what shipped*; issues
+own *what's next*. The local agent memory is demoted to a per-machine cache.
+
+**Why:** A process-optimization pass found three pains with one root cause —
+actionable "what's next" had no single, cloud-visible home: (1) roadmap was
+scattered across two PRDs + follow-up prose inside decision entries; (2) the
+richest current-state summary lived in local agent memory that **can't travel to
+cloud sessions** — the most-informed artifact was the least portable; (3)
+follow-ups recorded as prose got buried (the SC 1.4.11 audit nearly was). The
+"team" is autonomous sessions (local + cloud + spawned chips) that each boot
+blind, so a shared, queryable board matters more than for a human team.
+
+**Alternative considered:** A pinned "Current State / Next" section atop this log
+(no new file, travels to cloud) — rejected as the weaker fix: hand-maintained
+prose that drifts and still buries items. A standalone `ROADMAP.md`/`STATUS.md`
+was rejected outright — the maintainer is doc-averse and it'd be a fourth drifting
+surface. Issues win because they're **not a doc**, are cloud-native (`gh` works
+everywhere), are a real task tracker (no burial), and reuse a pattern the repo
+already runs (drift-lint / publish-freshness auto-open issues).
+
+**Status:** Done. Seeded #25–#30 from the live follow-ups (MCP Phase 2/3, the two
+SC 1.4.11 a11y items, the DESIGN.md token-sync). One-line pointer added to
+CLAUDE.md so every session boots oriented. **Zero new docs added** — the
+constraint that shaped the whole solution.
+
+**Impact / case-study note (workflow win):** Cut new-session orientation from
+"read-absent-local-memory → human pastes a pointer → scan three drifting surfaces"
+to a single `gh issue list`. Fixed a real cross-environment handoff failure
+(local memory invisible to cloud) using infrastructure already present, adding no
+maintenance surface. Sequence worth retelling: the gap was found by *trying to
+hand off* (wrap-up revealed memory doesn't travel), and the fix fell out of the
+doc-averse constraint rather than fighting it — the constraint pointed at the
+better answer (issues, not a doc).
+
+---
+
 ## 2026-06-22 — Secondary button → green ghost; first SC 1.4.11 (non-text contrast) finding
 
 **Decided:** Make the secondary button a green *ghost* button — transparent fill,
