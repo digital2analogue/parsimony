@@ -48,36 +48,36 @@
         }
       },
       "secondary": {
-        "$description": "Secondary button \u2014 outlined, medium-emphasis. Multiple per page allowed.",
+        "$description": "Secondary button \u2014 outlined ghost, medium-emphasis. Transparent fill with an accent-green outline and accent-green label; reads as interactive (rule-compliant accent use) and pairs as outlined-secondary against the filled-green primary. Multiple per page allowed.",
         "background": {
           "default": {
-            "$value": "{color.background.default}",
+            "$value": "transparent",
             "$type": "color",
-            "$description": "White canvas background \u2014 the button sits flush with the page surface."
+            "$description": "No fill \u2014 the ghost button sits transparent on whatever surface it's placed on (canvas or card)."
           },
           "hover": {
             "$value": "{color.background.alt}",
             "$type": "color",
-            "$description": "Subtle gray lift on hover \u2014 signals interactivity without implying primary priority."
+            "$description": "Subtle surface lift on hover \u2014 green label/border stay legible on it (9.02:1)."
           }
         },
         "foreground": {
           "default": {
-            "$value": "{color.foreground.default}",
+            "$value": "{color.foreground.action}",
             "$type": "color",
-            "$description": "Near-black text \u2014 neutral, not action-colored. Blue is reserved for interactive links and primary actions."
+            "$description": "Accent-green label #4ADE6E \u2014 signals interactivity, matches the outline. Contrast vs canvas: 11.13:1 AAA; vs background.alt hover: 9.02:1."
           }
         },
         "border": {
           "default": {
-            "$value": "{color.border.default}",
+            "$value": "{color.border.action}",
             "$type": "color",
-            "$description": "Standard border \u2014 same gray used for inputs and cards."
+            "$description": "Accent-green outline \u2014 the button's primary affordance (vs the filled primary). 11.13:1 on canvas, far above the 3:1 non-text-contrast floor."
           },
           "hover": {
-            "$value": "{color.border.default}",
+            "$value": "{color.border.action}",
             "$type": "color",
-            "$description": "Border unchanged on hover \u2014 background shift is the only state signal."
+            "$description": "Outline unchanged on hover \u2014 the background lift is the state signal."
           }
         }
       },

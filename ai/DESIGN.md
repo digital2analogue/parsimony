@@ -69,6 +69,7 @@ Use ONLY the semantic CSS custom properties below. Never use hex values. Never r
 | --color-border-elevated | #2E3A2E | Prominent borders, raised surface edges |
 | --color-border-hover | #8B9683 | Border on interactive hover |
 | --color-border-active | #A0A89A | Border on active/pressed state |
+| --color-border-action | #4ADE6E | Outline for interactive outlined controls (secondary/ghost button). 11.1:1 on canvas — passes SC 1.4.11. Accent green is rule-compliant here: the control is interactive. |
 | --color-border-focus | #4ADE6E | Focus ring — phosphor green for keyboard nav |
 | --color-border-disabled | #0A0D0A | Border on disabled elements |
 

@@ -251,6 +251,11 @@
         "$type": "color",
         "$description": "Border on interactive elements in active/pressed state. Lighter than hover — maximum border prominence for the held-down moment."
       },
+      "action": {
+        "$value": "{primitive.color.green.accent}",
+        "$type": "color",
+        "$description": "Border for interactive outlined controls — the secondary (ghost) button. Vivid phosphor green #4ADE6E; a resting accent border is rule-compliant here because the control is interactive. Matches the primary button fill (filled primary vs outlined secondary). Contrast vs background.default: 11.13:1; vs background.alt: 9.02:1."
+      },
       "focus": {
         "$value": "{primitive.color.green.accent}",
         "$type": "color",
