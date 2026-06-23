@@ -25,17 +25,17 @@ describe('rr-tag', () => {
   });
 
   it('reflects variant attribute to property', async () => {
-    const el = createElement('<rr-tag variant="strong">Skill</rr-tag>') as RrTag;
+    const el = createElement('<rr-tag variant="subtle">Skill</rr-tag>') as RrTag;
     await el.updateComplete;
-    expect(el.variant).toBe('strong');
+    expect(el.variant).toBe('subtle');
   });
 
   it('reflects variant property to attribute', async () => {
     const el = createElement('<rr-tag>Test</rr-tag>') as RrTag;
     await el.updateComplete;
-    el.variant = 'strong';
+    el.variant = 'subtle';
     await el.updateComplete;
-    expect(el.getAttribute('variant')).toBe('strong');
+    expect(el.getAttribute('variant')).toBe('subtle');
   });
 
   it('renders slotted content', async () => {
@@ -44,7 +44,7 @@ describe('rr-tag', () => {
     expect(el.textContent).toBe('Figma');
   });
 
-  const variants = ['default', 'strong'] as const;
+  const variants = ['default', 'subtle'] as const;
 
   for (const variant of variants) {
     it(`has no a11y violations for variant="${variant}"`, async () => {

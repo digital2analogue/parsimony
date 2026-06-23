@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-export type TagVariant = 'default' | 'strong';
+export type TagVariant = 'default' | 'subtle';
 
 /**
  * An outlined, uppercase tag / chip component.
@@ -39,10 +39,10 @@ export class RrTag extends LitElement {
       color: var(--component-tag-default-foreground);
     }
 
-    :host([variant='strong']) {
-      background: var(--component-tag-strong-background);
-      color: var(--component-tag-strong-foreground);
-      border-color: var(--component-tag-strong-border);
+    :host([variant='subtle']) {
+      background: var(--component-tag-subtle-background);
+      color: var(--component-tag-subtle-foreground);
+      border-color: var(--component-tag-subtle-border);
     }
   `;
 

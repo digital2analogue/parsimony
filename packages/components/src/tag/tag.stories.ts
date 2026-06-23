@@ -3,7 +3,7 @@ import { html } from 'lit';
 // Barrel side-effect import registers every rr-* element (see story-ui.config.js).
 import '@riverromney/components';
 
-const VARIANTS = ['default', 'strong'] as const;
+const VARIANTS = ['default', 'subtle'] as const;
 
 const meta: Meta = {
   title: 'Components/Tag',
@@ -21,7 +21,7 @@ type Story = StoryObj;
 
 export const Default: Story = {};
 
-export const Strong: Story = { args: { variant: 'strong', label: 'Design Systems' } };
+export const Subtle: Story = { args: { variant: 'subtle', label: 'Decision Tooling' } };
 
 export const AllVariants: Story = {
   render: () => html`
@@ -45,7 +45,7 @@ export const SkillTags: Story = {
         'Research',
         'Prototyping',
         'Cross-functional Leadership',
-      ].map((s) => html`<rr-tag variant="strong">${s}</rr-tag>`)}
+      ].map((s) => html`<rr-tag>${s}</rr-tag>`)}
     </div>
   `,
 };

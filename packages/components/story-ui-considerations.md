@@ -400,7 +400,7 @@ Outlined uppercase tag/chip — the square, transparent counterpart to the fille
 
 | Attribute | Type | Default | Notes |
 |---|---|---|---|
-| `variant` | 'default' \| 'strong' | `default` | Emphasis level. 'default' is tertiary (muted text, default border) for metadata and categories; 'strong' is secondary (alt text, muted border) for labels that should assert themselves, such as skill tags. |
+| `variant` | 'default' \| 'subtle' | `default` | Emphasis level. 'default' is the standard visible outline (alt text, muted-foreground border) that reads correctly standalone — use it for skill tags and most labels. 'subtle' is a quieter treatment (muted text, elevated-border) for dense or secondary contexts. |
 
 **Slots:** (default) — Tag label text. Rendered uppercase via CSS — pass normal-case text.
 
@@ -409,6 +409,7 @@ Outlined uppercase tag/chip — the square, transparent counterpart to the fille
 - Never reference --primitive-* tokens in component code
 - All text/background pairings must pass WCAG AA (4.5:1)
 - The tag is the deliberate inverse of the badge: outlined (transparent fill, square radius.sm) vs the badge's filled pill. Use badge for status, tag for skills/categories/metadata.
+- Do not point a tag border at --color-border-default: it equals background.alt and disappears on the page canvas. The default variant uses foreground.muted and the subtle variant uses border.elevated so both stay visible standalone.
 - Content is transformed to uppercase with --letter-spacing-all-caps in CSS; authors pass normal-case text and must not pre-uppercase it.
 - Tags are non-interactive labels. If a tag must be clickable (e.g. a filter), wrap it in an rr-button or rr-link — do not attach handlers to the tag host.
 

@@ -6,9 +6,9 @@
   "props": [
     {
       "name": "variant",
-      "type": "'default' | 'strong'",
+      "type": "'default' | 'subtle'",
       "default": "default",
-      "description": "Emphasis level. 'default' is tertiary (muted text, default border) for metadata and categories; 'strong' is secondary (alt text, muted border) for labels that should assert themselves, such as skill tags."
+      "description": "Emphasis level. 'default' is the standard visible outline (alt text, muted-foreground border) that reads correctly standalone — use it for skill tags and most labels. 'subtle' is a quieter treatment (muted text, elevated-border) for dense or secondary contexts."
     }
   ],
   "slots": [
@@ -23,9 +23,9 @@
     "--component-tag-default-background",
     "--component-tag-default-foreground",
     "--component-tag-default-border",
-    "--component-tag-strong-background",
-    "--component-tag-strong-foreground",
-    "--component-tag-strong-border",
+    "--component-tag-subtle-background",
+    "--component-tag-subtle-foreground",
+    "--component-tag-subtle-border",
     "--component-tag-radius",
     "--component-tag-padding-x",
     "--component-tag-padding-y",
@@ -36,21 +36,22 @@
     "Never reference --primitive-* tokens in component code",
     "All text/background pairings must pass WCAG AA (4.5:1)",
     "The tag is the deliberate inverse of the badge: outlined (transparent fill, square radius.sm) vs the badge's filled pill. Use badge for status, tag for skills/categories/metadata.",
+    "Do not point a tag border at --color-border-default: it equals background.alt and disappears on the page canvas. The default variant uses foreground.muted and the subtle variant uses border.elevated so both stay visible standalone.",
     "Content is transformed to uppercase with --letter-spacing-all-caps in CSS; authors pass normal-case text and must not pre-uppercase it.",
     "Tags are non-interactive labels. If a tag must be clickable (e.g. a filter), wrap it in an rr-button or rr-link — do not attach handlers to the tag host."
   ],
   "examples": [
     {
-      "title": "Default",
-      "html": "<rr-tag>Decision Tooling</rr-tag>"
+      "title": "Default (skill tag)",
+      "html": "<rr-tag>Design Systems</rr-tag>"
     },
     {
-      "title": "Strong (skill tag)",
-      "html": "<rr-tag variant=\"strong\">Design Systems</rr-tag>"
+      "title": "Subtle",
+      "html": "<rr-tag variant=\"subtle\">Decision Tooling</rr-tag>"
     },
     {
       "title": "Skill tag group",
-      "html": "<rr-tag variant=\"strong\">Figma</rr-tag>\n<rr-tag variant=\"strong\">Research</rr-tag>\n<rr-tag variant=\"strong\">Prototyping</rr-tag>"
+      "html": "<rr-tag>Figma</rr-tag>\n<rr-tag>Research</rr-tag>\n<rr-tag>Prototyping</rr-tag>"
     }
   ],
   "accessibility": {
@@ -64,7 +65,7 @@
     "rules": [
       "Tag text alone must convey meaning; do not rely on the border or emphasis level to communicate.",
       "Tags are static, non-interactive labels — they are not focusable and expose no role. For interactive chips, compose with rr-button or rr-link.",
-      "Both variants meet WCAG AA for text contrast on the base canvas (default 6.3:1, strong 8.0:1)."
+      "Both variants meet WCAG AA for text contrast on the base canvas (default 8.0:1, subtle 6.3:1)."
     ]
   }
 }
