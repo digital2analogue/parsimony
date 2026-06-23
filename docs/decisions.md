@@ -11,6 +11,39 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-06-22 — Secondary button → green ghost; first SC 1.4.11 (non-text contrast) finding
+
+**Decided:** Make the secondary button a green *ghost* button — transparent fill,
+accent-green label (`color.foreground.action`), accent-green outline (new
+`color.border.action` = `green.accent`). It pairs as outlined-secondary against
+the filled-green primary. `color.border.default` is left neutral and unchanged.
+
+**Why:** Reviewing Storybook, the secondary button's outline was illegible. It
+resolved to `color.border.default` (#1E241E) on the canvas (#0A0D0A) = **1.23:1**,
+failing **WCAG SC 1.4.11 Non-text Contrast (3:1)** — and since the button's fill
+matched the canvas, that near-invisible border was its *only* boundary. This
+exposed a systemic gap: the design system's "WCAG AA" claim had only ever covered
+**text** contrast (SC 1.4.3); **non-text/UI-component contrast (1.4.11) was never
+checked**, and axe doesn't reliably catch it. The green ghost treatment fixes the
+control at 11.13:1 (canvas) / 9.02:1 (on a card), and accent-green is rule-5
+compliant here because the control is interactive.
+
+**Alternative considered:** (a) Bump `color.border.default` itself to a legible
+~3:1 — rejected: it's the passive edge for cards/inputs/dividers, the green ramp
+has no tasteful ~3:1 step, and making it green would break hard rule #5 (accent =
+interactivity only, never resting decoration). (b) Reuse `border.hover` for the
+secondary border — rejected: collapses the hover distinction. The ghost button
+sidesteps `border.default` entirely.
+
+**Status:** Shipped (secondary button + `color.border.action`, documented in
+ai/DESIGN.md). **Known follow-up:** inputs and cards still use
+`color.border.default` at 1.23:1 — a real 1.4.11 miss on input outlines
+specifically. And a full 1.4.11 audit of the remaining outlined controls
+(checkbox/radio/toggle edges) is still owed; the system's contrast verification
+needs to cover non-text contrast, not just text.
+
+---
+
 ## 2026-06-22 — Brand-scoped deprecation unnecessary; deprecation made replacement-aware instead
 
 **Decided:** Do NOT add brand-scoped deprecation to `scripts/rules.mjs` (the PRD's
