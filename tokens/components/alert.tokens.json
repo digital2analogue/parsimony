@@ -46,7 +46,7 @@
         "foreground": {
           "$value": "{color.foreground.danger}",
           "$type": "color",
-          "$description": "Red text/icon — foreground.danger (#E73027). Contrast vs background.default: 4.51:1 AA."
+          "$description": "Red text/icon — foreground.danger (#F87171). Contrast vs danger-alt fill: 6.62:1 AA."
         },
         "border": {
           "$value": "{color.foreground.danger}",
