@@ -36,7 +36,7 @@ generated from `design-system.json` and `ai/rules.md`.
 > (rules live in `scripts/rules.mjs`). Never emit hex literals, never reference
 > `--primitive-*` tokens, and only use spacing/sizes from the token scale.
 
-## Available components (20)
+## Available components (21)
 
 ### `<rr-alert>`
 
@@ -393,6 +393,24 @@ Accessible tab strip that wraps rr-tab elements, managing selection and arrow-ke
 - Never reference --primitive-* tokens in component code
 - All text/background pairings must pass WCAG AA (4.5:1)
 - Tab panels are managed by the consuming app — listen for the change event and show/hide content accordingly.
+
+### `<rr-tag>`
+
+Outlined uppercase tag/chip — the square, transparent counterpart to the filled pill badge. Two emphasis variants via component tokens.
+
+| Attribute | Type | Default | Notes |
+|---|---|---|---|
+| `variant` | 'default' \| 'strong' | `default` | Emphasis level. 'default' is tertiary (muted text, default border) for metadata and categories; 'strong' is secondary (alt text, muted border) for labels that should assert themselves, such as skill tags. |
+
+**Slots:** (default) — Tag label text. Rendered uppercase via CSS — pass normal-case text.
+
+**Component rules:**
+- Never use hex values. Always use var(--color-*) or var(--component-*)
+- Never reference --primitive-* tokens in component code
+- All text/background pairings must pass WCAG AA (4.5:1)
+- The tag is the deliberate inverse of the badge: outlined (transparent fill, square radius.sm) vs the badge's filled pill. Use badge for status, tag for skills/categories/metadata.
+- Content is transformed to uppercase with --letter-spacing-all-caps in CSS; authors pass normal-case text and must not pre-uppercase it.
+- Tags are non-interactive labels. If a tag must be clickable (e.g. a filter), wrap it in an rr-button or rr-link — do not attach handlers to the tag host.
 
 ### `<rr-textarea>`
 

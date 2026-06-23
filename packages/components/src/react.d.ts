@@ -28,6 +28,7 @@ import type { RrSkeleton } from './skeleton/skeleton.js';
 import type { RrSpinner } from './spinner/spinner.js';
 import type { RrTab } from './tabs/tab.js';
 import type { RrTabList } from './tabs/tab-list.js';
+import type { RrTag } from './tag/tag.js';
 import type { RrTextarea } from './textarea/textarea.js';
 import type { RrToggle } from './toggle/toggle.js';
 
@@ -164,6 +165,10 @@ declare global {
         value?: string;
         children?: React.ReactNode;
         onChange?: (e: CustomEvent<{ value: string }>) => void;
+      };
+      'rr-tag': LitProps<RrTag> & {
+        variant?: RrTag['variant'];
+        children?: React.ReactNode;
       };
       'rr-textarea': LitProps<RrTextarea> & {
         name?: string;

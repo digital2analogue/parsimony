@@ -16,5 +16,6 @@ export { RrSkeleton } from './skeleton/skeleton.js';
 export { RrSpinner } from './spinner/spinner.js';
 export { RrTab } from './tabs/tab.js';
 export { RrTabList } from './tabs/tab-list.js';
+export { RrTag } from './tag/tag.js';
 export { RrTextarea } from './textarea/textarea.js';
 export { RrToggle } from './toggle/toggle.js';

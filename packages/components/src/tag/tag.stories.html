@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>rr-tag — Dev Stories</title>
+
+  <!-- Load brand tokens (base dark theme) -->
+  <link rel="stylesheet" href="../../../../build/css/variables.css" />
+
+  <style>
+    body {
+      background: var(--color-background-default);
+      color: var(--color-foreground-default);
+      font: var(--font-body-large);
+      padding: 2rem;
+      margin: 0;
+    }
+    h1 { font: var(--font-title-large); margin-bottom: 1rem; }
+    h2 { font: var(--font-title-small); margin: 2rem 0 0.75rem; }
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    .section {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: var(--color-background-alt);
+      border-radius: var(--radius-lg);
+    }
+  </style>
+
+  <script type="module" src="./tag.ts"></script>
+</head>
+<body>
+  <h1>rr-tag</h1>
+
+  <div class="section">
+    <h2>Emphasis variants</h2>
+    <div class="row">
+      <rr-tag>Default</rr-tag>
+      <rr-tag variant="strong">Strong</rr-tag>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Skill tags (strong)</h2>
+    <div class="row">
+      <rr-tag variant="strong">Design Systems</rr-tag>
+      <rr-tag variant="strong">B2B / Enterprise UX</rr-tag>
+      <rr-tag variant="strong">Compliance UX</rr-tag>
+      <rr-tag variant="strong">Decision Tooling</rr-tag>
+      <rr-tag variant="strong">Figma</rr-tag>
+      <rr-tag variant="strong">Research</rr-tag>
+    </div>
+  </div>
+</body>
+</html>
