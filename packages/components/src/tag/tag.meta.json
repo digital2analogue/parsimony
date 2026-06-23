@@ -29,7 +29,7 @@
     "--component-tag-radius",
     "--component-tag-padding-x",
     "--component-tag-padding-y",
-    "--font-label-medium"
+    "--font-label-small"
   ],
   "rules": [
     "Never use hex values. Always use var(--color-*) or var(--component-*)",

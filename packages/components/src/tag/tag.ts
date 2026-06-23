@@ -31,7 +31,7 @@ export class RrTag extends LitElement {
       white-space: nowrap;
       text-transform: uppercase;
       letter-spacing: var(--letter-spacing-all-caps);
-      font: var(--font-label-medium);
+      font: var(--font-label-small);
       border-radius: var(--component-tag-radius);
       padding: var(--component-tag-padding-y) var(--component-tag-padding-x);
       border: 1px solid var(--component-tag-default-border);
