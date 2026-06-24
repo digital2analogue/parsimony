@@ -11,6 +11,60 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-06-23 — New `rr-tag` component (outlined uppercase tag/chip)
+
+**Decided:** Add `rr-tag` as its own component — the deliberate inverse of
+`rr-badge`. Badge = filled pill for status; tag = square-cornered (`radius.sm`),
+transparent fill, bordered, UPPERCASE + `letter-spacing-all-caps`, for
+skills/categories/metadata. Two variants: `default` (text `foreground.alt`,
+border `foreground.muted`) and `subtle` (text `foreground.muted`, border
+`border.elevated`). Sized to `font.label-small` (12px). Motivated by the bespoke
+`.tag`/`.tag--skill` CSS on riverromney.design/about, which had no DS equivalent.
+
+**Why:** A new component, not a badge variant — the shape, fill model
+(transparent vs filled), and casing differ fundamentally; folding it into badge
+would muddy both. `default` is the *visible* treatment so a bare `<rr-tag>` reads
+correctly standalone — the first cut pointed its border at `border.default`
+(#1E241E), which equals `background.alt` and is invisible on the canvas (the same
+SC 1.4.11 trap as the secondary-button finding below). Sized to `label-small`
+(12px) for parity with badge — both are compact chips — rather than the
+portfolio's 14px; 12px stays WCAG AA (WCAG has no minimum font size, the text
+pairings pass ≥4.5:1, and the tokens are rem so they resize).
+
+**Alternative considered:** (a) Add tag as a `rr-badge` variant — rejected
+(different shape/fill/case). (b) Keep 14px to match the portfolio exactly —
+rejected for badge-scale consistency. (c) Make `default` the quiet treatment with
+a `strong` opt-in — rejected: the bare element should look right with no variant.
+
+**Status:** Shipped in PR #31. Figma Code Connect deferred (no Tag node in the
+Figma library yet — tracked as a GitHub issue). Storybook also gained brand-font
+loading in `preview-head.html` (the token CSS sets `font-family: 'Space Grotesk'`
+with no fallback and Storybook never loaded the font files).
+
+---
+
+## 2026-06-23 — `danger` variant: borderless, consistent with sibling status variants
+
+**Decided:** Point the `danger` border at `background.danger-alt` (its own fill)
+in both `badge` and `alert`, so every status variant is a uniform borderless tint.
+
+**Why:** `danger` was the lone outlier — its border pointed at `foreground.danger`
+(red) while success/warning/info match their fill and read borderless. The red
+outline made danger visually inconsistent with its siblings; error state is
+already conveyed by the red text on the danger-alt tint. Also corrected stale
+token comments in both files: danger foreground said `#E73027` / `4.51:1`
+(pre-2026-06-09 palette); `foreground.danger` is now `red.400` `#F87171`
+(`6.62:1` AA on the danger-alt fill). The `{token}` reference always resolved
+correctly — only the human-readable comment was stale.
+
+**Alternative considered:** Keep danger's red border for extra error emphasis —
+rejected for consistency; the tint + red text already signal the state.
+
+**Status:** Shipped in PR #32. (No visible change for `rr-alert` yet — it has no
+Storybook story; tokens are now consistent for when it gets one or is consumed.)
+
+---
+
 ## 2026-06-22 — Secondary button → green ghost; first SC 1.4.11 (non-text contrast) finding
 
 **Decided:** Make the secondary button a green *ghost* button — transparent fill,
