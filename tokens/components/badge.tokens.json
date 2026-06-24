@@ -67,12 +67,12 @@
         "foreground": {
           "$value": "{color.foreground.danger}",
           "$type": "color",
-          "$description": "Red text — foreground.danger (#E73027). Contrast vs background.default: 4.51:1 AA."
+          "$description": "Red text — foreground.danger (#F87171). Contrast vs danger-alt fill: 6.62:1 AA."
         },
         "border": {
-          "$value": "{color.foreground.danger}",
+          "$value": "{color.background.danger-alt}",
           "$type": "color",
-          "$description": "Red border reinforces the error signal on the subtle background."
+          "$description": "Matches background — borderless, consistent with the other status variants (success/warning/info)."
         }
       },
       "info": {
