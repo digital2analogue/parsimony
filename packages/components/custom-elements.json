@@ -1326,6 +1326,14 @@
         },
         {
           "kind": "js",
+          "name": "RrTag",
+          "declaration": {
+            "name": "RrTag",
+            "module": "./tag/tag.js"
+          }
+        },
+        {
+          "kind": "js",
           "name": "RrTextarea",
           "declaration": {
             "name": "RrTextarea",
@@ -3029,6 +3037,89 @@
       "path": "src/tabs/tabs.figma.ts",
       "declarations": [],
       "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/tag/tag.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "An outlined, uppercase tag / chip component.\n\nThe deliberate inverse of `<rr-badge>`: where the badge is a filled pill for\nstatus, the tag is a square-cornered (radius.sm), transparent-filled, bordered\nlabel for skills, categories, and metadata. Content is rendered UPPERCASE with\nall-caps letter-spacing, so authors pass normal-case text.\n\nUses component-level design tokens for all visual properties. Brand theming\ncascades automatically via CSS custom properties on `:root`.",
+          "name": "RrTag",
+          "cssProperties": [
+            {
+              "name": "--component-tag-{variant}-background"
+            },
+            {
+              "name": "--component-tag-{variant}-foreground"
+            },
+            {
+              "name": "--component-tag-{variant}-border"
+            },
+            {
+              "name": "--component-tag-radius"
+            },
+            {
+              "name": "--component-tag-padding-x"
+            },
+            {
+              "name": "--component-tag-padding-y"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Tag label text",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "TagVariant"
+              },
+              "default": "'default'",
+              "attribute": "variant",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "variant",
+              "type": {
+                "text": "TagVariant"
+              },
+              "default": "'default'",
+              "fieldName": "variant"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "rr-tag",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RrTag",
+          "declaration": {
+            "name": "RrTag",
+            "module": "src/tag/tag.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "rr-tag",
+          "declaration": {
+            "name": "RrTag",
+            "module": "src/tag/tag.ts"
+          }
+        }
+      ]
     },
     {
       "kind": "javascript-module",
