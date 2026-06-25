@@ -117,10 +117,15 @@ export class RrToggle extends LitElement {
     }
   `;
 
+  /** On/off state. Reflected. */
   @property({ type: Boolean, reflect: true }) checked = false;
+  /** Disables the toggle. Reflected. */
   @property({ type: Boolean, reflect: true }) disabled = false;
+  /** Form value submitted when the toggle is on. */
   @property() value = 'on';
+  /** Form field name submitted with the form value. */
   @property() name = '';
+  /** Label text; falls back to slotted content when empty. */
   @property() label = '';
 
   private _internals: ElementInternals;

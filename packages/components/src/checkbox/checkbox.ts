@@ -117,11 +117,17 @@ export class RrCheckbox extends LitElement {
     }
   `;
 
+  /** Whether the checkbox is checked. */
   @property({ type: Boolean, reflect: true }) checked = false;
+  /** Mixed state; cleared when the user toggles the checkbox. */
   @property({ type: Boolean, reflect: true }) indeterminate = false;
+  /** Disables interaction and form participation. */
   @property({ type: Boolean, reflect: true }) disabled = false;
+  /** Form value submitted when checked. */
   @property() value = 'on';
+  /** Form field name. */
   @property() name = '';
+  /** Label text; falls back to slotted content when empty. */
   @property() label = '';
 
   private _internals: ElementInternals;

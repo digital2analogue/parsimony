@@ -89,10 +89,15 @@ export class RrAvatar extends LitElement {
     }
   `;
 
+  /** Circle diameter. */
   @property({ reflect: true }) size: AvatarSize = 'md';
+  /** Accent-bold color variant for the initials surface. */
   @property({ reflect: true }) color: AvatarColor = 'default';
+  /** Full name used to derive up to two initials and the accessible label. */
   @property() name = '';
+  /** Image URL. When set, an img fills the circle instead of initials. */
   @property() src = '';
+  /** Alt text for the image; falls back to name when omitted. */
   @property({ attribute: 'alt' }) imgAlt = '';
 
   private get _initials(): string {
