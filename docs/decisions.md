@@ -11,6 +11,35 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-06-25 — MCP token scale accessors: get_scale(category) + a toCssVar camelCase fix
+
+**Decided:** Add `get_scale(category)` to the MCP — the generalization of
+`get_spacing` across every semantic scale (`spacing`, `radius`, `shadow`, `motion`,
+`icon`, `letter-spacing`, `typography`), returning `{ token, value, usage }[]`
+(value composite for shadow/typography). `get_spacing` becomes a thin alias for
+`get_scale('spacing')`. Logic in `scripts/tokens.mjs` (`getScale` + a
+`SCALE_CATEGORIES` map). MCP server 0.8.0 → 0.9.0 (#60, the last of the four
+build-and-verify capabilities).
+
+**Correction to the record:** #60 was framed (including in the question put to the
+maintainer) as needing semantic radius/shadow/letter-spacing tokens authored first,
+on the belief they existed only as primitives. That was wrong — `tokens/semantic/{radius,
+shadow,letter-spacing,motion,icon}.tokens.json` already exist with full semantic
+layers. So no token authoring was needed; the work was purely the accessor.
+
+**Latent bug fixed in passing:** `toCssVar` did a plain dot→dash replace, so the
+camelCase token roots `letterSpacing` / `lineHeight` (14 paths) rendered as
+`--letterSpacing-*` — but Style Dictionary kebab-cases them to `--letter-spacing-*` /
+`--line-height-*` in the built CSS. `toCssVar` now kebab-cases camelCase segments,
+so `get_token`/`find_token`/`get_scale` report the CSS var that actually exists.
+Verified against `build/css/variables.css`.
+
+**Alternative considered:** Parallel `get_radius`/`get_shadow`/… tools. Rejected — a
+single `get_scale(category)` keeps the surface small and mirrors the shape-follows-verb
+convention; `get_spacing` stays as an alias for back-compat.
+
+---
+
 ## 2026-06-25 — Consumer drift scan extracted to a shared module; exposed via MCP lint_consumer
 
 **Decided:** Extract the consumer-repo scan from `scripts/drift-lint.mjs` into a

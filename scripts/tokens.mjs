@@ -106,9 +106,12 @@ export async function loadTokens() {
 
 // ── Resolution ──────────────────────────────────────────────────────────────
 
-/** dotted token path → CSS custom property name. color.background.alt → --color-background-alt */
+/** dotted token path → CSS custom property name. color.background.alt → --color-background-alt.
+ *  camelCase segments are kebab-cased to match Style Dictionary's built output —
+ *  letterSpacing.body → --letter-spacing-body, lineHeight.relaxed → --line-height-relaxed
+ *  (a plain dot→dash replace would wrongly emit --letterSpacing-body). */
 export function toCssVar(path) {
-  return `--${path.replace(/\./g, '-')}`;
+  return `--${path.replace(/([a-z0-9])([A-Z])/g, '$1-$2').replace(/\./g, '-').toLowerCase()}`;
 }
 
 /** Look a token up in the brand layer first, then the base layer. */
@@ -217,6 +220,37 @@ export function findTokens(store, query, { brand, limit = 10 } = {}) {
     return a.name.length - b.name.length;
   });
   return hits.slice(0, limit);
+}
+
+/**
+ * Semantic scale categories → their token path prefix. Backs get_scale, the
+ * generalization of get_spacing across every scale. `letter-spacing` and
+ * `typography` map to the camelCase / `font` roots the tokens actually live under.
+ */
+export const SCALE_CATEGORIES = {
+  spacing: 'spacing',
+  radius: 'radius',
+  shadow: 'shadow',
+  motion: 'motion',
+  icon: 'icon',
+  'letter-spacing': 'letterSpacing',
+  typography: 'font',
+};
+
+/**
+ * Every semantic token in a scale category, resolved to { token, value, usage } —
+ * the same shape get_spacing returns, generalized to radius/shadow/motion/icon/
+ * letter-spacing/typography. `value` may be a composite object (shadow, typography
+ * shorthands). Returns null for an unknown category.
+ */
+export function getScale(store, category, { brand } = {}) {
+  const prefix = SCALE_CATEGORIES[category];
+  if (!prefix) return null;
+  return tokensUnder(store, prefix, { brand }).map((t) => ({
+    token: t.cssProperty,
+    value: t.value,
+    usage: t.usage,
+  }));
 }
 
 /** All tokens under a dotted prefix (e.g. "spacing"), resolved. Used by get_spacing. */
