@@ -112,7 +112,7 @@ const decisions = loadDecisions();
 
 const server = new McpServer({
   name: 'riverromney-design-system',
-  version: '0.5.0',
+  version: '0.6.0',
 });
 
 // ── list_components ─────────────────────────────────────────────────────────
@@ -160,7 +160,7 @@ server.tool(
 
 server.tool(
   'check_usage',
-  'Lint a CSS/HTML snippet for design system violations: hex literals, primitive token refs, deprecated tokens',
+  'Lint a CSS/HTML snippet for design system violations: hex literals, primitive token refs, hardcoded font sizes, hardcoded font weights, unapproved font families, and deprecated tokens',
   { snippet: z.string().describe('CSS or HTML string to check') },
   async ({ snippet }) => {
     // lintSnippet returns { id, rule, matches }[]; expose rule + matches.

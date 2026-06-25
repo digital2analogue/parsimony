@@ -120,8 +120,11 @@ npm automation token as the `NPM_TOKEN` Actions secret. Steps in
   (ranked array).
   - Components (from `design-system.json`): `list_components()` — names + summaries;
     `get_component(name)` — full contract (props, events, tokens, rules, a11y, examples);
-    `check_usage(snippet)` — flags rule violations (hex, `--primitive-*` refs, deprecated
-    tokens) **before** code is written.
+    `check_usage(snippet)` — flags rule violations (hex, `--primitive-*` refs, hardcoded
+    font sizes/weights, unapproved font families, deprecated tokens) **before** code is
+    written. Detectors live once in `scripts/rules.mjs`, so the same set gates `validate`
+    + `drift-lint`; the statically-undetectable hard rules (display/title weight, accent-
+    green-as-resting-text) are out of scope here — they need semantic context.
   - Tokens (from `tokens/**/*.tokens.json`): `get_token(name)`, `find_token(query)`,
     `get_spacing()`.
   - Design reasoning (from `ai/rules.md` + `docs/decisions.md`): `find_rule(topic)` /

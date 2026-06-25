@@ -19,6 +19,19 @@ const HEX = '#(?:[0-9a-fA-F]{3,4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})\\b';
 const PRIMITIVE = '--primitive-[a-z][a-z-]*';
 // Hardcoded numeric font-size (e.g. `font-size: 14px`) — use font tokens.
 const FONT_SIZE = 'font-size:\\s*[0-9]';
+// Hardcoded font-weight (e.g. `font-weight: 700` / `bold`) — use --font-weight-*.
+// `var(--…)`, `normal`, and the CSS-wide keywords are not literals, so they
+// don't match and need no allowlist entry.
+const FONT_WEIGHT = 'font-weight:\\s*(?:\\d+|bold|bolder|lighter)\\b';
+// font-family naming anything other than a --font-family-* token, a generic
+// CSS family, or one of the three approved families (hard rule #3). The negative
+// lookahead lets `var(--…)`, generics, CSS-wide keywords, and the approved
+// families (optionally quoted) through; anything else (e.g. `Arial`) is flagged.
+// The negative lookahead sits right after the fixed `font-family:` colon and
+// consumes the leading whitespace itself — if it were `\s*(?!…)` the `\s*` would
+// backtrack to zero and slide the anchor onto the space, defeating the allowlist.
+const FONT_FAMILY =
+  "font-family:(?!\\s*['\"]?(?:var\\(|inherit|initial|unset|monospace|sans-serif|serif|system-ui|ui-monospace|Space Grotesk|Spectral|JetBrains Mono))\\s*[^;{}\\n]+";
 
 // Deprecated tokens — removed from the system; flag any lingering references and
 // point at the live replacement. Replacements are grounded in ai/DECISION-ENGINE.md
@@ -71,6 +84,18 @@ export const RULES = [
     hardRule: 8,
     message: 'No hardcoded font sizes. Use var(--font-size-*) primitives or a font shorthand token',
     find: (text) => matchAll(text, FONT_SIZE),
+  },
+  {
+    id: 'no-hardcoded-font-weight',
+    hardRule: 2,
+    message: 'No hardcoded font weights. Use var(--font-weight-*) custom properties',
+    find: (text) => matchAll(text, FONT_WEIGHT),
+  },
+  {
+    id: 'no-unapproved-font-family',
+    hardRule: 3,
+    message: 'Font family must be a var(--font-family-*) token (or a generic family). Only Space Grotesk, Spectral, and JetBrains Mono are approved',
+    find: (text) => matchAll(text, FONT_FAMILY).map((m) => m.trim()),
   },
   {
     id: 'deprecated-token',
