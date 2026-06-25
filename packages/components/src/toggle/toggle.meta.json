@@ -4,11 +4,11 @@
   "summary": "Form-associated toggle switch for binary on/off settings.",
   "package": "@riverromney/components",
   "props": [
-    { "name": "checked", "type": "boolean", "default": false, "description": "On/off state. Reflected." },
-    { "name": "disabled", "type": "boolean", "default": false, "description": "Disables the toggle. Reflected." },
-    { "name": "value", "type": "string", "default": "on", "description": "Form value submitted when the toggle is on." },
-    { "name": "name", "type": "string", "default": "", "description": "Form field name submitted with the form value." },
-    { "name": "label", "type": "string", "default": "", "description": "Label text; falls back to slotted content when empty." }
+    { "name": "checked", "type": "boolean", "default": false },
+    { "name": "disabled", "type": "boolean", "default": false },
+    { "name": "value", "type": "string", "default": "on" },
+    { "name": "name", "type": "string", "default": "" },
+    { "name": "label", "type": "string", "default": "" }
   ],
   "slots": [
     { "name": "default", "description": "Label text (alternative to the label property)." }

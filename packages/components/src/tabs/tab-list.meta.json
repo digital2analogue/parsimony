@@ -4,8 +4,8 @@
   "summary": "Accessible tab strip that wraps rr-tab elements, managing selection and arrow-key navigation.",
   "package": "@riverromney/components",
   "props": [
-    { "name": "label", "type": "string", "default": "", "description": "Accessible label for the tablist (required); sets aria-label on the role=tablist element." },
-    { "name": "value", "type": "string", "default": "", "description": "Currently selected tab value. Reflected; syncs the matching rr-tab child's selected state." }
+    { "name": "label", "type": "string", "default": "" },
+    { "name": "value", "type": "string", "default": "" }
   ],
   "slots": [
     { "name": "default", "description": "Place rr-tab elements here." }

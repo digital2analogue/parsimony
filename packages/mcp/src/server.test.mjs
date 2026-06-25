@@ -10,6 +10,7 @@ import { resolve } from 'node:path';
 import { lintSnippet, DEPRECATED } from '../../../scripts/rules.mjs';
 import { loadTokens, resolveToken, findTokens, tokensUnder, toCssVar, getBrand, compareBrands } from '../../../scripts/tokens.mjs';
 import { checkAssembly, contrastRatio } from '../../../scripts/assembly.mjs';
+import { buildCemDescriptionMap, injectPropDescriptions } from '../../../scripts/cem-descriptions.mjs';
 import {
   parseRules, loadRules, findRules, getRule,
   parseDecisions, loadDecisions, findDecisions, getDecision,
@@ -17,6 +18,9 @@ import {
 
 const ROOT = resolve(import.meta.dirname, '..', '..', '..');
 const designSystem = JSON.parse(readFileSync(resolve(ROOT, 'design-system.json'), 'utf8'));
+const customElements = JSON.parse(
+  readFileSync(resolve(ROOT, 'packages/components/custom-elements.json'), 'utf8'),
+);
 const tokenStore = await loadTokens();
 const rules = loadRules();
 const decisions = loadDecisions();
@@ -43,6 +47,50 @@ describe('get_component', () => {
   it('returns undefined for unknown component', () => {
     const component = designSystem.components.find((c) => c.name === 'rr-nope');
     expect(component).toBeUndefined();
+  });
+});
+
+describe('prop descriptions (single source: JSDoc via CEM)', () => {
+  it('every component prop in design-system.json has a non-empty description', () => {
+    const blank = [];
+    for (const c of designSystem.components) {
+      for (const p of c.props ?? []) {
+        if (!p.description || !p.description.trim()) blank.push(`${c.name}.${p.name}`);
+      }
+    }
+    expect(blank).toEqual([]);
+  });
+
+  it('descriptions match the CEM exactly (artifact stays in sync with JSDoc)', () => {
+    const byTag = buildCemDescriptionMap(customElements);
+    const mismatches = [];
+    for (const c of designSystem.components) {
+      for (const p of c.props ?? []) {
+        if (byTag[c.name]?.[p.name] !== p.description) mismatches.push(`${c.name}.${p.name}`);
+      }
+    }
+    expect(mismatches).toEqual([]);
+  });
+
+  it('resolves a kebab attribute prop via its fieldName JSDoc', () => {
+    // rr-progress.value is keyed by both attribute and field name in the CEM.
+    const byTag = buildCemDescriptionMap(customElements);
+    expect(byTag['rr-progress']?.value).toBe('Current value (0–max). Ignored when indeterminate.');
+  });
+
+  it('flags a prop with no per-property JSDoc (hard-error guard input)', () => {
+    const components = [{ name: 'rr-progress', props: [{ name: 'bogusNoJsdoc', type: 'string' }] }];
+    const missing = injectPropDescriptions(components, customElements);
+    expect(missing).toContain('rr-progress.bogusNoJsdoc');
+  });
+
+  it('injects the CEM description into a known prop in place', () => {
+    const components = [{ name: 'rr-progress', props: [{ name: 'value', type: 'number' }] }];
+    const missing = injectPropDescriptions(components, customElements);
+    expect(missing).toEqual([]);
+    expect(components[0].props[0].description).toBe(
+      'Current value (0–max). Ignored when indeterminate.',
+    );
   });
 });
 

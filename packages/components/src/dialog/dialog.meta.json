@@ -4,9 +4,9 @@
   "summary": "Modal dialog built on the native <dialog> element with focus trap and Escape-to-close.",
   "package": "@riverromney/components",
   "props": [
-    { "name": "heading", "type": "string", "default": "", "description": "Dialog title text rendered in the header." },
-    { "name": "open", "type": "boolean", "default": "false", "description": "Whether the dialog is open. Reflected to an attribute." },
-    { "name": "close-on-backdrop", "type": "boolean", "default": "true", "description": "Close the dialog when the backdrop is clicked." }
+    { "name": "heading", "type": "string", "default": "" },
+    { "name": "open", "type": "boolean", "default": "false" },
+    { "name": "close-on-backdrop", "type": "boolean", "default": "true" }
   ],
   "slots": [
     { "name": "default", "description": "Dialog body content." },

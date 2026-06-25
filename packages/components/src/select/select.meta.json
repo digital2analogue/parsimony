@@ -4,14 +4,14 @@
   "summary": "Form-associated select dropdown with label, helper text, and error state. Options supplied via the options property.",
   "package": "@riverromney/components",
   "props": [
-    { "name": "name", "type": "string", "default": "", "description": "Form field name submitted with the selected value." },
-    { "name": "value", "type": "string", "default": "", "description": "Selected option value." },
-    { "name": "label", "type": "string", "default": "", "description": "Field label rendered above the select." },
-    { "name": "helperText", "type": "string", "default": "", "description": "Helper text shown when there is no error. Maps to attribute helper-text." },
-    { "name": "errorText", "type": "string", "default": "", "description": "Error message; sets data-invalid and a custom validity. Maps to attribute error-text." },
-    { "name": "required", "type": "boolean", "default": "false", "description": "Marks the field as required and shows an asterisk." },
-    { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables the select." },
-    { "name": "options", "type": "SelectOption[]", "default": "[]", "description": "Options to render: array of { value: string; label: string; disabled?: boolean }." }
+    { "name": "name", "type": "string", "default": "" },
+    { "name": "value", "type": "string", "default": "" },
+    { "name": "label", "type": "string", "default": "" },
+    { "name": "helperText", "type": "string", "default": "" },
+    { "name": "errorText", "type": "string", "default": "" },
+    { "name": "required", "type": "boolean", "default": "false" },
+    { "name": "disabled", "type": "boolean", "default": "false" },
+    { "name": "options", "type": "SelectOption[]", "default": "[]" }
   ],
   "slots": [],
   "events": [

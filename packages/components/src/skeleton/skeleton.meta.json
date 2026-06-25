@@ -4,9 +4,9 @@
   "summary": "Animated shimmer placeholder for loading states. Text, circular, and rectangular shape variants.",
   "package": "@riverromney/components",
   "props": [
-    { "name": "variant", "type": "'text' | 'circular' | 'rectangular'", "default": "text", "description": "Shape of the skeleton." },
-    { "name": "width", "type": "string", "default": "", "description": "CSS width value. Defaults to 40px for circular, otherwise 100%." },
-    { "name": "height", "type": "string", "default": "", "description": "CSS height value. Defaults to 40px for circular, otherwise 1em." }
+    { "name": "variant", "type": "'text' | 'circular' | 'rectangular'", "default": "text" },
+    { "name": "width", "type": "string", "default": "" },
+    { "name": "height", "type": "string", "default": "" }
   ],
   "slots": [],
   "events": [],

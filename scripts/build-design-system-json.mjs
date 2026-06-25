@@ -17,6 +17,7 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { resolve, relative } from 'node:path';
 import { glob } from 'node:fs/promises';
+import { injectPropDescriptions } from './cem-descriptions.mjs';
 
 const ROOT = resolve(import.meta.dirname, '..');
 const OUTPUT = resolve(ROOT, 'design-system.json');
@@ -75,6 +76,25 @@ for (const cemPath of cemPaths) {
       process.exit(1);
     }
     break;
+  }
+}
+
+// ── Inject prop descriptions from the CEM (single source: JSDoc) ────────────
+// Prop descriptions live in exactly one place — the per-property JSDoc above
+// each `@property`, captured into the manifest by `cem analyze`. meta.json no
+// longer carries `description`; we resolve each prop's text from the CEM here so
+// the MCP (which reads this artifact) and Storybook autodocs (which reads the
+// CEM) can never diverge. A prop with no CEM description is a hard error — it
+// means a `@property` is missing its `/** … */` doc comment.
+if (customElements) {
+  const missing = injectPropDescriptions(components, customElements);
+  if (missing.length) {
+    console.error(
+      `  ✗ no per-property JSDoc description in the CEM for: ${missing.join(', ')}\n` +
+      `    Prop descriptions are sourced from each component's per-property JSDoc.\n` +
+      `    Add a /** … */ comment above the @property and re-run \`npm run build:meta\`.`,
+    );
+    process.exit(1);
   }
 }
 

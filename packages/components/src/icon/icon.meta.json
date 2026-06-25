@@ -4,8 +4,8 @@
   "summary": "Sized, accessible wrapper for inline SVG icons. Decorative by default; labelled icons become role=\"img\".",
   "package": "@riverromney/components",
   "props": [
-    { "name": "size", "type": "'compact' | 'default' | 'large' | 'xl'", "default": "default", "description": "Icon size, mapped to the icon-size design tokens. Reflected to an attribute." },
-    { "name": "aria-label", "type": "string | null", "default": "null", "description": "Accessible label. When set, the host gets role=\"img\"; otherwise it is aria-hidden=\"true\" (decorative)." }
+    { "name": "size", "type": "'compact' | 'default' | 'large' | 'xl'", "default": "default" },
+    { "name": "aria-label", "type": "string | null", "default": "null" }
   ],
   "slots": [
     { "name": "default", "description": "The SVG icon element to render." }

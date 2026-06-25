@@ -4,16 +4,16 @@
   "summary": "Form-associated text input with label, helper/error text, and ElementInternals for native form participation.",
   "package": "@riverromney/components",
   "props": [
-    { "name": "type", "type": "string", "default": "text", "description": "Input type attribute (text, email, password, etc.)." },
-    { "name": "name", "type": "string", "default": "", "description": "Form field name for submission." },
-    { "name": "value", "type": "string", "default": "", "description": "Current input value." },
-    { "name": "placeholder", "type": "string", "default": "", "description": "Placeholder text shown when empty." },
-    { "name": "label", "type": "string", "default": "", "description": "Visible label text above the input." },
-    { "name": "helper-text", "type": "string", "default": "", "description": "Helper text below the input. Hidden when error-text is set." },
-    { "name": "error-text", "type": "string", "default": "", "description": "Error message below the input. Sets aria-invalid and replaces helper text." },
-    { "name": "required", "type": "boolean", "default": false, "description": "Marks the field as required. Shows asterisk and sets aria-required." },
-    { "name": "disabled", "type": "boolean", "default": false, "description": "Disables the input." },
-    { "name": "autocomplete", "type": "string", "default": "", "description": "Autocomplete hint for browser autofill." }
+    { "name": "type", "type": "string", "default": "text" },
+    { "name": "name", "type": "string", "default": "" },
+    { "name": "value", "type": "string", "default": "" },
+    { "name": "placeholder", "type": "string", "default": "" },
+    { "name": "label", "type": "string", "default": "" },
+    { "name": "helper-text", "type": "string", "default": "" },
+    { "name": "error-text", "type": "string", "default": "" },
+    { "name": "required", "type": "boolean", "default": false },
+    { "name": "disabled", "type": "boolean", "default": false },
+    { "name": "autocomplete", "type": "string", "default": "" }
   ],
   "slots": [
     { "name": "label", "description": "Optional override for the label content." }

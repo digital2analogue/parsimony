@@ -78,10 +78,10 @@ export class RrSpinner extends LitElement {
     }
   `;
 
-  /** Visual size of the spinner. */
+  /** Visual size of the spinner. Reflected to the size attribute. */
   @property({ reflect: true }) size: SpinnerSize = 'md';
 
-  /** Accessible label announced to screen readers. */
+  /** Accessible label announced to screen readers via the status region. */
   @property() label = 'Loading';
 
   render() {

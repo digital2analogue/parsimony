@@ -4,11 +4,11 @@
   "summary": "Circular identity surface showing initials or an image, with size and accent-color variants.",
   "package": "@riverromney/components",
   "props": [
-    { "name": "size", "type": "'sm' | 'md' | 'lg' | 'xl'", "default": "md", "description": "Circle diameter." },
-    { "name": "color", "type": "'default' | 'indigo' | 'sky' | 'green' | 'amber'", "default": "default", "description": "Accent-bold color variant for the initials surface." },
-    { "name": "name", "type": "string", "default": "", "description": "Full name used to derive up to two initials and the accessible label." },
-    { "name": "src", "type": "string", "default": "", "description": "Image URL. When set, an img fills the circle instead of initials." },
-    { "name": "alt", "type": "string", "default": "", "description": "Alt text for the image; falls back to name when omitted." }
+    { "name": "size", "type": "'sm' | 'md' | 'lg' | 'xl'", "default": "md" },
+    { "name": "color", "type": "'default' | 'indigo' | 'sky' | 'green' | 'amber'", "default": "default" },
+    { "name": "name", "type": "string", "default": "" },
+    { "name": "src", "type": "string", "default": "" },
+    { "name": "alt", "type": "string", "default": "" }
   ],
   "slots": [
     { "name": "default", "description": "Optional custom content to replace initials (e.g. an icon)." }

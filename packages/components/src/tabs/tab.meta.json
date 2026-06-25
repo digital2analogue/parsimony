@@ -4,9 +4,9 @@
   "summary": "A single tab button used inside rr-tab-list; its selection state is managed by the parent.",
   "package": "@riverromney/components",
   "props": [
-    { "name": "value", "type": "string", "default": "", "description": "Unique identifier for this tab; must match the value rr-tab-list uses for selection. Reflected." },
-    { "name": "selected", "type": "boolean", "default": false, "description": "Marks the active tab. Set by the parent rr-tab-list — do not set directly. Reflected." },
-    { "name": "disabled", "type": "boolean", "default": false, "description": "Prevents selection. Reflected." }
+    { "name": "value", "type": "string", "default": "" },
+    { "name": "selected", "type": "boolean", "default": false },
+    { "name": "disabled", "type": "boolean", "default": false }
   ],
   "slots": [
     { "name": "default", "description": "Tab label text (and optional icon)." }

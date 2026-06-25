@@ -4,11 +4,11 @@
   "summary": "Anchor enforcing the design system link style — underlined by default, underline removed on hover.",
   "package": "@riverromney/components",
   "props": [
-    { "name": "href", "type": "string", "default": "", "description": "Link destination." },
-    { "name": "target", "type": "'_self' | '_blank' | '_parent' | '_top'", "default": "_self", "description": "Browsing context. Use \"_blank\" to open in a new tab." },
-    { "name": "rel", "type": "string", "default": "", "description": "rel attribute. Defaults to \"noopener noreferrer\" when target=\"_blank\" unless overridden." },
-    { "name": "variant", "type": "'default' | 'muted' | 'subtle'", "default": "default", "description": "Colour variant. Reflected to an attribute." },
-    { "name": "aria-label", "type": "string | null", "default": "null", "description": "Accessible label forwarded to the anchor when link text alone is insufficient." }
+    { "name": "href", "type": "string", "default": "" },
+    { "name": "target", "type": "'_self' | '_blank' | '_parent' | '_top'", "default": "_self" },
+    { "name": "rel", "type": "string", "default": "" },
+    { "name": "variant", "type": "'default' | 'muted' | 'subtle'", "default": "default" },
+    { "name": "aria-label", "type": "string | null", "default": "null" }
   ],
   "slots": [
     { "name": "default", "description": "Link label content." }

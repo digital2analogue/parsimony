@@ -62,14 +62,11 @@ export class RrIcon extends LitElement {
     }
   `;
 
-  /** Icon size — maps to the icon-size design tokens. */
+  /** Icon size, mapped to the icon-size design tokens. Reflected to an attribute. */
   @property({ reflect: true })
   size: IconSize = 'default';
 
-  /**
-   * Accessible label. When set, the icon has role="img" and is announced
-   * by screen readers. Omit for purely decorative icons.
-   */
+  /** Accessible label. When set, the host gets role="img"; otherwise it is aria-hidden="true" (decorative). */
   @property({ attribute: 'aria-label' })
   override ariaLabel: string | null = null;
 

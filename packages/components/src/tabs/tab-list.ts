@@ -46,10 +46,10 @@ export class RrTabList extends LitElement {
     }
   `;
 
-  /** Accessible label for the tablist (e.g. "Navigation", "View options"). */
+  /** Accessible label for the tablist (required); sets aria-label on the role=tablist element. */
   @property() label = '';
 
-  /** Currently selected tab value. */
+  /** Currently selected tab value. Reflected; syncs the matching rr-tab child's selected state. */
   @property({ reflect: true }) value = '';
 
   connectedCallback() {

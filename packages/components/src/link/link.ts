@@ -64,22 +64,19 @@ export class RrLink extends LitElement {
   @property()
   href = '';
 
-  /** Browsing context. Use "_blank" for new tab. */
+  /** Browsing context. Use "_blank" to open in a new tab. */
   @property()
   target: '_self' | '_blank' | '_parent' | '_top' = '_self';
 
-  /**
-   * Link rel attribute.
-   * Defaults to "noopener noreferrer" when target="_blank".
-   */
+  /** rel attribute. Defaults to "noopener noreferrer" when target="_blank" unless overridden. */
   @property()
   rel = '';
 
-  /** Colour variant. */
+  /** Colour variant. Reflected to an attribute. */
   @property({ reflect: true })
   variant: LinkVariant = 'default';
 
-  /** Accessible label when link text alone is insufficient. */
+  /** Accessible label forwarded to the anchor when link text alone is insufficient. */
   @property({ attribute: 'aria-label' })
   override ariaLabel: string | null = null;
 

@@ -4,9 +4,9 @@
   "summary": "Inline notification banner for success, warning, danger, and info messages. Optionally dismissible.",
   "package": "@riverromney/components",
   "props": [
-    { "name": "variant", "type": "'success' | 'warning' | 'danger' | 'info'", "default": "success", "description": "Visual variant and semantic role." },
-    { "name": "title", "type": "string", "default": "", "description": "Optional bold title rendered above the body content." },
-    { "name": "dismissible", "type": "boolean", "default": "false", "description": "When true, renders a dismiss button that hides the alert and fires close." }
+    { "name": "variant", "type": "'success' | 'warning' | 'danger' | 'info'", "default": "success" },
+    { "name": "title", "type": "string", "default": "" },
+    { "name": "dismissible", "type": "boolean", "default": "false" }
   ],
   "slots": [
     { "name": "default", "description": "Alert body content." },

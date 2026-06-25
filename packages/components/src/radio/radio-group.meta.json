@@ -4,13 +4,13 @@
   "summary": "Form-associated group of radio buttons. Renders a fieldset/legend and manages selection and form value for its rr-radio children.",
   "package": "@riverromney/components",
   "props": [
-    { "name": "name", "type": "string", "default": "", "description": "Form field name submitted with the selected value." },
-    { "name": "value", "type": "string", "default": "", "description": "Selected radio value. Syncs the checked state of child radios." },
-    { "name": "label", "type": "string", "default": "", "description": "Group label rendered as the legend." },
-    { "name": "errorText", "type": "string", "default": "", "description": "Error message; sets data-invalid and a custom validity. Maps to attribute error-text." },
-    { "name": "required", "type": "boolean", "default": "false", "description": "Marks the group as required." },
-    { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables the group and all child radios." },
-    { "name": "orientation", "type": "'vertical' | 'horizontal'", "default": "vertical", "description": "Layout direction of the radio options." }
+    { "name": "name", "type": "string", "default": "" },
+    { "name": "value", "type": "string", "default": "" },
+    { "name": "label", "type": "string", "default": "" },
+    { "name": "errorText", "type": "string", "default": "" },
+    { "name": "required", "type": "boolean", "default": "false" },
+    { "name": "disabled", "type": "boolean", "default": "false" },
+    { "name": "orientation", "type": "'vertical' | 'horizontal'", "default": "vertical" }
   ],
   "slots": [
     { "name": "default", "description": "rr-radio child elements." }

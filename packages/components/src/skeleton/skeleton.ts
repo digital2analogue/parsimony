@@ -63,13 +63,13 @@ export class RrSkeleton extends LitElement {
     }
   `;
 
-  /** Shape variant. */
+  /** Shape of the skeleton. */
   @property({ reflect: true }) variant: SkeletonVariant = 'text';
 
-  /** CSS width (e.g. '100%', '200px'). */
+  /** CSS width value. Defaults to 40px for circular, otherwise 100%. */
   @property() width = '';
 
-  /** CSS height (e.g. '1em', '40px'). */
+  /** CSS height value. Defaults to 40px for circular, otherwise 1em. */
   @property() height = '';
 
   private get _style(): string {

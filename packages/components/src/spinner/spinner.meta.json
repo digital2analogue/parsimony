@@ -4,8 +4,8 @@
   "summary": "Animated circular loading indicator that announces its status to screen readers.",
   "package": "@riverromney/components",
   "props": [
-    { "name": "size", "type": "'sm' | 'md' | 'lg'", "default": "md", "description": "Visual size of the spinner. Reflected to the size attribute." },
-    { "name": "label", "type": "string", "default": "Loading", "description": "Accessible label announced to screen readers via the status region." }
+    { "name": "size", "type": "'sm' | 'md' | 'lg'", "default": "md" },
+    { "name": "label", "type": "string", "default": "Loading" }
   ],
   "slots": [],
   "events": [],
