@@ -5,7 +5,10 @@ const config: StorybookConfig = {
   // the legacy *.stories.html files are standalone dev harnesses and are not
   // picked up by Storybook.
   stories: ['../src/**/*.stories.@(js|ts)'],
-  addons: [],
+  // addon-docs powers the autodocs pages (prop tables + descriptions) generated
+  // from the Custom Elements Manifest wired in preview.ts. Required in SB10 —
+  // it's no longer bundled via essentials.
+  addons: ['@storybook/addon-docs'],
   framework: {
     name: '@storybook/web-components-vite',
     options: {},
