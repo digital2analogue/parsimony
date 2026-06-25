@@ -10,11 +10,20 @@
  *     - get_token        → resolve a token: value, primitive, brand overrides, usage
  *     - find_token       → search tokens by intent (substring over name + usage)
  *     - get_spacing      → the semantic spacing scale with usage descriptions
+ *   Design reasoning (from ai/rules.md + docs/decisions.md):  [v0.3.0]
+ *     - find_rule        → query the hard/soft rules by topic (ranked array)
+ *     - get_rule         → one rule by id, e.g. "hard-5"
+ *     - find_decision    → query the decision log by topic (ranked array)
+ *     - get_decision     → one decision by id, e.g. "D-06"
  *
  * Token values AND usage prose come from the *.tokens.json files (the
  * `$description` fields are authoritative and co-located with `$value`).
  * For external agents without the repo checked out, this is the path to the
  * foundations; in-repo sessions still get them as always-on context via AGENTS.md.
+ *
+ * The reasoning tools follow the MCP shape-follows-verb convention: find_* answers
+ * a topic query with a ranked array; get_* answers an exact-id lookup with one
+ * record — the same split as find_token / get_token above.
  *
  * Usage: node packages/mcp/src/server.mjs
  */
@@ -26,6 +35,10 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { z } from 'zod';
 import { lintSnippet, DEPRECATED } from '../../../scripts/rules.mjs';
 import { loadTokens, resolveToken, findTokens, tokensUnder, toCssVar } from '../../../scripts/tokens.mjs';
+import {
+  loadRules, findRules, getRule,
+  loadDecisions, findDecisions, getDecision,
+} from '../../../scripts/reasoning.mjs';
 
 // ── Load design-system.json ─────────────────────────────────────────────────
 
@@ -81,11 +94,18 @@ try {
   // DESIGN.md missing is not fatal — the token JSON is the source of truth.
 }
 
+// ── Load design reasoning ─────────────────────────────────────────────────────
+// Rules (ai/rules.md) + decisions (docs/decisions.md) parsing lives once in
+// scripts/reasoning.mjs (shared with the tests). Small files — parsed at startup.
+
+const rules = loadRules();
+const decisions = loadDecisions();
+
 // ── MCP Server ──────────────────────────────────────────────────────────────
 
 const server = new McpServer({
   name: 'riverromney-design-system',
-  version: '0.2.0',
+  version: '0.3.0',
 });
 
 // ── list_components ─────────────────────────────────────────────────────────
@@ -228,6 +248,73 @@ server.tool(
     const scale = tokensUnder(tokenStore, 'spacing', { brand })
       .map((t) => ({ token: t.cssProperty, value: t.value, usage: t.usage }));
     return { content: [{ type: 'text', text: JSON.stringify(scale, null, 2) }] };
+  }
+);
+
+// ── find_rule ─────────────────────────────────────────────────────────────────
+
+server.tool(
+  'find_rule',
+  'Query the design system\'s hard (never break) and soft (prefer) rules by topic. Returns ranked matches with the rule text, whether it is "hard" or "soft", and the inline rationale. e.g. topic "accent green" surfaces the rule that accent green signals interactivity only. Use get_rule for one rule by id.',
+  { topic: z.string().describe('What the rule is about, e.g. "accent green", "spacing", "font weight"') },
+  async ({ topic }) => {
+    const matches = findRules(rules, topic);
+    if (matches.length === 0) {
+      return { content: [{ type: 'text', text: `No rules match "${topic}". Try a broader term, or list ids with get_rule.` }] };
+    }
+    return { content: [{ type: 'text', text: JSON.stringify({ matches, total: matches.length }, null, 2) }] };
+  }
+);
+
+// ── get_rule ──────────────────────────────────────────────────────────────────
+
+server.tool(
+  'get_rule',
+  'Get one rule by id (e.g. "hard-5", "soft-2"). Ids are "hard-N" / "soft-N" by list position. Use find_rule to search by topic.',
+  { id: z.string().describe('Rule id, e.g. "hard-5"') },
+  async ({ id }) => {
+    const rule = getRule(rules, id);
+    if (!rule) {
+      const available = rules.map((r) => r.id).join(', ');
+      return {
+        content: [{ type: 'text', text: `Rule "${id}" not found. Available: ${available}` }],
+        isError: true,
+      };
+    }
+    return { content: [{ type: 'text', text: JSON.stringify(rule, null, 2) }] };
+  }
+);
+
+// ── find_decision ─────────────────────────────────────────────────────────────
+
+server.tool(
+  'find_decision',
+  'Query the decision log (why the system took the turns it did) by topic. Returns ranked matches with what was decided, why, and the alternative that was rejected — across both the dated entries and the archived ADR (D-NN) log. e.g. topic "dark theme" surfaces the dark-first single-accent decision. Use get_decision for one decision by id.',
+  { topic: z.string().describe('What the decision is about, e.g. "dark theme", "npm publish", "deprecation"') },
+  async ({ topic }) => {
+    const matches = findDecisions(decisions, topic);
+    if (matches.length === 0) {
+      return { content: [{ type: 'text', text: `No decisions match "${topic}". Try a broader term, or fetch one by id with get_decision.` }] };
+    }
+    return { content: [{ type: 'text', text: JSON.stringify({ matches, total: matches.length }, null, 2) }] };
+  }
+);
+
+// ── get_decision ──────────────────────────────────────────────────────────────
+
+server.tool(
+  'get_decision',
+  'Get one decision by id. Archived ADR entries use "D-NN" (e.g. "D-06"); dated entries use "YYYY-MM-DD-slug". Use find_decision to search by topic.',
+  { id: z.string().describe('Decision id, e.g. "D-06"') },
+  async ({ id }) => {
+    const decision = getDecision(decisions, id);
+    if (!decision) {
+      return {
+        content: [{ type: 'text', text: `Decision "${id}" not found. Search by topic with find_decision, or use a "D-NN" id from the archived ADR log.` }],
+        isError: true,
+      };
+    }
+    return { content: [{ type: 'text', text: JSON.stringify(decision, null, 2) }] };
   }
 );
 

@@ -11,6 +11,43 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-06-25 — MCP Phase 2 reasoning tools split into `find_*` + `get_*`
+
+**Decided:** Ship the Phase 2 design-reasoning layer (#25) as **four** tools, not the
+two the issue title named: `find_rule(topic)` / `find_decision(topic)` return a ranked
+array (wrapped `{ matches, total }`), and `get_rule(id)` / `get_decision(id)` return one
+record. Parsing lives in a new shared `scripts/reasoning.mjs` (pure `parseRules` /
+`parseDecisions` over `ai/rules.md` and `docs/decisions.md`, plus `load`/`find`/`get`),
+imported by the server and the tests — same single-source shape as `rules.mjs` and
+`tokens.mjs`. Server bumped to v0.3.0. A rule's `rationale` is the clause after the first
+" — " in the rule text (null when there is none); the decision parser normalizes both
+the dated-entry labels (`**Decided:**` / `**Alternative considered:**`) and the archived
+ADR labels (`**Decision:**` / `**Rejected:**`) onto one `{ decision, why, rejected,
+status }` shape.
+
+**Why:** A topic query legitimately matches several rules/decisions, so collapsing to one
+object hides relevant hits and forces a re-query. The prevailing MCP convention is
+shape-follows-verb — `get_*` = exact-key lookup → one object, `find_*`/`search_*` = query
+→ ranked array — and this repo's own Phase 1 already follows it (`get_token` vs
+`find_token`). DesignerPunk's Civitas layer (the prior art the expansion PRD cites) ships
+the identical split (`get_section` vs `find_docs`). Keeping `get_rule`/`get_decision` as
+the exact-id form honors #25's names *and* the convention, rather than overloading a
+`get_*` name with array semantics. Array results are wrapped in an object because some MCP
+clients choke on a bare top-level array.
+
+**Alternative considered:** (a) Two tools named exactly `get_rule`/`get_decision`
+returning a wrapped array — rejected: bends the get_*=single convention the repo already
+set. (b) Two tools returning a single best-match object per the PRD's sketch — rejected as
+lossy for topic queries. (c) Cross-linking each rule to its rationale decision — deferred;
+`rationale` (inline clause) + a separate `find_decision` keeps the parse low-risk and the
+two corpora independent, which is what the issue asked for.
+
+**Status:** Shipped (server v0.3.0; `scripts/reasoning.mjs` + 5 new MCP-server tests, all
+green; `npm run validate` passes). Closes #25. `check_assembly` and the Phase 3
+brand-aware tools (`get_brand`, `compare_brands`) remain on the roadmap.
+
+---
+
 ## 2026-06-23 — New `rr-tag` component (outlined uppercase tag/chip)
 
 **Decided:** Add `rr-tag` as its own component — the deliberate inverse of
