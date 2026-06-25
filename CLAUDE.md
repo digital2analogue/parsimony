@@ -136,6 +136,13 @@ npm automation token as the `NPM_TOKEN` Actions secret. Steps in
   - Assembly: `check_assembly({components, tokens, context})` — design-intent check
     over a set used together (3-rule v1: spacing-between-components, WCAG fg/bg pairing,
     deprecated/unknown token). Returns `{ valid, suggestions }`; logic in `scripts/assembly.mjs`.
+  - Contrast (from `scripts/contrast.mjs`, reusing the WCAG math in `assembly.mjs`):
+    `check_contrast({foreground, background, brand?, fontSize?, bold?})` — ratio + AA/AAA
+    verdict for a pair (tokens or hex; large-text threshold when `fontSize` qualifies);
+    `validate_brand(brand)` — checks every *intended* fg/bg pairing keeps AA once a
+    sub-brand's overrides apply. Intended pairs are derived by convention and v1 is
+    deliberately scoped to the unambiguous ones (`on-<role>`↔`background.<role>`, base
+    text↔base surfaces); the accent family is out of scope pending an explicit pairing map.
 - **`npm run validate`** — static gate over `tokens/` and components; enforces the hard rules below in CI.
 
 ## AI Reference Files

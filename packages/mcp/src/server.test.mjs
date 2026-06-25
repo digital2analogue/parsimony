@@ -10,6 +10,7 @@ import { resolve } from 'node:path';
 import { lintSnippet, DEPRECATED } from '../../../scripts/rules.mjs';
 import { loadTokens, resolveToken, findTokens, tokensUnder, toCssVar, getBrand, compareBrands } from '../../../scripts/tokens.mjs';
 import { checkAssembly, contrastRatio } from '../../../scripts/assembly.mjs';
+import { checkContrast, validateBrand, intendedPairings } from '../../../scripts/contrast.mjs';
 import { buildCemDescriptionMap, injectPropDescriptions } from '../../../scripts/cem-descriptions.mjs';
 import {
   parseRules, loadRules, findRules, getRule,
@@ -409,5 +410,64 @@ describe('check_assembly (via assembly.mjs)', () => {
     expect(r.valid).toBe(true);
     expect(r.suggestions).toHaveLength(0);
     expect(r.context).toBe('primary CTA');
+  });
+});
+
+describe('check_contrast (via contrast.mjs)', () => {
+  it('resolves tokens (CSS var or dotted path) and passes a high-contrast pair', () => {
+    const r = checkContrast(tokenStore, {
+      foreground: '--color-foreground-default',
+      background: 'color.background.default',
+    });
+    expect(r.ratio).toBeGreaterThan(12);
+    expect(r.passesAA).toBe(true);
+    expect(r.threshold).toBe(4.5);
+  });
+
+  it('accepts raw hex and applies the normal-text AA threshold', () => {
+    // #777 on #fff ≈ 4.48:1 — just under AA for normal text.
+    const r = checkContrast(tokenStore, { foreground: '#777777', background: '#ffffff' });
+    expect(r.ratio).toBeCloseTo(4.48, 1);
+    expect(r.passesAA).toBe(false);
+  });
+
+  it('switches to the large-text threshold (3:1) for big text', () => {
+    const small = checkContrast(tokenStore, { foreground: '#777777', background: '#ffffff' });
+    expect(small.passesAA).toBe(false);
+    const large = checkContrast(tokenStore, { foreground: '#777777', background: '#ffffff', fontSize: '24px' });
+    expect(large.largeText).toBe(true);
+    expect(large.threshold).toBe(3);
+    expect(large.passesAA).toBe(true);
+  });
+
+  it('errors on an unknown token', () => {
+    expect(checkContrast(tokenStore, { foreground: '--nope', background: '#fff' }).error).toBeTruthy();
+  });
+});
+
+describe('validate_brand (via contrast.mjs)', () => {
+  it('intendedPairings covers only the unambiguous on-<role>/base-text pairs (no accent family)', () => {
+    const pairs = intendedPairings(tokenStore);
+    expect(pairs.length).toBeGreaterThan(0);
+    expect(pairs.every((p) => !p.fg.includes('accent'))).toBe(true);
+    expect(pairs.some((p) => p.fg === 'color.foreground.on-warning' && p.bg === 'color.background.warning')).toBe(true);
+  });
+
+  it('catches a real sub-AA regression: decision-engine white-on-warning (#fff on amber ≈ 3.19)', () => {
+    const r = validateBrand(tokenStore, 'decision-engine');
+    expect(r.valid).toBe(false);
+    const warn = r.failures.find((f) => f.background === '--color-background-warning');
+    expect(warn).toBeDefined();
+    expect(warn.ratio).toBeLessThan(4.5);
+  });
+
+  it('every reported failure is genuinely below the AA threshold', () => {
+    const r = validateBrand(tokenStore, 'dot-art');
+    expect(r.checkedPairs).toBeGreaterThan(0);
+    expect(r.failures.every((f) => f.ratio < 4.5)).toBe(true);
+  });
+
+  it('returns null for an unknown brand', () => {
+    expect(validateBrand(tokenStore, 'nope')).toBeNull();
   });
 });
