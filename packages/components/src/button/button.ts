@@ -150,11 +150,22 @@ export class RrButton extends LitElement {
     }
   `;
 
+  /** Visual variant: primary (filled CTA), secondary (outlined), danger (destructive). */
   @property({ reflect: true }) variant: ButtonVariant = 'primary';
+
+  /** Size: small, medium, large. Controls padding and font size. */
   @property({ reflect: true }) size: ButtonSize = 'medium';
+
+  /** Disables the button. Prevents click and removes from tab order. */
   @property({ type: Boolean, reflect: true }) disabled = false;
+
+  /** Shows a spinner and sets aria-busy. Click suppressed while loading. */
   @property({ type: Boolean, reflect: true }) loading = false;
+
+  /** Button type attribute: button, submit, or reset. */
   @property() type: 'button' | 'submit' | 'reset' = 'button';
+
+  /** Accessible label. Required for icon-only buttons. */
   @property({ attribute: 'aria-label' }) override ariaLabel: string | null = null;
 
   private _internals: ElementInternals;

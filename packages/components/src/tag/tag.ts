@@ -46,6 +46,12 @@ export class RrTag extends LitElement {
     }
   `;
 
+  /**
+   * Emphasis level. `default` is the standard visible outline (alt text,
+   * muted-foreground border) that reads correctly standalone — use it for skill
+   * tags and most labels. `subtle` is a quieter treatment (muted text,
+   * elevated-border) for dense or secondary contexts.
+   */
   @property({ reflect: true })
   variant: TagVariant = 'default';
 

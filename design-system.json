@@ -2727,6 +2727,7 @@
                   "text": "BadgeVariant"
                 },
                 "default": "'default'",
+                "description": "Visual variant. Status variants (success, warning, danger, info) convey\nsemantic meaning. Accent variants are decorative emphasis tags.",
                 "attribute": "variant",
                 "reflects": true
               }
@@ -2738,6 +2739,7 @@
                   "text": "BadgeVariant"
                 },
                 "default": "'default'",
+                "description": "Visual variant. Status variants (success, warning, danger, info) convey\nsemantic meaning. Accent variants are decorative emphasis tags.",
                 "fieldName": "variant"
               }
             ],
@@ -2828,6 +2830,7 @@
                   "text": "ButtonVariant"
                 },
                 "default": "'primary'",
+                "description": "Visual variant: primary (filled CTA), secondary (outlined), danger (destructive).",
                 "attribute": "variant",
                 "reflects": true
               },
@@ -2838,6 +2841,7 @@
                   "text": "ButtonSize"
                 },
                 "default": "'medium'",
+                "description": "Size: small, medium, large. Controls padding and font size.",
                 "attribute": "size",
                 "reflects": true
               },
@@ -2848,6 +2852,7 @@
                   "text": "boolean"
                 },
                 "default": "false",
+                "description": "Disables the button. Prevents click and removes from tab order.",
                 "attribute": "disabled",
                 "reflects": true
               },
@@ -2858,6 +2863,7 @@
                   "text": "boolean"
                 },
                 "default": "false",
+                "description": "Shows a spinner and sets aria-busy. Click suppressed while loading.",
                 "attribute": "loading",
                 "reflects": true
               },
@@ -2868,6 +2874,7 @@
                   "text": "'button' | 'submit' | 'reset'"
                 },
                 "default": "'button'",
+                "description": "Button type attribute: button, submit, or reset.",
                 "attribute": "type"
               },
               {
@@ -2877,6 +2884,7 @@
                   "text": "string | null"
                 },
                 "default": "null",
+                "description": "Accessible label. Required for icon-only buttons.",
                 "attribute": "aria-label"
               },
               {
@@ -2914,6 +2922,7 @@
                   "text": "ButtonVariant"
                 },
                 "default": "'primary'",
+                "description": "Visual variant: primary (filled CTA), secondary (outlined), danger (destructive).",
                 "fieldName": "variant"
               },
               {
@@ -2922,6 +2931,7 @@
                   "text": "ButtonSize"
                 },
                 "default": "'medium'",
+                "description": "Size: small, medium, large. Controls padding and font size.",
                 "fieldName": "size"
               },
               {
@@ -2930,6 +2940,7 @@
                   "text": "boolean"
                 },
                 "default": "false",
+                "description": "Disables the button. Prevents click and removes from tab order.",
                 "fieldName": "disabled"
               },
               {
@@ -2938,6 +2949,7 @@
                   "text": "boolean"
                 },
                 "default": "false",
+                "description": "Shows a spinner and sets aria-busy. Click suppressed while loading.",
                 "fieldName": "loading"
               },
               {
@@ -2946,6 +2958,7 @@
                   "text": "'button' | 'submit' | 'reset'"
                 },
                 "default": "'button'",
+                "description": "Button type attribute: button, submit, or reset.",
                 "fieldName": "type"
               },
               {
@@ -2954,6 +2967,7 @@
                   "text": "string | null"
                 },
                 "default": "null",
+                "description": "Accessible label. Required for icon-only buttons.",
                 "fieldName": "ariaLabel"
               }
             ],
@@ -3776,6 +3790,7 @@
                   "text": "string"
                 },
                 "default": "'text'",
+                "description": "Input type attribute (text, email, password, etc.).",
                 "attribute": "type"
               },
               {
@@ -3785,6 +3800,7 @@
                   "text": "string"
                 },
                 "default": "''",
+                "description": "Form field name for submission.",
                 "attribute": "name"
               },
               {
@@ -3794,6 +3810,7 @@
                   "text": "string"
                 },
                 "default": "''",
+                "description": "Current input value.",
                 "attribute": "value"
               },
               {
@@ -3803,6 +3820,7 @@
                   "text": "string"
                 },
                 "default": "''",
+                "description": "Placeholder text shown when empty.",
                 "attribute": "placeholder"
               },
               {
@@ -3812,6 +3830,7 @@
                   "text": "string"
                 },
                 "default": "''",
+                "description": "Visible label text above the input.",
                 "attribute": "label"
               },
               {
@@ -3821,6 +3840,7 @@
                   "text": "string"
                 },
                 "default": "''",
+                "description": "Helper text below the input. Hidden when error-text is set.",
                 "attribute": "helper-text"
               },
               {
@@ -3830,6 +3850,7 @@
                   "text": "string"
                 },
                 "default": "''",
+                "description": "Error message below the input. Sets aria-invalid and replaces helper text.",
                 "attribute": "error-text"
               },
               {
@@ -3839,6 +3860,7 @@
                   "text": "boolean"
                 },
                 "default": "false",
+                "description": "Marks the field as required. Shows asterisk and sets aria-required.",
                 "attribute": "required",
                 "reflects": true
               },
@@ -3849,6 +3871,7 @@
                   "text": "boolean"
                 },
                 "default": "false",
+                "description": "Disables the input.",
                 "attribute": "disabled",
                 "reflects": true
               },
@@ -3859,6 +3882,7 @@
                   "text": "string"
                 },
                 "default": "''",
+                "description": "Autocomplete hint for browser autofill.",
                 "attribute": "autocomplete"
               },
               {
@@ -3936,6 +3960,7 @@
                   "text": "string"
                 },
                 "default": "'text'",
+                "description": "Input type attribute (text, email, password, etc.).",
                 "fieldName": "type"
               },
               {
@@ -3944,6 +3969,7 @@
                   "text": "string"
                 },
                 "default": "''",
+                "description": "Form field name for submission.",
                 "fieldName": "name"
               },
               {
@@ -3952,6 +3978,7 @@
                   "text": "string"
                 },
                 "default": "''",
+                "description": "Current input value.",
                 "fieldName": "value"
               },
               {
@@ -3960,6 +3987,7 @@
                   "text": "string"
                 },
                 "default": "''",
+                "description": "Placeholder text shown when empty.",
                 "fieldName": "placeholder"
               },
               {
@@ -3968,6 +3996,7 @@
                   "text": "string"
                 },
                 "default": "''",
+                "description": "Visible label text above the input.",
                 "fieldName": "label"
               },
               {
@@ -3976,6 +4005,7 @@
                   "text": "string"
                 },
                 "default": "''",
+                "description": "Helper text below the input. Hidden when error-text is set.",
                 "fieldName": "helperText"
               },
               {
@@ -3984,6 +4014,7 @@
                   "text": "string"
                 },
                 "default": "''",
+                "description": "Error message below the input. Sets aria-invalid and replaces helper text.",
                 "fieldName": "errorText"
               },
               {
@@ -3992,6 +4023,7 @@
                   "text": "boolean"
                 },
                 "default": "false",
+                "description": "Marks the field as required. Shows asterisk and sets aria-required.",
                 "fieldName": "required"
               },
               {
@@ -4000,6 +4032,7 @@
                   "text": "boolean"
                 },
                 "default": "false",
+                "description": "Disables the input.",
                 "fieldName": "disabled"
               },
               {
@@ -4008,6 +4041,7 @@
                   "text": "string"
                 },
                 "default": "''",
+                "description": "Autocomplete hint for browser autofill.",
                 "fieldName": "autoComplete"
               }
             ],
@@ -5442,6 +5476,7 @@
                   "text": "TagVariant"
                 },
                 "default": "'default'",
+                "description": "Emphasis level. `default` is the standard visible outline (alt text,\nmuted-foreground border) that reads correctly standalone — use it for skill\ntags and most labels. `subtle` is a quieter treatment (muted text,\nelevated-border) for dense or secondary contexts.",
                 "attribute": "variant",
                 "reflects": true
               }
@@ -5453,6 +5488,7 @@
                   "text": "TagVariant"
                 },
                 "default": "'default'",
+                "description": "Emphasis level. `default` is the standard visible outline (alt text,\nmuted-foreground border) that reads correctly standalone — use it for skill\ntags and most labels. `subtle` is a quieter treatment (muted text,\nelevated-border) for dense or secondary contexts.",
                 "fieldName": "variant"
               }
             ],

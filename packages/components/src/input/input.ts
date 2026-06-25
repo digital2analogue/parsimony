@@ -101,15 +101,34 @@ export class RrInput extends LitElement {
     }
   `;
 
+  /** Input type attribute (text, email, password, etc.). */
   @property() type = 'text';
+
+  /** Form field name for submission. */
   @property() name = '';
+
+  /** Current input value. */
   @property() value = '';
+
+  /** Placeholder text shown when empty. */
   @property() placeholder = '';
+
+  /** Visible label text above the input. */
   @property() label = '';
+
+  /** Helper text below the input. Hidden when error-text is set. */
   @property({ attribute: 'helper-text' }) helperText = '';
+
+  /** Error message below the input. Sets aria-invalid and replaces helper text. */
   @property({ attribute: 'error-text' }) errorText = '';
+
+  /** Marks the field as required. Shows asterisk and sets aria-required. */
   @property({ type: Boolean, reflect: true }) required = false;
+
+  /** Disables the input. */
   @property({ type: Boolean, reflect: true }) disabled = false;
+
+  /** Autocomplete hint for browser autofill. */
   @property({ attribute: 'autocomplete' }) autoComplete = '';
 
   @query('input') private _input!: HTMLInputElement;

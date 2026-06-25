@@ -90,6 +90,10 @@ export class RrBadge extends LitElement {
     }
   `;
 
+  /**
+   * Visual variant. Status variants (success, warning, danger, info) convey
+   * semantic meaning. Accent variants are decorative emphasis tags.
+   */
   @property({ reflect: true })
   variant: BadgeVariant = 'default';
 
