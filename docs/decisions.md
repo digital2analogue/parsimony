@@ -11,6 +11,39 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-06-25 — Storybook autodocs from the CEM; two prop-doc sources reconciled
+
+**Decided:** Wire the generated Custom Elements Manifest into Storybook
+(`setCustomElementsManifest` + `tags: ['autodocs']`, with `@storybook/addon-docs`) so
+component descriptions and prop tables come from the single source rather than
+hand-maintained `argTypes` (#39 step 1, PR #40). Then port the per-prop description copy
+from each `*.meta.json` into `@property` JSDoc so the CEM carries it and the autodocs
+tables actually populate (#39 step 2, batched).
+
+**Why:** This surfaced a real gap — **two prop-doc sources that weren't unified**: the
+hand-authored `*.meta.json` (consumed by the MCP / `design-system.json`) and source
+`@property` JSDoc (what `cem analyze` reads for the CEM/autodocs). Storybook reads only the
+CEM, so before this the autodocs pages had the component description (from the class JSDoc)
+but **empty per-prop columns**. Putting the prose in JSDoc is the one spot that feeds both
+the CEM *and* IDE hovers. Gotcha worth recording: `@storybook/addon-docs` must be added
+explicitly in Storybook 10 — it's no longer bundled via essentials, and the original POC
+ran `addons: []`, so autodocs emitted the `autodocs` tag but generated zero docs pages
+until the addon was installed.
+
+**Alternative considered:** (a) Teach Storybook/the CEM to read `meta.json`, or
+hand-maintain `argTypes` descriptions per story — both rejected as duplicating the source
+of truth; one JSDoc description the CEM already knows how to carry is the parsimonious fix.
+(b) Port JSDoc to all ~19 components at once — deferred: only the 4 with stories
+(badge/button/input/tag) have visible autodocs pages today, so the rest land with their
+stories (#38). **Open thread:** whether `meta.json` should be *generated from* the JSDoc
+rather than maintained in parallel — the cleaner long-term de-duplication.
+
+**Status:** Pipeline shipped in PR #40. JSDoc port batch 1 (badge/button/input/tag) in the
+accompanying PR; remaining ~15 follow with #38. `build-storybook` generates the autodocs
+pages; `lint:stories` + `validate` green.
+
+---
+
 ## 2026-06-25 — MCP Phase 2 reasoning tools split into `find_*` + `get_*`
 
 **Decided:** Ship the Phase 2 design-reasoning layer (#25) as **four** tools, not the
