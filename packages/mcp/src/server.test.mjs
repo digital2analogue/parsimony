@@ -9,6 +9,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { lintSnippet, DEPRECATED } from '../../../scripts/rules.mjs';
 import { loadTokens, resolveToken, findTokens, tokensUnder, toCssVar, getBrand, compareBrands } from '../../../scripts/tokens.mjs';
+import { checkAssembly, contrastRatio } from '../../../scripts/assembly.mjs';
 import {
   parseRules, loadRules, findRules, getRule,
   parseDecisions, loadDecisions, findDecisions, getDecision,
@@ -290,5 +291,50 @@ describe('get_brand / compare_brands (via tokens.mjs)', () => {
   it('compare_brands returns null when either brand is unknown', () => {
     expect(compareBrands(tokenStore, 'dot-art', 'nope')).toBeNull();
     expect(compareBrands(tokenStore, 'nope', 'dot-art')).toBeNull();
+  });
+});
+
+describe('check_assembly (via assembly.mjs)', () => {
+  it('contrastRatio: known anchors and non-hex guard', () => {
+    expect(contrastRatio('#FFFFFF', '#000000')).toBeCloseTo(21, 0);
+    expect(contrastRatio('#0A0D0A', '#0A0D0A')).toBeCloseTo(1, 5);
+    expect(contrastRatio('#4ADE6E', 'linear-gradient(...)')).toBeNull();
+  });
+
+  it('rule 1: within-element spacing between distinct components is flagged', () => {
+    const r = checkAssembly(tokenStore, { components: ['rr-input', 'rr-button'], tokens: ['--spacing-tight'] });
+    expect(r.valid).toBe(false);
+    expect(r.suggestions.some((s) => s.includes('--spacing-component'))).toBe(true);
+    // A single component carries no between-components opinion.
+    const one = checkAssembly(tokenStore, { components: ['rr-button'], tokens: ['--spacing-tight'] });
+    expect(one.suggestions.some((s) => s.includes('within a single element'))).toBe(false);
+  });
+
+  it('rule 2: flags a sub-AA foreground/background pairing, passes a good one', () => {
+    // foreground-disabled (#1E241E) on background-default (#0A0D0A) ≈ 1.23:1.
+    const bad = checkAssembly(tokenStore, { tokens: ['--color-foreground-disabled', '--color-background-default'] });
+    expect(bad.valid).toBe(false);
+    expect(bad.suggestions.some((s) => s.includes('WCAG AA'))).toBe(true);
+    // foreground-default on the same canvas ≈ 12.26:1 — no pairing suggestion.
+    const good = checkAssembly(tokenStore, { tokens: ['--color-foreground-default', '--color-background-default'] });
+    expect(good.suggestions.some((s) => s.includes('WCAG AA'))).toBe(false);
+  });
+
+  it('rule 3: flags deprecated and unknown tokens', () => {
+    const dep = checkAssembly(tokenStore, { tokens: ['--color-foreground-accent'] });
+    expect(dep.suggestions.some((s) => s.includes('deprecated'))).toBe(true);
+    const unk = checkAssembly(tokenStore, { tokens: ['--color-not-a-real-token'] });
+    expect(unk.suggestions.some((s) => s.includes('not a known design token'))).toBe(true);
+  });
+
+  it('a clean assembly is valid, with no suggestions, and echoes context', () => {
+    const r = checkAssembly(tokenStore, {
+      components: ['rr-button'],
+      tokens: ['--color-foreground-on-action', '--color-background-action'], // ≈ 11.13:1
+      context: 'primary CTA',
+    });
+    expect(r.valid).toBe(true);
+    expect(r.suggestions).toHaveLength(0);
+    expect(r.context).toBe('primary CTA');
   });
 });

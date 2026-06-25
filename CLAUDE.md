@@ -130,6 +130,9 @@ npm automation token as the `NPM_TOKEN` Actions secret. Steps in
   - Brand awareness (from `tokens/brands/*.tokens.json`): `get_brand(brand)` — a
     sub-brand's full override set (base vs brand value per token); `compare_brands(a, b)` —
     the tokens whose resolved value diverges between two brands.
+  - Assembly: `check_assembly({components, tokens, context})` — design-intent check
+    over a set used together (3-rule v1: spacing-between-components, WCAG fg/bg pairing,
+    deprecated/unknown token). Returns `{ valid, suggestions }`; logic in `scripts/assembly.mjs`.
 - **`npm run validate`** — static gate over `tokens/` and components; enforces the hard rules below in CI.
 
 ## AI Reference Files

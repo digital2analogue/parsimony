@@ -18,6 +18,9 @@
  *   Brand awareness (from tokens/brands/ *.tokens.json):     [v0.4.0]
  *     - get_brand        → a sub-brand's full override set vs base
  *     - compare_brands   → diff two sub-brands' resolved values
+ *   Assembly (components + tokens used together):            [v0.5.0]
+ *     - check_assembly   → enumerated 3-rule design-intent check (spacing
+ *                          relationship, WCAG pairing, deprecated/unknown token)
  *
  * Token values AND usage prose come from the *.tokens.json files (the
  * `$description` fields are authoritative and co-located with `$value`).
@@ -42,6 +45,7 @@ import {
   loadRules, findRules, getRule,
   loadDecisions, findDecisions, getDecision,
 } from '../../../scripts/reasoning.mjs';
+import { checkAssembly } from '../../../scripts/assembly.mjs';
 
 // ── Load design-system.json ─────────────────────────────────────────────────
 
@@ -108,7 +112,7 @@ const decisions = loadDecisions();
 
 const server = new McpServer({
   name: 'riverromney-design-system',
-  version: '0.4.0',
+  version: '0.5.0',
 });
 
 // ── list_components ─────────────────────────────────────────────────────────
@@ -358,6 +362,22 @@ server.tool(
         isError: true,
       };
     }
+    return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+  }
+);
+
+// ── check_assembly ──────────────────────────────────────────────────────────────
+
+server.tool(
+  'check_assembly',
+  'Validate a set of components + tokens used together for design intent (beyond check_usage\'s syntax linting). v1 runs exactly three checks: (1) distinct components joined by a within-element spacing token (micro/tight/inline) → step up to --spacing-component; (2) foreground/background colour pairs below WCAG AA 4.5:1; (3) deprecated or unknown tokens. Returns { valid, suggestions }. Anything outside these three returns no opinion.',
+  {
+    components: z.array(z.string()).optional().describe('Component names used together, e.g. ["rr-input", "rr-button"]'),
+    tokens: z.array(z.string()).optional().describe('CSS custom properties used together, e.g. ["--spacing-tight", "--color-foreground-default", "--color-background-default"]'),
+    context: z.string().optional().describe('Optional free-text context, e.g. "login form" (informational; echoed back)'),
+  },
+  async ({ components, tokens, context }) => {
+    const result = checkAssembly(tokenStore, { components, tokens, context });
     return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
   }
 );
