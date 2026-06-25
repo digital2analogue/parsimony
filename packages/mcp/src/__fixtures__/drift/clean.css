@@ -1,0 +1,6 @@
+/* Fixture: fully token-driven, no violations. */
+.card {
+  color: var(--color-foreground-default);
+  background: var(--color-background-alt);
+  padding: var(--spacing-element);
+}

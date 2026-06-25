@@ -31,7 +31,8 @@ scripts/
   build-design-system-json.mjs Merges *.meta.json + CEM into design-system.json (deterministic — sorted, no timestamp).
   rules.mjs                   Single source of truth for the lint rules (no hex / no primitive / no hardcoded size / deprecated). Imported by validate, the MCP, and drift-lint.
   validate.mjs                Build gate: meta.json schema + lint rules + token-reference resolution.
-  drift-lint.mjs              Scans a consumer repo using the shared rules. `npm run drift -- <dir>`.
+  drift-scan.mjs              Reusable consumer-repo scan (scanConsumer): walk + ignore handling + shared rules. Shared by drift-lint and the MCP lint_consumer tool.
+  drift-lint.mjs              Thin CLI over drift-scan: scans a consumer repo using the shared rules. `npm run drift -- <dir>`.
   check-publish-fresh.mjs     Diffs source-built tokens vs the published npm package; flags a needed republish. `npm run check:publish-fresh`.
   drift_audit.py              Figma-variable-vs-token drift auditor (separate concern from code linting).
 design-system.json   Generated artifact — merged component metadata + Custom Elements Manifest, read by the MCP server.
@@ -143,6 +144,11 @@ npm automation token as the `NPM_TOKEN` Actions secret. Steps in
     sub-brand's overrides apply. Intended pairs are derived by convention and v1 is
     deliberately scoped to the unambiguous ones (`on-<role>`↔`background.<role>`, base
     text↔base surfaces); the accent family is out of scope pending an explicit pairing map.
+  - Consumer linting (from `scripts/drift-scan.mjs`, shared with the `drift-lint` CLI +
+    weekly Action): `lint_consumer({ path, ignore? })` — scans a consumer repo (or single
+    file) with the same `RULES` as `check_usage`, but at file/repo level. Honours a
+    `.driftignore` at the path root; returns `{ scanned, clean, violations }`. Pass an
+    absolute path (relative resolves against the server cwd).
 - **`npm run validate`** — static gate over `tokens/` and components; enforces the hard rules below in CI.
 
 ## AI Reference Files

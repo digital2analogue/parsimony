@@ -47,6 +47,7 @@ import {
 } from '../../../scripts/reasoning.mjs';
 import { checkAssembly } from '../../../scripts/assembly.mjs';
 import { checkContrast, validateBrand } from '../../../scripts/contrast.mjs';
+import { scanConsumer } from '../../../scripts/drift-scan.mjs';
 
 // ── Load design-system.json ─────────────────────────────────────────────────
 
@@ -113,7 +114,7 @@ const decisions = loadDecisions();
 
 const server = new McpServer({
   name: 'riverromney-design-system',
-  version: '0.7.0',
+  version: '0.8.0',
 });
 
 // ── list_components ─────────────────────────────────────────────────────────
@@ -420,6 +421,28 @@ server.tool(
       };
     }
     return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+  }
+);
+
+// ── lint_consumer ─────────────────────────────────────────────────────────────
+
+server.tool(
+  'lint_consumer',
+  'Scan a consumer repo (or a single file) for design-system rule violations — the same rules as check_usage, but at file/repo level instead of a snippet. Walks the path, skipping node_modules/build/dist and built token CSS, and honours a .driftignore at the path root. Returns { scanned, clean, violations: [{ file, line, id, rule, match }] }. Pass an absolute path — a relative one resolves against the server\'s working directory.',
+  {
+    path: z.string().describe('Absolute path to a consumer repo directory (or a single source file) to scan'),
+    ignore: z.array(z.string()).optional().describe('Extra ignore globs relative to path, e.g. ["src/legacy/**"] (merged with any .driftignore)'),
+  },
+  async ({ path, ignore = [] }) => {
+    try {
+      const result = scanConsumer(path, { ignore });
+      return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+    } catch (e) {
+      return {
+        content: [{ type: 'text', text: `Cannot scan "${path}": ${e.message}` }],
+        isError: true,
+      };
+    }
   }
 );
 

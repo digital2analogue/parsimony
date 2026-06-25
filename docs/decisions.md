@@ -11,6 +11,32 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-06-25 — Consumer drift scan extracted to a shared module; exposed via MCP lint_consumer
+
+**Decided:** Extract the consumer-repo scan from `scripts/drift-lint.mjs` into a
+new pure module `scripts/drift-scan.mjs` (`scanConsumer(target, { ignore })` — walk
++ `.driftignore`/ignore handling + shared `lintLines`, returning structured
+`{ scanned, clean, violations, groups }`). `drift-lint.mjs` becomes a thin CLI over
+it (identical output + exit codes — the weekly `drift-lint.yml` Action depends on
+them), and the MCP gains `lint_consumer({ path, ignore? })`. MCP server 0.7.0 →
+0.8.0 (#61, fourth and last of the build-and-verify capabilities).
+
+**Why:** `drift-lint.mjs` already scanned consumer repos with the shared rules, but
+only as a CLI/Action and it executed on import (argv + `process.exit`), so it
+couldn't be reused. An agent working *inside* a consumer repo can now check
+file/repo-level compliance through the MCP instead of shelling out — the cross-repo
+workflow the system exists for. Extracting the scan matches the repo pattern
+(logic in `scripts/*.mjs`; CLI/MCP are thin wrappers) and keeps the consumer scan
+single-sourced the way `rules.mjs` single-sources the rules.
+
+**Alternative considered:** Add a main-guard to `drift-lint.mjs` and import its
+internals directly. Rejected — a dedicated pure module is cleaner, testable in
+isolation, and consistent with `tokens.mjs`/`rules.mjs`/`reasoning.mjs`. CLI parity
+verified against both consumer repos (portfolio clean; decisioning-table the same
+pre-existing hex/font-size/deprecated fails, no new ones).
+
+---
+
 ## 2026-06-25 — MCP contrast tooling: check_contrast + validate_brand (intended-pairs v1)
 
 **Decided:** Add two MCP tools (`scripts/contrast.mjs`, reusing the WCAG
