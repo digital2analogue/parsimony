@@ -15,6 +15,9 @@
  *     - get_rule         → one rule by id, e.g. "hard-5"
  *     - find_decision    → query the decision log by topic (ranked array)
  *     - get_decision     → one decision by id, e.g. "D-06"
+ *   Brand awareness (from tokens/brands/ *.tokens.json):     [v0.4.0]
+ *     - get_brand        → a sub-brand's full override set vs base
+ *     - compare_brands   → diff two sub-brands' resolved values
  *
  * Token values AND usage prose come from the *.tokens.json files (the
  * `$description` fields are authoritative and co-located with `$value`).
@@ -34,7 +37,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { z } from 'zod';
 import { lintSnippet, DEPRECATED } from '../../../scripts/rules.mjs';
-import { loadTokens, resolveToken, findTokens, tokensUnder, toCssVar } from '../../../scripts/tokens.mjs';
+import { loadTokens, resolveToken, findTokens, tokensUnder, toCssVar, getBrand, compareBrands } from '../../../scripts/tokens.mjs';
 import {
   loadRules, findRules, getRule,
   loadDecisions, findDecisions, getDecision,
@@ -105,7 +108,7 @@ const decisions = loadDecisions();
 
 const server = new McpServer({
   name: 'riverromney-design-system',
-  version: '0.3.0',
+  version: '0.4.0',
 });
 
 // ── list_components ─────────────────────────────────────────────────────────
@@ -315,6 +318,47 @@ server.tool(
       };
     }
     return { content: [{ type: 'text', text: JSON.stringify(decision, null, 2) }] };
+  }
+);
+
+// ── get_brand ─────────────────────────────────────────────────────────────────
+
+server.tool(
+  'get_brand',
+  'Get the full override set a sub-brand applies on top of the base dark theme — every token it changes, with the base value and the brand value side by side (base is null for tokens the brand adds). Brands: decision-engine, dot-art, dot-blog. Use compare_brands to diff two brands.',
+  { brand: z.string().describe('Sub-brand name, e.g. "decision-engine"') },
+  async ({ brand }) => {
+    const result = getBrand(tokenStore, brand);
+    if (!result) {
+      const brands = [...tokenStore.brands.keys()].join(', ');
+      return {
+        content: [{ type: 'text', text: `Unknown brand "${brand}". Available: ${brands || '(none)'}` }],
+        isError: true,
+      };
+    }
+    return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+  }
+);
+
+// ── compare_brands ──────────────────────────────────────────────────────────────
+
+server.tool(
+  'compare_brands',
+  'Diff two sub-brands: the tokens whose resolved value differs between them (each diff shows both brands\' values, keyed by brand name). Tokens neither brand overrides resolve to the same base value and are omitted. Brands: decision-engine, dot-art, dot-blog.',
+  {
+    a: z.string().describe('First sub-brand, e.g. "decision-engine"'),
+    b: z.string().describe('Second sub-brand, e.g. "dot-art"'),
+  },
+  async ({ a, b }) => {
+    const result = compareBrands(tokenStore, a, b);
+    if (!result) {
+      const brands = [...tokenStore.brands.keys()].join(', ');
+      return {
+        content: [{ type: 'text', text: `Unknown brand in (${a}, ${b}). Available: ${brands || '(none)'}` }],
+        isError: true,
+      };
+    }
+    return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
   }
 );
 

@@ -229,3 +229,55 @@ export function tokensUnder(store, prefix, { brand } = {}) {
   }
   return out;
 }
+
+// ── Brand awareness ───────────────────────────────────────────────────────────
+
+/**
+ * The full override set a sub-brand applies on top of the base dark theme.
+ * For every token the brand file declares, reports the base-resolved value and
+ * the brand-resolved value side by side, so callers see exactly what changes.
+ * `base` is null for tokens the brand *adds* (not present in the base layer).
+ * @returns {object|null} null if the brand is unknown
+ */
+export function getBrand(store, name) {
+  const layer = store.brands.get(name);
+  if (!layer) return null;
+  const overrides = [];
+  for (const path of layer.keys()) {
+    const brandTok = resolveToken(store, path, { brand: name });
+    const baseTok = resolveToken(store, path); // null → token added by the brand
+    overrides.push({
+      name: path,
+      cssProperty: toCssVar(path),
+      base: baseTok ? baseTok.value : null,
+      value: brandTok.value,
+      changed: !baseTok || JSON.stringify(baseTok.value) !== JSON.stringify(brandTok.value),
+      usage: brandTok.usage || (baseTok && baseTok.usage) || '',
+    });
+  }
+  overrides.sort((a, b) => a.name.localeCompare(b.name));
+  return { brand: name, overrides, count: overrides.length };
+}
+
+/**
+ * Diff two sub-brands: the tokens whose resolved value differs between them.
+ * Considers the union of paths either brand overrides — tokens neither touches
+ * resolve to the same base value and can't differ. Each diff carries both
+ * brands' resolved values (keyed by brand name; null where a brand has no such
+ * token at all).
+ * @returns {object|null} null if either brand is unknown
+ */
+export function compareBrands(store, a, b) {
+  if (!store.brands.has(a) || !store.brands.has(b)) return null;
+  const paths = new Set([...store.brands.get(a).keys(), ...store.brands.get(b).keys()]);
+  const diffs = [];
+  for (const path of paths) {
+    const va = resolveToken(store, path, { brand: a })?.value ?? null;
+    const vb = resolveToken(store, path, { brand: b })?.value ?? null;
+    if (JSON.stringify(va) !== JSON.stringify(vb)) {
+      diffs.push({ name: path, cssProperty: toCssVar(path), [a]: va, [b]: vb });
+    }
+  }
+  diffs.sort((x, y) => x.name.localeCompare(y.name));
+  return { brands: [a, b], diffs, count: diffs.length };
+}

@@ -8,7 +8,7 @@ import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { lintSnippet, DEPRECATED } from '../../../scripts/rules.mjs';
-import { loadTokens, resolveToken, findTokens, tokensUnder, toCssVar } from '../../../scripts/tokens.mjs';
+import { loadTokens, resolveToken, findTokens, tokensUnder, toCssVar, getBrand, compareBrands } from '../../../scripts/tokens.mjs';
 import {
   parseRules, loadRules, findRules, getRule,
   parseDecisions, loadDecisions, findDecisions, getDecision,
@@ -253,5 +253,42 @@ describe('find_decision / get_decision (via reasoning.mjs)', () => {
     expect(adr.date).toBe('2026-01-01');
     expect(adr.decision).toBe('The ADR decision.');
     expect(adr.rejected).toBe('The ADR alternative.');
+  });
+});
+
+describe('get_brand / compare_brands (via tokens.mjs)', () => {
+  it('get_brand returns a brand\'s overrides with base vs brand values', () => {
+    const art = getBrand(tokenStore, 'dot-art');
+    expect(art).not.toBeNull();
+    expect(art.count).toBeGreaterThan(0);
+    const bg = art.overrides.find((o) => o.name === 'color.background.default');
+    expect(bg).toBeDefined();
+    expect(bg.value).toBe('#000000');        // brand override
+    expect(bg.base).not.toBe('#000000');     // differs from the dark-theme base
+    expect(bg.changed).toBe(true);
+  });
+
+  it('get_brand returns null for an unknown brand', () => {
+    expect(getBrand(tokenStore, 'nope')).toBeNull();
+  });
+
+  it('decision-engine is a substantial override layer', () => {
+    const de = getBrand(tokenStore, 'decision-engine');
+    expect(de.count).toBeGreaterThan(5);
+  });
+
+  it('compare_brands diffs two brands and keys values by brand name', () => {
+    const diff = compareBrands(tokenStore, 'dot-art', 'dot-blog');
+    expect(diff).not.toBeNull();
+    // dot-art paints the canvas black; dot-blog leaves it at base — so they differ here.
+    const bg = diff.diffs.find((d) => d.name === 'color.background.default');
+    expect(bg).toBeDefined();
+    expect(bg['dot-art']).toBe('#000000');
+    expect(bg['dot-blog']).not.toBe('#000000');
+  });
+
+  it('compare_brands returns null when either brand is unknown', () => {
+    expect(compareBrands(tokenStore, 'dot-art', 'nope')).toBeNull();
+    expect(compareBrands(tokenStore, 'nope', 'dot-art')).toBeNull();
   });
 });

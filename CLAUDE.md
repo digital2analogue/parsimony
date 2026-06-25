@@ -127,6 +127,9 @@ npm automation token as the `NPM_TOKEN` Actions secret. Steps in
   - Design reasoning (from `ai/rules.md` + `docs/decisions.md`): `find_rule(topic)` /
     `get_rule(id)` — the hard/soft rules; `find_decision(topic)` / `get_decision(id)` —
     the decision log (dated entries + archived ADR D-NN log).
+  - Brand awareness (from `tokens/brands/*.tokens.json`): `get_brand(brand)` — a
+    sub-brand's full override set (base vs brand value per token); `compare_brands(a, b)` —
+    the tokens whose resolved value diverges between two brands.
 - **`npm run validate`** — static gate over `tokens/` and components; enforces the hard rules below in CI.
 
 ## AI Reference Files
