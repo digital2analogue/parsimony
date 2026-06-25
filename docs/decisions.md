@@ -11,6 +11,35 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-06-25 — Adopt figma-console-mcp (Southleft) as the live design↔code bridge
+
+**Decided:** Install Southleft's `figma-console-mcp` as a **local, per-developer**
+Claude Code MCP server (user scope), alongside the official Figma MCP. It gives
+agents a live link to Figma Desktop via a Desktop Bridge plugin — "what file am I
+in?", console/runtime-log reads, token/variable sync, and design read/write —
+with a Figma PAT backing the REST reads. Full setup, required PAT scopes, and the
+Windows gotchas live in #64 (closed).
+
+**Why:** The official Figma MCP (`mcp.figma.com`) is API/URL-based with **no live
+editor link** — it can't see the open file or the runtime console. figma-console
+fills that gap and unblocks the component prop/description parity audit (#46) and
+the DS assessment pass (#43). Same org as story-ui, already used here.
+
+**Alternative considered:** The hosted remote read-only mode (9 tools, OAuth/
+bearer). Rejected for the working setup — npx/local mode exposes the full toolset
+incl. the Desktop Bridge live link and write ops, and only a local server can
+reach a local Figma Desktop. Leaving it cloud-only was also rejected: the cloud
+container has no Figma Desktop, so the bridge only functions on a developer's
+machine.
+
+**Status:** Done on the local Windows desktop (verified end-to-end in a VSCode
+Claude session). **Not a repo/CI dependency** — it's interactively authenticated
+per-developer tooling, absent in headless CI. Keep PAT scopes minimal (File
+content read, Comments read+write, Variables read on Enterprise only) and rotate
+any token that touches a shared transcript.
+
+---
+
 ## 2026-06-25 — MCP token scale accessors: get_scale(category) + a toCssVar camelCase fix
 
 **Decided:** Add `get_scale(category)` to the MCP — the generalization of
