@@ -53,16 +53,16 @@ export class RrProgress extends LitElement {
     }
   `;
 
-  /** Current progress value. */
+  /** Current value (0–max). Ignored when indeterminate. */
   @property({ type: Number }) value = 0;
 
   /** Maximum value. */
   @property({ type: Number }) max = 100;
 
-  /** Show an animated indeterminate state instead of a fixed value. */
+  /** Show an animated indeterminate state instead of a fixed value. Reflected to an attribute. */
   @property({ type: Boolean, reflect: true }) indeterminate = false;
 
-  /** Accessible label for the progress bar. */
+  /** Accessible label, applied as aria-label. Required when no visible label is nearby. */
   @property() label = '';
 
   private get _pct(): number {

@@ -7,8 +7,7 @@
     {
       "name": "variant",
       "type": "'default' | 'success' | 'warning' | 'danger' | 'info' | 'accent-green' | 'accent-blue' | 'accent-violet' | 'accent-amber'",
-      "default": "default",
-      "description": "Visual variant. Status variants (success, warning, danger, info) convey semantic meaning. Accent variants are decorative emphasis tags."
+      "default": "default"
     }
   ],
   "slots": [

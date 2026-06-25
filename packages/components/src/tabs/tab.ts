@@ -64,13 +64,13 @@ export class RrTab extends LitElement {
     }
   `;
 
-  /** Identifier value — must match what rr-tab-list uses for selection. */
+  /** Unique identifier for this tab; must match the value rr-tab-list uses for selection. Reflected. */
   @property({ reflect: true }) value = '';
 
-  /** True when this tab is the active selection. Managed by rr-tab-list. */
+  /** Marks the active tab. Set by the parent rr-tab-list — do not set directly. Reflected. */
   @property({ type: Boolean, reflect: true }) selected = false;
 
-  /** Prevents tab selection. */
+  /** Prevents selection. Reflected. */
   @property({ type: Boolean, reflect: true }) disabled = false;
 
   private _handleClick() {

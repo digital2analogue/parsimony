@@ -4,12 +4,12 @@
   "summary": "Form-associated checkbox with checked, indeterminate, and disabled states. Backed by ElementInternals.",
   "package": "@riverromney/components",
   "props": [
-    { "name": "checked", "type": "boolean", "default": "false", "description": "Whether the checkbox is checked." },
-    { "name": "indeterminate", "type": "boolean", "default": "false", "description": "Mixed state; cleared when the user toggles the checkbox." },
-    { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables interaction and form participation." },
-    { "name": "value", "type": "string", "default": "on", "description": "Form value submitted when checked." },
-    { "name": "name", "type": "string", "default": "", "description": "Form field name." },
-    { "name": "label", "type": "string", "default": "", "description": "Label text; falls back to slotted content when empty." }
+    { "name": "checked", "type": "boolean", "default": "false" },
+    { "name": "indeterminate", "type": "boolean", "default": "false" },
+    { "name": "disabled", "type": "boolean", "default": "false" },
+    { "name": "value", "type": "string", "default": "on" },
+    { "name": "name", "type": "string", "default": "" },
+    { "name": "label", "type": "string", "default": "" }
   ],
   "slots": [
     { "name": "default", "description": "Label text (alternative to the label property)." }

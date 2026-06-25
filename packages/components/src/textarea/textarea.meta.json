@@ -4,15 +4,15 @@
   "summary": "Form-associated multi-line text area with label, helper text, and error state.",
   "package": "@riverromney/components",
   "props": [
-    { "name": "name", "type": "string", "default": "", "description": "Form field name submitted with the form value." },
-    { "name": "value", "type": "string", "default": "", "description": "Current text value; set as the form value via ElementInternals." },
-    { "name": "placeholder", "type": "string", "default": "", "description": "Placeholder text shown when empty." },
-    { "name": "label", "type": "string", "default": "", "description": "Label text; renders a label element when non-empty." },
-    { "name": "helperText", "type": "string", "default": "", "description": "Helper text shown below the field (attribute: helper-text). Hidden when an error is present." },
-    { "name": "errorText", "type": "string", "default": "", "description": "Error message (attribute: error-text); when set, marks the field invalid and replaces the helper text." },
-    { "name": "rows", "type": "number", "default": 3, "description": "Number of visible text rows on the inner textarea." },
-    { "name": "required", "type": "boolean", "default": false, "description": "Marks the field required; shows a required indicator. Reflected." },
-    { "name": "disabled", "type": "boolean", "default": false, "description": "Disables the field. Reflected." }
+    { "name": "name", "type": "string", "default": "" },
+    { "name": "value", "type": "string", "default": "" },
+    { "name": "placeholder", "type": "string", "default": "" },
+    { "name": "label", "type": "string", "default": "" },
+    { "name": "helperText", "type": "string", "default": "" },
+    { "name": "errorText", "type": "string", "default": "" },
+    { "name": "rows", "type": "number", "default": 3 },
+    { "name": "required", "type": "boolean", "default": false },
+    { "name": "disabled", "type": "boolean", "default": false }
   ],
   "slots": [
     { "name": "label", "description": "Optional override for the label text." }

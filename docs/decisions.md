@@ -11,6 +11,39 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-06-25 — Prop descriptions: JSDoc is the single source (meta.json copy eliminated)
+
+**Decided:** Resolve the open thread from the Storybook-autodocs entry below.
+Prop descriptions are now authored in exactly **one** place — the per-property
+JSDoc (`/** … */`) above each `@property`. `*.meta.json` no longer carries a
+`description` on its props; `scripts/build-design-system-json.mjs` injects each
+prop's description from the CEM at merge time (logic in the shared
+`scripts/cem-descriptions.mjs`). A prop with no per-property JSDoc is a **hard
+build error**, so a new prop can't ship an empty description (#45).
+
+**Why:** The two copies — `meta.json` (→ `design-system.json` → MCP) and JSDoc
+(→ CEM → autodocs + IDE hovers) — could silently drift, and already had: of 89
+props, 25 diverged. The CEM is a strict projection of the JSDoc, so making JSDoc
+authoritative and deriving the artifact removes the second copy entirely rather
+than keeping a mirror in lockstep. The `git diff --exit-code` artifact-staleness
+gate now doubles as a freshness check: edit a JSDoc without rebuilding and CI
+fails. Net effect on `design-system.json`: 22 of the 25 were reconciled into the
+JSDoc verbatim (zero change to MCP output); 3 (`rr-badge.variant`,
+`rr-card.padding`, `rr-tag.variant`) adopt the richer/better-formatted CEM
+wording.
+
+**Alternative considered:** Keep `meta.json` self-contained but auto-generate
+its `description` values from the CEM (a maintained mirror). Rejected — a mirror
+is still two copies that can be hand-edited out of sync and complicates the
+compact meta formatting; eliminating the field is the true single source. The
+class-level `@attr` JSDoc block stays as a human file header (a low-risk in-file
+third copy); trimming it is a possible follow-up, not part of #45.
+
+**Status:** Done. `meta.json` props are now `{ name, type, default }`; the schema
+already made `description` optional, so no schema change was needed.
+
+---
+
 ## 2026-06-25 — Storybook autodocs from the CEM; two prop-doc sources reconciled
 
 **Decided:** Wire the generated Custom Elements Manifest into Storybook

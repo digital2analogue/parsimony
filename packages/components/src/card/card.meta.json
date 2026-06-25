@@ -4,7 +4,7 @@
   "summary": "Surface container on the elevated background tier with optional header, body, and footer slots.",
   "package": "@riverromney/components",
   "props": [
-    { "name": "padding", "type": "'none' | 'sm' | 'md' | 'lg'", "default": "md", "description": "Internal padding around the body slot. Header and footer padding is fixed." }
+    { "name": "padding", "type": "'none' | 'sm' | 'md' | 'lg'", "default": "md" }
   ],
   "slots": [
     { "name": "header", "description": "Card heading row (title, actions, avatar). Hidden when empty." },

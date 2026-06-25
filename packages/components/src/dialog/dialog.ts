@@ -121,13 +121,13 @@ export class RrDialog extends LitElement {
     }
   `;
 
-  /** Dialog heading text. */
+  /** Dialog title text rendered in the header. */
   @property() heading = '';
 
-  /** Whether the dialog is open. */
+  /** Whether the dialog is open. Reflected to an attribute. */
   @property({ type: Boolean, reflect: true }) open = false;
 
-  /** Whether clicking the backdrop closes the dialog. */
+  /** Close the dialog when the backdrop is clicked. */
   @property({ type: Boolean, attribute: 'close-on-backdrop' }) closeOnBackdrop = true;
 
   @query('dialog') private _dialog!: HTMLDialogElement;

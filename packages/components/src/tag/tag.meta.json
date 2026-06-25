@@ -7,8 +7,7 @@
     {
       "name": "variant",
       "type": "'default' | 'subtle'",
-      "default": "default",
-      "description": "Emphasis level. 'default' is the standard visible outline (alt text, muted-foreground border) that reads correctly standalone — use it for skill tags and most labels. 'subtle' is a quieter treatment (muted text, elevated-border) for dense or secondary contexts."
+      "default": "default"
     }
   ],
   "slots": [

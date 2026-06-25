@@ -4,10 +4,10 @@
   "summary": "Horizontal progress bar with determinate and indeterminate modes, using native role=\"progressbar\".",
   "package": "@riverromney/components",
   "props": [
-    { "name": "value", "type": "number", "default": "0", "description": "Current value (0–max). Ignored when indeterminate." },
-    { "name": "max", "type": "number", "default": "100", "description": "Maximum value." },
-    { "name": "indeterminate", "type": "boolean", "default": "false", "description": "Show an animated indeterminate state instead of a fixed value. Reflected to an attribute." },
-    { "name": "label", "type": "string", "default": "", "description": "Accessible label, applied as aria-label. Required when no visible label is nearby." }
+    { "name": "value", "type": "number", "default": "0" },
+    { "name": "max", "type": "number", "default": "100" },
+    { "name": "indeterminate", "type": "boolean", "default": "false" },
+    { "name": "label", "type": "string", "default": "" }
   ],
   "slots": [],
   "events": [],

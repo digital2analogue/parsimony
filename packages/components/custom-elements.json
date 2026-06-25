@@ -983,7 +983,7 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "Dialog heading text.",
+              "description": "Dialog title text rendered in the header.",
               "attribute": "heading"
             },
             {
@@ -993,7 +993,7 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Whether the dialog is open.",
+              "description": "Whether the dialog is open. Reflected to an attribute.",
               "attribute": "open",
               "reflects": true
             },
@@ -1004,7 +1004,7 @@
                 "text": "boolean"
               },
               "default": "true",
-              "description": "Whether clicking the backdrop closes the dialog.",
+              "description": "Close the dialog when the backdrop is clicked.",
               "attribute": "close-on-backdrop"
             },
             {
@@ -1055,7 +1055,7 @@
           ],
           "attributes": [
             {
-              "description": "Dialog heading text.",
+              "description": "Dialog title text rendered in the header.",
               "name": "heading",
               "type": {
                 "text": "string"
@@ -1067,7 +1067,7 @@
               "type": {
                 "text": "boolean"
               },
-              "description": "Whether the dialog is open.",
+              "description": "Whether the dialog is open. Reflected to an attribute.",
               "name": "open",
               "default": "false",
               "fieldName": "open"
@@ -1076,7 +1076,7 @@
               "type": {
                 "text": "boolean"
               },
-              "description": "Whether clicking the backdrop closes the dialog.",
+              "description": "Close the dialog when the backdrop is clicked.",
               "name": "close-on-backdrop",
               "default": "true",
               "fieldName": "closeOnBackdrop"
@@ -1155,7 +1155,7 @@
                 "text": "IconSize"
               },
               "default": "'default'",
-              "description": "Icon size — maps to the icon-size design tokens.",
+              "description": "Icon size, mapped to the icon-size design tokens. Reflected to an attribute.",
               "attribute": "size",
               "reflects": true
             },
@@ -1166,7 +1166,7 @@
                 "text": "string | null"
               },
               "default": "null",
-              "description": "Accessible label. When set, the icon has role=\"img\" and is announced\nby screen readers. Omit for purely decorative icons.",
+              "description": "Accessible label. When set, the host gets role=\"img\"; otherwise it is aria-hidden=\"true\" (decorative).",
               "attribute": "aria-label"
             }
           ],
@@ -1177,7 +1177,7 @@
                 "text": "IconSize"
               },
               "default": "'default'",
-              "description": "Icon size — maps to the icon-size design tokens.",
+              "description": "Icon size, mapped to the icon-size design tokens. Reflected to an attribute.",
               "fieldName": "size"
             },
             {
@@ -1186,7 +1186,7 @@
                 "text": "string | null"
               },
               "default": "null",
-              "description": "Accessible label. When set, the icon has role=\"img\" and is announced\nby screen readers. Omit for purely decorative icons.",
+              "description": "Accessible label. When set, the host gets role=\"img\"; otherwise it is aria-hidden=\"true\" (decorative).",
               "fieldName": "ariaLabel"
             }
           ],
@@ -1790,7 +1790,7 @@
                 "text": "'_self' | '_blank' | '_parent' | '_top'"
               },
               "default": "'_self'",
-              "description": "Browsing context. Use \"_blank\" for new tab.",
+              "description": "Browsing context. Use \"_blank\" to open in a new tab.",
               "attribute": "target"
             },
             {
@@ -1800,7 +1800,7 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "Link rel attribute.\nDefaults to \"noopener noreferrer\" when target=\"_blank\".",
+              "description": "rel attribute. Defaults to \"noopener noreferrer\" when target=\"_blank\" unless overridden.",
               "attribute": "rel"
             },
             {
@@ -1810,7 +1810,7 @@
                 "text": "LinkVariant"
               },
               "default": "'default'",
-              "description": "Colour variant.",
+              "description": "Colour variant. Reflected to an attribute.",
               "attribute": "variant",
               "reflects": true
             },
@@ -1821,7 +1821,7 @@
                 "text": "string | null"
               },
               "default": "null",
-              "description": "Accessible label when link text alone is insufficient.",
+              "description": "Accessible label forwarded to the anchor when link text alone is insufficient.",
               "attribute": "aria-label"
             },
             {
@@ -1850,7 +1850,7 @@
                 "text": "'_self' | '_blank' | '_parent' | '_top'"
               },
               "default": "'_self'",
-              "description": "Browsing context. Use \"_blank\" for new tab.",
+              "description": "Browsing context. Use \"_blank\" to open in a new tab.",
               "fieldName": "target"
             },
             {
@@ -1859,7 +1859,7 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "Link rel attribute.\nDefaults to \"noopener noreferrer\" when target=\"_blank\".",
+              "description": "rel attribute. Defaults to \"noopener noreferrer\" when target=\"_blank\" unless overridden.",
               "fieldName": "rel"
             },
             {
@@ -1868,7 +1868,7 @@
                 "text": "LinkVariant"
               },
               "default": "'default'",
-              "description": "Colour variant.",
+              "description": "Colour variant. Reflected to an attribute.",
               "fieldName": "variant"
             },
             {
@@ -1877,7 +1877,7 @@
                 "text": "string | null"
               },
               "default": "null",
-              "description": "Accessible label when link text alone is insufficient.",
+              "description": "Accessible label forwarded to the anchor when link text alone is insufficient.",
               "fieldName": "ariaLabel"
             }
           ],
@@ -1930,7 +1930,7 @@
                 "text": "number"
               },
               "default": "0",
-              "description": "Current progress value.",
+              "description": "Current value (0–max). Ignored when indeterminate.",
               "attribute": "value"
             },
             {
@@ -1950,7 +1950,7 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Show an animated indeterminate state instead of a fixed value.",
+              "description": "Show an animated indeterminate state instead of a fixed value. Reflected to an attribute.",
               "attribute": "indeterminate",
               "reflects": true
             },
@@ -1961,7 +1961,7 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "Accessible label for the progress bar.",
+              "description": "Accessible label, applied as aria-label. Required when no visible label is nearby.",
               "attribute": "label"
             },
             {
@@ -1979,7 +1979,7 @@
               "type": {
                 "text": "number"
               },
-              "description": "Current progress value.",
+              "description": "Current value (0–max). Ignored when indeterminate.",
               "name": "value",
               "default": "0",
               "fieldName": "value"
@@ -1994,7 +1994,7 @@
               "fieldName": "max"
             },
             {
-              "description": "Show an animated indeterminate state instead of a fixed value.",
+              "description": "Show an animated indeterminate state instead of a fixed value. Reflected to an attribute.",
               "name": "indeterminate",
               "type": {
                 "text": "boolean"
@@ -2003,7 +2003,7 @@
               "fieldName": "indeterminate"
             },
             {
-              "description": "Accessible label for the progress bar.",
+              "description": "Accessible label, applied as aria-label. Required when no visible label is nearby.",
               "name": "label",
               "type": {
                 "text": "string"
@@ -2713,7 +2713,7 @@
                 "text": "SkeletonVariant"
               },
               "default": "'text'",
-              "description": "Shape variant.",
+              "description": "Shape of the skeleton.",
               "attribute": "variant",
               "reflects": true
             },
@@ -2724,7 +2724,7 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "CSS width (e.g. '100%', '200px').",
+              "description": "CSS width value. Defaults to 40px for circular, otherwise 100%.",
               "attribute": "width"
             },
             {
@@ -2734,7 +2734,7 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "CSS height (e.g. '1em', '40px').",
+              "description": "CSS height value. Defaults to 40px for circular, otherwise 1em.",
               "attribute": "height"
             },
             {
@@ -2752,13 +2752,13 @@
               "type": {
                 "text": "SkeletonVariant"
               },
-              "description": "Shape variant.",
+              "description": "Shape of the skeleton.",
               "name": "variant",
               "default": "'text'",
               "fieldName": "variant"
             },
             {
-              "description": "CSS width (e.g. '100%', '200px').",
+              "description": "CSS width value. Defaults to 40px for circular, otherwise 100%.",
               "name": "width",
               "type": {
                 "text": "string"
@@ -2767,7 +2767,7 @@
               "fieldName": "width"
             },
             {
-              "description": "CSS height (e.g. '1em', '40px').",
+              "description": "CSS height value. Defaults to 40px for circular, otherwise 1em.",
               "name": "height",
               "type": {
                 "text": "string"
@@ -2825,7 +2825,7 @@
                 "text": "SpinnerSize"
               },
               "default": "'md'",
-              "description": "Visual size of the spinner.",
+              "description": "Visual size of the spinner. Reflected to the size attribute.",
               "attribute": "size",
               "reflects": true
             },
@@ -2836,7 +2836,7 @@
                 "text": "string"
               },
               "default": "'Loading'",
-              "description": "Accessible label announced to screen readers.",
+              "description": "Accessible label announced to screen readers via the status region.",
               "attribute": "label"
             }
           ],
@@ -2845,13 +2845,13 @@
               "type": {
                 "text": "SpinnerSize"
               },
-              "description": "Visual size of the spinner.",
+              "description": "Visual size of the spinner. Reflected to the size attribute.",
               "name": "size",
               "default": "'md'",
               "fieldName": "size"
             },
             {
-              "description": "Accessible label announced to screen readers.",
+              "description": "Accessible label announced to screen readers via the status region.",
               "name": "label",
               "type": {
                 "text": "string"
@@ -2909,7 +2909,7 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "Accessible label for the tablist (e.g. \"Navigation\", \"View options\").",
+              "description": "Accessible label for the tablist (required); sets aria-label on the role=tablist element.",
               "attribute": "label"
             },
             {
@@ -2919,7 +2919,7 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "Currently selected tab value.",
+              "description": "Currently selected tab value. Reflected; syncs the matching rr-tab child's selected state.",
               "attribute": "value",
               "reflects": true
             },
@@ -2957,7 +2957,7 @@
           ],
           "attributes": [
             {
-              "description": "Accessible label for the tablist (e.g. \"Navigation\", \"View options\").",
+              "description": "Accessible label for the tablist (required); sets aria-label on the role=tablist element.",
               "name": "label",
               "type": {
                 "text": "string"
@@ -2966,7 +2966,7 @@
               "fieldName": "label"
             },
             {
-              "description": "Currently selected tab value.",
+              "description": "Currently selected tab value. Reflected; syncs the matching rr-tab child's selected state.",
               "name": "value",
               "type": {
                 "text": "string"
@@ -3033,7 +3033,7 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "Identifier value — must match what rr-tab-list uses for selection.",
+              "description": "Unique identifier for this tab; must match the value rr-tab-list uses for selection. Reflected.",
               "attribute": "value",
               "reflects": true
             },
@@ -3044,7 +3044,7 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "True when this tab is the active selection. Managed by rr-tab-list.",
+              "description": "Marks the active tab. Set by the parent rr-tab-list — do not set directly. Reflected.",
               "attribute": "selected",
               "reflects": true
             },
@@ -3055,7 +3055,7 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Prevents tab selection.",
+              "description": "Prevents selection. Reflected.",
               "attribute": "disabled",
               "reflects": true
             },
@@ -3076,7 +3076,7 @@
           ],
           "attributes": [
             {
-              "description": "Identifier value — must match what rr-tab-list uses for selection.",
+              "description": "Unique identifier for this tab; must match the value rr-tab-list uses for selection. Reflected.",
               "name": "value",
               "type": {
                 "text": "string"
@@ -3085,7 +3085,7 @@
               "fieldName": "value"
             },
             {
-              "description": "True when this tab is the active selection. Managed by rr-tab-list.",
+              "description": "Marks the active tab. Set by the parent rr-tab-list — do not set directly. Reflected.",
               "name": "selected",
               "type": {
                 "text": "boolean"
@@ -3094,7 +3094,7 @@
               "fieldName": "selected"
             },
             {
-              "description": "Prevents tab selection.",
+              "description": "Prevents selection. Reflected.",
               "name": "disabled",
               "type": {
                 "text": "boolean"

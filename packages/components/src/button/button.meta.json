@@ -4,12 +4,12 @@
   "summary": "Button with primary/secondary/danger variants, three sizes, loading spinner, and full keyboard/form semantics.",
   "package": "@riverromney/components",
   "props": [
-    { "name": "variant", "type": "string", "default": "primary", "description": "Visual variant: primary (filled CTA), secondary (outlined), danger (destructive)." },
-    { "name": "size", "type": "string", "default": "medium", "description": "Size: small, medium, large. Controls padding and font size." },
-    { "name": "disabled", "type": "boolean", "default": false, "description": "Disables the button. Prevents click and removes from tab order." },
-    { "name": "loading", "type": "boolean", "default": false, "description": "Shows a spinner and sets aria-busy. Click suppressed while loading." },
-    { "name": "type", "type": "string", "default": "button", "description": "Button type attribute: button, submit, or reset." },
-    { "name": "aria-label", "type": "string", "default": null, "description": "Accessible label. Required for icon-only buttons." }
+    { "name": "variant", "type": "string", "default": "primary" },
+    { "name": "size", "type": "string", "default": "medium" },
+    { "name": "disabled", "type": "boolean", "default": false },
+    { "name": "loading", "type": "boolean", "default": false },
+    { "name": "type", "type": "string", "default": "button" },
+    { "name": "aria-label", "type": "string", "default": null }
   ],
   "slots": [
     { "name": "(default)", "description": "Button label text." },

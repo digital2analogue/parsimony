@@ -84,7 +84,8 @@ Status badge and accent chip. 9 variants map to component tokens; brand theming 
 
 | Attribute | Type | Default | Notes |
 |---|---|---|---|
-| `variant` | 'default' \| 'success' \| 'warning' \| 'danger' \| 'info' \| 'accent-green' \| 'accent-blue' \| 'accent-violet' \| 'accent-amber' | `default` | Visual variant. Status variants (success, warning, danger, info) convey semantic meaning. Accent variants are decorative emphasis tags. |
+| `variant` | 'default' \| 'success' \| 'warning' \| 'danger' \| 'info' \| 'accent-green' \| 'accent-blue' \| 'accent-violet' \| 'accent-amber' | `default` | Visual variant. Status variants (success, warning, danger, info) convey
+semantic meaning. Accent variants are decorative emphasis tags. |
 
 **Slots:** (default) — Badge label text.
 
@@ -125,7 +126,8 @@ Surface container on the elevated background tier with optional header, body, an
 
 | Attribute | Type | Default | Notes |
 |---|---|---|---|
-| `padding` | 'none' \| 'sm' \| 'md' \| 'lg' | `md` | Internal padding around the body slot. Header and footer padding is fixed. |
+| `padding` | 'none' \| 'sm' \| 'md' \| 'lg' | `md` | Internal padding around the body slot.
+Header and footer padding is always fixed at `tight/element`. |
 
 **Slots:** `header` — Card heading row (title, actions, avatar). Hidden when empty.; (default) — Card body content.; `footer` — Card footer row (secondary actions, metadata). Hidden when empty.
 
@@ -400,7 +402,10 @@ Outlined uppercase tag/chip — the square, transparent counterpart to the fille
 
 | Attribute | Type | Default | Notes |
 |---|---|---|---|
-| `variant` | 'default' \| 'subtle' | `default` | Emphasis level. 'default' is the standard visible outline (alt text, muted-foreground border) that reads correctly standalone — use it for skill tags and most labels. 'subtle' is a quieter treatment (muted text, elevated-border) for dense or secondary contexts. |
+| `variant` | 'default' \| 'subtle' | `default` | Emphasis level. `default` is the standard visible outline (alt text,
+muted-foreground border) that reads correctly standalone — use it for skill
+tags and most labels. `subtle` is a quieter treatment (muted text,
+elevated-border) for dense or secondary contexts. |
 
 **Slots:** (default) — Tag label text. Rendered uppercase via CSS — pass normal-case text.
 
