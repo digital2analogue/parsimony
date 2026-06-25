@@ -127,7 +127,9 @@ npm automation token as the `NPM_TOKEN` Actions secret. Steps in
     + `drift-lint`; the statically-undetectable hard rules (display/title weight, accent-
     green-as-resting-text) are out of scope here — they need semantic context.
   - Tokens (from `tokens/**/*.tokens.json`): `get_token(name)`, `find_token(query)`,
-    `get_spacing()`.
+    `get_scale(category)` — a full semantic scale (`spacing`, `radius`, `shadow`, `motion`,
+    `icon`, `letter-spacing`, `typography`) with resolved values + usage; `get_spacing()`
+    is the back-compat alias for `get_scale('spacing')`.
   - Design reasoning (from `ai/rules.md` + `docs/decisions.md`): `find_rule(topic)` /
     `get_rule(id)` — the hard/soft rules; `find_decision(topic)` / `get_decision(id)` —
     the decision log (dated entries + archived ADR D-NN log).

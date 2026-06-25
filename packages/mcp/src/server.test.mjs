@@ -8,7 +8,7 @@ import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { lintSnippet, DEPRECATED } from '../../../scripts/rules.mjs';
-import { loadTokens, resolveToken, findTokens, tokensUnder, toCssVar, getBrand, compareBrands } from '../../../scripts/tokens.mjs';
+import { loadTokens, resolveToken, findTokens, tokensUnder, toCssVar, getBrand, compareBrands, getScale } from '../../../scripts/tokens.mjs';
 import { checkAssembly, contrastRatio } from '../../../scripts/assembly.mjs';
 import { checkContrast, validateBrand, intendedPairings } from '../../../scripts/contrast.mjs';
 import { scanConsumer } from '../../../scripts/drift-scan.mjs';
@@ -208,6 +208,47 @@ describe('get_spacing (via tokens.mjs)', () => {
     const micro = scale.find((t) => t.cssProperty === '--spacing-micro');
     expect(micro.value).toBe('4px');
     expect(micro.usage.length).toBeGreaterThan(0);
+  });
+});
+
+describe('toCssVar kebab-cases camelCase segments', () => {
+  it('letterSpacing / lineHeight → --letter-spacing- / --line-height- (matches the build)', () => {
+    expect(toCssVar('letterSpacing.body')).toBe('--letter-spacing-body');
+    expect(toCssVar('lineHeight.relaxed')).toBe('--line-height-relaxed');
+    expect(toCssVar('primitive.letterSpacing.wide')).toBe('--primitive-letter-spacing-wide');
+    // all-lowercase paths are unchanged
+    expect(toCssVar('color.background.action-hover')).toBe('--color-background-action-hover');
+  });
+});
+
+describe('get_scale (via tokens.mjs)', () => {
+  it('returns the radius scale with --radius-* names, resolved values, and usage', () => {
+    const radius = getScale(tokenStore, 'radius');
+    expect(radius.length).toBe(6);
+    const sm = radius.find((t) => t.token === '--radius-sm');
+    expect(sm.value).toBe('4px');
+    expect(sm.usage.length).toBeGreaterThan(0);
+  });
+
+  it('letter-spacing maps to the camelCase root but emits kebab CSS vars', () => {
+    const ls = getScale(tokenStore, 'letter-spacing');
+    expect(ls.length).toBeGreaterThan(0);
+    expect(ls.every((t) => t.token.startsWith('--letter-spacing-'))).toBe(true);
+  });
+
+  it('shadow values are composite (objects), not flat strings', () => {
+    const shadow = getScale(tokenStore, 'shadow');
+    expect(shadow.find((t) => t.token === '--shadow-raised')).toBeDefined();
+  });
+
+  it('get_spacing and get_scale("spacing") agree', () => {
+    expect(getScale(tokenStore, 'spacing')).toEqual(
+      tokensUnder(tokenStore, 'spacing').map((t) => ({ token: t.cssProperty, value: t.value, usage: t.usage })),
+    );
+  });
+
+  it('returns null for an unknown category', () => {
+    expect(getScale(tokenStore, 'nope')).toBeNull();
   });
 });
 

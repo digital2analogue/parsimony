@@ -40,7 +40,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { z } from 'zod';
 import { lintSnippet, DEPRECATED } from '../../../scripts/rules.mjs';
-import { loadTokens, resolveToken, findTokens, tokensUnder, toCssVar, getBrand, compareBrands } from '../../../scripts/tokens.mjs';
+import { loadTokens, resolveToken, findTokens, tokensUnder, toCssVar, getBrand, compareBrands, getScale, SCALE_CATEGORIES } from '../../../scripts/tokens.mjs';
 import {
   loadRules, findRules, getRule,
   loadDecisions, findDecisions, getDecision,
@@ -114,7 +114,7 @@ const decisions = loadDecisions();
 
 const server = new McpServer({
   name: 'riverromney-design-system',
-  version: '0.8.0',
+  version: '0.9.0',
 });
 
 // ── list_components ─────────────────────────────────────────────────────────
@@ -254,8 +254,35 @@ server.tool(
         isError: true,
       };
     }
-    const scale = tokensUnder(tokenStore, 'spacing', { brand })
-      .map((t) => ({ token: t.cssProperty, value: t.value, usage: t.usage }));
+    const scale = getScale(tokenStore, 'spacing', { brand });
+    return { content: [{ type: 'text', text: JSON.stringify(scale, null, 2) }] };
+  }
+);
+
+// ── get_scale ─────────────────────────────────────────────────────────────────
+
+server.tool(
+  'get_scale',
+  `Return a full semantic scale with resolved values and usage descriptions — the generalization of get_spacing across every scale, so type, rounding, elevation, motion, and icon sizing all come from the system instead of arbitrary values. Categories: ${Object.keys(SCALE_CATEGORIES).join(', ')}. shadow and typography values are composite objects.`,
+  {
+    category: z.enum(Object.keys(SCALE_CATEGORIES)).describe('Which scale to return'),
+    brand: z.string().optional().describe('Sub-brand override layer to apply'),
+  },
+  async ({ category, brand }) => {
+    if (brand && !tokenStore.brands.has(brand)) {
+      const brands = [...tokenStore.brands.keys()].join(', ');
+      return {
+        content: [{ type: 'text', text: `Unknown brand "${brand}". Available: ${brands || '(none)'}` }],
+        isError: true,
+      };
+    }
+    const scale = getScale(tokenStore, category, { brand });
+    if (!scale) {
+      return {
+        content: [{ type: 'text', text: `Unknown scale "${category}". Available: ${Object.keys(SCALE_CATEGORIES).join(', ')}` }],
+        isError: true,
+      };
+    }
     return { content: [{ type: 'text', text: JSON.stringify(scale, null, 2) }] };
   }
 );
