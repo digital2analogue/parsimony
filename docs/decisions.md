@@ -11,6 +11,40 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-06-25 — MCP contrast tooling: check_contrast + validate_brand (intended-pairs v1)
+
+**Decided:** Add two MCP tools (`scripts/contrast.mjs`, reusing the WCAG
+`contrastRatio` already in `assembly.mjs`): `check_contrast` (ratio + AA/AAA for a
+fg/bg pair — tokens or hex, brand-aware, large-text threshold via `fontSize`/`bold`)
+and `validate_brand` (every *intended* fg/bg pairing still meets AA once a brand's
+overrides apply). MCP server 0.6.0 → 0.7.0 (#59, second of the four build-and-verify
+capabilities). `validate_brand`'s intended-pairs set is **derived by naming
+convention** and scoped to the pairings where a failure is unambiguously a bug:
+`foreground.on-<role>` ↔ `background.<role>`, and base text (default/alt/muted/action)
+↔ base surfaces (default/alt). `disabled` is exempt.
+
+**Why:** The system is WCAG-AA-first and the consumer repos run their own contrast
+gates, but the MCP could only compute contrast as a side effect of `check_assembly`.
+A first-class tool lets an agent verify a pairing (or a whole brand) directly.
+Reusing the one luminance implementation keeps the math single-sourced.
+
+**Alternative considered:** Derive *all* fg/bg pairings, including the accent family
+(`accent-*` / `accent-on-*` over `accent-*` / `accent-*-bold`). Rejected for v1 — the
+accent taxonomy has both subtle and bold fills and its fg/bg names aren't cleanly
+parallel, so convention-derived pairing mis-matches and reports impossible <2:1
+"failures" (e.g. `accent-on-green` paired with the wrong `accent-green`). Same "no
+opinion outside the known rules" stance as `check_assembly`; a proper accent audit
+needs an explicit pairing map (follow-up).
+
+**Real findings surfaced (worth their own fix, tracked separately):** with the
+trustworthy pairings only, `validate_brand` flags genuine sub-AA pairs — `foreground.
+on-danger` (#FFFFFF) on `background.danger` (#D03027) is **4.33:1** in the *base*
+theme (inherited by dot-art/dot-blog; DESIGN.md never computed it), and decision-
+engine's `on-warning` (white) on `background.warning` (amber) is **3.19:1** (already
+worked around locally in decisioning-table). The tooling did its job on first run.
+
+---
+
 ## 2026-06-25 — check_usage enforces the statically-detectable hard rules (font-weight + font-family added)
 
 **Decided:** Expand the shared lint rule set (`scripts/rules.mjs`) so the MCP

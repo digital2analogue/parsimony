@@ -46,6 +46,7 @@ import {
   loadDecisions, findDecisions, getDecision,
 } from '../../../scripts/reasoning.mjs';
 import { checkAssembly } from '../../../scripts/assembly.mjs';
+import { checkContrast, validateBrand } from '../../../scripts/contrast.mjs';
 
 // ── Load design-system.json ─────────────────────────────────────────────────
 
@@ -112,7 +113,7 @@ const decisions = loadDecisions();
 
 const server = new McpServer({
   name: 'riverromney-design-system',
-  version: '0.6.0',
+  version: '0.7.0',
 });
 
 // ── list_components ─────────────────────────────────────────────────────────
@@ -378,6 +379,46 @@ server.tool(
   },
   async ({ components, tokens, context }) => {
     const result = checkAssembly(tokenStore, { components, tokens, context });
+    return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+  }
+);
+
+// ── check_contrast ────────────────────────────────────────────────────────────
+
+server.tool(
+  'check_contrast',
+  'Compute the WCAG contrast ratio for a foreground/background pair and report AA/AAA pass-fail. Each colour may be a token (--color-foreground-default or color.foreground.default) or a #rrggbb hex. Pass brand to apply a sub-brand\'s overrides, and fontSize (+ bold) to use the large-text threshold (3:1) instead of normal (4.5:1). Returns { ratio, threshold, passesAA, passesAAA }; no opinion if a value resolves to a non-flat-hex (gradient, color-mix).',
+  {
+    foreground: z.string().describe('Foreground colour: token name or #rrggbb'),
+    background: z.string().describe('Background colour: token name or #rrggbb'),
+    brand: z.string().optional().describe('Sub-brand to resolve against, e.g. "decision-engine"'),
+    fontSize: z.union([z.string(), z.number()]).optional().describe('Text size for the large-text threshold, e.g. "24px", "1.5rem", or 24'),
+    bold: z.boolean().optional().describe('Whether the text is bold (lowers the large-text threshold to 18.66px)'),
+  },
+  async ({ foreground, background, brand, fontSize, bold }) => {
+    const result = checkContrast(tokenStore, { foreground, background, brand, fontSize, bold });
+    return {
+      content: [{ type: 'text', text: JSON.stringify(result, null, 2) }],
+      ...(result.error ? { isError: true } : {}),
+    };
+  }
+);
+
+// ── validate_brand ────────────────────────────────────────────────────────────
+
+server.tool(
+  'validate_brand',
+  'Check that every intended foreground/background text pairing still meets WCAG AA (4.5:1) once a sub-brand\'s overrides are applied — catches the classic regression where a brand re-tints a background but not its on-colour. Intended pairs are derived by naming convention (on-<role>↔background.<role>, accent text↔accent fills, base text↔base surfaces); disabled is exempt. Returns { checkedPairs, failures, valid }. Brands: decision-engine, dot-art, dot-blog.',
+  { brand: z.string().describe('Sub-brand name, e.g. "decision-engine"') },
+  async ({ brand }) => {
+    const result = validateBrand(tokenStore, brand);
+    if (!result) {
+      const brands = [...tokenStore.brands.keys()].join(', ');
+      return {
+        content: [{ type: 'text', text: `Unknown brand "${brand}". Available: ${brands || '(none)'}` }],
+        isError: true,
+      };
+    }
     return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
   }
 );
