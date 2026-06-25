@@ -68,12 +68,19 @@ export class RrRadioGroup extends LitElement {
     }
   `;
 
+  /** Form field name submitted with the selected value. */
   @property() name = '';
+  /** Selected radio value. Syncs the checked state of child radios. */
   @property({ reflect: true }) value = '';
+  /** Group label rendered as the legend. */
   @property() label = '';
+  /** Error message; sets data-invalid and a custom validity. Maps to attribute error-text. */
   @property({ attribute: 'error-text' }) errorText = '';
+  /** Marks the group as required. */
   @property({ type: Boolean, reflect: true }) required = false;
+  /** Disables the group and all child radios. */
   @property({ type: Boolean, reflect: true }) disabled = false;
+  /** Layout direction of the radio options. */
   @property({ reflect: true }) orientation: 'vertical' | 'horizontal' = 'vertical';
 
   private _internals: ElementInternals;

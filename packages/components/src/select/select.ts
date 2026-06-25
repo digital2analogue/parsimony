@@ -127,13 +127,21 @@ export class RrSelect extends LitElement {
     }
   `;
 
+  /** Form field name submitted with the selected value. */
   @property() name = '';
+  /** Selected option value. */
   @property({ reflect: true }) value = '';
+  /** Field label rendered above the select. */
   @property() label = '';
+  /** Helper text shown when there is no error. Maps to attribute helper-text. */
   @property({ attribute: 'helper-text' }) helperText = '';
+  /** Error message; sets data-invalid and a custom validity. Maps to attribute error-text. */
   @property({ attribute: 'error-text' }) errorText = '';
+  /** Marks the field as required and shows an asterisk. */
   @property({ type: Boolean, reflect: true }) required = false;
+  /** Disables the select. */
   @property({ type: Boolean, reflect: true }) disabled = false;
+  /** Options to render: array of { value: string; label: string; disabled?: boolean }. */
   @property({ type: Array }) options: SelectOption[] = [];
 
   @query('select') private _select!: HTMLSelectElement;

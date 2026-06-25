@@ -109,8 +109,11 @@ export class RrRadio extends LitElement {
     }
   `;
 
+  /** The value this radio contributes to the group when selected. */
   @property({ reflect: true }) value = '';
+  /** Visual checked state. Managed by the parent rr-radio-group. */
   @property({ type: Boolean, reflect: true }) checked = false;
+  /** Disables the radio. */
   @property({ type: Boolean, reflect: true }) disabled = false;
 
   private _onChange() {

@@ -109,8 +109,11 @@ export class RrAlert extends LitElement {
     }
   `;
 
+  /** Visual variant and semantic role. */
   @property({ reflect: true }) variant: AlertVariant = 'success';
+  /** Optional bold title rendered above the body content. */
   @property() title = '';
+  /** When true, renders a dismiss button that hides the alert and fires close. */
   @property({ type: Boolean, reflect: true }) dismissible = false;
 
   @state() private _dismissed = false;

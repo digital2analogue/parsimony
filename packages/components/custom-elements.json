@@ -52,6 +52,7 @@
                 "text": "AlertVariant"
               },
               "default": "'success'",
+              "description": "Visual variant and semantic role.",
               "attribute": "variant",
               "reflects": true
             },
@@ -62,6 +63,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Optional bold title rendered above the body content.",
               "attribute": "title"
             },
             {
@@ -71,6 +73,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "When true, renders a dismiss button that hides the alert and fires close.",
               "attribute": "dismissible",
               "reflects": true
             },
@@ -110,6 +113,7 @@
                 "text": "AlertVariant"
               },
               "default": "'success'",
+              "description": "Visual variant and semantic role.",
               "fieldName": "variant"
             },
             {
@@ -118,6 +122,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Optional bold title rendered above the body content.",
               "fieldName": "title"
             },
             {
@@ -126,6 +131,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "When true, renders a dismiss button that hides the alert and fires close.",
               "fieldName": "dismissible"
             }
           ],
@@ -198,6 +204,7 @@
                 "text": "AvatarSize"
               },
               "default": "'md'",
+              "description": "Circle diameter.",
               "attribute": "size",
               "reflects": true
             },
@@ -208,6 +215,7 @@
                 "text": "AvatarColor"
               },
               "default": "'default'",
+              "description": "Accent-bold color variant for the initials surface.",
               "attribute": "color",
               "reflects": true
             },
@@ -218,6 +226,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Full name used to derive up to two initials and the accessible label.",
               "attribute": "name"
             },
             {
@@ -227,6 +236,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Image URL. When set, an img fills the circle instead of initials.",
               "attribute": "src"
             },
             {
@@ -236,6 +246,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Alt text for the image; falls back to name when omitted.",
               "attribute": "alt"
             },
             {
@@ -255,6 +266,7 @@
                 "text": "AvatarSize"
               },
               "default": "'md'",
+              "description": "Circle diameter.",
               "fieldName": "size"
             },
             {
@@ -263,6 +275,7 @@
                 "text": "AvatarColor"
               },
               "default": "'default'",
+              "description": "Accent-bold color variant for the initials surface.",
               "fieldName": "color"
             },
             {
@@ -271,6 +284,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Full name used to derive up to two initials and the accessible label.",
               "fieldName": "name"
             },
             {
@@ -279,6 +293,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Image URL. When set, an img fills the circle instead of initials.",
               "fieldName": "src"
             },
             {
@@ -287,6 +302,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Alt text for the image; falls back to name when omitted.",
               "fieldName": "imgAlt"
             }
           ],
@@ -773,6 +789,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Whether the checkbox is checked.",
               "attribute": "checked",
               "reflects": true
             },
@@ -783,6 +800,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Mixed state; cleared when the user toggles the checkbox.",
               "attribute": "indeterminate",
               "reflects": true
             },
@@ -793,6 +811,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Disables interaction and form participation.",
               "attribute": "disabled",
               "reflects": true
             },
@@ -803,6 +822,7 @@
                 "text": "string"
               },
               "default": "'on'",
+              "description": "Form value submitted when checked.",
               "attribute": "value"
             },
             {
@@ -812,6 +832,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Form field name.",
               "attribute": "name"
             },
             {
@@ -821,6 +842,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Label text; falls back to slotted content when empty.",
               "attribute": "label"
             },
             {
@@ -853,6 +875,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Whether the checkbox is checked.",
               "fieldName": "checked"
             },
             {
@@ -861,6 +884,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Mixed state; cleared when the user toggles the checkbox.",
               "fieldName": "indeterminate"
             },
             {
@@ -869,6 +893,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Disables interaction and form participation.",
               "fieldName": "disabled"
             },
             {
@@ -877,6 +902,7 @@
                 "text": "string"
               },
               "default": "'on'",
+              "description": "Form value submitted when checked.",
               "fieldName": "value"
             },
             {
@@ -885,6 +911,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Form field name.",
               "fieldName": "name"
             },
             {
@@ -893,6 +920,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Label text; falls back to slotted content when empty.",
               "fieldName": "label"
             }
           ],
@@ -2052,6 +2080,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Form field name submitted with the selected value.",
               "attribute": "name"
             },
             {
@@ -2061,6 +2090,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Selected radio value. Syncs the checked state of child radios.",
               "attribute": "value",
               "reflects": true
             },
@@ -2071,6 +2101,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Group label rendered as the legend.",
               "attribute": "label"
             },
             {
@@ -2080,6 +2111,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Error message; sets data-invalid and a custom validity. Maps to attribute error-text.",
               "attribute": "error-text"
             },
             {
@@ -2089,6 +2121,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Marks the group as required.",
               "attribute": "required",
               "reflects": true
             },
@@ -2099,6 +2132,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Disables the group and all child radios.",
               "attribute": "disabled",
               "reflects": true
             },
@@ -2109,6 +2143,7 @@
                 "text": "'vertical' | 'horizontal'"
               },
               "default": "'vertical'",
+              "description": "Layout direction of the radio options.",
               "attribute": "orientation",
               "reflects": true
             },
@@ -2153,6 +2188,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Form field name submitted with the selected value.",
               "fieldName": "name"
             },
             {
@@ -2161,6 +2197,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Selected radio value. Syncs the checked state of child radios.",
               "fieldName": "value"
             },
             {
@@ -2169,6 +2206,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Group label rendered as the legend.",
               "fieldName": "label"
             },
             {
@@ -2177,6 +2215,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Error message; sets data-invalid and a custom validity. Maps to attribute error-text.",
               "fieldName": "errorText"
             },
             {
@@ -2185,6 +2224,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Marks the group as required.",
               "fieldName": "required"
             },
             {
@@ -2193,6 +2233,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Disables the group and all child radios.",
               "fieldName": "disabled"
             },
             {
@@ -2201,6 +2242,7 @@
                 "text": "'vertical' | 'horizontal'"
               },
               "default": "'vertical'",
+              "description": "Layout direction of the radio options.",
               "fieldName": "orientation"
             }
           ],
@@ -2269,6 +2311,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "The value this radio contributes to the group when selected.",
               "attribute": "value",
               "reflects": true
             },
@@ -2279,6 +2322,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Visual checked state. Managed by the parent rr-radio-group.",
               "attribute": "checked",
               "reflects": true
             },
@@ -2289,6 +2333,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Disables the radio.",
               "attribute": "disabled",
               "reflects": true
             },
@@ -2314,6 +2359,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "The value this radio contributes to the group when selected.",
               "fieldName": "value"
             },
             {
@@ -2322,6 +2368,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Visual checked state. Managed by the parent rr-radio-group.",
               "fieldName": "checked"
             },
             {
@@ -2330,6 +2377,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Disables the radio.",
               "fieldName": "disabled"
             }
           ],
@@ -2418,6 +2466,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Form field name submitted with the selected value.",
               "attribute": "name"
             },
             {
@@ -2427,6 +2476,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Selected option value.",
               "attribute": "value",
               "reflects": true
             },
@@ -2437,6 +2487,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Field label rendered above the select.",
               "attribute": "label"
             },
             {
@@ -2446,6 +2497,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Helper text shown when there is no error. Maps to attribute helper-text.",
               "attribute": "helper-text"
             },
             {
@@ -2455,6 +2507,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Error message; sets data-invalid and a custom validity. Maps to attribute error-text.",
               "attribute": "error-text"
             },
             {
@@ -2464,6 +2517,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Marks the field as required and shows an asterisk.",
               "attribute": "required",
               "reflects": true
             },
@@ -2474,6 +2528,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Disables the select.",
               "attribute": "disabled",
               "reflects": true
             },
@@ -2484,6 +2539,7 @@
                 "text": "SelectOption[]"
               },
               "default": "[]",
+              "description": "Options to render: array of { value: string; label: string; disabled?: boolean }.",
               "attribute": "options"
             },
             {
@@ -2541,6 +2597,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Form field name submitted with the selected value.",
               "fieldName": "name"
             },
             {
@@ -2549,6 +2606,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Selected option value.",
               "fieldName": "value"
             },
             {
@@ -2557,6 +2615,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Field label rendered above the select.",
               "fieldName": "label"
             },
             {
@@ -2565,6 +2624,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Helper text shown when there is no error. Maps to attribute helper-text.",
               "fieldName": "helperText"
             },
             {
@@ -2573,6 +2633,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Error message; sets data-invalid and a custom validity. Maps to attribute error-text.",
               "fieldName": "errorText"
             },
             {
@@ -2581,6 +2642,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Marks the field as required and shows an asterisk.",
               "fieldName": "required"
             },
             {
@@ -2589,6 +2651,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Disables the select.",
               "fieldName": "disabled"
             },
             {
@@ -2597,6 +2660,7 @@
                 "text": "SelectOption[]"
               },
               "default": "[]",
+              "description": "Options to render: array of { value: string; label: string; disabled?: boolean }.",
               "fieldName": "options"
             }
           ],
@@ -3227,6 +3291,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Form field name submitted with the form value.",
               "attribute": "name"
             },
             {
@@ -3236,6 +3301,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Current text value; set as the form value via ElementInternals.",
               "attribute": "value"
             },
             {
@@ -3245,6 +3311,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Placeholder text shown when empty.",
               "attribute": "placeholder"
             },
             {
@@ -3254,6 +3321,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Label text; renders a label element when non-empty.",
               "attribute": "label"
             },
             {
@@ -3263,6 +3331,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Helper text shown below the field (attribute: helper-text). Hidden when an error is present.",
               "attribute": "helper-text"
             },
             {
@@ -3272,6 +3341,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Error message (attribute: error-text); when set, marks the field invalid and replaces the helper text.",
               "attribute": "error-text"
             },
             {
@@ -3281,6 +3351,7 @@
                 "text": "number"
               },
               "default": "3",
+              "description": "Number of visible text rows on the inner textarea.",
               "attribute": "rows"
             },
             {
@@ -3290,6 +3361,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Marks the field required; shows a required indicator. Reflected.",
               "attribute": "required",
               "reflects": true
             },
@@ -3300,6 +3372,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Disables the field. Reflected.",
               "attribute": "disabled",
               "reflects": true
             },
@@ -3378,6 +3451,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Form field name submitted with the form value.",
               "fieldName": "name"
             },
             {
@@ -3386,6 +3460,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Current text value; set as the form value via ElementInternals.",
               "fieldName": "value"
             },
             {
@@ -3394,6 +3469,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Placeholder text shown when empty.",
               "fieldName": "placeholder"
             },
             {
@@ -3402,6 +3478,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Label text; renders a label element when non-empty.",
               "fieldName": "label"
             },
             {
@@ -3410,6 +3487,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Helper text shown below the field (attribute: helper-text). Hidden when an error is present.",
               "fieldName": "helperText"
             },
             {
@@ -3418,6 +3496,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Error message (attribute: error-text); when set, marks the field invalid and replaces the helper text.",
               "fieldName": "errorText"
             },
             {
@@ -3426,6 +3505,7 @@
                 "text": "number"
               },
               "default": "3",
+              "description": "Number of visible text rows on the inner textarea.",
               "fieldName": "rows"
             },
             {
@@ -3434,6 +3514,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Marks the field required; shows a required indicator. Reflected.",
               "fieldName": "required"
             },
             {
@@ -3442,6 +3523,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Disables the field. Reflected.",
               "fieldName": "disabled"
             }
           ],
@@ -3523,6 +3605,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "On/off state. Reflected.",
               "attribute": "checked",
               "reflects": true
             },
@@ -3533,6 +3616,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Disables the toggle. Reflected.",
               "attribute": "disabled",
               "reflects": true
             },
@@ -3543,6 +3627,7 @@
                 "text": "string"
               },
               "default": "'on'",
+              "description": "Form value submitted when the toggle is on.",
               "attribute": "value"
             },
             {
@@ -3552,6 +3637,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Form field name submitted with the form value.",
               "attribute": "name"
             },
             {
@@ -3561,6 +3647,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Label text; falls back to slotted content when empty.",
               "attribute": "label"
             },
             {
@@ -3593,6 +3680,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "On/off state. Reflected.",
               "fieldName": "checked"
             },
             {
@@ -3601,6 +3689,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Disables the toggle. Reflected.",
               "fieldName": "disabled"
             },
             {
@@ -3609,6 +3698,7 @@
                 "text": "string"
               },
               "default": "'on'",
+              "description": "Form value submitted when the toggle is on.",
               "fieldName": "value"
             },
             {
@@ -3617,6 +3707,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Form field name submitted with the form value.",
               "fieldName": "name"
             },
             {
@@ -3625,6 +3716,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "Label text; falls back to slotted content when empty.",
               "fieldName": "label"
             }
           ],

@@ -106,14 +106,23 @@ export class RrTextarea extends LitElement {
     }
   `;
 
+  /** Form field name submitted with the form value. */
   @property() name = '';
+  /** Current text value; set as the form value via ElementInternals. */
   @property() value = '';
+  /** Placeholder text shown when empty. */
   @property() placeholder = '';
+  /** Label text; renders a label element when non-empty. */
   @property() label = '';
+  /** Helper text shown below the field (attribute: helper-text). Hidden when an error is present. */
   @property({ attribute: 'helper-text' }) helperText = '';
+  /** Error message (attribute: error-text); when set, marks the field invalid and replaces the helper text. */
   @property({ attribute: 'error-text' }) errorText = '';
+  /** Number of visible text rows on the inner textarea. */
   @property({ type: Number }) rows = 3;
+  /** Marks the field required; shows a required indicator. Reflected. */
   @property({ type: Boolean, reflect: true }) required = false;
+  /** Disables the field. Reflected. */
   @property({ type: Boolean, reflect: true }) disabled = false;
 
   @query('textarea') private _textarea!: HTMLTextAreaElement;
