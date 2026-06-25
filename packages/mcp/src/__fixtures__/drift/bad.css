@@ -1,0 +1,5 @@
+/* Fixture: a real violation — a hardcoded hex literal. */
+.banner {
+  color: #ff0000;
+  background: var(--color-background-default);
+}

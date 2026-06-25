@@ -11,6 +11,7 @@ import { lintSnippet, DEPRECATED } from '../../../scripts/rules.mjs';
 import { loadTokens, resolveToken, findTokens, tokensUnder, toCssVar, getBrand, compareBrands } from '../../../scripts/tokens.mjs';
 import { checkAssembly, contrastRatio } from '../../../scripts/assembly.mjs';
 import { checkContrast, validateBrand, intendedPairings } from '../../../scripts/contrast.mjs';
+import { scanConsumer } from '../../../scripts/drift-scan.mjs';
 import { buildCemDescriptionMap, injectPropDescriptions } from '../../../scripts/cem-descriptions.mjs';
 import {
   parseRules, loadRules, findRules, getRule,
@@ -469,5 +470,38 @@ describe('validate_brand (via contrast.mjs)', () => {
 
   it('returns null for an unknown brand', () => {
     expect(validateBrand(tokenStore, 'nope')).toBeNull();
+  });
+});
+
+describe('lint_consumer (via drift-scan.mjs)', () => {
+  const fixtures = resolve(import.meta.dirname, '__fixtures__', 'drift');
+
+  it('flags a real violation and respects .driftignore', () => {
+    const r = scanConsumer(fixtures);
+    expect(r.clean).toBe(false);
+    // bad.css's hex literal is flagged…
+    const hex = r.violations.find((v) => v.file === 'bad.css');
+    expect(hex).toBeDefined();
+    expect(hex.id).toBe('no-hex');
+    expect(hex.match).toBe('#ff0000');
+    // …but ignored.css (also hex) is exempted by the fixture .driftignore.
+    expect(r.violations.some((v) => v.file === 'ignored.css')).toBe(false);
+    // groups carry the rule metadata used by the CLI/Action report.
+    expect(r.groups.find((g) => g.id === 'no-hex').hardRule).toBe(1);
+  });
+
+  it('extra ignore globs suppress a file', () => {
+    const r = scanConsumer(fixtures, { ignore: ['bad.css'] });
+    expect(r.clean).toBe(true);
+  });
+
+  it('a single clean file scans clean', () => {
+    const r = scanConsumer(resolve(fixtures, 'clean.css'));
+    expect(r.scanned).toBe(1);
+    expect(r.clean).toBe(true);
+  });
+
+  it('throws on a path that does not exist', () => {
+    expect(() => scanConsumer(resolve(fixtures, 'nope-does-not-exist'))).toThrow();
   });
 });

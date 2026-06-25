@@ -1,0 +1,2 @@
+# Exempt the sanctioned legacy file from the scan.
+ignored.css
