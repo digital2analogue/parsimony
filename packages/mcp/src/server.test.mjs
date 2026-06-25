@@ -114,6 +114,31 @@ describe('check_usage (via shared rules)', () => {
     expect(v[0].id).toBe('deprecated-token');
   });
 
+  it('detects hardcoded font weights (numeric + keyword)', () => {
+    expect(lintSnippet('font-weight: 700;')[0].id).toBe('no-hardcoded-font-weight');
+    expect(lintSnippet('font-weight: bold;')[0].id).toBe('no-hardcoded-font-weight');
+  });
+
+  it('allows token + non-literal font weights', () => {
+    expect(lintSnippet('font-weight: var(--font-weight-bold);')).toHaveLength(0);
+    expect(lintSnippet('font-weight: normal;')).toHaveLength(0);
+    expect(lintSnippet('font-weight: inherit;')).toHaveLength(0);
+  });
+
+  it('detects an unapproved font family', () => {
+    const v = lintSnippet('font-family: Arial, sans-serif;');
+    expect(v).toHaveLength(1);
+    expect(v[0].id).toBe('no-unapproved-font-family');
+    expect(v[0].matches[0]).toContain('Arial');
+  });
+
+  it('allows token, generic, and approved-family font-family values', () => {
+    expect(lintSnippet('font-family: var(--font-family-sans), sans-serif;')).toHaveLength(0);
+    expect(lintSnippet('font-family: inherit;')).toHaveLength(0);
+    expect(lintSnippet("font-family: 'Space Grotesk', sans-serif;")).toHaveLength(0);
+    expect(lintSnippet('font-family: monospace;')).toHaveLength(0);
+  });
+
   it('passes clean snippet', () => {
     const v = lintSnippet('color: var(--color-foreground-default);');
     expect(v).toHaveLength(0);

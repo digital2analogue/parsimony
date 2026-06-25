@@ -11,6 +11,35 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-06-25 — check_usage enforces the statically-detectable hard rules (font-weight + font-family added)
+
+**Decided:** Expand the shared lint rule set (`scripts/rules.mjs`) so the MCP
+`check_usage` snippet linter — and, by the same `RULES` array, `validate` and
+`drift-lint` — enforces two more hard rules: **hard-2** (no hardcoded
+`font-weight`) and **hard-3** (no unapproved `font-family`). It previously caught
+only 4 of 9 hard rules (hex, primitive ref, font-size, deprecated). MCP server
+bumped 0.5.0 → 0.6.0 (#58, first of four MCP "build-and-verify" capabilities;
+siblings: #59 contrast, #60 scale accessors, #61 drift-lint-via-MCP).
+
+**Why:** `check_usage` is the cheapest, earliest compliance guard an agent hits;
+every rule it can't see only fails later in CI, or never. Both new detectors are
+statically decidable from a snippet and audited clean against current component
+source (the one hit, `textarea.ts` `font-family: inherit`, is correctly
+allowlisted). Adding them to the single `RULES` source propagates to all three
+checkers for free — the design's whole point.
+
+**Alternative considered:** Also add **hard-7** (off-scale spacing). Rejected for
+this PR and split to its own issue — an audit found 20+ legitimate sub-scale
+optical nudges in component source (`margin-top: 2px` for cap-height alignment,
+`margin: -1px`, negative icon margins) that the 4px-floor spacing scale doesn't
+cover, so a naive rule is a false-positive minefield and first needs a design
+call on a 1–2px exemption/primitive. **hard-4** (display/title weight 300) and
+**hard-5** (accent-green never resting text) are deliberately out of scope: both
+need a selector's semantic role/interactivity, which a raw snippet lacks — they
+belong to `check_assembly` / a future semantic checker, not a regex.
+
+---
+
 ## 2026-06-25 — Prop descriptions: JSDoc is the single source (meta.json copy eliminated)
 
 **Decided:** Resolve the open thread from the Storybook-autodocs entry below.
