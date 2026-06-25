@@ -1,5 +1,5 @@
 /**
- * check-publish-fresh.mjs — is the published @digital2analogue2/tokens behind the source?
+ * check-publish-fresh.mjs — is the published @digital2analogue2/parsimony behind the source?
  *
  * Builds the brand CSS from the current token source, then compares its token
  * declarations against the latest PUBLISHED package on npm. If any token was
@@ -22,7 +22,7 @@ import { mkdtempSync, readFileSync, readdirSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { resolve, join } from 'node:path';
 
-const PKG = '@digital2analogue2/tokens';
+const PKG = '@digital2analogue2/parsimony';
 const ROOT = resolve(import.meta.dirname, '..');
 const BUILD_CSS = resolve(ROOT, 'build/css');
 const asMarkdown = process.argv.includes('--md');

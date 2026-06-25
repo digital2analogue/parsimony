@@ -20,7 +20,7 @@ build/
 packages/
   components/       Framework-agnostic Lit web components (rr-*). Each ships its own
                     *.meta.json (props/tokens/a11y/rules) and *.figma.ts (Code Connect).
-  tokens/           Publishable @digital2analogue2/tokens — ships the built brand CSS so
+  tokens/           Publishable @digital2analogue2/parsimony — ships the built brand CSS so
                     consumers `npm install` instead of hand-copying. Built by prepack.
   mcp/              MCP server — components, tokens, and design reasoning (rules + decisions). Thin wrapper; logic lives in scripts/{rules,tokens,reasoning}.mjs.
 schemas/
@@ -39,7 +39,7 @@ design-system.json   Generated artifact — merged component metadata + Custom E
 .github/workflows/
   ci.yml             Runs on every push/PR: validate → build → build:meta → artifact-staleness check → tests.
   drift-lint.yml     Scheduled (weekly) + manual scan of a consumer repo for drift; opens/closes a tracked issue.
-  publish.yml        On-demand publish of @digital2analogue2/tokens to public npm.
+  publish.yml        On-demand publish of @digital2analogue2/parsimony to public npm.
   publish-freshness.yml  Scheduled (weekly) + manual check that the published package matches the source tokens; opens/closes a tracked issue when a republish is due.
   stale-prs.yml      Scheduled (weekly) + manual check for open PRs idle 7+ days; opens/closes a tracked issue. Enforces the ~7-day land-or-close rule below.
 docs/
@@ -91,16 +91,17 @@ CI (`.github/workflows/ci.yml`) runs steps 4–5 plus the workspace tests on eve
 
 ## Distribution
 
-`@digital2analogue2/tokens` (`packages/tokens/`) makes the built brand CSS a real,
+`@digital2analogue2/parsimony` (`packages/tokens/`) makes the built brand CSS a real,
 versioned dependency so consumers stop hand-copying the token block. Preview the
-publish tarball anytime with `npm pack --workspace @digital2analogue2/tokens --dry-run`.
+publish tarball anytime with `npm pack --workspace @digital2analogue2/parsimony --dry-run`.
 
-Publishing targets the **public npm registry** under the `@riverromney` scope
-via `.github/workflows/publish.yml` (on-demand only). Public npm keeps the scope
-independent of the GitHub repo owner, so the repo stays under `digital2analogue`
-with no transfer. One-time setup: own the `@riverromney` npm org and add an
-npm automation token as the `NPM_TOKEN` Actions secret. Steps in
-`packages/tokens/README.md`. The components/mcp packages are not published yet.
+Publishing targets the **public npm registry** under the `@digital2analogue2`
+scope (the maintainer's npm username, used as a free user scope — no npm org
+needed) via `.github/workflows/publish.yml` (on-demand only). Public npm keeps
+the scope independent of the GitHub repo owner, so the repo stays under
+`digital2analogue` with no transfer. One-time setup: add an npm automation token
+as the `NPM_TOKEN` Actions secret. Steps in `packages/tokens/README.md`. The
+components/mcp packages (still scoped `@riverromney`) are not published yet.
 
 ## Sub-Brands
 
