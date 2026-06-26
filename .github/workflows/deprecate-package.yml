@@ -1,0 +1,45 @@
+name: Deprecate npm package
+
+# On-demand only. Marks a published npm package (or version range) as deprecated
+# with a pointer message, using the same NPM_TOKEN that publishes — so it works
+# without anyone's local npm login or 2FA. Deprecation does NOT unpublish: the
+# package still installs, it just prints the message. Run again with an empty
+# message to UN-deprecate.
+#
+# Default values deprecate the old @digital2analogue2/tokens in favor of
+# @digital2analogue2/parsimony (the rename). Override the inputs to reuse it.
+
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: 'Package spec (name or name@range)'
+        required: true
+        default: '@digital2analogue2/tokens'
+      message:
+        description: 'Deprecation message (empty string un-deprecates)'
+        required: true
+        default: 'renamed to @digital2analogue2/parsimony — `npm install @digital2analogue2/parsimony`'
+
+permissions:
+  contents: read
+
+jobs:
+  deprecate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+
+      - name: Deprecate
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          PKG: ${{ inputs.package }}
+          MSG: ${{ inputs.message }}
+        run: |
+          echo "Deprecating: $PKG"
+          npm deprecate "$PKG" "$MSG"
+          echo "Result:"
+          npm view "$PKG" deprecated || true
