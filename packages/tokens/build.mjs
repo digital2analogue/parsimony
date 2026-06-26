@@ -1,5 +1,5 @@
 /**
- * build.mjs — assemble the publishable @digital2analogue2/tokens package.
+ * build.mjs — assemble the publishable @digital2analogue2/parsimony package.
  *
  * Runs the Style Dictionary brand build at the repo root, then copies the
  * freshly-built CSS (one file per brand) into ./css, which is what the package
@@ -32,5 +32,5 @@ for (const file of cssFiles) {
   copyFileSync(resolve(SRC, file), resolve(OUT, file));
 }
 
-console.log(`\n→ packaged ${cssFiles.length} brand CSS files into @digital2analogue2/tokens:`);
+console.log(`\n→ packaged ${cssFiles.length} brand CSS files into @digital2analogue2/parsimony:`);
 for (const file of cssFiles) console.log(`  css/${file}`);

@@ -10,7 +10,7 @@
   <style>
     /* ── Decision Engine tokens ─────────────────────────────────────────── */
     :root {
-      /* Doc chrome — wired to brand-tokens semantic layer (decision-engine) */
+      /* Doc chrome — wired to the Parsimony semantic layer (decision-engine) */
       --canvas:         var(--color-background-default);
       --canvas-alt:     var(--color-background-alt);
       --surface:        var(--color-background-disabled);
@@ -322,7 +322,7 @@
     <a href="index.html" class="nav-link">Base Dark</a>
     <a href="decision-engine.html" class="nav-link active">Decision Engine</a>
   </nav>
-  <div class="header-right">brand-tokens · 2026</div>
+  <div class="header-right">Parsimony · 2026</div>
   <button class="theme-toggle" id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">
     <span id="theme-icon-sun"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
     <span id="theme-icon-moon" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
@@ -347,7 +347,7 @@
 
   <!-- Hero -->
   <div class="hero">
-    <div class="hero-eyebrow">River Romney · brand-tokens · sub-brand</div>
+    <div class="hero-eyebrow">River Romney · Parsimony · sub-brand</div>
     <h1 class="hero-title">Decision Engine</h1>
     <p class="hero-desc">White canvas, blue primary action. Enterprise data UI for rule tables and decisioning interfaces. Light-mode counterpart to the Base Dark theme. Plus Jakarta Sans and DM Mono.</p>
   </div>
@@ -1084,10 +1084,10 @@
       </tbody>
     </table>
 
-    <div class="group-label">Known drifts — variables.css vs brand-tokens</div>
+    <div class="group-label">Known drifts — variables.css vs Parsimony</div>
     <div class="notice notice-warn">
       <span class="notice-icon">⚠</span>
-      <div>The following 5 tokens have intentionally different values in <code>decisioning-table/src/tokens/variables.css</code> vs the brand-tokens build output. Hand-tuned for DE light mode; not yet backported. Do not treat as drift to fix.</div>
+      <div>The following 5 tokens have intentionally different values in <code>decisioning-table/src/tokens/variables.css</code> vs the Parsimony build output. Hand-tuned for DE light mode; not yet backported. Do not treat as drift to fix.</div>
     </div>
     <table class="deleted-table">
       <thead>
@@ -1095,7 +1095,7 @@
       </thead>
       <tbody>
         <tr><td style="text-decoration:none;">--color-background-alt</td><td>Slightly bluer tint, hand-tuned for the table surface in DE light mode.</td></tr>
-        <tr><td style="text-decoration:none;">--color-background-default</td><td>Same — cool white with a blue cast vs pure white in brand-tokens.</td></tr>
+        <tr><td style="text-decoration:none;">--color-background-default</td><td>Same — cool white with a blue cast vs pure white in Parsimony.</td></tr>
         <tr><td style="text-decoration:none;">--color-border-default</td><td>Bluer hue to match the surface tint.</td></tr>
         <tr><td style="text-decoration:none;">--color-border-muted</td><td>Same rationale — barely-there blue tint on subtle separators.</td></tr>
       </tbody>

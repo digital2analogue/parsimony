@@ -1,4 +1,4 @@
-# @digital2analogue2/tokens
+# @digital2analogue2/parsimony
 
 Built CSS custom properties for the River Romney design system. Install this
 package instead of hand-copying the token block into each consumer repo — the
@@ -8,17 +8,17 @@ Ships one stylesheet per brand:
 
 | Import | Brand |
 |---|---|
-| `@digital2analogue2/tokens/base.css` | Base dark / phosphor theme (`.com`, `.design`) |
-| `@digital2analogue2/tokens/decision-engine.css` | Light enterprise inversion |
-| `@digital2analogue2/tokens/dot-art.css` | Pure-black canvas (`.art`) |
-| `@digital2analogue2/tokens/dot-blog.css` | Relaxed reading (`.blog`) |
+| `@digital2analogue2/parsimony/base.css` | Base dark / phosphor theme (`.com`, `.design`) |
+| `@digital2analogue2/parsimony/decision-engine.css` | Light enterprise inversion |
+| `@digital2analogue2/parsimony/dot-art.css` | Pure-black canvas (`.art`) |
+| `@digital2analogue2/parsimony/dot-blog.css` | Relaxed reading (`.blog`) |
 
 ## Install
 
 Published to the **public npm registry** — no scope config or auth needed:
 
 ```bash
-npm install @digital2analogue2/tokens
+npm install @digital2analogue2/parsimony
 ```
 
 ## Use
@@ -27,7 +27,7 @@ Import the brand stylesheet once at your app's entry point; every semantic
 token (`--color-*`, `--font-*`, `--spacing-*`) is then available globally:
 
 ```ts
-import "@digital2analogue2/tokens/base.css";
+import "@digital2analogue2/parsimony/base.css";
 ```
 
 ```css
@@ -65,11 +65,11 @@ transfer and the Vercel wiring untouched.
    username is automatically the `@digital2analogue2` scope — no org needed).
 2. Create an npm **Automation** access token and add it to this repo's Actions
    secrets as **`NPM_TOKEN`**.
-3. Run the **Publish @digital2analogue2/tokens** workflow (Actions → Run
+3. Run the **Publish @digital2analogue2/parsimony** workflow (Actions → Run
    workflow), or push a `tokens-v*` tag. The first publish creates the package.
 
 Preview the exact tarball anytime with
-`npm pack --workspace @digital2analogue2/tokens --dry-run`.
+`npm pack --workspace @digital2analogue2/parsimony --dry-run`.
 
 > The package ships `"license": "UNLICENSED"` — publicly visible (a portfolio
 > artifact), but not licensed for third-party reuse. Change the license field if

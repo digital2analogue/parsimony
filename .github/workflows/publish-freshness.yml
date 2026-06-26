@@ -1,7 +1,7 @@
 name: Publish Freshness
 
 # Closes the "source → published" staleness arrow: if the token source has
-# changed since @digital2analogue2/tokens was last published, consumers that
+# changed since @digital2analogue2/parsimony was last published, consumers that
 # install the package silently get old values. This builds the CSS from source,
 # diffs it (token by token) against the published package, and reflects the
 # result as a single tracked issue — opened/updated when a republish is due,

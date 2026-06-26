@@ -59,7 +59,7 @@ The following tokens existed at one point and were removed. Do not re-add them w
 | `--color-foreground-on-accent` | Generic counterpart to the deleted `background-accent`. |
 | `--color-foreground-primary` | Redundant with `foreground-default`. Two near-identical high-contrast tokens is unnecessary. |
 | `--color-feedback-error` | Redundant with `foreground-danger`. Both were `#C8002E`. Use `foreground-danger` for error states. |
-| `--color-feedback-danger-foreground` | Redundant with `foreground-danger`. Was a variables.css-only token; never existed in brand-tokens. |
+| `--color-feedback-danger-foreground` | Redundant with `foreground-danger`. Was a variables.css-only token; never existed in Parsimony. |
 | `--color-foreground-accent-red` | Red is a semantic color in this system (Deny, destructive). A non-semantic red slot creates ambiguity. If you need red for a specific product UI reason, use `foreground-danger` or `foreground-accent-red` only after deliberate justification. |
 | `--color-foreground-on-accent-red` | Paired counterpart to the deleted `foreground-accent-red`. |
 
@@ -99,7 +99,7 @@ foreground-inverse   #FFFFFF    —       —   — text on dark/colored surface
 
 ## Known Intentional Drifts (decisioning-table only)
 
-`decisioning-table/src/tokens/variables.css` has 5 tokens that differ from the brand-tokens build output. This is intentional — hand-tuned for a slightly bluer light-mode feel. Do not auto-fix these.
+`decisioning-table/src/tokens/variables.css` has 5 tokens that differ from the Parsimony build output. This is intentional — hand-tuned for a slightly bluer light-mode feel. Do not auto-fix these.
 
 - `--color-background-default` — local `#F7F9FC` (bluer) vs brand `#FFFFFF`
 - `--color-background-alt` — local `#EFF1F8` (bluer) vs brand `#F5F6F7`

@@ -11,6 +11,33 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-06-26 — Renamed the design system to "Parsimony"
+
+**Decided:** Rebrand the design system from "brand-tokens" to **Parsimony** (capital
+P), in stages to avoid breaking consumers: (1) republished the npm package
+`@digital2analogue2/tokens` → `@digital2analogue2/parsimony` (identical contents);
+(2) migrated all three consumers (portfolio-vercel, decisioning-table, river-intro)
+onto it and deployed; (3) swept the system name across docs, the docs-site chrome,
+Storybook, and AGENTS.md (#55). The GitHub **repo** rename is deferred (#53), so
+`digital2analogue/brand-tokens` repo/path references stay accurate for now.
+
+**Why:** "brand-tokens" described the v1 token-only scope; the system is now tokens +
+components + MCP. "Parsimony" names the design philosophy (less, but better) rather
+than the implementation.
+
+**Alternative considered:** Rename everything at once including the repo. Rejected — a
+hard cutover risks breaking live consumers and CI. Expand-then-contract (publish new
+package → migrate consumers → rename repo) keeps every site working throughout. npm
+forces the package identifier lowercase, so the capital "Parsimony" lives only in
+branding/docs.
+
+**Status:** Package published; all consumers migrated and deployed. Docs/branding
+sweep landed (#55). Pending: repo rename (#53); Figma-file rename + Code Connect
+`*.figma.ts` update (left untouched here to avoid breaking Code Connect); deprecate-
+with-pointer the old `@digital2analogue2/tokens` package once confirmed unused.
+
+---
+
 ## 2026-06-26 — Enforce the ~7-day land-or-close rule with a stale-PR watchdog
 
 **Decided:** Add `.github/workflows/stale-prs.yml` — a weekly (+ manual) Action
