@@ -11,6 +11,34 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-06-26 — Enforce the ~7-day land-or-close rule with a stale-PR watchdog
+
+**Decided:** Add `.github/workflows/stale-prs.yml` — a weekly (+ manual) Action
+that lists open, non-draft PRs idle for 7+ days and reflects them as a single
+tracked issue (`stale-prs` label), opened/updated while any are stale and closed
+automatically once they're all fresh. It reuses the exact open/update/close block
+from `publish-freshness.yml`; it never comments on, labels, or closes the PRs
+themselves.
+
+**Why:** Branch & PR Workflow rule #5 ("land or close within ~7 days") was
+prose-only, and PR rot is the documented root cause of this repo's worst drift
+incidents (a 6-week-old PR regressed shipped state; the highest-value PR rotted
+into conflict). The repo already guards token/artifact *currency* with three
+freshness watchdogs but had nothing guarding PR *age* — this closes that gap with
+the same house pattern, no new dependency, no checkout/npm needed.
+
+**Alternative considered:** The off-the-shelf `actions/stale` action, which labels
+and eventually auto-closes stale PRs. Rejected: auto-close is unsafe here, where
+multiple autonomous sessions push long-running PRs an automated bot would close
+out from under them. A non-destructive visibility nudge fits the parallel-agent
+reality; pinning/opt-out labels can be added later if a long-lived PR needs them.
+
+**Status:** Done. Verify by triggering the `workflow_dispatch` and confirming it
+either opens/updates the tracked issue listing idle PRs or no-ops (and closes any
+prior issue) when none are stale.
+
+---
+
 ## 2026-06-25 — Adopt figma-console-mcp (Southleft) as the live design↔code bridge
 
 **Decided:** Install Southleft's `figma-console-mcp` as a **local, per-developer**
