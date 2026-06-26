@@ -112,15 +112,15 @@ If `npm run sync-tokens` reports exactly these 4 drifts and nothing else, the sy
 ## Architecture Summary
 
 ```
-brand-tokens/tokens/primitives/color.tokens.json   ← raw hex values only
-brand-tokens/tokens/brands/decision-engine.tokens.json  ← semantic overrides for DE
+Parsimony/tokens/primitives/color.tokens.json   ← raw hex values only
+Parsimony/tokens/brands/decision-engine.tokens.json  ← semantic overrides for DE
     ↓  node scripts/build-brands.mjs
-brand-tokens/build/css/decision-engine.css         ← built output (never hand-edit)
+Parsimony/build/css/decision-engine.css         ← built output (never hand-edit)
     ↓  consumer repo: npm run sync-tokens
 decisioning-table/src/tokens/variables.css         ← sync target, not a definition file
 ```
 
-**Never define a new token by writing it into `variables.css` first.** The flow is always brand-tokens → build → variables.css. If you need a token urgently, add it to `decision-engine.tokens.json` first, rebuild, then copy the resolved value.
+**Never define a new token by writing it into `variables.css` first.** The flow is always Parsimony → build → variables.css. If you need a token urgently, add it to `decision-engine.tokens.json` first, rebuild, then copy the resolved value.
 
 ---
 

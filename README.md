@@ -9,7 +9,7 @@ This repo stores all design tokens for riverromney.com, riverromney.design, rive
 ## Repo structure
 
 ```
-brand-tokens/
+Parsimony/
   tokens/
     primitives/       Raw values (colors, type scales, spacing)
     semantic/         Purpose-mapped aliases (background, foreground, border, etc.)
