@@ -41,6 +41,7 @@ design-system.json   Generated artifact — merged component metadata + Custom E
   drift-lint.yml     Scheduled (weekly) + manual scan of a consumer repo for drift; opens/closes a tracked issue.
   publish.yml        On-demand publish of @digital2analogue2/tokens to public npm.
   publish-freshness.yml  Scheduled (weekly) + manual check that the published package matches the source tokens; opens/closes a tracked issue when a republish is due.
+  stale-prs.yml      Scheduled (weekly) + manual check for open PRs idle 7+ days; opens/closes a tracked issue. Enforces the ~7-day land-or-close rule below.
 docs/
   index.html         Base dark theme design system reference. Open file:// directly in browser.
   brand-design-system-prd.md  Product requirements. v1 + the v2 (agentic) scope that reversed several v1 non-goals.
@@ -60,7 +61,7 @@ Multiple autonomous sessions (local + cloud) work this repo in parallel. Each bo
 2. **Small and single-purpose.** One concern per PR; aim for under ~200 changed lines. Large omnibus PRs don't get reviewed — they sit. Split mechanical changes (regenerated artifacts) from logic.
 3. **Validate before you push.** Run `npm run validate` (and `npm run build:all` if tokens changed, `npm run build:meta` if component metadata changed). Commit regenerated artifacts in the same PR — CI fails on staleness.
 4. **Declare intent before non-trivial work.** Check open PRs/branches first (`gh pr list`, `git branch -r`); if your work overlaps, open a draft PR or coordinate rather than starting a parallel branch. Two sessions independently created duplicate work (two decision logs, overlapping docs) by skipping this.
-5. **Land or close within ~7 days.** A PR with no movement for a week is merged or closed — never left to rot. The longer it waits, the harder it is to land.
+5. **Land or close within ~7 days.** A PR with no movement for a week is merged or closed — never left to rot. The longer it waits, the harder it is to land. The weekly `stale-prs.yml` Action surfaces violators in a tracked issue (it only flags — it never closes a PR for you).
 
 **Where work is tracked (orient here on boot):** Current and next work lives in **GitHub issues** — run `gh issue list` (filter the roadmap with `--label roadmap`). It's the single board every session shares, local or cloud. Cross-session follow-ups become **issues, not prose** buried in the decision log. Division of labour: issues = *what's next*, `docs/decisions.md` = *why* (decisions), git/PRs = *what shipped*. The local agent memory is a per-machine cache, not the source of truth — it does not travel to cloud sessions.
 
