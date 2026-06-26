@@ -129,7 +129,7 @@ Acceptance criteria:
 
 Acceptance criteria:
 
-- [x] Repo exists at github.com/digital2analogue/brand-tokens
+- [x] Repo exists at github.com/digital2analogue/Parsimony
 - [x] Contains: `tokens/`, `ai/`, `build/`, `CLAUDE.md`, `package.json`, Style Dictionary config
 - [x] README explains repo purpose, structure, and how to consume tokens in a site
 
@@ -404,7 +404,7 @@ Base grid: 4px (with 8px as the primary layout rhythm). 11 values:
 ### Repo Structure
 
 ```
-brand-tokens/
+Parsimony/
   tokens/
     primitives/
       color.tokens.json

@@ -48,7 +48,7 @@ if (groups.length === 0) {
 
 if (asMarkdown) {
   console.log('## Drift Lint: Violations Found\n');
-  console.log('Rules reference: [ai/rules.md](https://github.com/digital2analogue/brand-tokens/blob/main/ai/rules.md)\n');
+  console.log('Rules reference: [ai/rules.md](https://github.com/digital2analogue/Parsimony/blob/main/ai/rules.md)\n');
   for (const { hardRule, message, hits } of groups) {
     const tag = hardRule ? `Hard Rule ${hardRule}: ` : '';
     console.log(`### ${tag}${message}\n`);

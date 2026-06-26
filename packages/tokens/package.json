@@ -28,7 +28,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/digital2analogue/brand-tokens.git",
+    "url": "git+https://github.com/digital2analogue/Parsimony.git",
     "directory": "packages/tokens"
   }
 }
