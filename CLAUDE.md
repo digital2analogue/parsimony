@@ -1,4 +1,4 @@
-# Brand Tokens
+# Parsimony
 
 River Romney's cross-site design system. Single source of truth for color, typography, and spacing across all sites.
 

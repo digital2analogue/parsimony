@@ -4,7 +4,7 @@
 
 ## Purpose
 
-You're an agent building UI in a repo that depends on `@digital2analogue2/tokens` — and, once available, `@riverromney/components`. This file tells you how to use them correctly.
+You're an agent building UI in a repo that depends on `@digital2analogue2/parsimony` — and, once available, `@riverromney/components`. This file tells you how to use them correctly.
 
 To propose a change to the design system itself (new token, renamed token, new component variant), open a PR against `digital2analogue/brand-tokens`. That workflow is documented in [`CLAUDE.md`](./CLAUDE.md), not here.
 
