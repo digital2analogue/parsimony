@@ -20,11 +20,17 @@
     "build:considerations": "node scripts/build-considerations.mjs",
     "drift": "node scripts/drift-lint.mjs",
     "check:publish-fresh": "node scripts/check-publish-fresh.mjs",
-    "test": "npm test --workspaces --if-present"
+    "test": "npm test --workspaces --if-present",
+    "test:unit": "vitest",
+    "test:unit:ui": "vitest --ui",
+    "test:visual": "playwright test"
   },
   "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@vitest/ui": "^3.0.0",
     "ajv": "^8.20.0",
     "ajv-formats": "^3.0.1",
-    "style-dictionary": "^4.0.0"
+    "style-dictionary": "^4.0.0",
+    "vitest": "^3.0.0"
   }
 }
