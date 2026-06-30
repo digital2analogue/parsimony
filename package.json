@@ -23,14 +23,20 @@
     "test": "npm test --workspaces --if-present",
     "test:unit": "vitest",
     "test:unit:ui": "vitest --ui",
-    "test:visual": "playwright test"
+    "test:visual": "playwright test",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@playwright/test": "^1.40.0",
     "@vitest/ui": "^3.0.0",
     "ajv": "^8.20.0",
     "ajv-formats": "^3.0.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.8",
     "style-dictionary": "^4.0.0",
     "vitest": "^3.0.0"
+  },
+  "lint-staged": {
+    "*.mjs": "prettier --write"
   }
 }
