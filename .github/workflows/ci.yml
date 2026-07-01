@@ -48,6 +48,11 @@ jobs:
       - name: Test (components + mcp)
         run: npm test --workspaces --if-present
 
+      # `npm test --workspaces` skips the repo root — run the token-tree
+      # sanity tests (tests/unit) explicitly.
+      - name: Test (root token sanity)
+        run: npm run test:unit -- --run
+
       # Storybook is how the rr-* components (and story-ui's output) are viewed.
       # Building it in CI proves the stories still compile against the tokens and
       # the component barrel — the dist build is required for the barrel import.
