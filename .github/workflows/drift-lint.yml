@@ -36,14 +36,14 @@ jobs:
     steps:
       # brand-tokens itself — provides scripts/drift-lint.mjs + scripts/rules.mjs
       - name: Checkout brand-tokens
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - uses: actions/setup-node@v4
         with:
           node-version: 22 # fs.promises.glob requires Node 22+
 
       - name: Checkout consumer repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: ${{ env.CONSUMER }}
           ref: ${{ env.CONSUMER_REF }}
