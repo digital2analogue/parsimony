@@ -75,8 +75,8 @@ Use ONLY the semantic CSS custom properties below. Never use hex values. Never r
 | CSS Property | Hex | Usage |
 |---|---|---|
 | --color-border-default | #5C685A | Standard legible border — input outlines, control boundaries, most UI edges. 3.33:1 on canvas (SC 1.4.11 pass) |
-| --color-border-alt | #1E241E | Quiet decorative border (the previous default) — card frames, dense-layout dividers. Never the only boundary of an interactive control |
-| --color-border-muted | #0F2016 | Hairline dividers, table row separators |
+| --color-border-alt | #1E241E | The quiet boundary OF a surface — card/menu/panel frames, decorative outlines (the previous default). Never the only boundary of an interactive control |
+| --color-border-muted | #0F2016 | Separator lines WITHIN a surface — table row separators, menu/list dividers. Lowest decorative rung |
 | --color-border-elevated | #2E3A2E | Structural chrome — one step above border-alt in the decorative ladder (muted < alt < elevated) |
 | --color-border-hover | #8B9683 | Border on interactive hover |
 | --color-border-active | #A0A89A | Border on active/pressed state |

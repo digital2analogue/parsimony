@@ -107,7 +107,7 @@ The 2026-07-02 reconciliation (parsimony#70) adopted the live prototype's values
 
 This section previously listed 4 "intentional drifts" (`#F7F9FC`/`#EFF1F8`/`#DDE1EC`/`#ECEEF5`) — those values were already superseded in the prototype before the reconciliation and are gone from both sides. After the next `@digital2analogue2/parsimony` publish, `npm run sync-tokens` in decisioning-table should come back clean (or with a small residual set documented in its CLAUDE.md — app-local layout/z-index/shadow tokens stay local by design).
 
-**Border split (2026-07-02, #28):** `border.default` is now the *legible* functional edge (`arctic.600` `#7A8FA9`, 3.11:1 on the arctic canvas — SC 1.4.11 pass) for inputs and interactive controls; the prototype's signature light edge (`#C8D6EA`, ex-default) lives on as **`border.alt`** for table borders, card frames, and dividers. Decorative ladder: muted (`#D8E4F0`) < alt (`#C8D6EA`) < elevated (`#B0C4D8`).
+**Border split (2026-07-02, #28):** `border.default` is now the *legible* functional edge (`arctic.600` `#7A8FA9`, 3.11:1 on the arctic canvas — SC 1.4.11 pass) for inputs and interactive controls; the prototype's signature light edge (`#C8D6EA`, ex-default) lives on as **`border.alt`** for table borders, card frames, and dividers. Decorative ladder: muted (`#D8E4F0`) < alt (`#C8D6EA`) < elevated (`#B0C4D8`). **Muted vs alt rule (codified 2026-07-02):** `muted` = separator lines *within* a surface (table rows, menu dividers, zebra stripes); `alt` = the quiet boundary *of* a surface (menu/panel/card frames, chip outlines) — derived from how decisioning-table actually uses the pair (7 row sites vs 31 frame sites).
 
 ---
 
