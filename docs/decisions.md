@@ -11,6 +11,38 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-07-02 — border.default goes legible; new border.alt carries the quiet edge (#28)
+
+**Decided:** Split the border role in two, per direction. `border.default` is now the
+**legible functional edge** — base moves green.900 (#1E241E, 1.23:1 on canvas) →
+new `green.700` (#5C685A, **3.33:1**, SC 1.4.11 pass); decision-engine moves arctic.400
+(#C8D6EA, 1.38:1) → new `arctic.600` (#7A8FA9, **3.11:1**). A new **`border.alt`**
+inherits the old subtle values (base #1E241E, DE #C8D6EA) for deliberately decorative
+edges — mirroring the background.default/background.alt naming symmetry. Decorative
+ladder: muted < alt < elevated; functional/state ladder: default < hover < active <
+focus/action. Component tokens: input/checkbox/radio/toggle keep `border.default` (they
+were the SC 1.4.11 failure — their border is the only boundary indicator); the neutral
+badge switches to `border.alt` (non-interactive, delineated by its fill).
+
+**Why:** Inputs, checkboxes, radios, and toggles used `border.default` as their only
+boundary at ~1.2:1 — effectively invisible and a WCAG 1.4.11 failure (#28, surfaced by
+the #29 audit). Making the *default* legible and the *alt* quiet puts the accessible
+choice on the zero-effort path; the subtle aesthetic remains available but becomes an
+opt-in with a name that says what it is.
+
+**Alternative considered:** A scoped `border.input` token, leaving `border.default`
+subtle (the original #28 proposal). Rejected by design direction: it makes the
+inaccessible value the default and the compliant one the special case. Consumers using
+`border.default` decoratively opt into `border.alt` instead.
+
+**Status:** Token source, DESIGN.md, DECISION-ENGINE.md, rules.md (soft rule 5) updated.
+Ships in `@digital2analogue2/parsimony@0.3.0`. Consumer note: edges previously on
+`border.default` become visibly stronger on the next package bump unless migrated to
+`border.alt` — decisioning-table migrated in the same session; portfolio/dot-art/dot-blog
+review on their next bump.
+
+---
+
 ## 2026-07-02 — Decision-engine brand reconciled to the live decisioning-table prototype (#70)
 
 **Decided:** The DE brand source now matches what the prototype actually renders, per the

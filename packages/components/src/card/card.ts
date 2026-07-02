@@ -24,7 +24,7 @@ export class RrCard extends LitElement {
     :host {
       display: block;
       background: var(--color-background-alt);
-      border: 1px solid var(--color-border-default);
+      border: 1px solid var(--color-border-alt);
       border-radius: var(--radius-lg);
       overflow: hidden;
     }
@@ -61,14 +61,14 @@ export class RrCard extends LitElement {
 
     .header {
       padding: var(--spacing-tight) var(--spacing-element);
-      border-bottom: 1px solid var(--color-border-default);
+      border-bottom: 1px solid var(--color-border-alt);
       font: var(--font-label-strong-medium);
       color: var(--color-foreground-default);
     }
 
     .footer {
       padding: var(--spacing-tight) var(--spacing-element);
-      border-top: 1px solid var(--color-border-default);
+      border-top: 1px solid var(--color-border-alt);
       color: var(--color-foreground-alt);
       font: var(--font-label-small);
     }

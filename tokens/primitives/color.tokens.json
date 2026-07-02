@@ -27,10 +27,15 @@
           "$value": "#8B9683",
           "$description": "Muted sage. The lowest-contrast text color in the system that still meets WCAG AA — used for placeholders, captions, and subtle borders. Contrast vs green.950: 6.32:1 (AA). Referenced by: color.foreground.muted, color.border.hover."
         },
+        "700": {
+          "$value": "#5C685A",
+          "$type": "color",
+          "$description": "Legible passive edge. Desaturated green-gray sitting between green.600 (6.32:1) and green.800 (1.64:1) — the lightest step that clears the SC 1.4.11 non-text floor on the canvas (3.33:1 vs green.950). Reads as neutral chrome, not accent. Referenced by: color.border.default."
+        },
         "800": {
           "$value": "#2E3A2E",
           "$type": "color",
-          "$description": "Elevated green surface. One step above border-default — used for structural chrome borders, card frames, and prominent dividers. Referenced by: color.border.elevated."
+          "$description": "Elevated green surface. One step above border-alt — used for structural chrome borders, card frames, and prominent dividers. Referenced by: color.border.elevated."
         },
         "900": {
           "$value": "#1E241E",
@@ -257,6 +262,11 @@
           "$value": "#B0C4D8",
           "$type": "color",
           "$description": "Arctic elevated border. Used as border.elevated in decision-engine — structural chrome: headers, card frames, prominent dividers."
+        },
+        "600": {
+          "$value": "#7A8FA9",
+          "$type": "color",
+          "$description": "Arctic legible edge. The lightest arctic step clearing the SC 1.4.11 non-text floor on the arctic canvas (3.11:1 vs arctic.50). Used as border.default in decision-engine — functional borders on inputs and interactive controls."
         }
       },
       "slate": {

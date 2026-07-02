@@ -22,7 +22,7 @@ always-on: true
 2. Use individual --font-size-* and --font-line-height-* primitives only when the shorthand would be overridden anyway
 3. Prefer Spectral for long-form prose, Space Grotesk for titles, UI, and labels
 4. Prefer semantic spacing tokens (--spacing-*) over raw space primitives
-5. Borders should use --color-border-default unless there is a strong, specific reason for something else
+5. Borders should use --color-border-default (legible, ≥3:1 on canvas) unless there is a strong, specific reason for something else. For deliberately quiet decorative edges use --color-border-alt — never as the only boundary of an interactive control (SC 1.4.11)
 6. Prefer background.alt for card-level surface separation over shadows — use shadow tokens only when true elevation is needed
 
 ## Typography Hierarchy

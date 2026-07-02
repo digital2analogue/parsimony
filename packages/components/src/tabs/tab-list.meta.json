@@ -15,7 +15,7 @@
   ],
   "cssParts": [],
   "tokensUsed": [
-    "--color-border-default"
+    "--color-border-alt"
   ],
   "rules": [
     "Never use hex values — always var(--color-*) or var(--component-*)",

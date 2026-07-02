@@ -17,7 +17,7 @@
   ],
   "cssParts": [],
   "tokensUsed": [
-    "--color-border-default",
+    "--color-border-alt",
     "--radius-xl",
     "--color-background-alt",
     "--color-foreground-default",

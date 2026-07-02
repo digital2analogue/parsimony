@@ -36,7 +36,7 @@ export class RrTabList extends LitElement {
       display: flex;
       align-items: flex-end;
       gap: 0;
-      border-bottom: 1px solid var(--color-border-default);
+      border-bottom: 1px solid var(--color-border-alt);
       overflow-x: auto;
       scrollbar-width: none;
     }
