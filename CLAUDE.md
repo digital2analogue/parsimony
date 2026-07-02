@@ -37,7 +37,11 @@ scripts/
   drift_audit.py              Figma-variable-vs-token drift auditor (separate concern from code linting).
 design-system.json   Generated artifact — merged component metadata + Custom Elements Manifest, read by the MCP server.
 .github/workflows/
-  ci.yml             Runs on every push/PR: validate → build → build:meta → artifact-staleness check → tests.
+  ci.yml             Runs on every push/PR: validate → build → build:meta → artifact-staleness check → tests
+                     (workspace tests + root token-sanity tests in tests/unit — npm test --workspaces skips
+                     the repo root, so ci.yml runs `npm run test:unit -- --run` explicitly). `main` has branch
+                     protection requiring the `verify` check; Dependabot bumps auto-merge via
+                     dependabot-automerge.yml once CI passes (major npm bumps stay manual).
   drift-lint.yml     Scheduled (weekly) + manual scan of a consumer repo for drift; opens/closes a tracked issue.
   publish.yml        On-demand publish of @digital2analogue2/parsimony to public npm.
   publish-freshness.yml  Scheduled (weekly) + manual check that the published package matches the source tokens; opens/closes a tracked issue when a republish is due.

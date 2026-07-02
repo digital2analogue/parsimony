@@ -30,12 +30,16 @@ Use ONLY the semantic CSS custom properties below. Never use hex values. Never r
 | --color-background-warning-alt | #221B08 | Warning alert/banner backgrounds |
 | --color-background-info | #2456E4 | Info badges, banners |
 | --color-background-info-alt | #0D1830 | Info alert/banner backgrounds |
-| --color-background-danger | #D03027 | Destructive button fill, error surfaces |
+| --color-background-danger | #C8002E | Destructive button fill, error surfaces. Pair with foreground-on-danger (white, 6.0:1 AA) |
 | --color-background-danger-alt | #2A0A0A | Error alert / badge backgrounds (dark red tint) |
 | --color-background-accent-green | #0F2016 | Green chip/tag fills |
 | --color-background-accent-blue | #0D1830 | Blue chip/tag fills |
 | --color-background-accent-violet | #18102E | Violet chip/tag fills |
 | --color-background-accent-amber | #221B08 | Amber chip/tag fills |
+| --color-background-accent-indigo-bold | #4338CA | Saturated indigo fill for bold accent surfaces — avatar backgrounds, identity badges. Pair with foreground-accent-on-indigo (white). Contrast vs white: 7.98:1 AAA |
+| --color-background-accent-sky-bold | #0369A1 | Saturated sky blue fill for bold accent surfaces — avatar backgrounds, identity badges. Pair with foreground-accent-on-sky (white). Contrast vs white: 5.90:1 AA |
+| --color-background-accent-green-bold | #047857 | Saturated emerald fill for bold accent surfaces — avatar backgrounds, identity badges. Pair with foreground-accent-on-green-bold (white). Contrast vs white: 5.47:1 AA |
+| --color-background-accent-amber-bold | #B45309 | Saturated amber fill for bold accent surfaces — avatar backgrounds, identity badges. Pair with foreground-accent-on-amber-bold (white). Contrast vs white: 5.02:1 AA |
 
 ### Foreground
 | CSS Property | Hex | Contrast | Usage |
@@ -53,20 +57,27 @@ Use ONLY the semantic CSS custom properties below. Never use hex values. Never r
 | --color-foreground-info | #93C5FD | 7.5:1 AA | Informational text/icons |
 | --color-foreground-on-info | #FFFFFF | — | Text on info fills |
 | --color-foreground-danger | #F87171 | 7.06:1 AAA | Error text, delete labels, danger alert/badge text |
-| --color-foreground-on-danger | #FFFFFF | — | Text on destructive fills |
+| --color-foreground-on-danger | #FFFFFF | 6.0:1 AA | Text on destructive fills |
 | --color-foreground-accent-green | #4ADE6E | 11.1:1 AAA | Green accent text/icons, pair with bg-accent-green |
 | --color-foreground-accent-blue | #93C5FD | 7.5:1 AA | Blue accent text/icons, pair with bg-accent-blue |
 | --color-foreground-accent-violet | #C4B5FD | 7.0:1 AA | Violet accent text/icons |
 | --color-foreground-accent-amber | #FCD34D | 12.0:1 AAA | Amber accent text/icons |
+| --color-foreground-accent-on-green | #0A0D0A | — | Text/icons on green accent tint fills. Near-black on dark theme; for bold green fills use accent-on-green-bold (white). DE overrides to white |
+| --color-foreground-accent-on-blue | #0A0D0A | — | Text/icons on blue accent fills. Near-black on dark theme |
+| --color-foreground-accent-on-violet | #0A0D0A | — | Text/icons on violet accent fills. Near-black on dark theme |
+| --color-foreground-accent-on-amber | #0A0D0A | — | Text/icons on amber accent fills. Near-black on dark theme |
+| --color-foreground-accent-on-indigo | #FFFFFF | 7.98:1 AAA | Text/icons on indigo accent fills (background-accent-indigo-bold) |
+| --color-foreground-accent-on-sky | #FFFFFF | 5.90:1 AA | Text/icons on sky accent fills (background-accent-sky-bold) |
 | --color-foreground-accent-on-amber-bold | #FFFFFF | 5.0:1 AA | Text/icons on background-accent-amber-bold (#B45309 fill) — avatars, identity badges |
 | --color-foreground-accent-on-green-bold | #FFFFFF | 5.47:1 AA | Text/icons on background-accent-green-bold (emerald.600 fill) — avatars, identity badges |
 
 ### Border
 | CSS Property | Hex | Usage |
 |---|---|---|
-| --color-border-default | #1E241E | All UI edges — cards, inputs, dividers |
+| --color-border-default | #5C685A | Standard legible border — input outlines, control boundaries, most UI edges. 3.33:1 on canvas (SC 1.4.11 pass) |
+| --color-border-alt | #1E241E | Quiet decorative border (the previous default) — card frames, dense-layout dividers. Never the only boundary of an interactive control |
 | --color-border-muted | #0F2016 | Hairline dividers, table row separators |
-| --color-border-elevated | #2E3A2E | Prominent borders, raised surface edges |
+| --color-border-elevated | #2E3A2E | Structural chrome — one step above border-alt in the decorative ladder (muted < alt < elevated) |
 | --color-border-hover | #8B9683 | Border on interactive hover |
 | --color-border-active | #A0A89A | Border on active/pressed state |
 | --color-border-action | #4ADE6E | Outline for interactive outlined controls (secondary/ghost button). 11.1:1 on canvas — passes SC 1.4.11. Accent green is rule-compliant here: the control is interactive. |
@@ -78,6 +89,13 @@ Use ONLY the semantic CSS custom properties below. Never use hex values. Never r
 ## Typography — Semantic Tokens
 
 Display and title tokens: Space Grotesk weight 300 (light). Body: Spectral weight 400. Labels/Code: Space Grotesk weight 400. Label Strong: Space Grotesk weight 500.
+
+### Font Family
+| CSS Property | Resolved Value | Usage |
+|---|---|---|
+| --font-family-sans | Space Grotesk | Sans-serif family for titles, labels, and UI text. Decision-engine override: Geist |
+| --font-family-serif | Spectral | Serif family for body and long-form prose |
+| --font-family-mono | JetBrains Mono | Monospaced family for code and technical UI labels |
 
 ### Display
 | CSS Property | Resolved Value | Usage |
@@ -245,6 +263,15 @@ Smaller spacing values (3xs–md) are fixed — they're already tight enough and
 | --motion-easing-exit | cubic-bezier(0.42,0,1,1) | Elements disappearing — starts slow, accelerates to exit |
 | --motion-easing-move | cubic-bezier(0.42,0,0.58,1) | Repositioning within viewport — panels, tab indicators |
 | --motion-easing-default | cubic-bezier(0.25,0.1,0.25,1) | Directionless fades, color shifts |
+
+### Transition (composite shorthands)
+Duration + easing + delay in one token — drop straight into a `transition` property.
+| CSS Property | Resolves to | Usage |
+|---|---|---|
+| --motion-transition-micro | 120ms cubic-bezier(0.25,0.1,0.25,1) 0ms | Micro-interactions — hover color shifts, focus ring fade-in, pressed background flips, checkbox tick reveals. Not for layout/size/position changes |
+| --motion-transition-standard | 200ms cubic-bezier(0.25,0.1,0.25,1) 0ms | The workhorse — dropdowns, tooltips, accordions, tab switches, popovers. Directionless easing runs both directions without feeling lopsided |
+| --motion-transition-emphasized | 350ms cubic-bezier(0.42,0,0.58,1) 0ms | Layer-shifting motion — modal entry/exit, drawer slides, route-level transitions. Not for small components |
+| --motion-transition-move | 200ms cubic-bezier(0.42,0,0.58,1) 0ms | Repositioning within the viewport — tab indicator slides, segmented control thumbs, drag-and-drop snap |
 
 ---
 

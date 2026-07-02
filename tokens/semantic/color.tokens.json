@@ -68,8 +68,8 @@
         "$description": "Saturated amber fill for bold accent surfaces — avatar backgrounds, identity badges. Pair with white text (DS debt: accent-on-amber is dark for tints). Contrast vs white: 5.02:1 AA."
       },
       "danger": {
-        "$value": "{primitive.color.red.500}",
-        "$description": "Danger fill #E73027. Use for filled destructive buttons (delete, remove). Always pair with foreground.on-danger."
+        "$value": "{primitive.color.red.600}",
+        "$description": "Danger fill #C8002E. Use for filled destructive buttons (delete, remove). Always pair with foreground.on-danger (white, 6.01:1 AA). Moved from red.500 2026-07-02: white on #E73027 was 4.33:1 (AA fail); red.600 also aligns the danger fill with decision-engine's."
       },
       "danger-alt": {
         "$value": "{primitive.color.red.950}",
@@ -156,7 +156,7 @@
       },
       "on-danger": {
         "$value": "{primitive.color.neutral.white}",
-        "$description": "Text/icons on background.danger #FFFFFF. Use inside filled destructive components (e.g. filled delete button). Never on white or dark canvases."
+        "$description": "Text/icons on background.danger #FFFFFF. Use inside filled destructive components (e.g. filled delete button). Contrast vs background.danger (red.600): 6.01:1 AA. Never on white or dark canvases."
       },
       "success": {
         "$value": "{primitive.color.green.accent}",
@@ -233,13 +233,17 @@
       "$type": "color",
       "$description": "Edge and separation tokens. Borders recede — they delineate, not decorate.",
       "default": {
+        "$value": "{primitive.color.green.700}",
+        "$description": "Standard legible border #5C685A. The default edge for most UI — input outlines, control boundaries, card edges where the edge should read. Clears the SC 1.4.11 non-text floor on the canvas (3.33:1) while staying below border.hover (6.32:1) so the state ladder holds. For deliberately quiet, decorative edges use border.alt. Changed from green.900 (#1E241E, 1.23:1 — invisible where it was the only boundary indicator) 2026-07-02, #28."
+      },
+      "alt": {
         "$value": "{primitive.color.green.900}",
-        "$description": "Standard border #1E241E. Use for card edges, input outlines, dividers. Shares value with background.alt but different intent — use border.default for lines, background.alt for filled surfaces."
+        "$description": "Quiet decorative border #1E241E — the previous border.default value. Use where an edge should barely register: card frames in dense layouts, decorative dividers, surface delineation that leans on background.alt fills. Exempt from SC 1.4.11 (decorative, not required to identify a control) — never use as the only boundary of an interactive component. Shares value with background.alt but different intent."
       },
       "elevated": {
         "$value": "{primitive.color.green.800}",
         "$type": "color",
-        "$description": "Structural chrome borders — headers, card frames, section dividers, prominent UI edges. One step above border-default; not interactive. Use where default borders are too invisible for the component's hierarchy."
+        "$description": "Structural chrome borders — headers, card frames, section dividers, prominent UI edges. One step above border-alt in the decorative ladder (muted < alt < elevated); not interactive. Sits below border.default in contrast — for a legible functional edge use border.default itself."
       },
       "hover": {
         "$value": "{primitive.color.green.600}",
