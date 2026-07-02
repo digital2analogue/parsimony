@@ -34,13 +34,52 @@ jobs:
           registry-url: https://registry.npmjs.org
           scope: '@digital2analogue2'
 
-      - name: Install
-        run: npm ci
+      # npm ci is the flakiest step here — a registry ECONNRESET killed the
+      # 0.3.0 publish on the first attempt (2026-07-02, run 28578167590) and
+      # left npm silently stale until a manual re-dispatch. Retry transient
+      # network failures before giving up.
+      - name: Install (retries transient network failures)
+        run: |
+          for i in 1 2 3; do
+            npm ci && exit 0
+            echo "npm ci failed (attempt $i/3)"
+            [ "$i" -lt 3 ] && sleep $((i * 15))
+          done
+          exit 1
 
       - name: Build token CSS
         run: npm run build --workspace @digital2analogue2/parsimony
 
+      # Publishing an unbumped version is a no-op mistake, not an incident —
+      # skip with a warning instead of failing (less failure-email noise, and
+      # the message says exactly what to do).
+      - name: Skip if this version is already on the registry
+        id: guard
+        run: |
+          PKG=@digital2analogue2/parsimony
+          VERSION=$(node -p "require('./packages/tokens/package.json').version")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          if npm view "$PKG@$VERSION" version >/dev/null 2>&1; then
+            echo "::warning::$PKG@$VERSION is already published — nothing to do. Bump packages/tokens/package.json and re-dispatch."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Publish to npm
+        if: steps.guard.outputs.skip != 'true'
         run: npm publish --workspace @digital2analogue2/parsimony --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Verify the registry serves the new version
+        if: steps.guard.outputs.skip != 'true'
+        run: |
+          PKG=@digital2analogue2/parsimony
+          VERSION="${{ steps.guard.outputs.version }}"
+          for i in $(seq 1 10); do
+            [ "$(npm view "$PKG" version 2>/dev/null)" = "$VERSION" ] && { echo "$PKG@$VERSION is live."; exit 0; }
+            sleep 15
+          done
+          echo "::error::$PKG@$VERSION not visible on the registry after publish"
+          exit 1
