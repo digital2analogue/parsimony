@@ -14,29 +14,142 @@
       }
     },
     "title": {
+      "large": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontWeight": "{primitive.font.weight.light}",
+          "fontSize": "{primitive.font.size.3xl}",
+          "lineHeight": "{primitive.font.lineHeight.tight}"
+        },
+        "$description": "DE title-large — light 40px/1.1 (base is 32px/1.25). The decisioning UI's page headings sit one step larger on a tighter leading. Reconciled to the live prototype (parsimony#70 §C)."
+      },
+      "medium": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontWeight": "{primitive.font.weight.light}",
+          "fontSize": "{primitive.font.size.2xl}",
+          "lineHeight": "{primitive.font.lineHeight.snug}"
+        },
+        "$description": "DE title-medium — light 32px/1.25 (base is 24px). One step larger than base, matching the DE title scale shift. Reconciled to the live prototype (parsimony#70 §C)."
+      },
       "small": {
         "$type": "typography",
         "$value": {
           "fontFamily": "{font.family.sans}",
           "fontWeight": "{primitive.font.weight.medium}",
-          "fontSize": "1.125rem",
+          "fontSize": "{primitive.font.size.lg}",
           "lineHeight": "{primitive.font.lineHeight.snug}"
         },
-        "$description": "DE title-small override — 18px (1.125rem) instead of base 20px. Enterprise data tables need a tighter heading scale. Weight medium (500) matches DE's denser typographic character."
+        "$description": "DE title-small — medium 24px/1.25. Weight medium (500) matches DE's denser typographic character. Supersedes the earlier 18px (1.125rem) override — the live prototype settled on 24px (parsimony#70 §C)."
       }
+    },
+    "body": {
+      "large": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontWeight": "{primitive.font.weight.regular}",
+          "fontSize": "{primitive.font.size.base}",
+          "lineHeight": "{primitive.font.lineHeight.normal}"
+        },
+        "$description": "DE body-large — Geist (sans), not Spectral. The decisioning UI is all-Geist; serif body is a base-theme editorial convention that doesn't apply to enterprise data UI (parsimony#70 §C)."
+      },
+      "medium": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontWeight": "{primitive.font.weight.regular}",
+          "fontSize": "{primitive.font.size.sm}",
+          "lineHeight": "{primitive.font.lineHeight.normal}"
+        },
+        "$description": "DE body-medium — Geist (sans), not Spectral. See body.large."
+      },
+      "small": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontWeight": "{primitive.font.weight.regular}",
+          "fontSize": "{primitive.font.size.xs}",
+          "lineHeight": "{primitive.font.lineHeight.normal}"
+        },
+        "$description": "DE body-small — Geist (sans), not Spectral. See body.large."
+      }
+    },
+    "label": {
+      "large": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontWeight": "{primitive.font.weight.medium}",
+          "fontSize": "{primitive.font.size.base}",
+          "lineHeight": "{primitive.font.lineHeight.snug}"
+        },
+        "$description": "DE label-large — weight medium (500) instead of base regular (400). Geist regular reads too light against dense data chrome; the prototype runs all labels at medium (parsimony#70 §C)."
+      },
+      "medium": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontWeight": "{primitive.font.weight.medium}",
+          "fontSize": "{primitive.font.size.sm}",
+          "lineHeight": "{primitive.font.lineHeight.snug}"
+        },
+        "$description": "DE label-medium — weight medium (500). See label.large."
+      },
+      "small": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontWeight": "{primitive.font.weight.medium}",
+          "fontSize": "{primitive.font.size.xs}",
+          "lineHeight": "{primitive.font.lineHeight.snug}"
+        },
+        "$description": "DE label-small — weight medium (500). See label.large."
+      }
+    }
+  },
+  "letterSpacing": {
+    "label": {
+      "$type": "dimension",
+      "$value": "{primitive.letterSpacing.subtle}",
+      "$description": "DE label tracking — 0.01em instead of base 0.03em. Geist at data-UI density needs less open tracking than Space Grotesk labels (parsimony#70 §C)."
+    }
+  },
+  "radius": {
+    "sm": {
+      "$type": "dimension",
+      "$value": "3px",
+      "$description": "DE compact radius scale — 3px (base 4px). Inputs, tags, small chips. The decisioning UI runs a tighter radius ramp throughout (parsimony#70 §C)."
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": "6px",
+      "$description": "DE mid radius — 6px. A step the base scale lacks (base jumps 4px → 8px); the prototype uses it for buttons and dropdown triggers (parsimony#70 §C)."
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": "10px",
+      "$description": "DE large radius — 10px (base 12px). Cards, panels (parsimony#70 §C)."
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": "14px",
+      "$description": "DE extra-large radius — 14px (base 16px). Modals, hero cards (parsimony#70 §C)."
     }
   },
   "color": {
     "background": {
       "default": {
-        "$value": "{primitive.color.neutral.white}",
+        "$value": "{primitive.color.arctic.50}",
         "$type": "color",
-        "$description": "White page canvas — inverts the base dark theme. All decisioning UI renders on pure white. Contrast vs gray.900 foreground: 16.1:1 (WCAG AAA)."
+        "$description": "Arctic page canvas #F5F8FC — inverts the base dark theme. Cool blue-tinted near-white; calmer than pure white for long data-UI sessions. Contrast vs gray.900 foreground: 15.2:1 (WCAG AAA). Reconciled from the live prototype (parsimony#70 §A; was pure white)."
       },
       "alt": {
-        "$value": "{primitive.color.gray.50}",
+        "$value": "{primitive.color.arctic.150}",
         "$type": "color",
-        "$description": "Light gray secondary surface — table row alternates, panel backgrounds, input fills. Visually distinct from white without introducing strong contrast."
+        "$description": "Arctic secondary surface #EBF0F8 — table row alternates, panel backgrounds, input fills. Visually distinct from the canvas without strong contrast. Reconciled from the live prototype (parsimony#70 §A; was gray.50)."
       },
       "action": {
         "$value": "{primitive.color.blue.700}",
@@ -59,9 +172,34 @@
         "$description": "Fill for disabled interactive elements (inputs, buttons, selects). Very light gray (#E8EAED) — clearly not white, clearly not interactive. Promotes and replaces color.state.disabled."
       },
       "elevated": {
-        "$value": "{primitive.color.neutral.white}",
+        "$value": "{primitive.color.arctic.100}",
         "$type": "color",
-        "$description": "Elevated surface — cards, modals, popovers that float above the default canvas. Same value as background.default in light mode; kept as a separate token so dark-mode contexts can diverge independently."
+        "$description": "Arctic elevated surface #F0F4FA — cards, modals, popovers that float above the default canvas. Sits between the canvas (arctic.50) and alt (arctic.150). Reconciled from the live prototype (parsimony#70 §A; was white)."
+      },
+      "hover": {
+        "$value": "{primitive.color.arctic.200}",
+        "$type": "color",
+        "$description": "Hover surface #E2EAF5 — ghost-button and passive-surface hover fills. One step deeper than alt so hover reads without a border change. Backported from the decisioning-table prototype (parsimony#70 §D)."
+      },
+      "action-alt": {
+        "$value": "{primitive.color.blue.100}",
+        "$type": "color",
+        "$description": "Low-emphasis action surface #E5EBFC — hover/selected states that signal action without competing with primary CTAs. Same resolved value as accent-subtle; aliased so component CSS can be semantic ('action-alt') rather than incidental ('accent-blue'). Pair with foreground.on-action-alt. Backported from the decisioning-table prototype (parsimony#70 §D)."
+      },
+      "inverted": {
+        "$value": "{primitive.color.slate.200}",
+        "$type": "color",
+        "$description": "Light slate chip surface #E2E7F0 — AND/OR logic chips; distinct from white form inputs without being heavy. Pair with foreground.on-inverted (~7:1). Backported from the decisioning-table prototype (parsimony#70 §D)."
+      },
+      "warning-subtle": {
+        "$value": "{primitive.color.amber.100}",
+        "$type": "color",
+        "$description": "Soft amber row tint #FEF3C7 — invalid-row highlighting; strong enough to scan without hovering. Same resolved value as warning-alt, kept separate so row-tint and banner semantics can diverge. Backported from the decisioning-table prototype (parsimony#70 §D)."
+      },
+      "warning-vivid": {
+        "$value": "{primitive.color.amber.300}",
+        "$type": "color",
+        "$description": "Vivid amber banner fill #FCD34D — high-attention warning banners where the soft warning-alt tint is too quiet. Pair with dark text (foreground.on-warning). Backported from the decisioning-table prototype (parsimony#70 §D)."
       },
       "accent-subtle": {
         "$value": "{primitive.color.blue.100}",
@@ -259,18 +397,43 @@
         "$value": "{primitive.color.neutral.white}",
         "$type": "color",
         "$description": "Text/icons on info blue backgrounds."
+      },
+      "inactive": {
+        "$value": "{primitive.color.slate.400}",
+        "$type": "color",
+        "$description": "Washed-out slate #A8B0BE for WCAG-exempt inactive UI elements — unselected segmented-control labels and similar non-content chrome. Deliberately sub-AA; never use for content text. Backported from the decisioning-table prototype (parsimony#70 §D)."
+      },
+      "on-action-alt": {
+        "$value": "{primitive.color.blue.700}",
+        "$type": "color",
+        "$description": "Action-blue text/icons on background.action-alt surfaces #2456E4 — the paired foreground for low-emphasis action fills. 5.5:1 on blue.100 (AA). Backported from the decisioning-table prototype (parsimony#70 §D)."
+      },
+      "on-inverted": {
+        "$value": "{primitive.color.slate.700}",
+        "$type": "color",
+        "$description": "Dark navy-slate text #2C3A55 on background.inverted chip surfaces (~7:1 AAA on slate.200). Backported from the decisioning-table prototype (parsimony#70 §D)."
+      },
+      "warning-dark": {
+        "$value": "{primitive.color.amber.900}",
+        "$type": "color",
+        "$description": "Deepest amber-brown #78350F — chip-on-tint warning text (e.g. OR-logic chips on amber tints) where foreground.warning (amber.700) lacks contrast. Backported from the decisioning-table prototype (parsimony#70 §D)."
+      },
+      "warning-icon": {
+        "$value": "{primitive.color.amber.600}",
+        "$type": "color",
+        "$description": "Warning icon amber #B45309 — 4.75:1 on light warning rows; icon-weight glyphs pass at this ratio where thin text would not. Backported from the decisioning-table prototype (parsimony#70 §D)."
       }
     },
     "border": {
       "default": {
-        "$value": "{primitive.color.gray.200}",
+        "$value": "{primitive.color.arctic.400}",
         "$type": "color",
-        "$description": "Standard border — input outlines, card edges, table borders, dividers. Light gray on white."
+        "$description": "Standard border #C8D6EA — input outlines, card edges, table borders, dividers. Cool arctic blue-gray on the arctic canvas. Reconciled from the live prototype (parsimony#70 §A; was gray.200)."
       },
       "elevated": {
-        "$value": "{primitive.color.gray.300}",
+        "$value": "{primitive.color.arctic.500}",
         "$type": "color",
-        "$description": "DE structural chrome borders — headers, card frames, section dividers. Cool gray step above border-default (#D8DCE0). Contrast vs white: sufficient for structural separation."
+        "$description": "DE structural chrome borders #B0C4D8 — headers, card frames, section dividers. One step above border-default. Reconciled from the live prototype (parsimony#70 §A; was gray.300)."
       },
       "hover": {
         "$value": "{primitive.color.blue.700}",
@@ -293,9 +456,9 @@
         "$description": "Border on disabled elements — very light gray, recedes toward white canvas. Combine with reduced opacity on the overall component."
       },
       "muted": {
-        "$value": "{primitive.color.gray.100}",
+        "$value": "{primitive.color.arctic.300}",
         "$type": "color",
-        "$description": "Subtle border — #E8EAED, lighter than border.default (#D8DCE0). Hairline dividers, table row separators, zebra stripes in DE."
+        "$description": "Subtle border #D8E4F0 — lighter than border.default (#C8D6EA). Hairline dividers, table row separators, zebra stripes in DE. Reconciled from the live prototype (parsimony#70 §A; was gray.100)."
       },
       "accent": {
         "$value": "{primitive.color.blue.700}",
