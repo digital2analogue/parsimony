@@ -11,6 +11,66 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-07-02 — Decision-engine brand reconciled to the live decisioning-table prototype (#70)
+
+**Decided:** The DE brand source now matches what the prototype actually renders, per the
+"brand should match what's live" direction in #70. Three parts: **(A)** new `arctic`
+primitive ramp (7 blue-tinted neutrals) replacing white/gray surfaces and borders —
+canvas `#F5F8FC`, alt `#EBF0F8`, elevated `#F0F4FA`, borders `#C8D6EA`/`#B0C4D8`/`#D8E4F0`.
+**(C)** typography/shape: DE body is Geist (sans), not Spectral; title scale shifts up
+(large 300 40px/1.1, medium 300 32px, small 500 24px — superseding the earlier 18px
+title-small override); labels run weight 500; label tracking 0.01em (new
+`letterSpacing.subtle` primitive); compact radius ramp 3/6/10/14px incl. a brand-only
+`radius.md`. **(D)** backported 10 prototype-local color tokens (hover, action-alt,
+inverted chip pair, warning-subtle/vivid/dark/icon, inactive, on-action-alt) via new
+`slate` + `amber.900` primitives. Every new/changed text pairing verified AA with
+`check_contrast`; `validate_brand('decision-engine')` passes.
+
+**Why:** The published brand had drifted from its only real consumer; per direction the
+prototype is the design truth. Backporting kills the local-token debt markers in
+decisioning-table and makes `sync-tokens` meaningful again.
+
+**Alternative considered:** Making the prototype adopt brand values instead — rejected in
+#70 except for `background.danger` (§B), where the brand's red.600 is the intentional
+newer value and the prototype syncs forward. `--color-background-accent` (`#4ade6e`,
+phosphor green in a light theme) was deliberately NOT backported — it is defined but
+unused in the prototype and should be deleted there instead. App-local tokens
+(control heights, z-index, column widths, composite shadows) stay local by design.
+
+**Status:** Brand source reconciled; DECISION-ENGINE.md updated. Needs an
+`@digital2analogue2/parsimony` publish, then decisioning-table syncs `variables.css`
+(incl. §B danger `#c8002e`) and updates its CLAUDE.md drift list.
+
+---
+
+## 2026-07-02 — Danger fill moved to red.600; DE on-warning goes dark (sub-AA fixes, #66)
+
+**Decided:** Two token-level contrast fixes flagged by `validate_brand` (#59 → #66):
+(1) base `color.background.danger` moves `red.500` (#E73027) → `red.600` (#C8002E) —
+white `on-danger` text was 4.33:1 (AA fail), now 6.01:1 AA, and the fill still clears
+the 3:1 non-text floor against the dark canvas (3.25:1, SC 1.4.11). (2) decision-engine
+`foreground.on-warning` moves white → `gray.900` (#1A1A2E) — white on the amber.500
+warning fill was 3.19:1 (AA fail); gray.900 gives 5.35:1 AA.
+
+**Why:** Hard rule #6 — every text/background pairing must pass AA 4.5:1. Both were
+pre-existing violations, not tooling artifacts. red.600 was already DE's danger fill
+(chosen 2026-05-22 for exactly this white-on-red contrast reason), so (1) also unifies
+the destructive fill across brands. (2) is the same value the decisioning-table
+prototype has shipped as a local override all along — this moves the fix upstream where
+it belongs (also closes part A of #70's on-warning row).
+
+**Alternative considered:** Keeping the fills and darkening the text instead. Rejected
+for danger — nothing lighter than white exists, so the fill had to darken; red.700/800
+pass too but red.600 already carries DE's contrast rationale. For on-warning, an
+off-white was checked and cannot reach 4.5:1 on amber.500.
+
+**Status:** Token source + DESIGN.md updated; needs an `@digital2analogue2/parsimony`
+publish to reach consumers. dot-art/dot-blog inherit the new danger fill (neither
+overrides it). DE's own `background.danger` override (red.600) is now redundant with
+base but left in place pending the #70 reconciliation.
+
+---
+
 ## 2026-06-26 — Renamed the design system to "Parsimony"
 
 **Decided:** Rebrand the design system from "brand-tokens" to **Parsimony** (capital

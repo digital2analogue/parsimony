@@ -68,8 +68,8 @@
         "$description": "Saturated amber fill for bold accent surfaces — avatar backgrounds, identity badges. Pair with white text (DS debt: accent-on-amber is dark for tints). Contrast vs white: 5.02:1 AA."
       },
       "danger": {
-        "$value": "{primitive.color.red.500}",
-        "$description": "Danger fill #E73027. Use for filled destructive buttons (delete, remove). Always pair with foreground.on-danger."
+        "$value": "{primitive.color.red.600}",
+        "$description": "Danger fill #C8002E. Use for filled destructive buttons (delete, remove). Always pair with foreground.on-danger (white, 6.01:1 AA). Moved from red.500 2026-07-02: white on #E73027 was 4.33:1 (AA fail); red.600 also aligns the danger fill with decision-engine's."
       },
       "danger-alt": {
         "$value": "{primitive.color.red.950}",
@@ -156,7 +156,7 @@
       },
       "on-danger": {
         "$value": "{primitive.color.neutral.white}",
-        "$description": "Text/icons on background.danger #FFFFFF. Use inside filled destructive components (e.g. filled delete button). Never on white or dark canvases."
+        "$description": "Text/icons on background.danger #FFFFFF. Use inside filled destructive components (e.g. filled delete button). Contrast vs background.danger (red.600): 6.01:1 AA. Never on white or dark canvases."
       },
       "success": {
         "$value": "{primitive.color.green.accent}",

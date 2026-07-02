@@ -221,6 +221,62 @@
           "$description": "Tertiary text on white — sits between foreground.muted (gray.500, 5.17:1) and foreground.alt (gray.700, 8.9:1). Cool blue-gray consistent with the DE palette character. Contrast vs white: ~6.2:1 (WCAG AA). Use for helper/descriptor text that should read as supplemental without the passive 'disabled' feel of muted."
         }
       },
+      "arctic": {
+        "$description": "Blue-tinted neutral ramp for the decision-engine 'Arctic' light theme — cooler than the gray ramp. Surfaces (50–200) and borders (300–500) for the decisioning UI. Reconciled from the live decisioning-table prototype (parsimony#70).",
+        "50": {
+          "$value": "#F5F8FC",
+          "$type": "color",
+          "$description": "Arctic page canvas. Used as background.default in decision-engine — replaces pure white for a cooler, calmer data-UI surface. Contrast vs gray.900 text: 15.2:1 (WCAG AAA)."
+        },
+        "100": {
+          "$value": "#F0F4FA",
+          "$type": "color",
+          "$description": "Arctic elevated surface. Used as background.elevated in decision-engine — cards, modals, popovers floating above the canvas."
+        },
+        "150": {
+          "$value": "#EBF0F8",
+          "$type": "color",
+          "$description": "Arctic secondary surface. Used as background.alt in decision-engine — table row alternates, panel backgrounds, input fills."
+        },
+        "200": {
+          "$value": "#E2EAF5",
+          "$type": "color",
+          "$description": "Arctic hover surface. Used as background.hover in decision-engine — ghost-button and passive-surface hover fills."
+        },
+        "300": {
+          "$value": "#D8E4F0",
+          "$type": "color",
+          "$description": "Arctic hairline border. Used as border.muted in decision-engine — table row separators, subtle dividers."
+        },
+        "400": {
+          "$value": "#C8D6EA",
+          "$type": "color",
+          "$description": "Arctic standard border. Used as border.default in decision-engine — input outlines, card edges, table borders."
+        },
+        "500": {
+          "$value": "#B0C4D8",
+          "$type": "color",
+          "$description": "Arctic elevated border. Used as border.elevated in decision-engine — structural chrome: headers, card frames, prominent dividers."
+        }
+      },
+      "slate": {
+        "$description": "Cool slate ramp for decision-engine chip/inactive UI surfaces. Sits between the gray and arctic ramps in temperature. Backported from the decisioning-table prototype (parsimony#70 §D).",
+        "200": {
+          "$value": "#E2E7F0",
+          "$type": "color",
+          "$description": "Light slate chip surface. Used as background.inverted in decision-engine — AND/OR logic chips; distinct from white form inputs without being heavy. Pair with foreground.on-inverted (slate.700, ~7:1)."
+        },
+        "400": {
+          "$value": "#A8B0BE",
+          "$type": "color",
+          "$description": "Washed-out slate for WCAG-exempt inactive UI elements (unselected segmented-control labels and similar non-text-critical chrome). Used as foreground.inactive in decision-engine. Deliberately sub-AA — do not use for content text."
+        },
+        "700": {
+          "$value": "#2C3A55",
+          "$type": "color",
+          "$description": "Dark navy-slate text on light chip surfaces. Used as foreground.on-inverted in decision-engine — AND/OR chip labels on slate.200 (~7:1 AAA)."
+        }
+      },
       "indigo": {
         "$description": "Indigo ramp for accent-bold fills. Saturated, high-contrast against white. Used for identity surfaces like avatar backgrounds.",
         "700": {
@@ -305,6 +361,11 @@
           "$value": "#FFFBEB",
           "$type": "color",
           "$description": "Lightest amber tint. DE light-mode chip/tag fills and callout panels with warm emphasis. Lighter and less saturated than amber.100."
+        },
+        "900": {
+          "$value": "#78350F",
+          "$type": "color",
+          "$description": "Deepest amber-brown. Used as foreground.warning-dark in decision-engine — chip-on-tint warning text (e.g. OR-logic chips on amber tints) where amber.700 lacks contrast. Backported from the decisioning-table prototype (parsimony#70 §D)."
         }
       }
     }
