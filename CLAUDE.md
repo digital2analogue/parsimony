@@ -43,7 +43,10 @@ design-system.json   Generated artifact — merged component metadata + Custom E
                      protection requiring the `verify` check; Dependabot bumps auto-merge via
                      dependabot-automerge.yml once CI passes (major npm bumps stay manual).
   drift-lint.yml     Scheduled (weekly) + manual scan of a consumer repo for drift; opens/closes a tracked issue.
-  publish.yml        On-demand publish of @digital2analogue2/parsimony to public npm.
+  publish.yml        On-demand publish of @digital2analogue2/parsimony to public npm. Publishes whatever
+                     version packages/tokens/package.json carries — bump it BEFORE dispatching. Retries
+                     npm ci, turns already-published dispatches into green no-ops, and verifies the
+                     registry serves the new version before reporting success.
   publish-freshness.yml  Scheduled (weekly) + manual check that the published package matches the source tokens; opens/closes a tracked issue when a republish is due.
   stale-prs.yml      Scheduled (weekly) + manual check for open PRs idle 7+ days; opens/closes a tracked issue. Enforces the ~7-day land-or-close rule below.
 docs/
@@ -63,9 +66,10 @@ Multiple autonomous sessions (local + cloud) work this repo in parallel. Each bo
 
 1. **Branch fresh; rebase before opening or updating a PR.** Always `git fetch origin && git rebase origin/main` before you push a PR. A branch behind `main` is the root cause of every drift incident here — the one PR that was branched from current `main` was the only one that stayed clean.
 2. **Small and single-purpose.** One concern per PR; aim for under ~200 changed lines. Large omnibus PRs don't get reviewed — they sit. Split mechanical changes (regenerated artifacts) from logic.
-3. **Validate before you push.** Run `npm run validate` (and `npm run build:all` if tokens changed, `npm run build:meta` if component metadata changed). Commit regenerated artifacts in the same PR — CI fails on staleness.
+3. **Validate before you push.** Run `npm run validate` (and `npm run build:all` if tokens changed, `npm run build:meta` if component metadata changed). Commit regenerated artifacts in the same PR — CI fails on staleness. **Run the tests CI runs, not just the root suite:** `npm test --workspaces --if-present` AND `npm run test:unit -- --run`. A root-only test pass has already shipped a red branch once (2026-07-02: an MCP-workspace canary test pinned `validate_brand`'s verdict to a then-broken pairing; the token fix flipped it and only CI noticed). Corollary: a test that asserts live token data is *broken* will invert when someone fixes the data — write regression tests against synthetic fixtures, not real defects.
 4. **Declare intent before non-trivial work.** Check open PRs/branches first (`gh pr list`, `git branch -r`); if your work overlaps, open a draft PR or coordinate rather than starting a parallel branch. Two sessions independently created duplicate work (two decision logs, overlapping docs) by skipping this.
 5. **Land or close within ~7 days.** A PR with no movement for a week is merged or closed — never left to rot. The longer it waits, the harder it is to land. The weekly `stale-prs.yml` Action surfaces violators in a tracked issue (it only flags — it never closes a PR for you).
+6. **Automation quirks (learned 2026-07-02):** `@dependabot rebase`/`recreate` comments posted through an API integration are silently ignored — Dependabot only honours them from the GitHub UI. For a Dependabot PR that's merely behind (no conflict), the update-branch API works and re-triggers CI; a *conflicted* one must wait for Dependabot's own rebase cycle or a human comment. Also: batch your pushes — every push to a CI-watched branch is a run (and a failure email if red), so push once per logical unit, and never push to a branch while its "Update visual baselines"-style workflow is mid-run in a consumer repo.
 
 **Where work is tracked (orient here on boot):** Current and next work lives in **GitHub issues** — run `gh issue list` (filter the roadmap with `--label roadmap`). It's the single board every session shares, local or cloud. Cross-session follow-ups become **issues, not prose** buried in the decision log. Division of labour: issues = *what's next*, `docs/decisions.md` = *why* (decisions), git/PRs = *what shipped*. The local agent memory is a per-machine cache, not the source of truth — it does not travel to cloud sessions.
 
