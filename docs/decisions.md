@@ -11,6 +11,36 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-07-02 — border.muted and border.alt stay separate; the distinction is codified
+
+**Decided:** Keep both quiet-border tokens, and write down the rule that was previously
+only implicit: **`border.muted` = separator lines *within* a surface** (table row
+separators, menu/list dividers, section rules — the lowest decorative rung);
+**`border.alt` = the quiet boundary *of* a surface** (card/menu/panel frames,
+decorative outlines, container edges — one rung above). Ladder unchanged:
+muted < alt < elevated, with `border.default` as the legible functional edge.
+
+**Why:** After the #28 border split, both descriptions said "dividers," raising the
+fair question of whether the pair is redundant. A 4-repo usage audit answered it:
+`border.muted` has zero consumers outside decisioning-table, but *inside* it the two
+tokens are used in perfectly disjoint roles — muted's 7 sites are all within-surface
+hairlines, alt's 31 sites are all surface boundaries. The distinction is real and
+already practiced; it just wasn't documented.
+
+**Alternative considered:** Merging muted into alt (one quiet-edge token). Rejected —
+DE's dense table rows would visibly strengthen (`#D8E4F0` → `#C8D6EA`), and the audit
+showed the two rungs genuinely serve different roles. The near-invisible base-theme
+delta (`#0F2016` vs `#1E241E`) was accepted: the DE brand proves the slot earns its
+keep, and cross-brand token vocabulary should not fork per brand.
+
+**Status:** Docs-only — token `$description`s (base + DE), DESIGN.md,
+DECISION-ENGINE.md updated. No values changed; no publish required (descriptions
+propagate with the next natural publish). Follow-up filed: portfolio-vercel border
+triage (its ~40 `border-default` edges predate the split and will darken on its next
+package bump unless classified into default/alt/muted first).
+
+---
+
 ## 2026-07-02 — border.default goes legible; new border.alt carries the quiet edge (#28)
 
 **Decided:** Split the border role in two, per direction. `border.default` is now the

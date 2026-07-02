@@ -433,7 +433,7 @@
       "alt": {
         "$value": "{primitive.color.arctic.400}",
         "$type": "color",
-        "$description": "Quiet decorative border #C8D6EA — the previous border.default value and the prototype's signature light edge for table borders, card frames, and dividers. Exempt from SC 1.4.11 (decorative); never the only boundary of an interactive control."
+        "$description": "The quiet boundary OF a surface #C8D6EA — menu/panel/card frames, chip outlines, toolbar edges, the segmented-control track (the previous border.default value; the prototype's signature light edge). For separator lines WITHIN a surface (table rows, menu dividers) use border.muted. Exempt from SC 1.4.11 (decorative); never the only boundary of an interactive control. Rule codified 2026-07-02: alt = frames, muted = rows — matches how the decisioning-table prototype actually uses the pair (31 frame sites vs 7 row sites)."
       },
       "elevated": {
         "$value": "{primitive.color.arctic.500}",
@@ -463,7 +463,7 @@
       "muted": {
         "$value": "{primitive.color.arctic.300}",
         "$type": "color",
-        "$description": "Subtle border #D8E4F0 — lighter than border.default (#C8D6EA). Hairline dividers, table row separators, zebra stripes in DE. Reconciled from the live prototype (parsimony#70 §A; was gray.100)."
+        "$description": "Separator lines WITHIN a surface #D8E4F0 — table row separators, menu dividers, section rules, zebra stripes; the lightest arctic hairline. For the boundary OF a surface (menu/panel/card frames) use border.alt, one rung above. Reconciled from the live prototype (parsimony#70 §A; was gray.100). Rule codified 2026-07-02: muted = rows, alt = frames."
       },
       "accent": {
         "$value": "{primitive.color.blue.700}",
