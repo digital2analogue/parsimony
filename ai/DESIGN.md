@@ -30,7 +30,7 @@ Use ONLY the semantic CSS custom properties below. Never use hex values. Never r
 | --color-background-warning-alt | #221B08 | Warning alert/banner backgrounds |
 | --color-background-info | #2456E4 | Info badges, banners |
 | --color-background-info-alt | #0D1830 | Info alert/banner backgrounds |
-| --color-background-danger | #D03027 | Destructive button fill, error surfaces |
+| --color-background-danger | #C8002E | Destructive button fill, error surfaces. Pair with foreground-on-danger (white, 6.0:1 AA) |
 | --color-background-danger-alt | #2A0A0A | Error alert / badge backgrounds (dark red tint) |
 | --color-background-accent-green | #0F2016 | Green chip/tag fills |
 | --color-background-accent-blue | #0D1830 | Blue chip/tag fills |
@@ -57,7 +57,7 @@ Use ONLY the semantic CSS custom properties below. Never use hex values. Never r
 | --color-foreground-info | #93C5FD | 7.5:1 AA | Informational text/icons |
 | --color-foreground-on-info | #FFFFFF | — | Text on info fills |
 | --color-foreground-danger | #F87171 | 7.06:1 AAA | Error text, delete labels, danger alert/badge text |
-| --color-foreground-on-danger | #FFFFFF | — | Text on destructive fills |
+| --color-foreground-on-danger | #FFFFFF | 6.0:1 AA | Text on destructive fills |
 | --color-foreground-accent-green | #4ADE6E | 11.1:1 AAA | Green accent text/icons, pair with bg-accent-green |
 | --color-foreground-accent-blue | #93C5FD | 7.5:1 AA | Blue accent text/icons, pair with bg-accent-blue |
 | --color-foreground-accent-violet | #C4B5FD | 7.0:1 AA | Violet accent text/icons |

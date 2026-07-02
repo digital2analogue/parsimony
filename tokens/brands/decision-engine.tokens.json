@@ -96,7 +96,7 @@
       "warning": {
         "$value": "{primitive.color.amber.500}",
         "$type": "color",
-        "$description": "Warning fill — amber.500 #D97706. Use dark text (on-warning = near-black). 6.8:1 contrast."
+        "$description": "Warning fill — amber.500 #D97706. Use dark text (on-warning = gray.900 #1A1A2E, 5.35:1 AA)."
       },
       "warning-alt": {
         "$value": "{primitive.color.amber.100}",
@@ -246,9 +246,9 @@
         "$description": "Warning text and icons. Deep amber (#92400E) for contrast on white. Contrast vs white: 7.5:1 (WCAG AA)."
       },
       "on-warning": {
-        "$value": "{primitive.color.neutral.white}",
+        "$value": "{primitive.color.gray.900}",
         "$type": "color",
-        "$description": "Text/icons on warning amber backgrounds."
+        "$description": "Text/icons on warning amber backgrounds. Dark navy #1A1A2E — white on amber.500 is 3.19:1 (AA fail); gray.900 gives 5.35:1 AA. Matches the override the decisioning-table prototype already ships locally (fixed 2026-07-02, #66)."
       },
       "info": {
         "$value": "{primitive.color.blue.700}",
