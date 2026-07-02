@@ -559,7 +559,7 @@
       "cssParts": [],
       "tokensUsed": [
         "--color-background-alt",
-        "--color-border-default",
+        "--color-border-alt",
         "--radius-lg",
         "--spacing-tight",
         "--spacing-element",
@@ -786,7 +786,7 @@
       ],
       "cssParts": [],
       "tokensUsed": [
-        "--color-border-default",
+        "--color-border-alt",
         "--radius-xl",
         "--color-background-alt",
         "--color-foreground-default",
@@ -1942,7 +1942,7 @@
       ],
       "cssParts": [],
       "tokensUsed": [
-        "--color-border-default"
+        "--color-border-alt"
       ],
       "rules": [
         "Never use hex values — always var(--color-*) or var(--component-*)",

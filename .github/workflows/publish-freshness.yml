@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 22 # build scripts use fs.promises.glob (Node 22+)
       - run: npm ci
@@ -38,7 +38,7 @@ jobs:
           cat /tmp/report.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Reflect result as a tracked issue
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const fs = require('fs');

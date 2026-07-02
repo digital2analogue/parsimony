@@ -14,7 +14,7 @@ For resolved token values, read `build/css/decision-engine.css` directly — it 
 
 ## What This Sub-Brand Is
 
-Light-mode, enterprise data UI theme. White canvas, blue primary action (`#2456E4`), Geist font. Built for data-dense decisioning interfaces — think rule tables, condition builders, outcome badges.
+Light-mode, enterprise data UI theme. Arctic canvas (`#F5F8FC`, blue-tinted near-white), blue primary action (`#2456E4`), Geist font. Built for data-dense decisioning interfaces — think rule tables, condition builders, outcome badges. (Canvas was pure white until the 2026-07-02 prototype reconciliation, parsimony#70.)
 
 It is a sub-brand overlay, not a separate system. All tokens not overridden here inherit from the base dark theme via Style Dictionary merge. If a token appears in `build/css/decision-engine.css` with a phosphor-green value (`#4ADE6E`) or near-black value (`#0A0D0A`), it is a base-theme bleed-through — the DE brand intentionally does not define that token.
 
@@ -83,29 +83,31 @@ When updating consumer repos, search for the old CSS variable name (e.g. `--colo
 
 ## The Foreground Hierarchy
 
-From highest to lowest contrast on white:
+From highest to lowest contrast on the arctic canvas (`#F5F8FC`):
 
 ```
-foreground-default   #1A1A2E   16.1:1  AAA  — body copy, table values, primary labels
-foreground-secondary #3A4663    9.4:1  AAA  — supporting labels, metadata, helper text
-foreground-alt       #4A4A5A    8.9:1  AAA  — timestamps, icon chrome
-foreground-muted     #5E6E88    5.2:1   AA  — placeholders, empty state, meta keys (corrected 2026-04-27 from #767686 which failed AA)
-foreground-danger    #C8002E    6.0:1   AA  — errors, destructive labels, deny states
-foreground-action    #2456E4    6.0:1   AA  — links, active nav, text CTAs
+foreground-default   #1A1A2E   16.0:1  AAA  — body copy, table values, primary labels
+foreground-secondary #3A4663    8.8:1  AAA  — supporting labels, metadata, helper text
+foreground-alt       #4A4A5A    8.2:1  AAA  — timestamps, icon chrome
+foreground-tertiary  #4E5F79    6.1:1   AA  — descriptor text, dropdown item descriptions
+foreground-danger    #C8002E    5.6:1   AA  — errors, destructive labels, deny states
+foreground-action    #2456E4    5.6:1   AA  — links, active nav, text CTAs
+foreground-muted     #5E6E88    4.9:1   AA  — placeholders, empty state, meta keys (corrected 2026-04-27 from #767686 which failed AA)
+foreground-inactive  #A8B0BE    exempt   —  — WCAG-exempt inactive chrome only (segmented controls); never content text
 foreground-inverse   #FFFFFF    —       —   — text on dark/colored surfaces only
 ```
 
+Watch item: `foreground-muted` on `background-alt` (#EBF0F8) is **4.52:1** — passes AA with almost no headroom. If either value shifts cooler/darker, re-verify with `check_contrast` before shipping.
+
 ---
 
-## Known Intentional Drifts (decisioning-table only)
+## Drift status vs decisioning-table
 
-`decisioning-table/src/tokens/variables.css` has 5 tokens that differ from the Parsimony build output. This is intentional — hand-tuned for a slightly bluer light-mode feel. Do not auto-fix these.
+The 2026-07-02 reconciliation (parsimony#70) adopted the live prototype's values into the brand source: arctic surfaces/borders (new `arctic` primitive ramp), Geist body/type scale/radii/label tracking, and the 10 local-only color tokens the prototype had accumulated (`background.hover/action-alt/inverted/warning-subtle/warning-vivid`, `foreground.inactive/on-action-alt/on-inverted/warning-dark/warning-icon`). The one reverse case: `background.danger` — the brand's red.600 `#C8002E` is intentional; the prototype's `#d03027` is stale and should sync forward (#70 §B).
 
-- `--color-background-default` — local `#F7F9FC` (bluer) vs brand `#FFFFFF`
-- `--color-background-alt` — local `#EFF1F8` (bluer) vs brand `#F5F6F7`
-- `--color-border-default` — local `#DDE1EC` (bluer) vs brand `#D8DCE0`
-- `--color-border-muted` — local `#ECEEF5` (bluer) vs brand `#E8EAED`
-If `npm run sync-tokens` reports exactly these 4 drifts and nothing else, the system is clean.
+This section previously listed 4 "intentional drifts" (`#F7F9FC`/`#EFF1F8`/`#DDE1EC`/`#ECEEF5`) — those values were already superseded in the prototype before the reconciliation and are gone from both sides. After the next `@digital2analogue2/parsimony` publish, `npm run sync-tokens` in decisioning-table should come back clean (or with a small residual set documented in its CLAUDE.md — app-local layout/z-index/shadow tokens stay local by design).
+
+**Border split (2026-07-02, #28):** `border.default` is now the *legible* functional edge (`arctic.600` `#7A8FA9`, 3.11:1 on the arctic canvas — SC 1.4.11 pass) for inputs and interactive controls; the prototype's signature light edge (`#C8D6EA`, ex-default) lives on as **`border.alt`** for table borders, card frames, and dividers. Decorative ladder: muted (`#D8E4F0`) < alt (`#C8D6EA`) < elevated (`#B0C4D8`).
 
 ---
 
