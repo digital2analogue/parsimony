@@ -33,7 +33,7 @@ export class RrDialog extends LitElement {
 
     dialog {
       padding: 0;
-      border: 1px solid var(--color-border-default);
+      border: 1px solid var(--color-border-alt);
       border-radius: var(--radius-xl);
       background: var(--color-background-alt);
       color: var(--color-foreground-default);
@@ -61,7 +61,7 @@ export class RrDialog extends LitElement {
       justify-content: space-between;
       gap: var(--spacing-tight);
       padding: var(--spacing-element) var(--spacing-component);
-      border-bottom: 1px solid var(--color-border-default);
+      border-bottom: 1px solid var(--color-border-alt);
     }
 
     .heading {
@@ -112,7 +112,7 @@ export class RrDialog extends LitElement {
       justify-content: flex-end;
       gap: var(--spacing-tight);
       padding: var(--spacing-inline) var(--spacing-component);
-      border-top: 1px solid var(--color-border-default);
+      border-top: 1px solid var(--color-border-alt);
     }
 
     /* Hide footer when no slotted content */

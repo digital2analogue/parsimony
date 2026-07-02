@@ -426,9 +426,14 @@
     },
     "border": {
       "default": {
+        "$value": "{primitive.color.arctic.600}",
+        "$type": "color",
+        "$description": "Standard legible border #7A8FA9 — input outlines, control boundaries, functional edges. Clears the SC 1.4.11 non-text floor on the arctic canvas (3.11:1). For the quiet table/divider edges the prototype leans on, use border.alt. Changed from arctic.400 (1.38:1) 2026-07-02, #28."
+      },
+      "alt": {
         "$value": "{primitive.color.arctic.400}",
         "$type": "color",
-        "$description": "Standard border #C8D6EA — input outlines, card edges, table borders, dividers. Cool arctic blue-gray on the arctic canvas. Reconciled from the live prototype (parsimony#70 §A; was gray.200)."
+        "$description": "Quiet decorative border #C8D6EA — the previous border.default value and the prototype's signature light edge for table borders, card frames, and dividers. Exempt from SC 1.4.11 (decorative); never the only boundary of an interactive control."
       },
       "elevated": {
         "$value": "{primitive.color.arctic.500}",

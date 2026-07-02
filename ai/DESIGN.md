@@ -74,9 +74,10 @@ Use ONLY the semantic CSS custom properties below. Never use hex values. Never r
 ### Border
 | CSS Property | Hex | Usage |
 |---|---|---|
-| --color-border-default | #1E241E | All UI edges — cards, inputs, dividers |
+| --color-border-default | #5C685A | Standard legible border — input outlines, control boundaries, most UI edges. 3.33:1 on canvas (SC 1.4.11 pass) |
+| --color-border-alt | #1E241E | Quiet decorative border (the previous default) — card frames, dense-layout dividers. Never the only boundary of an interactive control |
 | --color-border-muted | #0F2016 | Hairline dividers, table row separators |
-| --color-border-elevated | #2E3A2E | Prominent borders, raised surface edges |
+| --color-border-elevated | #2E3A2E | Structural chrome — one step above border-alt in the decorative ladder (muted < alt < elevated) |
 | --color-border-hover | #8B9683 | Border on interactive hover |
 | --color-border-active | #A0A89A | Border on active/pressed state |
 | --color-border-action | #4ADE6E | Outline for interactive outlined controls (secondary/ghost button). 11.1:1 on canvas — passes SC 1.4.11. Accent green is rule-compliant here: the control is interactive. |

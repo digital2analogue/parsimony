@@ -16,9 +16,9 @@
           "$description": "Secondary foreground — legible on background.alt. Contrast: 8.0:1 AA."
         },
         "border": {
-          "$value": "{color.border.default}",
+          "$value": "{color.border.alt}",
           "$type": "color",
-          "$description": "Standard border — same as UI edges, visually integrates with surrounding layout."
+          "$description": "Quiet decorative border — the badge is non-interactive and already delineated by its fill, so it keeps the subtle edge (border.alt carries the pre-2026-07-02 border.default value)."
         }
       },
       "success": {
