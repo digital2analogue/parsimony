@@ -12,6 +12,7 @@
   "scripts": {
     "build": "node scripts/build-brands.mjs",
     "docs": "node scripts/generate-docs.mjs",
+    "docs:components": "node scripts/generate-component-docs.mjs",
     "build:all": "node scripts/build-brands.mjs && node scripts/generate-docs.mjs",
     "validate": "node scripts/validate.mjs",
     "lint:stories": "node scripts/lint-stories.mjs",
