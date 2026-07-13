@@ -58,6 +58,19 @@ jobs:
             exit 1
           fi
 
+      # docs/index.html's color-primitives section is generated from
+      # tokens/primitives/color.tokens.json (the rest is hand-authored HTML,
+      # preserved via markers). Same staleness idiom as above.
+      - name: Regenerate token reference docs (docs/index.html)
+        run: npm run docs
+
+      - name: Fail if committed token reference docs are stale
+        run: |
+          if ! git diff --exit-code -- docs/index.html; then
+            echo "::error::docs/index.html is out of date. Run 'npm run docs' and commit the result."
+            exit 1
+          fi
+
       - name: Test (components + mcp)
         run: npm test --workspaces --if-present
 
