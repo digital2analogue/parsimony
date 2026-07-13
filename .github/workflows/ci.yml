@@ -45,6 +45,19 @@ jobs:
             exit 1
           fi
 
+      # Component docs are generated from design-system.json (fresh, above) + the
+      # token store. Only the GEN regions regenerate; AUTHORED prose is preserved,
+      # so this diff catches stale metadata-derived docs without touching authoring.
+      - name: Regenerate component docs (portable MDX)
+        run: npm run docs:components
+
+      - name: Fail if committed component docs are stale
+        run: |
+          if ! git diff --exit-code -- docs/components; then
+            echo "::error::Component docs are out of date. Run 'npm run docs:components' and commit the result."
+            exit 1
+          fi
+
       - name: Test (components + mcp)
         run: npm test --workspaces --if-present
 

@@ -3,6 +3,7 @@
   "components": [
     {
       "metaVersion": "1.0.0",
+      "status": "beta",
       "name": "rr-alert",
       "summary": "Inline notification banner for success, warning, danger, and info messages. Optionally dismissible.",
       "package": "@riverromney/components",
@@ -130,6 +131,7 @@
     },
     {
       "metaVersion": "1.0.0",
+      "status": "beta",
       "name": "rr-avatar",
       "summary": "Circular identity surface showing initials or an image, with size and accent-color variants.",
       "package": "@riverromney/components",
@@ -248,6 +250,7 @@
     },
     {
       "metaVersion": "1.0.0",
+      "status": "stable",
       "name": "rr-badge",
       "summary": "Status badge and accent chip. 9 variants map to component tokens; brand theming cascades via CSS custom properties.",
       "package": "@riverromney/components",
@@ -359,6 +362,7 @@
     },
     {
       "metaVersion": "1.0.0",
+      "status": "stable",
       "name": "rr-button",
       "summary": "Button with primary/secondary/danger variants, three sizes, loading spinner, and full keyboard/form semantics.",
       "package": "@riverromney/components",
@@ -530,6 +534,7 @@
     },
     {
       "metaVersion": "1.0.0",
+      "status": "beta",
       "name": "rr-card",
       "summary": "Surface container on the elevated background tier with optional header, body, and footer slots.",
       "package": "@riverromney/components",
@@ -609,6 +614,7 @@
     },
     {
       "metaVersion": "1.0.0",
+      "status": "beta",
       "name": "rr-checkbox",
       "summary": "Form-associated checkbox with checked, indeterminate, and disabled states. Backed by ElementInternals.",
       "package": "@riverromney/components",
@@ -745,6 +751,7 @@
     },
     {
       "metaVersion": "1.0.0",
+      "status": "beta",
       "name": "rr-dialog",
       "summary": "Modal dialog built on the native <dialog> element with focus trap and Escape-to-close.",
       "package": "@riverromney/components",
@@ -853,6 +860,7 @@
     },
     {
       "metaVersion": "1.0.0",
+      "status": "beta",
       "name": "rr-icon",
       "summary": "Sized, accessible wrapper for inline SVG icons. Decorative by default; labelled icons become role=\"img\".",
       "package": "@riverromney/components",
@@ -926,6 +934,7 @@
     },
     {
       "metaVersion": "1.0.0",
+      "status": "stable",
       "name": "rr-input",
       "summary": "Form-associated text input with label, helper/error text, and ElementInternals for native form participation.",
       "package": "@riverromney/components",
@@ -1111,6 +1120,7 @@
     },
     {
       "metaVersion": "1.0.0",
+      "status": "beta",
       "name": "rr-link",
       "summary": "Anchor enforcing the design system link style — underlined by default, underline removed on hover.",
       "package": "@riverromney/components",
@@ -1214,6 +1224,7 @@
     },
     {
       "metaVersion": "1.0.0",
+      "status": "beta",
       "name": "rr-progress",
       "summary": "Horizontal progress bar with determinate and indeterminate modes, using native role=\"progressbar\".",
       "package": "@riverromney/components",
@@ -1295,6 +1306,7 @@
     },
     {
       "metaVersion": "1.0.0",
+      "status": "beta",
       "name": "rr-radio",
       "summary": "Individual radio button. Must be used inside rr-radio-group, which manages name, value, and selection.",
       "package": "@riverromney/components",
@@ -1400,6 +1412,7 @@
     },
     {
       "metaVersion": "1.0.0",
+      "status": "beta",
       "name": "rr-radio-group",
       "summary": "Form-associated group of radio buttons. Renders a fieldset/legend and manages selection and form value for its rr-radio children.",
       "package": "@riverromney/components",
@@ -1527,6 +1540,7 @@
     },
     {
       "metaVersion": "1.0.0",
+      "status": "beta",
       "name": "rr-select",
       "summary": "Form-associated select dropdown with label, helper text, and error state. Options supplied via the options property.",
       "package": "@riverromney/components",
@@ -1679,6 +1693,7 @@
     },
     {
       "metaVersion": "1.0.0",
+      "status": "beta",
       "name": "rr-skeleton",
       "summary": "Animated shimmer placeholder for loading states. Text, circular, and rectangular shape variants.",
       "package": "@riverromney/components",
@@ -1752,6 +1767,7 @@
     },
     {
       "metaVersion": "1.0.0",
+      "status": "beta",
       "name": "rr-spinner",
       "summary": "Animated circular loading indicator that announces its status to screen readers.",
       "package": "@riverromney/components",
@@ -1818,6 +1834,7 @@
     },
     {
       "metaVersion": "1.0.0",
+      "status": "beta",
       "name": "rr-tab",
       "summary": "A single tab button used inside rr-tab-list; its selection state is managed by the parent.",
       "package": "@riverromney/components",
@@ -1911,6 +1928,7 @@
     },
     {
       "metaVersion": "1.0.0",
+      "status": "beta",
       "name": "rr-tab-list",
       "summary": "Accessible tab strip that wraps rr-tab elements, managing selection and arrow-key navigation.",
       "package": "@riverromney/components",
@@ -1989,6 +2007,7 @@
     },
     {
       "metaVersion": "1.0.0",
+      "status": "beta",
       "name": "rr-tag",
       "summary": "Outlined uppercase tag/chip — the square, transparent counterpart to the filled pill badge. Two emphasis variants via component tokens.",
       "package": "@riverromney/components",
@@ -2060,6 +2079,7 @@
     },
     {
       "metaVersion": "1.0.0",
+      "status": "beta",
       "name": "rr-textarea",
       "summary": "Form-associated multi-line text area with label, helper text, and error state.",
       "package": "@riverromney/components",
@@ -2234,6 +2254,7 @@
     },
     {
       "metaVersion": "1.0.0",
+      "status": "beta",
       "name": "rr-toggle",
       "summary": "Form-associated toggle switch for binary on/off settings.",
       "package": "@riverromney/components",

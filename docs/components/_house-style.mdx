@@ -1,0 +1,29 @@
+---
+title: House style
+description: "How component docs in this folder are written and generated."
+---
+
+{/* This file is the exemplar every generated component doc matches — the
+    code-first analog of the course's `input.md`. It is NOT auto-generated. */}
+
+## How these docs work
+
+Each `docs/components/<name>.mdx` is produced by `npm run docs:components`
+(`scripts/generate-component-docs.mjs`) from `design-system.json` + the token store.
+
+Two kinds of region:
+
+- **GEN** (`{/* GEN:<id>:start */}` … `{/* GEN:<id>:end */}`) — regenerated
+  every run from component metadata (props, tokens, a11y, examples, guardrails).
+  **Never hand-edit** — your changes are overwritten. Fix the source
+  (`*.meta.json`, per-property JSDoc, or the token `$description`) instead.
+- **AUTHORED** (`{/* AUTHORED:<id> */}` … `{/* /AUTHORED:<id> */}`) — prose a
+  human owns. DocGen preserves it across regens. Today that's **Overview** and
+  **Usage (Do/Don't)** — the ~30% judgment layer.
+
+## Voice
+
+- Overview: one or two sentences — what it's for, and when to use it vs. a
+  sibling (e.g. badge vs. tag vs. alert). Not a feature list.
+- Usage: concrete **Do** / **Don't** pairs, tied to real misuse.
+- Everything else is data — keep it in the metadata, not the prose.

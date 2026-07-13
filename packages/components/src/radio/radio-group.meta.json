@@ -1,5 +1,6 @@
 {
   "metaVersion": "1.0.0",
+  "status": "beta",
   "name": "rr-radio-group",
   "summary": "Form-associated group of radio buttons. Renders a fieldset/legend and manages selection and form value for its rr-radio children.",
   "package": "@riverromney/components",

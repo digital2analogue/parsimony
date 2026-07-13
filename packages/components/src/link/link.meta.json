@@ -1,5 +1,6 @@
 {
   "metaVersion": "1.0.0",
+  "status": "beta",
   "name": "rr-link",
   "summary": "Anchor enforcing the design system link style — underlined by default, underline removed on hover.",
   "package": "@riverromney/components",

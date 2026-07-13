@@ -1,5 +1,6 @@
 {
   "metaVersion": "1.0.0",
+  "status": "beta",
   "name": "rr-checkbox",
   "summary": "Form-associated checkbox with checked, indeterminate, and disabled states. Backed by ElementInternals.",
   "package": "@riverromney/components",

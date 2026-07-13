@@ -4,13 +4,17 @@
   "title": "ComponentMeta",
   "description": "Schema for *.meta.json files that describe each web component in the design system. Extends the Custom Elements Manifest with usage intent, token references, accessibility contracts, and Figma mappings.",
   "type": "object",
-  "required": ["metaVersion", "name", "summary", "package",
+  "required": ["metaVersion", "name", "status", "summary", "package",
                "props", "slots", "tokensUsed", "examples", "accessibility"],
   "properties": {
     "metaVersion": {
       "type": "string",
       "pattern": "^\\d+\\.\\d+\\.\\d+$",
       "description": "Semver version of this meta file. Distinct from the merged design-system.json $schemaVersion."
+    },
+    "status": {
+      "enum": ["stable", "beta", "experimental"],
+      "description": "Production-readiness. 'stable' = productionized, API frozen; 'beta' = usable but API may change; 'experimental' = early/unstable. Surfaced in design-system.json and component doc front-matter."
     },
     "name": {
       "type": "string",

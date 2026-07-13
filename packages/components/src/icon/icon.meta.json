@@ -1,5 +1,6 @@
 {
   "metaVersion": "1.0.0",
+  "status": "beta",
   "name": "rr-icon",
   "summary": "Sized, accessible wrapper for inline SVG icons. Decorative by default; labelled icons become role=\"img\".",
   "package": "@riverromney/components",

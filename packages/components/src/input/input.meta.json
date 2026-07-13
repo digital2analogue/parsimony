@@ -1,5 +1,6 @@
 {
   "metaVersion": "1.0.0",
+  "status": "stable",
   "name": "rr-input",
   "summary": "Form-associated text input with label, helper/error text, and ElementInternals for native form participation.",
   "package": "@riverromney/components",

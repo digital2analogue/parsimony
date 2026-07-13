@@ -1,5 +1,6 @@
 {
   "metaVersion": "1.0.0",
+  "status": "beta",
   "name": "rr-select",
   "summary": "Form-associated select dropdown with label, helper text, and error state. Options supplied via the options property.",
   "package": "@riverromney/components",

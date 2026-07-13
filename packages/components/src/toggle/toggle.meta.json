@@ -1,5 +1,6 @@
 {
   "metaVersion": "1.0.0",
+  "status": "beta",
   "name": "rr-toggle",
   "summary": "Form-associated toggle switch for binary on/off settings.",
   "package": "@riverromney/components",

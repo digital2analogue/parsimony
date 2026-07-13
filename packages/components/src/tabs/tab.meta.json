@@ -1,5 +1,6 @@
 {
   "metaVersion": "1.0.0",
+  "status": "beta",
   "name": "rr-tab",
   "summary": "A single tab button used inside rr-tab-list; its selection state is managed by the parent.",
   "package": "@riverromney/components",
