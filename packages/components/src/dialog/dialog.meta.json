@@ -1,5 +1,6 @@
 {
   "metaVersion": "1.0.0",
+  "status": "beta",
   "name": "rr-dialog",
   "summary": "Modal dialog built on the native <dialog> element with focus trap and Escape-to-close.",
   "package": "@riverromney/components",

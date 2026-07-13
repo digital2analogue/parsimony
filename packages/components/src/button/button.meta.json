@@ -1,5 +1,6 @@
 {
   "metaVersion": "1.0.0",
+  "status": "stable",
   "name": "rr-button",
   "summary": "Button with primary/secondary/danger variants, three sizes, loading spinner, and full keyboard/form semantics.",
   "package": "@riverromney/components",

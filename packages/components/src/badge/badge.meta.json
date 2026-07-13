@@ -1,5 +1,6 @@
 {
   "metaVersion": "1.0.0",
+  "status": "stable",
   "name": "rr-badge",
   "summary": "Status badge and accent chip. 9 variants map to component tokens; brand theming cascades via CSS custom properties.",
   "package": "@riverromney/components",

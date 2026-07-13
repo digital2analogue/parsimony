@@ -1,5 +1,6 @@
 {
   "metaVersion": "1.0.0",
+  "status": "beta",
   "name": "rr-spinner",
   "summary": "Animated circular loading indicator that announces its status to screen readers.",
   "package": "@riverromney/components",

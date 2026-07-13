@@ -1,5 +1,6 @@
 {
   "metaVersion": "1.0.0",
+  "status": "beta",
   "name": "rr-card",
   "summary": "Surface container on the elevated background tier with optional header, body, and footer slots.",
   "package": "@riverromney/components",

@@ -1,5 +1,6 @@
 {
   "metaVersion": "1.0.0",
+  "status": "beta",
   "name": "rr-tab-list",
   "summary": "Accessible tab strip that wraps rr-tab elements, managing selection and arrow-key navigation.",
   "package": "@riverromney/components",

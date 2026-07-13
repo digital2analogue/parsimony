@@ -1,5 +1,6 @@
 {
   "metaVersion": "1.0.0",
+  "status": "beta",
   "name": "rr-alert",
   "summary": "Inline notification banner for success, warning, danger, and info messages. Optionally dismissible.",
   "package": "@riverromney/components",

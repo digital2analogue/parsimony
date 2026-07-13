@@ -1,5 +1,6 @@
 {
   "metaVersion": "1.0.0",
+  "status": "beta",
   "name": "rr-radio",
   "summary": "Individual radio button. Must be used inside rr-radio-group, which manages name, value, and selection.",
   "package": "@riverromney/components",

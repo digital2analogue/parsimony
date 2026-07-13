@@ -1,5 +1,6 @@
 {
   "metaVersion": "1.0.0",
+  "status": "beta",
   "name": "rr-avatar",
   "summary": "Circular identity surface showing initials or an image, with size and accent-color variants.",
   "package": "@riverromney/components",
