@@ -11,6 +11,36 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-07-14 — Collapse to a two-tier token model; drop the component tier
+
+**Decided:** Move the token architecture from three tiers to **two** — primitives →
+semantic — and remove the `component.*` tier entirely. UI (and every `rr-*` component)
+references the semantic role directly. Migration is tracked in **#114** (not yet executed;
+the code still ships the component tier as of this entry).
+
+**Why:** The component tier's stated purpose is a re-pointable per-component hook so a
+brand can override one component without touching component code. Measured against `main`,
+that hook is **unused**: all **139** component tokens are pure 1:1 aliases over a semantic
+role (e.g. `component.badge.success.background → {color.background.success-alt}`), and base
+vs. decision-engine emit **identical** 139 values — DE achieves its full light-mode
+inversion entirely at the semantic layer, re-pointing **zero** component tokens. Only 12 of
+21 components reference `--component-*` at all, and the "scoping" is already leaky (select/
+textarea alias `--component-input-*`, radio-group aliases radio). So the tier costs 139
+tokens plus build/validate/docs plumbing for zero realized benefit.
+
+**Alternative considered:** Keep the three-tier model (Material-style ref/sys/comp). Rejected —
+nothing exercises the extra tier today. If a future brand genuinely needs a per-component
+override, the hook can be reintroduced **for the specific tokens that need it** rather than
+kept as a universal pass-through. (One open detail for #114: 4 component tokens resolve to a
+value with no semantic equivalent — `avatar-size-lg: 40px` and three `rgba(0,0,0,0)`
+transparents — and must be re-homed before deletion.)
+
+**Status:** Decided; execution tracked in #114. The portfolio `/work/system` case study
+already presents the two-tier target state (portfolio-vercel#33, merged) — so the case study
+leads the code until #114 lands.
+
+---
+
 ## 2026-07-02 — border.muted and border.alt stay separate; the distinction is codified
 
 **Decided:** Keep both quiet-border tokens, and write down the rule that was previously
