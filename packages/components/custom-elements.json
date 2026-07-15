@@ -1384,6 +1384,14 @@
         },
         {
           "kind": "js",
+          "name": "RrToast",
+          "declaration": {
+            "name": "RrToast",
+            "module": "./toast/toast.js"
+          }
+        },
+        {
+          "kind": "js",
           "name": "RrToggle",
           "declaration": {
             "name": "RrToggle",
@@ -3556,6 +3564,235 @@
           "declaration": {
             "name": "RrTextarea",
             "module": "src/textarea/textarea.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/toast/toast.figma.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/toast/toast.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A transient floating notification — announces, lingers briefly, and leaves.\n\nWhere `rr-alert` is an in-flow tinted banner that belongs to the page,\nthe toast is a floating neutral surface with a variant accent rail.\nPlacement is the consumer's job (a fixed-position region in the app\ncorner); the component owns the surface, the status semantics, the\noptional auto-dismiss timer (paused while hovered or focused), and the\ndismiss affordance.",
+          "name": "RrToast",
+          "cssParts": [
+            {
+              "description": "The root toast surface",
+              "name": "toast"
+            },
+            {
+              "description": "The heading text element",
+              "name": "heading"
+            },
+            {
+              "description": "The content slot wrapper",
+              "name": "content"
+            },
+            {
+              "description": "The dismiss button",
+              "name": "dismiss"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Toast message content",
+              "name": ""
+            },
+            {
+              "description": "Optional action (e.g. an Undo rr-button variant=\"ghost\")",
+              "name": "action"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "ToastVariant"
+              },
+              "default": "'neutral'",
+              "description": "Status variant: neutral (default), success, warning, danger, info. Expressed via the accent rail and heading color.",
+              "attribute": "variant",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "heading",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "Optional bold heading rendered above the message, in the variant accent color.",
+              "attribute": "heading"
+            },
+            {
+              "kind": "field",
+              "name": "duration",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "Auto-dismiss after this many milliseconds. 0 (default) means persistent until dismissed. Timer pauses while hovered or focused.",
+              "attribute": "duration"
+            },
+            {
+              "kind": "field",
+              "name": "dismissible",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "Shows the dismiss button. On by default — a toast the user can't clear is a trap.",
+              "attribute": "dismissible",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "_timer",
+              "type": {
+                "text": "ReturnType<typeof setTimeout> | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "_deadline",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "_remaining",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "method",
+              "name": "dismiss",
+              "parameters": [
+                {
+                  "name": "reason",
+                  "default": "'programmatic'",
+                  "type": {
+                    "text": "'dismiss' | 'timeout' | 'programmatic'"
+                  }
+                }
+              ],
+              "description": "Close the toast. Single source of truth — always dispatches `rr-toast-close`."
+            },
+            {
+              "kind": "method",
+              "name": "_startTimer",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "ms",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_clearTimer",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_pause",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_resume",
+              "privacy": "private"
+            }
+          ],
+          "events": [
+            {
+              "name": "rr-toast-close",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "When the toast closes; detail.reason is 'dismiss' | 'timeout' | 'programmatic'"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "variant",
+              "type": {
+                "text": "ToastVariant"
+              },
+              "default": "'neutral'",
+              "description": "Status variant: neutral (default), success, warning, danger, info. Expressed via the accent rail and heading color.",
+              "fieldName": "variant"
+            },
+            {
+              "name": "heading",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "Optional bold heading rendered above the message, in the variant accent color.",
+              "fieldName": "heading"
+            },
+            {
+              "name": "duration",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "Auto-dismiss after this many milliseconds. 0 (default) means persistent until dismissed. Timer pauses while hovered or focused.",
+              "fieldName": "duration"
+            },
+            {
+              "name": "dismissible",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "Shows the dismiss button. On by default — a toast the user can't clear is a trap.",
+              "fieldName": "dismissible"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "rr-toast",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RrToast",
+          "declaration": {
+            "name": "RrToast",
+            "module": "src/toast/toast.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "rr-toast",
+          "declaration": {
+            "name": "RrToast",
+            "module": "src/toast/toast.ts"
           }
         }
       ]

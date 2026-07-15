@@ -18,4 +18,5 @@ export { RrTab } from './tabs/tab.js';
 export { RrTabList } from './tabs/tab-list.js';
 export { RrTag } from './tag/tag.js';
 export { RrTextarea } from './textarea/textarea.js';
+export { RrToast } from './toast/toast.js';
 export { RrToggle } from './toggle/toggle.js';
