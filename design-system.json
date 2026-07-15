@@ -5526,6 +5526,12 @@
       },
       {
         "kind": "javascript-module",
+        "path": "src/tag/tag.figma.ts",
+        "declarations": [],
+        "exports": []
+      },
+      {
+        "kind": "javascript-module",
         "path": "src/tag/tag.ts",
         "declarations": [
           {
