@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { resolve } from 'node:path';
 
 // Manifest-driven: one screenshot per story in the built Storybook, so a
 // token or component-CSS change that shifts ANY story's rendering fails
@@ -8,7 +8,10 @@ import { fileURLToPath } from 'node:url';
 // new stories are covered the moment they exist.
 type StoryEntry = { id: string; type: string };
 
-const indexPath = fileURLToPath(new URL('../../storybook-static/index.json', import.meta.url));
+// cwd-relative, not import.meta.url — Playwright always runs from the
+// package dir (config location), and URL-scheme tricks break under other
+// collectors that might load this file.
+const indexPath = resolve('storybook-static/index.json');
 let entries: StoryEntry[] = [];
 try {
   const index = JSON.parse(readFileSync(indexPath, 'utf8'));
