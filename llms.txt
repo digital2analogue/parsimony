@@ -1,0 +1,28 @@
+# Parsimony
+
+> River Romney's cross-site design system: DTCG design tokens (dark-first, phosphor-green, 4 brands) built with Style Dictionary, 21 framework-agnostic Lit web components (`rr-*`), and an MCP server exposing the whole system to agents. Published as `@digital2analogue2/parsimony` (token CSS) and `@digital2analogue2/parsimony-components` (components) on npm.
+
+Hard constraints for any generated UI: no hex literals (use `var(--color-*)`), never reference `--primitive-*` tokens, never fabricate token names, all text/background pairs must hold WCAG AA, accent green signals interactivity only.
+
+## Start here
+
+- [AGENTS.md](AGENTS.md): the agent entry point — component index, install/usage (vanilla + React 19), assembly patterns (form stacks, actions rows, panel recipe, layout-width rule), MCP tools, hard limits
+- [ai/rules.md](ai/rules.md): hard and soft rules, typography hierarchy, per-site variations
+- [ai/DESIGN.md](ai/DESIGN.md): resolved token tables for the base dark theme (color, type, spacing, motion, radius, shadow, icon)
+- [ai/DECISION-ENGINE.md](ai/DECISION-ENGINE.md): the light-mode enterprise sub-brand's decisions and token reference
+
+## Component contracts
+
+- [design-system.json](design-system.json): machine-readable contracts for all 21 components — props, slots, events, tokens used, a11y, rules, examples (generated from source; never stale)
+- [docs/components/](docs/components/): per-component MDX — generated contract tables plus authored overviews and usage judgment (e.g. [rr-button](docs/components/rr-button.mdx), [rr-select](docs/components/rr-select.mdx), [rr-toggle](docs/components/rr-toggle.mdx))
+
+## Tokens
+
+- [tokens/](tokens/): DTCG source of truth — primitives, semantic roles, component-scoped, brand overrides
+- [build/css/](build/css/): built per-brand CSS custom properties (generated; consumers install the npm package instead)
+
+## Tooling
+
+- MCP server: `packages/mcp/src/server.mjs` (stdio) — auto-registered via `.mcp.json`; tools for components, tokens, rules, decisions, brands, contrast checks, and consumer linting
+- Lint gate: `npm run validate` — hex/primitive/deprecated-token rules, token reference resolution, Code Connect parity
+- [docs/decisions.md](docs/decisions.md): the decision log — why the system took the turns it did
