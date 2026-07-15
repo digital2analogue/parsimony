@@ -139,6 +139,12 @@ export class RrButton extends LitElement {
       to { transform: rotate(360deg); }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      .spinner {
+        animation: none;
+      }
+    }
+
     .label {
       display: inline-flex;
       align-items: center;

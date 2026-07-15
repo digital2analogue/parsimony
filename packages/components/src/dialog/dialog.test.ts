@@ -119,3 +119,30 @@ describe('rr-dialog', () => {
     expect(results).toHaveNoViolations();
   });
 });
+
+describe('rr-dialog keyboard', () => {
+  it('closes and emits rr-dialog-close when the native dialog fires close (the Escape path)', async () => {
+    const el = createDialog('Escapable');
+    el.show();
+    await el.updateComplete;
+    let fired = 0;
+    el.addEventListener('rr-dialog-close', () => fired++);
+    // Escape on a modal <dialog> fires the native `close` event; happy-dom has
+    // no real key→close plumbing, so drive the same native event directly.
+    el.shadowRoot!.querySelector('dialog')!.dispatchEvent(new Event('close'));
+    await el.updateComplete;
+    expect(el.open).toBe(false);
+    expect(fired).toBe(1);
+  });
+
+  it('close() is idempotent — a second close dispatches no extra event', async () => {
+    const el = createDialog('Once');
+    el.show();
+    await el.updateComplete;
+    let fired = 0;
+    el.addEventListener('rr-dialog-close', () => fired++);
+    el.close();
+    el.close();
+    expect(fired).toBe(1);
+  });
+});

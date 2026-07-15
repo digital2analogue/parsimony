@@ -182,3 +182,12 @@ describe('rr-button', () => {
     expect(results).toHaveNoViolations();
   });
 });
+
+describe('rr-button keyboard semantics', () => {
+  it('renders a native <button> with focus delegation — Enter/Space activation comes from native semantics', async () => {
+    const el = createElement('<rr-button>Go</rr-button>') as RrButton;
+    await el.updateComplete;
+    expect(el.shadowRoot!.querySelector('button')).toBeTruthy();
+    expect((el.constructor as typeof RrButton).shadowRootOptions.delegatesFocus).toBe(true);
+  });
+});

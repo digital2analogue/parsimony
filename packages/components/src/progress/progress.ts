@@ -41,6 +41,12 @@ export class RrProgress extends LitElement {
       will-change: width;
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      :host([indeterminate]) .fill {
+        animation: none;
+      }
+    }
+
     :host([indeterminate]) .fill {
       width: 30%;
       animation: rr-progress-slide 1.4s ease-in-out infinite;
