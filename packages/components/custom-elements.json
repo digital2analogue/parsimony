@@ -484,7 +484,7 @@
                 "text": "ButtonVariant"
               },
               "default": "'primary'",
-              "description": "Visual variant: primary (filled CTA), secondary (outlined), danger (destructive).",
+              "description": "Visual variant: primary (filled CTA), secondary (outlined), danger (destructive), ghost (text-only, quiet).",
               "attribute": "variant",
               "reflects": true
             },
@@ -576,7 +576,7 @@
                 "text": "ButtonVariant"
               },
               "default": "'primary'",
-              "description": "Visual variant: primary (filled CTA), secondary (outlined), danger (destructive).",
+              "description": "Visual variant: primary (filled CTA), secondary (outlined), danger (destructive), ghost (text-only, quiet).",
               "fieldName": "variant"
             },
             {

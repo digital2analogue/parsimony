@@ -98,11 +98,11 @@ semantic meaning. Accent variants are decorative emphasis tags. |
 
 ### `<rr-button>`
 
-Button with primary/secondary/danger variants, three sizes, loading spinner, and full keyboard/form semantics.
+Button with primary/secondary/danger/ghost variants, three sizes, loading spinner, and full keyboard/form semantics.
 
 | Attribute | Type | Default | Notes |
 |---|---|---|---|
-| `variant` | string | `primary` | Visual variant: primary (filled CTA), secondary (outlined), danger (destructive). |
+| `variant` | string | `primary` | Visual variant: primary (filled CTA), secondary (outlined), danger (destructive), ghost (text-only, quiet). |
 | `size` | string | `medium` | Size: small, medium, large. Controls padding and font size. |
 | `disabled` | boolean | `false` | Disables the button. Prevents click and removes from tab order. |
 | `loading` | boolean | `false` | Shows a spinner and sets aria-busy. Click suppressed while loading. |
