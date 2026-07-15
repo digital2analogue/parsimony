@@ -6,12 +6,15 @@ import figma, { html } from '@figma/code-connect';
  * Figma file:  Brand Tokens Design System (4aOEBHcnAv2Kbn0g1arL78)
  * Component:   Button ComponentSet — node 98:56
  * Variant props:
- *   "Variant" — primary | secondary | ghost
+ *   "Variant" — primary | secondary | ghost | danger
  *   "Size"    — sm | md | lg  (maps to small | medium | large on the element)
- *   "State"   — default | hover | disabled
+ *   "State"   — default | hover | active | focus | disabled | loading
  *
  * Notes:
- *   - `disabled` derived from State=disabled (no separate boolean prop in Figma).
+ *   - `disabled` derived from State=disabled, `loading` from State=loading
+ *     (no separate boolean props in Figma).
+ *   - hover/active/focus are CSS-only states — they exist as Figma variants
+ *     for design reference but emit the same element as State=default.
  *   - variant and size are always emitted; consumers trim defaults manually.
  */
 figma.connect(
@@ -22,6 +25,7 @@ figma.connect(
         primary:   'primary',
         secondary: 'secondary',
         ghost:     'ghost',
+        danger:    'danger',
       }),
       size: figma.enum('Size', {
         sm: 'small',
@@ -31,8 +35,11 @@ figma.connect(
       disabled: figma.enum('State', {
         disabled: true,
       }),
+      loading: figma.enum('State', {
+        loading: true,
+      }),
     },
-    example: ({ variant, size, disabled }) =>
-      html`<rr-button variant="${variant}" size="${size}" disabled=${disabled}>Button</rr-button>`,
+    example: ({ variant, size, disabled, loading }) =>
+      html`<rr-button variant="${variant}" size="${size}" disabled=${disabled} loading=${loading}>Button</rr-button>`,
   }
 );
