@@ -77,7 +77,7 @@ jobs:
         run: |
           PKG=@digital2analogue2/parsimony
           VERSION="${{ steps.guard.outputs.version }}"
-          for i in $(seq 1 10); do
+          for i in $(seq 1 20); do
             [ "$(npm view "$PKG" version 2>/dev/null)" = "$VERSION" ] && { echo "$PKG@$VERSION is live."; exit 0; }
             sleep 15
           done
