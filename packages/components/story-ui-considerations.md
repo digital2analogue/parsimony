@@ -13,7 +13,7 @@ generated from `design-system.json` and `ai/rules.md`.
   custom-element tags (e.g. `<rr-button variant="primary">Save</rr-button>`),
   not React/JSX.
 - Register every element with a single **barrel side-effect import** at the top
-  of each story file: `import '@riverromney/components';`. Do not deep-import
+  of each story file: `import '@digital2analogue2/parsimony-components';`. Do not deep-import
   individual component files — the package `exports` map only exposes the barrel.
 - Style and theme come entirely from CSS custom properties on `:root` (loaded in
   `.storybook/preview.ts` from `build/css/variables.css`). Components inherit the

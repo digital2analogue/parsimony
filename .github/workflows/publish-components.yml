@@ -1,0 +1,70 @@
+name: Publish @digital2analogue2/parsimony-components
+
+# On-demand only — never publishes automatically. Trigger from the Actions tab
+# (workflow_dispatch) or by pushing a tag like `parsimony-components-v0.1.0`.
+#
+# Same conventions as publish.yml (the tokens package): public npm registry,
+# @digital2analogue2 user scope, NPM_TOKEN Actions secret, already-published
+# dispatches become green no-ops, registry verified before reporting success.
+# prepack runs the tsc build, so dist/ ships fresh from source.
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'parsimony-components-v*'
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+          scope: '@digital2analogue2'
+
+      - name: Install (retries transient network failures)
+        run: |
+          for i in 1 2 3; do
+            npm ci && exit 0
+            echo "npm ci failed (attempt $i/3)"
+            [ "$i" -lt 3 ] && sleep $((i * 15))
+          done
+          exit 1
+
+      - name: Skip if this version is already on the registry
+        id: guard
+        run: |
+          PKG=@digital2analogue2/parsimony-components
+          VERSION=$(node -p "require('./packages/components/package.json').version")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          if npm view "$PKG@$VERSION" version >/dev/null 2>&1; then
+            echo "::warning::$PKG@$VERSION is already published — nothing to do. Bump packages/components/package.json and re-dispatch."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish to npm (prepack builds dist)
+        if: steps.guard.outputs.skip != 'true'
+        run: npm publish --workspace @digital2analogue2/parsimony-components --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Verify the registry serves the new version
+        if: steps.guard.outputs.skip != 'true'
+        run: |
+          PKG=@digital2analogue2/parsimony-components
+          VERSION="${{ steps.guard.outputs.version }}"
+          for i in $(seq 1 10); do
+            [ "$(npm view "$PKG" version 2>/dev/null)" = "$VERSION" ] && { echo "$PKG@$VERSION is live."; exit 0; }
+            sleep 15
+          done
+          echo "::error::$PKG@$VERSION not visible on the registry after publish"
+          exit 1

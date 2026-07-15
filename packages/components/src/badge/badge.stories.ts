@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 // Barrel side-effect import registers every rr-* element (see story-ui.config.js).
-import '@riverromney/components';
+import '@digital2analogue2/parsimony-components';
 
 const VARIANTS = [
   'default',

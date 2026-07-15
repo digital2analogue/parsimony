@@ -3,7 +3,7 @@
   "status": "beta",
   "name": "rr-alert",
   "summary": "Inline notification banner for success, warning, danger, and info messages. Optionally dismissible.",
-  "package": "@riverromney/components",
+  "package": "@digital2analogue2/parsimony-components",
   "props": [
     { "name": "variant", "type": "'success' | 'warning' | 'danger' | 'info'", "default": "success" },
     { "name": "heading", "type": "string", "default": "" },

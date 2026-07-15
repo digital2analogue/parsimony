@@ -3,7 +3,7 @@
   "status": "beta",
   "name": "rr-icon",
   "summary": "Sized, accessible wrapper for inline SVG icons. Decorative by default; labelled icons become role=\"img\".",
-  "package": "@riverromney/components",
+  "package": "@digital2analogue2/parsimony-components",
   "props": [
     { "name": "size", "type": "'compact' | 'default' | 'large' | 'xl'", "default": "default" },
     { "name": "aria-label", "type": "string | null", "default": "null" }

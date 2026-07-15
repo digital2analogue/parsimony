@@ -3,7 +3,7 @@
   "status": "beta",
   "name": "rr-radio",
   "summary": "Individual radio button. Must be used inside rr-radio-group, which manages name, value, and selection.",
-  "package": "@riverromney/components",
+  "package": "@digital2analogue2/parsimony-components",
   "props": [
     { "name": "value", "type": "string", "default": "" },
     { "name": "checked", "type": "boolean", "default": "false" },

@@ -109,7 +109,9 @@ needed) via `.github/workflows/publish.yml` (on-demand only). Public npm keeps
 the scope independent of the GitHub repo owner, so the repo stays under
 `digital2analogue` with no transfer. One-time setup: add an npm automation token
 as the `NPM_TOKEN` Actions secret. Steps in `packages/tokens/README.md`. The
-components/mcp packages (still scoped `@riverromney`) are not published yet.
+components package publishes as `@digital2analogue2/parsimony-components` via
+`.github/workflows/publish-components.yml` (on-demand, same conventions); the
+mcp package (still scoped `@riverromney`) is not published yet.
 
 ## Sub-Brands
 

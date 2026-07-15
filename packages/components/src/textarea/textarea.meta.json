@@ -3,7 +3,7 @@
   "status": "beta",
   "name": "rr-textarea",
   "summary": "Form-associated multi-line text area with label, helper text, and error state.",
-  "package": "@riverromney/components",
+  "package": "@digital2analogue2/parsimony-components",
   "props": [
     { "name": "name", "type": "string", "default": "" },
     { "name": "value", "type": "string", "default": "" },

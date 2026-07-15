@@ -1,5 +1,5 @@
 {
-  "name": "@riverromney/components",
+  "name": "@digital2analogue2/parsimony-components",
   "version": "0.1.0",
   "description": "Framework-agnostic Lit web components for the River Romney design system",
   "type": "module",
@@ -25,7 +25,8 @@
     "build-storybook": "storybook build",
     "story-ui": "story-ui start",
     "test:visual": "playwright test",
-    "test:visual:update": "playwright test --update-snapshots"
+    "test:visual:update": "playwright test --update-snapshots",
+    "prepack": "npm run build"
   },
   "peerDependencies": {
     "lit": "^3.0.0 || ^4.0.0"
@@ -47,5 +48,18 @@
     "vitest": "^4.1.9",
     "vitest-axe": "^1.0.0-pre.3"
   },
-  "customElements": "custom-elements.json"
+  "customElements": "custom-elements.json",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "custom-elements.json",
+    "src/react.d.ts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/digital2analogue/parsimony.git",
+    "directory": "packages/components"
+  }
 }

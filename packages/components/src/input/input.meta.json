@@ -3,7 +3,7 @@
   "status": "stable",
   "name": "rr-input",
   "summary": "Form-associated text input with label, helper/error text, and ElementInternals for native form participation.",
-  "package": "@riverromney/components",
+  "package": "@digital2analogue2/parsimony-components",
   "props": [
     { "name": "type", "type": "string", "default": "text" },
     { "name": "name", "type": "string", "default": "" },

@@ -16,7 +16,7 @@
     "build:all": "node scripts/build-brands.mjs && node scripts/generate-docs.mjs",
     "validate": "node scripts/validate.mjs",
     "lint:stories": "node scripts/lint-stories.mjs",
-    "build:cem": "npm run cem --workspace @riverromney/components && node scripts/normalize-cem.mjs",
+    "build:cem": "npm run cem --workspace @digital2analogue2/parsimony-components && node scripts/normalize-cem.mjs",
     "build:meta": "npm run build:cem && node scripts/build-design-system-json.mjs && node scripts/build-considerations.mjs",
     "build:considerations": "node scripts/build-considerations.mjs",
     "drift": "node scripts/drift-lint.mjs",
@@ -25,8 +25,8 @@
     "test:unit": "vitest",
     "test:unit:ui": "vitest --ui",
     "prepare": "husky",
-    "test:visual": "npm run build && npm run build --workspace @riverromney/components && npm run build-storybook --workspace @riverromney/components && npm run test:visual --workspace @riverromney/components",
-    "test:visual:update": "npm run build && npm run build --workspace @riverromney/components && npm run build-storybook --workspace @riverromney/components && npm run test:visual:update --workspace @riverromney/components"
+    "test:visual": "npm run build && npm run build --workspace @digital2analogue2/parsimony-components && npm run build-storybook --workspace @digital2analogue2/parsimony-components && npm run test:visual --workspace @digital2analogue2/parsimony-components",
+    "test:visual:update": "npm run build && npm run build --workspace @digital2analogue2/parsimony-components && npm run build-storybook --workspace @digital2analogue2/parsimony-components && npm run test:visual:update --workspace @digital2analogue2/parsimony-components"
   },
   "devDependencies": {
     "@vitest/ui": "^4.1.10",

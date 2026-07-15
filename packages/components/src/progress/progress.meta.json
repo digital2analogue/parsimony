@@ -3,7 +3,7 @@
   "status": "beta",
   "name": "rr-progress",
   "summary": "Horizontal progress bar with determinate and indeterminate modes, using native role=\"progressbar\".",
-  "package": "@riverromney/components",
+  "package": "@digital2analogue2/parsimony-components",
   "props": [
     { "name": "value", "type": "number", "default": "0" },
     { "name": "max", "type": "number", "default": "100" },

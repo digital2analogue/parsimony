@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '@riverromney/components';
+import '@digital2analogue2/parsimony-components';
 
 const meta: Meta = {
   title: 'Components/Button',

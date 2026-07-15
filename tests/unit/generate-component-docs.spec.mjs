@@ -16,7 +16,7 @@ const fakeComponent = {
   name: "rr-thing",
   status: "beta",
   summary: "A test thing.",
-  package: "@riverromney/components",
+  package: "@digital2analogue2/parsimony-components",
   props: [
     {
       name: "variant",

@@ -3,7 +3,7 @@
   "status": "beta",
   "name": "rr-select",
   "summary": "Form-associated select dropdown with label, helper text, and error state. Options supplied via the options property.",
-  "package": "@riverromney/components",
+  "package": "@digital2analogue2/parsimony-components",
   "props": [
     { "name": "name", "type": "string", "default": "" },
     { "name": "value", "type": "string", "default": "" },

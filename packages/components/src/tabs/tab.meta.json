@@ -3,7 +3,7 @@
   "status": "beta",
   "name": "rr-tab",
   "summary": "A single tab button used inside rr-tab-list; its selection state is managed by the parent.",
-  "package": "@riverromney/components",
+  "package": "@digital2analogue2/parsimony-components",
   "props": [
     { "name": "value", "type": "string", "default": "" },
     { "name": "selected", "type": "boolean", "default": false },

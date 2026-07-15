@@ -3,7 +3,7 @@
   "status": "stable",
   "name": "rr-button",
   "summary": "Button with primary/secondary/danger/ghost variants, three sizes, loading spinner, and full keyboard/form semantics.",
-  "package": "@riverromney/components",
+  "package": "@digital2analogue2/parsimony-components",
   "props": [
     { "name": "variant", "type": "string", "default": "primary" },
     { "name": "size", "type": "string", "default": "md" },

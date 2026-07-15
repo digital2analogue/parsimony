@@ -3,7 +3,7 @@
   "status": "beta",
   "name": "rr-tab-list",
   "summary": "Accessible tab strip that wraps rr-tab elements, managing selection and arrow-key navigation.",
-  "package": "@riverromney/components",
+  "package": "@digital2analogue2/parsimony-components",
   "props": [
     { "name": "label", "type": "string", "default": "" },
     { "name": "value", "type": "string", "default": "" }
