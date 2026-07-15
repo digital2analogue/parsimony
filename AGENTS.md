@@ -97,6 +97,15 @@ React 19 supports `onInput` and `onChange` on custom elements natively. For `<rr
 />
 ```
 
+### Assembly patterns
+
+Recipes for composing components — the judgment calls the component contracts alone don't answer:
+
+- **Vertical form/field stack:** gap between distinct fields is `--spacing-component` (24px — "between distinct components"). Within one field, the component already handles label/input/helper spacing — don't add more.
+- **Actions row (Save/Cancel):** horizontal `--spacing-inline` (12px) gap; primary action first, quiet action (`variant="ghost"` or `secondary`) beside it. One `variant="primary"` per view.
+- **Settings/detail panel:** wrap in `rr-card` (`padding="lg"` for roomy forms); title in the `header` slot, actions row in the `footer` slot.
+- **Layout widths:** the spacing scale deliberately does not cover layout widths (container max-widths, column widths). Those are app-local values — `max-width: 28rem` on a settings panel is allowed and is not a token violation. Everything else (gaps, padding) must come from the scale.
+
 ### MCP tools (in-repo at `packages/mcp`)
 
 Registered project-wide via `.mcp.json` at the repo root, so any Claude Code

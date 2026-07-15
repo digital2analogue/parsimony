@@ -20,7 +20,7 @@ Use ONLY the semantic CSS custom properties below. Never use hex values. Never r
 |---|---|---|
 | --color-background-default | #0A0D0A | Page canvas |
 | --color-background-alt | #1E241E | Cards, panels, inputs, code blocks |
-| --color-background-disabled | #2E3A2E | Disabled element fills |
+| --color-background-disabled | #1E241E | Disabled element fills — same value as background.alt, so disabled controls blend into elevated surfaces |
 | --color-background-action | #4ADE6E | Primary button fill, selected states, active toggles |
 | --color-background-action-hover | #3EBA5C | Hovered action fill |
 | --color-background-action-active | #349B4D | Pressed action fill |
