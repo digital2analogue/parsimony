@@ -8,6 +8,8 @@ export { RrDialog } from './dialog/dialog.js';
 export { RrIcon } from './icon/icon.js';
 export { RrInput } from './input/input.js';
 export { RrLink } from './link/link.js';
+export { RrMenu } from './menu/menu.js';
+export { RrMenuItem } from './menu/menu-item.js';
 export { RrProgress } from './progress/progress.js';
 export { RrRadio } from './radio/radio.js';
 export { RrRadioGroup } from './radio/radio-group.js';
