@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "parsimony": {
+      "command": "node",
+      "args": ["packages/mcp/src/server.mjs"]
+    }
+  }
+}
