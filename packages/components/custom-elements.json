@@ -22,8 +22,8 @@
               "name": "alert"
             },
             {
-              "description": "The title text element",
-              "name": "title"
+              "description": "The heading text element",
+              "name": "heading"
             },
             {
               "description": "The content slot wrapper",
@@ -40,7 +40,7 @@
               "name": ""
             },
             {
-              "description": "Optional icon in front of the title (use <rr-icon>)",
+              "description": "Optional icon in front of the heading (use <rr-icon>)",
               "name": "icon"
             }
           ],
@@ -58,13 +58,13 @@
             },
             {
               "kind": "field",
-              "name": "title",
+              "name": "heading",
               "type": {
                 "text": "string"
               },
               "default": "''",
-              "description": "Optional bold title rendered above the body content.",
-              "attribute": "title"
+              "description": "Optional bold heading rendered above the body content.",
+              "attribute": "heading"
             },
             {
               "kind": "field",
@@ -117,13 +117,13 @@
               "fieldName": "variant"
             },
             {
-              "name": "title",
+              "name": "heading",
               "type": {
                 "text": "string"
               },
               "default": "''",
-              "description": "Optional bold title rendered above the body content.",
-              "fieldName": "title"
+              "description": "Optional bold heading rendered above the body content.",
+              "fieldName": "heading"
             },
             {
               "name": "dismissible",
@@ -494,8 +494,8 @@
               "type": {
                 "text": "ButtonSize"
               },
-              "default": "'medium'",
-              "description": "Size: small, medium, large. Controls padding and font size.",
+              "default": "'md'",
+              "description": "Size: sm, md, lg. Controls padding and font size.",
               "attribute": "size",
               "reflects": true
             },
@@ -584,8 +584,8 @@
               "type": {
                 "text": "ButtonSize"
               },
-              "default": "'medium'",
-              "description": "Size: small, medium, large. Controls padding and font size.",
+              "default": "'md'",
+              "description": "Size: sm, md, lg. Controls padding and font size.",
               "fieldName": "size"
             },
             {

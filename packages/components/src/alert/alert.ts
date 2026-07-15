@@ -10,10 +10,10 @@ export type AlertVariant = 'success' | 'warning' | 'danger' | 'info';
  * For field-level validation errors, use `<rr-input error-text="...">` instead.
  *
  * @slot - Alert body content
- * @slot icon - Optional icon in front of the title (use <rr-icon>)
+ * @slot icon - Optional icon in front of the heading (use <rr-icon>)
  * @fires close - When the dismiss button is clicked (only fires when dismissible)
  * @csspart alert - The root alert element
- * @csspart title - The title text element
+ * @csspart heading - The heading text element
  * @csspart content - The content slot wrapper
  * @csspart dismiss - The dismiss button
  */
@@ -65,7 +65,7 @@ export class RrAlert extends LitElement {
       min-width: 0;
     }
 
-    .title {
+    .heading {
       font: var(--font-label-strong-medium);
       margin: 0 0 2px;
     }
@@ -111,8 +111,8 @@ export class RrAlert extends LitElement {
 
   /** Visual variant and semantic role. */
   @property({ reflect: true }) variant: AlertVariant = 'success';
-  /** Optional bold title rendered above the body content. */
-  @property() title = '';
+  /** Optional bold heading rendered above the body content. */
+  @property() heading = '';
   /** When true, renders a dismiss button that hides the alert and fires close. */
   @property({ type: Boolean, reflect: true }) dismissible = false;
 
@@ -137,8 +137,8 @@ export class RrAlert extends LitElement {
       <div class="alert" part="alert" role="alert">
         <slot name="icon"></slot>
         <div class="body">
-          ${this.title
-            ? html`<p class="title" part="title">${this.title}</p>`
+          ${this.heading
+            ? html`<p class="heading" part="heading">${this.heading}</p>`
             : nothing}
           <div class="content" part="content"><slot></slot></div>
         </div>

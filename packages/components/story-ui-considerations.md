@@ -45,10 +45,10 @@ Inline notification banner for success, warning, danger, and info messages. Opti
 | Attribute | Type | Default | Notes |
 |---|---|---|---|
 | `variant` | 'success' \| 'warning' \| 'danger' \| 'info' | `success` | Visual variant and semantic role. |
-| `title` | string | `` | Optional bold title rendered above the body content. |
+| `heading` | string | `` | Optional bold heading rendered above the body content. |
 | `dismissible` | boolean | `false` | When true, renders a dismiss button that hides the alert and fires close. |
 
-**Slots:** (default) — Alert body content.; `icon` — Optional icon in front of the title (use <rr-icon>).
+**Slots:** (default) — Alert body content.; `icon` — Optional icon in front of the heading (use <rr-icon>).
 
 **Events:** `close`
 
@@ -103,7 +103,7 @@ Button with primary/secondary/danger/ghost variants, three sizes, loading spinne
 | Attribute | Type | Default | Notes |
 |---|---|---|---|
 | `variant` | string | `primary` | Visual variant: primary (filled CTA), secondary (outlined), danger (destructive), ghost (text-only, quiet). |
-| `size` | string | `medium` | Size: small, medium, large. Controls padding and font size. |
+| `size` | string | `md` | Size: sm, md, lg. Controls padding and font size. |
 | `disabled` | boolean | `false` | Disables the button. Prevents click and removes from tab order. |
 | `loading` | boolean | `false` | Shows a spinner and sets aria-busy. Click suppressed while loading. |
 | `type` | string | `button` | Button type attribute: button, submit, or reset. |

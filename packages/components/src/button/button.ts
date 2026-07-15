@@ -2,7 +2,7 @@ import { LitElement, html, css, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'ghost';
-export type ButtonSize = 'small' | 'medium' | 'large';
+export type ButtonSize = 'sm' | 'md' | 'lg';
 
 /**
  * A button with variant, size, loading, and disabled states.
@@ -65,14 +65,14 @@ export class RrButton extends LitElement {
       box-shadow: 0 0 0 2px var(--color-border-focus);
     }
 
-    /* --- Size: small --- */
-    :host([size='small']) button {
+    /* --- Size: sm --- */
+    :host([size='sm']) button {
       font: var(--font-label-strong-small);
       padding: var(--spacing-micro) var(--spacing-tight);
     }
 
-    /* --- Size: large --- */
-    :host([size='large']) button {
+    /* --- Size: lg --- */
+    :host([size='lg']) button {
       font: var(--font-label-strong-large);
       padding: var(--spacing-inline) var(--spacing-element);
     }
@@ -170,8 +170,8 @@ export class RrButton extends LitElement {
   /** Visual variant: primary (filled CTA), secondary (outlined), danger (destructive), ghost (text-only, quiet). */
   @property({ reflect: true }) variant: ButtonVariant = 'primary';
 
-  /** Size: small, medium, large. Controls padding and font size. */
-  @property({ reflect: true }) size: ButtonSize = 'medium';
+  /** Size: sm, md, lg. Controls padding and font size. */
+  @property({ reflect: true }) size: ButtonSize = 'md';
 
   /** Disables the button. Prevents click and removes from tab order. */
   @property({ type: Boolean, reflect: true }) disabled = false;

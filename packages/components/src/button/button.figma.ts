@@ -7,7 +7,7 @@ import figma, { html } from '@figma/code-connect';
  * Component:   Button ComponentSet — node 98:56
  * Variant props:
  *   "Variant" — primary | secondary | ghost | danger
- *   "Size"    — sm | md | lg  (maps to small | medium | large on the element)
+ *   "Size"    — sm | md | lg  (1:1 with the element after the vocabulary unification)
  *   "State"   — default | hover | active | focus | disabled | loading
  *
  * Notes:
@@ -28,9 +28,9 @@ figma.connect(
         danger:    'danger',
       }),
       size: figma.enum('Size', {
-        sm: 'small',
-        md: 'medium',
-        lg: 'large',
+        sm: 'sm',
+        md: 'md',
+        lg: 'lg',
       }),
       disabled: figma.enum('State', {
         disabled: true,

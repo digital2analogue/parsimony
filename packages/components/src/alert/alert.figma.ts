@@ -20,7 +20,7 @@ figma.connect(
       }),
     },
     example: ({ variant, dismissible }) =>
-      html`<rr-alert variant="${variant}" title="Alert title" dismissible=${dismissible}>
+      html`<rr-alert variant="${variant}" heading="Alert heading" dismissible=${dismissible}>
   Alert body content goes here.
 </rr-alert>`,
   }

@@ -6,19 +6,19 @@
   "package": "@riverromney/components",
   "props": [
     { "name": "variant", "type": "'success' | 'warning' | 'danger' | 'info'", "default": "success" },
-    { "name": "title", "type": "string", "default": "" },
+    { "name": "heading", "type": "string", "default": "" },
     { "name": "dismissible", "type": "boolean", "default": "false" }
   ],
   "slots": [
     { "name": "default", "description": "Alert body content." },
-    { "name": "icon", "description": "Optional icon in front of the title (use <rr-icon>)." }
+    { "name": "icon", "description": "Optional icon in front of the heading (use <rr-icon>)." }
   ],
   "events": [
     { "name": "close", "detail": "Fired when the dismiss button is clicked (only when dismissible)." }
   ],
   "cssParts": [
     { "name": "alert", "description": "The root alert element." },
-    { "name": "title", "description": "The title text element." },
+    { "name": "heading", "description": "The heading text element." },
     { "name": "content", "description": "The content slot wrapper." },
     { "name": "dismiss", "description": "The dismiss button." }
   ],
@@ -52,9 +52,9 @@
     "Use alert for form-level or system feedback; for field-level validation use rr-input error-text instead"
   ],
   "examples": [
-    { "title": "Success", "html": "<rr-alert variant=\"success\" title=\"Saved\">Your changes were saved.</rr-alert>" },
-    { "title": "Danger, dismissible", "html": "<rr-alert variant=\"danger\" title=\"Upload failed\" dismissible>The file could not be processed.</rr-alert>" },
-    { "title": "Info with icon", "html": "<rr-alert variant=\"info\" title=\"Heads up\">\n  <rr-icon slot=\"icon\" name=\"info\"></rr-icon>\n  Maintenance is scheduled for tonight.\n</rr-alert>" }
+    { "title": "Success", "html": "<rr-alert variant=\"success\" heading=\"Saved\">Your changes were saved.</rr-alert>" },
+    { "title": "Danger, dismissible", "html": "<rr-alert variant=\"danger\" heading=\"Upload failed\" dismissible>The file could not be processed.</rr-alert>" },
+    { "title": "Info with icon", "html": "<rr-alert variant=\"info\" heading=\"Heads up\">\n  <rr-icon slot=\"icon\" name=\"info\"></rr-icon>\n  Maintenance is scheduled for tonight.\n</rr-alert>" }
   ],
   "accessibility": {
     "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/alert/",
@@ -71,7 +71,7 @@
       "4.1.3 Status Messages"
     ],
     "rules": [
-      "Do not rely on color alone to convey the alert variant — pair with a title or icon",
+      "Do not rely on color alone to convey the alert variant — pair with a heading or icon",
       "The dismiss button carries an aria-label of \"Dismiss\""
     ]
   },

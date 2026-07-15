@@ -23,16 +23,16 @@ describe('rr-alert', () => {
     expect(el.shadowRoot!.querySelector('.alert')).toBeTruthy();
   });
 
-  it('renders title when provided', async () => {
-    const el = createElement('<rr-alert title="Success" variant="success">Done</rr-alert>') as RrAlert;
+  it('renders heading when provided', async () => {
+    const el = createElement('<rr-alert heading="Success" variant="success">Done</rr-alert>') as RrAlert;
     await el.updateComplete;
-    expect(el.shadowRoot!.querySelector('.title')?.textContent).toBe('Success');
+    expect(el.shadowRoot!.querySelector('.heading')?.textContent).toBe('Success');
   });
 
-  it('does not render title element when title is empty', async () => {
+  it('does not render heading element when heading is empty', async () => {
     const el = createElement('<rr-alert>Done</rr-alert>') as RrAlert;
     await el.updateComplete;
-    expect(el.shadowRoot!.querySelector('.title')).toBeNull();
+    expect(el.shadowRoot!.querySelector('.heading')).toBeNull();
   });
 
   it('reflects variant attribute', async () => {
@@ -86,7 +86,7 @@ describe('rr-alert', () => {
 
   for (const variant of variants) {
     it(`has no a11y violations — ${variant}`, async () => {
-      createElement(`<rr-alert variant="${variant}" title="${variant} title">${variant} message</rr-alert>`);
+      createElement(`<rr-alert variant="${variant}" heading="${variant} title">${variant} message</rr-alert>`);
       await (document.querySelector('rr-alert') as RrAlert).updateComplete;
       const results = await axe(document.body, { rules: { region: { enabled: false } } });
       expect(results).toHaveNoViolations();
@@ -94,7 +94,7 @@ describe('rr-alert', () => {
   }
 
   it('has no a11y violations — dismissible', async () => {
-    createElement('<rr-alert dismissible title="Heads up">This is important.</rr-alert>');
+    createElement('<rr-alert dismissible heading="Heads up">This is important.</rr-alert>');
     await (document.querySelector('rr-alert') as RrAlert).updateComplete;
     const results = await axe(document.body, { rules: { region: { enabled: false } } });
     expect(results).toHaveNoViolations();
