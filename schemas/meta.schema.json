@@ -27,7 +27,7 @@
       "description": "One-line description of the component, suitable for search results and MCP tool responses."
     },
     "package": {
-      "const": "@riverromney/components"
+      "const": "@digital2analogue2/parsimony-components"
     },
     "props": {
       "type": "array",

@@ -3,7 +3,7 @@
   "status": "beta",
   "name": "rr-skeleton",
   "summary": "Animated shimmer placeholder for loading states. Text, circular, and rectangular shape variants.",
-  "package": "@riverromney/components",
+  "package": "@digital2analogue2/parsimony-components",
   "props": [
     { "name": "variant", "type": "'text' | 'circular' | 'rectangular'", "default": "text" },
     { "name": "width", "type": "string", "default": "" },

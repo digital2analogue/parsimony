@@ -3,7 +3,7 @@
   "status": "beta",
   "name": "rr-checkbox",
   "summary": "Form-associated checkbox with checked, indeterminate, and disabled states. Backed by ElementInternals.",
-  "package": "@riverromney/components",
+  "package": "@digital2analogue2/parsimony-components",
   "props": [
     { "name": "checked", "type": "boolean", "default": "false" },
     { "name": "indeterminate", "type": "boolean", "default": "false" },

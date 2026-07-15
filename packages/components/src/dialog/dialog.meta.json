@@ -3,7 +3,7 @@
   "status": "beta",
   "name": "rr-dialog",
   "summary": "Modal dialog built on the native <dialog> element with focus trap and Escape-to-close.",
-  "package": "@riverromney/components",
+  "package": "@digital2analogue2/parsimony-components",
   "props": [
     { "name": "heading", "type": "string", "default": "" },
     { "name": "open", "type": "boolean", "default": "false" },

@@ -3,7 +3,7 @@
   "status": "beta",
   "name": "rr-spinner",
   "summary": "Animated circular loading indicator that announces its status to screen readers.",
-  "package": "@riverromney/components",
+  "package": "@digital2analogue2/parsimony-components",
   "props": [
     { "name": "size", "type": "'sm' | 'md' | 'lg'", "default": "md" },
     { "name": "label", "type": "string", "default": "Loading" }

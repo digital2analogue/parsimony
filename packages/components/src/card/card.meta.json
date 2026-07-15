@@ -3,7 +3,7 @@
   "status": "beta",
   "name": "rr-card",
   "summary": "Surface container on the elevated background tier with optional header, body, and footer slots.",
-  "package": "@riverromney/components",
+  "package": "@digital2analogue2/parsimony-components",
   "props": [
     { "name": "padding", "type": "'none' | 'sm' | 'md' | 'lg'", "default": "md" }
   ],

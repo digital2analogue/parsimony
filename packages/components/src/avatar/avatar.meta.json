@@ -3,7 +3,7 @@
   "status": "beta",
   "name": "rr-avatar",
   "summary": "Circular identity surface showing initials or an image, with size and accent-color variants.",
-  "package": "@riverromney/components",
+  "package": "@digital2analogue2/parsimony-components",
   "props": [
     { "name": "size", "type": "'sm' | 'md' | 'lg' | 'xl'", "default": "md" },
     { "name": "color", "type": "'default' | 'indigo' | 'sky' | 'green' | 'amber'", "default": "default" },

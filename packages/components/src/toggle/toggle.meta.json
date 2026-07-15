@@ -3,7 +3,7 @@
   "status": "beta",
   "name": "rr-toggle",
   "summary": "Form-associated toggle switch for binary on/off settings.",
-  "package": "@riverromney/components",
+  "package": "@digital2analogue2/parsimony-components",
   "props": [
     { "name": "checked", "type": "boolean", "default": false },
     { "name": "disabled", "type": "boolean", "default": false },

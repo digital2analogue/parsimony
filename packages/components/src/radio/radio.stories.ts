@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '@riverromney/components';
+import '@digital2analogue2/parsimony-components';
 
 /**
  * `rr-radio` is a child element: it must live inside an `rr-radio-group`,

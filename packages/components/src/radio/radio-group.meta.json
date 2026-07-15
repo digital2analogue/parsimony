@@ -3,7 +3,7 @@
   "status": "beta",
   "name": "rr-radio-group",
   "summary": "Form-associated group of radio buttons. Renders a fieldset/legend and manages selection and form value for its rr-radio children.",
-  "package": "@riverromney/components",
+  "package": "@digital2analogue2/parsimony-components",
   "props": [
     { "name": "name", "type": "string", "default": "" },
     { "name": "value", "type": "string", "default": "" },

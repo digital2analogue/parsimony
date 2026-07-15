@@ -6,8 +6,8 @@
  * type checking in TSX files.
  *
  * Usage in a React project:
- *   /// <reference types="@riverromney/components/react" />
- *   // or add to tsconfig: "types": ["@riverromney/components/react"]
+ *   /// <reference types="@digital2analogue2/parsimony-components/react" />
+ *   // or add to tsconfig: "types": ["@digital2analogue2/parsimony-components/react"]
  */
 
 import type { RrAlert } from './alert/alert.js';

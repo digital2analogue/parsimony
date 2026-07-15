@@ -4,7 +4,7 @@
 
 ## Purpose
 
-You're an agent building UI in a repo that depends on `@digital2analogue2/parsimony` — and, once available, `@riverromney/components`. This file tells you how to use them correctly.
+You're an agent building UI in a repo that depends on `@digital2analogue2/parsimony` — and, once available, `@digital2analogue2/parsimony-components`. This file tells you how to use them correctly.
 
 To propose a change to the design system itself (new token, renamed token, new component variant), open a PR against `digital2analogue/Parsimony`. That workflow is documented in [`CLAUDE.md`](./CLAUDE.md), not here.
 
@@ -20,7 +20,7 @@ Each file declares its scope in YAML front-matter (`scope`, `applies-to`, `alway
 
 ## Components
 
-`@riverromney/components` ships framework-agnostic Lit web components. Query the MCP server (`list_components` / `get_component`) for the authoritative, always-current contract — the table below is a convenience index generated from `design-system.json`.
+`@digital2analogue2/parsimony-components` ships framework-agnostic Lit web components. Query the MCP server (`list_components` / `get_component`) for the authoritative, always-current contract — the table below is a convenience index generated from `design-system.json`.
 
 | Component | Summary |
 |---|---|
@@ -48,13 +48,13 @@ Each file declares its scope in YAML front-matter (`scope`, `applies-to`, `alway
 ### Installation
 
 ```bash
-npm install @riverromney/components lit
+npm install @digital2analogue2/parsimony-components lit
 ```
 
 ### Usage (vanilla / any framework)
 
 ```js
-import '@riverromney/components';
+import '@digital2analogue2/parsimony-components';
 ```
 
 Then use the custom elements in HTML:
@@ -70,8 +70,8 @@ Then use the custom elements in HTML:
 React 19 passes props to custom elements natively. No wrappers needed.
 
 ```tsx
-/// <reference types="@riverromney/components/react" />
-import '@riverromney/components';
+/// <reference types="@digital2analogue2/parsimony-components/react" />
+import '@digital2analogue2/parsimony-components';
 
 function Actions() {
   return (
@@ -84,7 +84,7 @@ function Actions() {
 }
 ```
 
-The `@riverromney/components/react` reference adds JSX IntrinsicElements types for autocomplete. Add it as a `/// <reference>` directive or in `tsconfig.json` `"types"` array.
+The `@digital2analogue2/parsimony-components/react` reference adds JSX IntrinsicElements types for autocomplete. Add it as a `/// <reference>` directive or in `tsconfig.json` `"types"` array.
 
 ### Event handling in React
 
