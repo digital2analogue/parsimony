@@ -36,7 +36,7 @@ generated from `design-system.json` and `ai/rules.md`.
 > (rules live in `scripts/rules.mjs`). Never emit hex literals, never reference
 > `--primitive-*` tokens, and only use spacing/sizes from the token scale.
 
-## Available components (21)
+## Available components (22)
 
 ### `<rr-alert>`
 
@@ -443,6 +443,28 @@ Form-associated multi-line text area with label, helper text, and error state.
 - Never reference --primitive-* tokens in component code
 - All text/background pairings must pass WCAG AA (4.5:1)
 - Setting error-text marks the field invalid via ElementInternals.setValidity and replaces the helper text.
+
+### `<rr-toast>`
+
+Transient floating notification with status variants, optional auto-dismiss (hover/focus-paused), an action slot, and live-region semantics.
+
+| Attribute | Type | Default | Notes |
+|---|---|---|---|
+| `variant` | string | `neutral` | Status variant: neutral (default), success, warning, danger, info. Expressed via the accent rail and heading color. |
+| `heading` | string | `` | Optional bold heading rendered above the message, in the variant accent color. |
+| `duration` | number | `0` | Auto-dismiss after this many milliseconds. 0 (default) means persistent until dismissed. Timer pauses while hovered or focused. |
+| `dismissible` | boolean | `true` | Shows the dismiss button. On by default — a toast the user can't clear is a trap. |
+
+**Slots:** `(default)` — Toast message content.; `action` — Optional action, e.g. an Undo <rr-button variant="ghost">.
+
+**Events:** `rr-toast-close`
+
+**Component rules:**
+- Never use hex values. Always use var(--color-*) or var(--component-*)
+- Never reference --primitive-* tokens in component code
+- All text/background pairings must pass WCAG AA (4.5:1)
+- Placement is the consumer's job — render toasts inside a fixed-position region; the component owns the surface, not the position
+- Do not rely on the accent color alone to convey the variant — pair with a heading
 
 ### `<rr-toggle>`
 

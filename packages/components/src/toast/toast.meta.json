@@ -1,0 +1,135 @@
+{
+  "metaVersion": "1.0.0",
+  "status": "beta",
+  "name": "rr-toast",
+  "summary": "Transient floating notification with status variants, optional auto-dismiss (hover/focus-paused), an action slot, and live-region semantics.",
+  "package": "@digital2analogue2/parsimony-components",
+  "props": [
+    {
+      "name": "variant",
+      "type": "string",
+      "default": "neutral"
+    },
+    {
+      "name": "heading",
+      "type": "string",
+      "default": ""
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": 0
+    },
+    {
+      "name": "dismissible",
+      "type": "boolean",
+      "default": true
+    }
+  ],
+  "slots": [
+    {
+      "name": "(default)",
+      "description": "Toast message content."
+    },
+    {
+      "name": "action",
+      "description": "Optional action, e.g. an Undo <rr-button variant=\"ghost\">."
+    }
+  ],
+  "events": [
+    {
+      "name": "rr-toast-close",
+      "detail": "Fired when the toast closes. detail.reason is 'dismiss' | 'timeout' | 'programmatic'."
+    }
+  ],
+  "cssParts": [
+    {
+      "name": "toast",
+      "description": "The root toast surface."
+    },
+    {
+      "name": "heading",
+      "description": "The heading text element."
+    },
+    {
+      "name": "content",
+      "description": "The content slot wrapper."
+    },
+    {
+      "name": "dismiss",
+      "description": "The dismiss button."
+    }
+  ],
+  "tokensUsed": [
+    "--component-toast-background",
+    "--component-toast-foreground",
+    "--component-toast-border",
+    "--component-toast-neutral-accent",
+    "--component-toast-success-accent",
+    "--component-toast-warning-accent",
+    "--component-toast-danger-accent",
+    "--component-toast-info-accent",
+    "--component-toast-radius",
+    "--component-toast-padding-x",
+    "--component-toast-padding-y",
+    "--shadow-dialog",
+    "--color-foreground-alt",
+    "--color-foreground-default",
+    "--color-border-focus",
+    "--font-label-strong-medium",
+    "--font-body-medium",
+    "--spacing-micro",
+    "--spacing-tight",
+    "--icon-size-default",
+    "--radius-sm",
+    "--motion-duration-instant",
+    "--motion-easing-default"
+  ],
+  "rules": [
+    "Never use hex values. Always use var(--color-*) or var(--component-*)",
+    "Never reference --primitive-* tokens in component code",
+    "All text/background pairings must pass WCAG AA (4.5:1)",
+    "Placement is the consumer's job \u2014 render toasts inside a fixed-position region; the component owns the surface, not the position",
+    "Do not rely on the accent color alone to convey the variant \u2014 pair with a heading"
+  ],
+  "examples": [
+    {
+      "title": "Success",
+      "html": "<rr-toast variant=\"success\" heading=\"Saved\">Your changes are live.</rr-toast>"
+    },
+    {
+      "title": "Danger, persistent",
+      "html": "<rr-toast variant=\"danger\" heading=\"Upload failed\">The file could not be processed.</rr-toast>"
+    },
+    {
+      "title": "With undo action",
+      "html": "<rr-toast heading=\"Rule deleted\">\n  \"High-value approvals\" was removed.\n  <rr-button slot=\"action\" variant=\"ghost\" size=\"sm\">Undo</rr-button>\n</rr-toast>"
+    }
+  ],
+  "accessibility": {
+    "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/alert/",
+    "role": "status",
+    "ariaLive": "polite",
+    "focusable": false,
+    "keyboard": [
+      "Tab moves focus to the action and dismiss button",
+      "Enter or Space activates the focused control",
+      "The auto-dismiss timer pauses while the toast is hovered or holds focus"
+    ],
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.2.1 Timing Adjustable",
+      "4.1.3 Status Messages"
+    ],
+    "rules": [
+      "role=status with aria-live=polite by default; the danger variant escalates to role=alert / assertive",
+      "The dismiss button carries an aria-label of \"Dismiss\"",
+      "Never put the only path to an action inside an auto-dismissing toast \u2014 duration must be 0 when an action slot is used, or the action must exist elsewhere"
+    ]
+  },
+  "figma": {
+    "componentKey": "300d7478d0f00c8bde57bbde73da8579192865c6",
+    "nodeId": "182:32",
+    "codeConnectFile": "toast.figma.ts"
+  }
+}
