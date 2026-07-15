@@ -23,7 +23,9 @@
     "figma:connect": "figma connect publish",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "story-ui": "story-ui start"
+    "story-ui": "story-ui start",
+    "test:visual": "playwright test",
+    "test:visual:update": "playwright test --update-snapshots"
   },
   "peerDependencies": {
     "lit": "^3.0.0 || ^4.0.0"
@@ -31,10 +33,12 @@
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.11.0",
     "@figma/code-connect": "^1.4.8",
+    "@playwright/test": "^1.49.0",
     "@storybook/addon-a11y": "^10.4.6",
     "@storybook/addon-docs": "^10.4.6",
     "@storybook/web-components-vite": "^10.4.6",
     "@tpitre/story-ui": "^4.16.12",
+    "http-server": "^14.1.1",
     "jsdom": "^29.1.1",
     "lit": "^3.2.0",
     "storybook": "^10.4.4",

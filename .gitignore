@@ -8,3 +8,5 @@ packages/tokens/css/
 !.claude/skills/
 scripts/output/
 __pycache__/
+packages/components/test-results/
+packages/components/playwright-report/
