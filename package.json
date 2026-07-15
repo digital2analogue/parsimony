@@ -24,7 +24,9 @@
     "test": "npm test --workspaces --if-present",
     "test:unit": "vitest",
     "test:unit:ui": "vitest --ui",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test:visual": "npm run build --workspace @riverromney/components && npm run build-storybook --workspace @riverromney/components && npm run test:visual --workspace @riverromney/components",
+    "test:visual:update": "npm run build --workspace @riverromney/components && npm run build-storybook --workspace @riverromney/components && npm run test:visual:update --workspace @riverromney/components"
   },
   "devDependencies": {
     "@vitest/ui": "^4.1.10",

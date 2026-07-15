@@ -1,0 +1,52 @@
+# Regenerates the component visual-regression baselines ON the CI runner
+# and commits them to the branch the workflow runs on. Dispatch it from the
+# Actions tab after an intentional visual change — baselines must be
+# generated on the same environment CI compares on, or font rasterization
+# drift causes false failures. Dispatch it LAST, after your final push to
+# the branch: it commits back, so pushing mid-run races its push.
+name: Update visual baselines
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install (workspaces)
+        run: npm ci
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+        working-directory: packages/components
+
+      - name: Regenerate baselines (builds components + Storybook first)
+        run: npm run test:visual:update
+
+      - name: Commit refreshed baselines
+        run: |
+          if [ -z "$(git status --porcelain -- packages/components/tests/visual/__screenshots__)" ]; then
+            echo "Baselines unchanged — nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add packages/components/tests/visual/__screenshots__
+          git commit -m "chore: regenerate visual baselines on CI runner"
+          # The branch can move while baselines regenerate — rebase our
+          # baseline commit on top (favouring the fresh screenshots) and retry.
+          for i in 1 2 3; do
+            git push && exit 0
+            git pull --rebase -X theirs origin "$GITHUB_REF_NAME"
+          done
+          exit 1
