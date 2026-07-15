@@ -1,7 +1,7 @@
 ---
 title: "Button"
 component: rr-button
-description: "Button with primary/secondary/danger variants, three sizes, loading spinner, and full keyboard/form semantics."
+description: "Button with primary/secondary/danger/ghost variants, three sizes, loading spinner, and full keyboard/form semantics."
 package: "@riverromney/components"
 status: stable
 a11yPattern: "https://www.w3.org/WAI/ARIA/apg/patterns/button/"
@@ -72,7 +72,7 @@ Use `rr-button` for any action the user takes — submit, cancel, delete, or an 
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `variant` | `string` | `primary` | Visual variant: primary (filled CTA), secondary (outlined), danger (destructive). |
+| `variant` | `string` | `primary` | Visual variant: primary (filled CTA), secondary (outlined), danger (destructive), ghost (text-only, quiet). |
 | `size` | `string` | `medium` | Size: small, medium, large. Controls padding and font size. |
 | `disabled` | `boolean` | `false` | Disables the button. Prevents click and removes from tab order. |
 | `loading` | `boolean` | `false` | Shows a spinner and sets aria-busy. Click suppressed while loading. |
@@ -115,6 +115,11 @@ Use `rr-button` for any action the user takes — submit, cancel, delete, or an 
 | `--component-button-secondary-foreground-default` | #4ADE6E |
 | `--component-button-secondary-border-default` | #4ADE6E |
 | `--component-button-secondary-border-hover` | #4ADE6E |
+| `--component-button-ghost-background-default` | transparent |
+| `--component-button-ghost-background-hover` | #1E241E |
+| `--component-button-ghost-foreground-default` | #4ADE6E |
+| `--component-button-ghost-border-default` | transparent |
+| `--component-button-ghost-border-hover` | transparent |
 | `--component-button-danger-background-default` | #0A0D0A |
 | `--component-button-danger-background-hover` | #2A0A0A |
 | `--component-button-danger-foreground-default` | #F87171 |

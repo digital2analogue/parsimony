@@ -139,6 +139,22 @@ describe('rr-button', () => {
     expect(results).toHaveNoViolations();
   });
 
+  it('has no a11y violations (ghost)', async () => {
+    createElement('<rr-button variant="ghost">Dismiss</rr-button>') as RrButton;
+    await (document.querySelector('rr-button') as RrButton).updateComplete;
+    const results = await axe(document.body, {
+      rules: { region: { enabled: false } },
+    });
+    expect(results).toHaveNoViolations();
+  });
+
+  it('reflects the ghost variant attribute', async () => {
+    const el = createElement('<rr-button variant="ghost">Dismiss</rr-button>') as RrButton;
+    await el.updateComplete;
+    expect(el.variant).toBe('ghost');
+    expect(el.getAttribute('variant')).toBe('ghost');
+  });
+
   it('has no a11y violations (disabled)', async () => {
     createElement('<rr-button disabled>Disabled</rr-button>') as RrButton;
     await (document.querySelector('rr-button') as RrButton).updateComplete;

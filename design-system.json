@@ -364,14 +364,14 @@
       "metaVersion": "1.0.0",
       "status": "stable",
       "name": "rr-button",
-      "summary": "Button with primary/secondary/danger variants, three sizes, loading spinner, and full keyboard/form semantics.",
+      "summary": "Button with primary/secondary/danger/ghost variants, three sizes, loading spinner, and full keyboard/form semantics.",
       "package": "@riverromney/components",
       "props": [
         {
           "name": "variant",
           "type": "string",
           "default": "primary",
-          "description": "Visual variant: primary (filled CTA), secondary (outlined), danger (destructive)."
+          "description": "Visual variant: primary (filled CTA), secondary (outlined), danger (destructive), ghost (text-only, quiet)."
         },
         {
           "name": "size",
@@ -443,6 +443,11 @@
         "--component-button-secondary-foreground-default",
         "--component-button-secondary-border-default",
         "--component-button-secondary-border-hover",
+        "--component-button-ghost-background-default",
+        "--component-button-ghost-background-hover",
+        "--component-button-ghost-foreground-default",
+        "--component-button-ghost-border-default",
+        "--component-button-ghost-border-hover",
         "--component-button-danger-background-default",
         "--component-button-danger-background-hover",
         "--component-button-danger-foreground-default",
@@ -2867,7 +2872,7 @@
                   "text": "ButtonVariant"
                 },
                 "default": "'primary'",
-                "description": "Visual variant: primary (filled CTA), secondary (outlined), danger (destructive).",
+                "description": "Visual variant: primary (filled CTA), secondary (outlined), danger (destructive), ghost (text-only, quiet).",
                 "attribute": "variant",
                 "reflects": true
               },
@@ -2959,7 +2964,7 @@
                   "text": "ButtonVariant"
                 },
                 "default": "'primary'",
-                "description": "Visual variant: primary (filled CTA), secondary (outlined), danger (destructive).",
+                "description": "Visual variant: primary (filled CTA), secondary (outlined), danger (destructive), ghost (text-only, quiet).",
                 "fieldName": "variant"
               },
               {

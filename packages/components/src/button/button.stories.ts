@@ -6,7 +6,7 @@ const meta: Meta = {
   title: 'Components/Button',
   component: 'rr-button',
   argTypes: {
-    variant: { control: 'select', options: ['primary', 'secondary', 'danger'] },
+    variant: { control: 'select', options: ['primary', 'secondary', 'danger', 'ghost'] },
     size: { control: 'select', options: ['small', 'medium', 'large'] },
     disabled: { control: 'boolean' },
     loading: { control: 'boolean' },
@@ -37,6 +37,8 @@ export const Primary: Story = {};
 export const Secondary: Story = { args: { variant: 'secondary', label: 'Cancel' } };
 
 export const Danger: Story = { args: { variant: 'danger', label: 'Delete' } };
+
+export const Ghost: Story = { args: { variant: 'ghost', label: 'Dismiss' } };
 
 export const Loading: Story = { args: { loading: true } };
 
