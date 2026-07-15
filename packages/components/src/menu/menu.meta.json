@@ -1,0 +1,71 @@
+{
+  "metaVersion": "1.0.0",
+  "status": "beta",
+  "name": "rr-menu",
+  "summary": "Dropdown action menu (WAI-ARIA menu-button pattern) with full keyboard navigation, Escape/outside-click dismissal, and trigger ARIA wiring.",
+  "package": "@digital2analogue2/parsimony-components",
+  "props": [
+    { "name": "open", "type": "boolean", "default": false },
+    { "name": "placement", "type": "string", "default": "bottom-start" },
+    { "name": "label", "type": "string", "default": "" }
+  ],
+  "slots": [
+    { "name": "trigger", "description": "The control that opens the menu (e.g. an rr-button)." },
+    { "name": "(default)", "description": "Place <rr-menu-item> elements here." }
+  ],
+  "events": [
+    { "name": "rr-menu-select", "detail": "Fired when an item is chosen; detail.value is the item's value." },
+    { "name": "rr-menu-toggle", "detail": "Fired when the menu opens or closes; detail.open is the new state." }
+  ],
+  "cssParts": [
+    { "name": "menu", "description": "The floating menu surface." }
+  ],
+  "tokensUsed": [
+    "--component-menu-background",
+    "--component-menu-border",
+    "--component-menu-radius",
+    "--shadow-overlay",
+    "--spacing-micro"
+  ],
+  "rules": [
+    "Never use hex values. Always use var(--color-*) or var(--component-*)",
+    "Never reference --primitive-* tokens in component code",
+    "All text/background pairings must pass WCAG AA (4.5:1)",
+    "Always set label — it names the menu popup for assistive tech",
+    "The popup positions with CSS below the trigger (no portal) — keep the menu outside overflow:hidden ancestors"
+  ],
+  "examples": [
+    {
+      "title": "Row actions menu",
+      "html": "<rr-menu label=\"Row actions\">\n  <rr-button slot=\"trigger\" variant=\"secondary\">Actions</rr-button>\n  <rr-menu-item value=\"edit\">Edit rule</rr-menu-item>\n  <rr-menu-item value=\"duplicate\">Duplicate</rr-menu-item>\n  <rr-menu-item value=\"delete\" danger>Delete rule</rr-menu-item>\n</rr-menu>"
+    },
+    {
+      "title": "Right-aligned",
+      "html": "<rr-menu label=\"Options\" placement=\"bottom-end\">\n  <rr-button slot=\"trigger\" variant=\"ghost\">More</rr-button>\n  <rr-menu-item value=\"rename\">Rename</rr-menu-item>\n</rr-menu>"
+    }
+  ],
+  "accessibility": {
+    "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/",
+    "role": "menu",
+    "focusable": false,
+    "keyboard": [
+      "Enter, Space, or click on the trigger toggles the menu",
+      "ArrowDown on the trigger opens and focuses the first item; ArrowUp opens focusing the last",
+      "ArrowDown/ArrowUp move through enabled items and wrap; Home/End jump to the ends",
+      "Enter or Space activates the focused item",
+      "Escape closes and returns focus to the trigger; Tab closes and moves on"
+    ],
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.3 Focus Order",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "The slotted trigger receives aria-haspopup=menu and live aria-expanded automatically",
+      "Disabled items are skipped by keyboard navigation and are inert to clicks",
+      "Focus returns to the trigger on Escape and on item selection"
+    ]
+  },
+  "figma": { "componentKey": "00760ccf444bbe5b10f0328eb8305b1f87a0365a", "nodeId": "186:3", "codeConnectFile": "menu.figma.ts" }
+}

@@ -1,0 +1,63 @@
+{
+  "$description": "Menu component tokens — the dropdown action menu (menu-button pattern). A floating overlay surface (background.alt + shadow.overlay) holding a column of action items; items express state through quiet tint fills, and destructive items through the danger foreground.",
+  "component": {
+    "menu": {
+      "$description": "Dropdown action menu opened from a trigger control. The surface sits one elevation step above the page (overlay shadow, elevated border); items are flat until hovered/focused, where a quiet green-tinted fill signals interactivity without shouting.",
+      "background": {
+        "$value": "{color.background.alt}",
+        "$type": "color",
+        "$description": "Menu surface — elevated neutral, same tier as cards/popovers. Depth comes from shadow.overlay."
+      },
+      "border": {
+        "$value": "{color.border.elevated}",
+        "$type": "color",
+        "$description": "Structural chrome edge — separates the floating surface from whatever it overlaps."
+      },
+      "radius": {
+        "$value": "{radius.default}",
+        "$type": "dimension",
+        "$description": "Menu corner radius — 8px, the dropdown surface language."
+      },
+      "item": {
+        "foreground": {
+          "$value": "{color.foreground.default}",
+          "$type": "color",
+          "$description": "Item label text — primary foreground on the menu surface (11.2:1 AAA)."
+        },
+        "hover": {
+          "background": {
+            "$value": "{color.background.accent-green}",
+            "$type": "color",
+            "$description": "Hovered/focused item fill — quiet green tint. Interactivity signal, rule-compliant: the item is interactive."
+          }
+        },
+        "danger": {
+          "foreground": {
+            "$value": "{color.foreground.danger}",
+            "$type": "color",
+            "$description": "Destructive item label — danger foreground (5.7:1 AA on the menu surface)."
+          },
+          "hover": {
+            "background": {
+              "$value": "{color.background.danger-alt}",
+              "$type": "color",
+              "$description": "Hovered/focused destructive item fill — dark red tint mirrors the green hover recipe."
+            }
+          }
+        },
+        "disabled": {
+          "foreground": {
+            "$value": "{color.foreground.disabled}",
+            "$type": "color",
+            "$description": "Disabled item label — deeply receded, blends into the surface."
+          }
+        }
+      },
+      "separator": {
+        "$value": "{color.border.muted}",
+        "$type": "color",
+        "$description": "Divider between item groups — lowest decorative rung, a separator within a surface."
+      }
+    }
+  }
+}

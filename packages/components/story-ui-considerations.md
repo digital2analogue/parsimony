@@ -36,7 +36,7 @@ generated from `design-system.json` and `ai/rules.md`.
 > (rules live in `scripts/rules.mjs`). Never emit hex literals, never reference
 > `--primitive-*` tokens, and only use spacing/sizes from the token scale.
 
-## Available components (22)
+## Available components (24)
 
 ### `<rr-alert>`
 
@@ -242,6 +242,48 @@ Anchor enforcing the design system link style — underlined by default, underli
 - Never reference --primitive-* tokens in component code
 - All text/background pairings must pass WCAG AA (4.5:1)
 - Links are underlined by default and lose the underline on hover — do not override this inverted convention
+
+### `<rr-menu>`
+
+Dropdown action menu (WAI-ARIA menu-button pattern) with full keyboard navigation, Escape/outside-click dismissal, and trigger ARIA wiring.
+
+| Attribute | Type | Default | Notes |
+|---|---|---|---|
+| `open` | boolean | `false` | Whether the menu is open. Usually driven by the component itself; settable for controlled usage. |
+| `placement` | string | `bottom-start` | Which edge of the trigger the menu aligns to: bottom-start (default) or bottom-end. |
+| `label` | string | `` | Accessible label for the menu popup (required); sets aria-label on the role=menu element. |
+
+**Slots:** `trigger` — The control that opens the menu (e.g. an rr-button).; `(default)` — Place <rr-menu-item> elements here.
+
+**Events:** `rr-menu-select`, `rr-menu-toggle`
+
+**Component rules:**
+- Never use hex values. Always use var(--color-*) or var(--component-*)
+- Never reference --primitive-* tokens in component code
+- All text/background pairings must pass WCAG AA (4.5:1)
+- Always set label — it names the menu popup for assistive tech
+- The popup positions with CSS below the trigger (no portal) — keep the menu outside overflow:hidden ancestors
+
+### `<rr-menu-item>`
+
+A single action inside rr-menu; the host carries role=menuitem and focus is managed by the parent menu.
+
+| Attribute | Type | Default | Notes |
+|---|---|---|---|
+| `value` | string | `` | Value reported in rr-menu's rr-menu-select event when this item is chosen. |
+| `danger` | boolean | `false` | Marks a destructive action — danger foreground, red-tinted hover. |
+| `disabled` | boolean | `false` | Disables the item — skipped by keyboard navigation, click is inert. |
+
+**Slots:** `(default)` — Item label (and optional leading icon).
+
+**Events:** `rr-menu-item-select`
+
+**Component rules:**
+- Never use hex values. Always use var(--color-*) or var(--component-*)
+- Never reference --primitive-* tokens in component code
+- All text/background pairings must pass WCAG AA (4.5:1)
+- Reserve danger for genuinely destructive actions — one per menu is the norm
+- Do not rely on color alone for the danger signal — the label must say what is destroyed
 
 ### `<rr-progress>`
 

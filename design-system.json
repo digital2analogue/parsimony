@@ -1230,6 +1230,214 @@
     {
       "metaVersion": "1.0.0",
       "status": "beta",
+      "name": "rr-menu",
+      "summary": "Dropdown action menu (WAI-ARIA menu-button pattern) with full keyboard navigation, Escape/outside-click dismissal, and trigger ARIA wiring.",
+      "package": "@digital2analogue2/parsimony-components",
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "default": false,
+          "description": "Whether the menu is open. Usually driven by the component itself; settable for controlled usage."
+        },
+        {
+          "name": "placement",
+          "type": "string",
+          "default": "bottom-start",
+          "description": "Which edge of the trigger the menu aligns to: bottom-start (default) or bottom-end."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": "",
+          "description": "Accessible label for the menu popup (required); sets aria-label on the role=menu element."
+        }
+      ],
+      "slots": [
+        {
+          "name": "trigger",
+          "description": "The control that opens the menu (e.g. an rr-button)."
+        },
+        {
+          "name": "(default)",
+          "description": "Place <rr-menu-item> elements here."
+        }
+      ],
+      "events": [
+        {
+          "name": "rr-menu-select",
+          "detail": "Fired when an item is chosen; detail.value is the item's value."
+        },
+        {
+          "name": "rr-menu-toggle",
+          "detail": "Fired when the menu opens or closes; detail.open is the new state."
+        }
+      ],
+      "cssParts": [
+        {
+          "name": "menu",
+          "description": "The floating menu surface."
+        }
+      ],
+      "tokensUsed": [
+        "--component-menu-background",
+        "--component-menu-border",
+        "--component-menu-radius",
+        "--shadow-overlay",
+        "--spacing-micro"
+      ],
+      "rules": [
+        "Never use hex values. Always use var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)",
+        "Always set label — it names the menu popup for assistive tech",
+        "The popup positions with CSS below the trigger (no portal) — keep the menu outside overflow:hidden ancestors"
+      ],
+      "examples": [
+        {
+          "title": "Row actions menu",
+          "html": "<rr-menu label=\"Row actions\">\n  <rr-button slot=\"trigger\" variant=\"secondary\">Actions</rr-button>\n  <rr-menu-item value=\"edit\">Edit rule</rr-menu-item>\n  <rr-menu-item value=\"duplicate\">Duplicate</rr-menu-item>\n  <rr-menu-item value=\"delete\" danger>Delete rule</rr-menu-item>\n</rr-menu>"
+        },
+        {
+          "title": "Right-aligned",
+          "html": "<rr-menu label=\"Options\" placement=\"bottom-end\">\n  <rr-button slot=\"trigger\" variant=\"ghost\">More</rr-button>\n  <rr-menu-item value=\"rename\">Rename</rr-menu-item>\n</rr-menu>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/",
+        "role": "menu",
+        "focusable": false,
+        "keyboard": [
+          "Enter, Space, or click on the trigger toggles the menu",
+          "ArrowDown on the trigger opens and focuses the first item; ArrowUp opens focusing the last",
+          "ArrowDown/ArrowUp move through enabled items and wrap; Home/End jump to the ends",
+          "Enter or Space activates the focused item",
+          "Escape closes and returns focus to the trigger; Tab closes and moves on"
+        ],
+        "wcag": [
+          "1.4.3 Contrast (Minimum)",
+          "2.1.1 Keyboard",
+          "2.4.3 Focus Order",
+          "4.1.2 Name, Role, Value"
+        ],
+        "rules": [
+          "The slotted trigger receives aria-haspopup=menu and live aria-expanded automatically",
+          "Disabled items are skipped by keyboard navigation and are inert to clicks",
+          "Focus returns to the trigger on Escape and on item selection"
+        ]
+      },
+      "figma": {
+        "componentKey": "00760ccf444bbe5b10f0328eb8305b1f87a0365a",
+        "nodeId": "186:3",
+        "codeConnectFile": "menu.figma.ts"
+      }
+    },
+    {
+      "metaVersion": "1.0.0",
+      "status": "beta",
+      "name": "rr-menu-item",
+      "summary": "A single action inside rr-menu; the host carries role=menuitem and focus is managed by the parent menu.",
+      "package": "@digital2analogue2/parsimony-components",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "default": "",
+          "description": "Value reported in rr-menu's rr-menu-select event when this item is chosen."
+        },
+        {
+          "name": "danger",
+          "type": "boolean",
+          "default": false,
+          "description": "Marks a destructive action — danger foreground, red-tinted hover."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false,
+          "description": "Disables the item — skipped by keyboard navigation, click is inert."
+        }
+      ],
+      "slots": [
+        {
+          "name": "(default)",
+          "description": "Item label (and optional leading icon)."
+        }
+      ],
+      "events": [
+        {
+          "name": "rr-menu-item-select",
+          "detail": "Bubbles (composed) to rr-menu when the item is activated; detail.value is this item's value. Not fired when disabled."
+        }
+      ],
+      "cssParts": [
+        {
+          "name": "item",
+          "description": "The item row."
+        }
+      ],
+      "tokensUsed": [
+        "--component-menu-item-foreground",
+        "--component-menu-item-hover-background",
+        "--component-menu-item-danger-foreground",
+        "--component-menu-item-danger-hover-background",
+        "--component-menu-item-disabled-foreground",
+        "--color-border-focus",
+        "--font-label-medium",
+        "--spacing-tight",
+        "--spacing-inline",
+        "--radius-sm",
+        "--motion-duration-instant",
+        "--motion-easing-default"
+      ],
+      "rules": [
+        "Never use hex values. Always use var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)",
+        "Reserve danger for genuinely destructive actions — one per menu is the norm",
+        "Do not rely on color alone for the danger signal — the label must say what is destroyed"
+      ],
+      "examples": [
+        {
+          "title": "Item",
+          "html": "<rr-menu-item value=\"edit\">Edit rule</rr-menu-item>"
+        },
+        {
+          "title": "Destructive item",
+          "html": "<rr-menu-item value=\"delete\" danger>Delete rule</rr-menu-item>"
+        },
+        {
+          "title": "Disabled item",
+          "html": "<rr-menu-item value=\"export\" disabled>Export (soon)</rr-menu-item>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/",
+        "role": "menuitem",
+        "focusable": true,
+        "keyboard": [
+          "Enter or Space activates the item",
+          "Focus arrives via the parent menu's roving keyboard navigation"
+        ],
+        "wcag": [
+          "1.4.3 Contrast (Minimum)",
+          "2.1.1 Keyboard",
+          "4.1.2 Name, Role, Value"
+        ],
+        "rules": [
+          "role=menuitem and tabindex=-1 live on the host so the flattened tree reads menu → menuitem",
+          "Disabled items expose aria-disabled=true and stay visible — hidden options are undiscoverable options"
+        ]
+      },
+      "figma": {
+        "componentKey": "9f299a57d0007a7b0414efe72d32eb352c1efd57",
+        "nodeId": "186:2",
+        "codeConnectFile": "menu.figma.ts"
+      }
+    },
+    {
+      "metaVersion": "1.0.0",
+      "status": "beta",
       "name": "rr-progress",
       "summary": "Horizontal progress bar with determinate and indeterminate modes, using native role=\"progressbar\".",
       "package": "@digital2analogue2/parsimony-components",
@@ -3831,6 +4039,22 @@
           },
           {
             "kind": "js",
+            "name": "RrMenu",
+            "declaration": {
+              "name": "RrMenu",
+              "module": "./menu/menu.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrMenuItem",
+            "declaration": {
+              "name": "RrMenuItem",
+              "module": "./menu/menu-item.js"
+            }
+          },
+          {
+            "kind": "js",
             "name": "RrProgress",
             "declaration": {
               "name": "RrProgress",
@@ -4439,6 +4663,334 @@
             "declaration": {
               "name": "RrLink",
               "module": "src/link/link.ts"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/menu/menu-item.ts",
+        "declarations": [
+          {
+            "kind": "class",
+            "description": "`<rr-menu-item>` — a single action inside `<rr-menu>`.\n\nThe host itself carries `role=\"menuitem\"` and `tabindex=\"-1\"` so the\nflattened tree reads as menu → menuitem; focus and roving order are\nmanaged by the parent `rr-menu`.",
+            "name": "RrMenuItem",
+            "cssParts": [
+              {
+                "description": "The item row",
+                "name": "item"
+              }
+            ],
+            "slots": [
+              {
+                "description": "Item label (and optional leading icon)",
+                "name": ""
+              }
+            ],
+            "members": [
+              {
+                "kind": "field",
+                "name": "value",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "description": "Value reported in rr-menu's rr-menu-select event when this item is chosen.",
+                "attribute": "value"
+              },
+              {
+                "kind": "field",
+                "name": "danger",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "description": "Marks a destructive action — danger foreground, red-tinted hover.",
+                "attribute": "danger",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "disabled",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "description": "Disables the item — skipped by keyboard navigation, click is inert.",
+                "attribute": "disabled",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "_onActivate",
+                "privacy": "private"
+              },
+              {
+                "kind": "field",
+                "name": "_onKeyDown",
+                "privacy": "private"
+              }
+            ],
+            "events": [
+              {
+                "description": "Bubbles (composed) to rr-menu when the item is activated; detail.value is this item's value. Not fired when disabled.",
+                "name": "rr-menu-item-select"
+              }
+            ],
+            "attributes": [
+              {
+                "name": "value",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "description": "Value reported in rr-menu's rr-menu-select event when this item is chosen.",
+                "fieldName": "value"
+              },
+              {
+                "name": "danger",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "description": "Marks a destructive action — danger foreground, red-tinted hover.",
+                "fieldName": "danger"
+              },
+              {
+                "name": "disabled",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "description": "Disables the item — skipped by keyboard navigation, click is inert.",
+                "fieldName": "disabled"
+              }
+            ],
+            "superclass": {
+              "name": "LitElement",
+              "package": "lit"
+            },
+            "tagName": "rr-menu-item",
+            "customElement": true
+          }
+        ],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrMenuItem",
+            "declaration": {
+              "name": "RrMenuItem",
+              "module": "src/menu/menu-item.ts"
+            }
+          },
+          {
+            "kind": "custom-element-definition",
+            "name": "rr-menu-item",
+            "declaration": {
+              "name": "RrMenuItem",
+              "module": "src/menu/menu-item.ts"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/menu/menu.figma.ts",
+        "declarations": [],
+        "exports": []
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/menu/menu.ts",
+        "declarations": [
+          {
+            "kind": "class",
+            "description": "`<rr-menu>` — an accessible dropdown action menu (WAI-ARIA menu-button pattern).\n\nSlot any control into the `trigger` slot and `<rr-menu-item>` elements into\nthe default slot. The component owns the open state, trigger ARIA wiring\n(aria-haspopup / aria-expanded), outside-click and Escape dismissal, and\nfull keyboard navigation: ArrowDown/ArrowUp move through enabled items\n(wrapping), Home/End jump, Enter/Space activate, Escape closes and returns\nfocus to the trigger. Opening with ArrowDown focuses the first item;\nArrowUp opens focusing the last.\n\nThe popup positions itself below the trigger with CSS (no portal) — for\nuse inside `overflow: hidden` ancestors, place the menu outside the\nclipping container.",
+            "name": "RrMenu",
+            "cssParts": [
+              {
+                "description": "The floating menu surface",
+                "name": "menu"
+              }
+            ],
+            "slots": [
+              {
+                "description": "The control that opens the menu (e.g. an rr-button)",
+                "name": "trigger"
+              },
+              {
+                "description": "Place `<rr-menu-item>` elements here",
+                "name": ""
+              }
+            ],
+            "members": [
+              {
+                "kind": "field",
+                "name": "open",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "description": "Whether the menu is open. Usually driven by the component itself; settable for controlled usage.",
+                "attribute": "open",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "placement",
+                "type": {
+                  "text": "MenuPlacement"
+                },
+                "default": "'bottom-start'",
+                "description": "Which edge of the trigger the menu aligns to: bottom-start (default) or bottom-end.",
+                "attribute": "placement",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "label",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "description": "Accessible label for the menu popup (required); sets aria-label on the role=menu element.",
+                "attribute": "label"
+              },
+              {
+                "kind": "field",
+                "name": "_trigger",
+                "type": {
+                  "text": "HTMLElement | null"
+                },
+                "privacy": "private",
+                "default": "null"
+              },
+              {
+                "kind": "method",
+                "name": "show",
+                "parameters": [
+                  {
+                    "name": "focusItem",
+                    "default": "'none'",
+                    "type": {
+                      "text": "'first' | 'last' | 'none'"
+                    }
+                  }
+                ],
+                "description": "Open the menu and optionally move focus to the first or last enabled item."
+              },
+              {
+                "kind": "method",
+                "name": "hide",
+                "parameters": [
+                  {
+                    "name": "refocusTrigger",
+                    "default": "true"
+                  }
+                ],
+                "description": "Close the menu and return focus to the trigger."
+              },
+              {
+                "kind": "method",
+                "name": "_items",
+                "privacy": "private",
+                "return": {
+                  "type": {
+                    "text": "RrMenuItem[]"
+                  }
+                }
+              },
+              {
+                "kind": "field",
+                "name": "_onTriggerSlotChange",
+                "privacy": "private"
+              },
+              {
+                "kind": "field",
+                "name": "_onTriggerClick",
+                "privacy": "private"
+              },
+              {
+                "kind": "field",
+                "name": "_onOutsidePointerDown",
+                "privacy": "private"
+              },
+              {
+                "kind": "field",
+                "name": "_onItemSelect",
+                "privacy": "private"
+              },
+              {
+                "kind": "field",
+                "name": "_onKeyDown",
+                "privacy": "private"
+              }
+            ],
+            "events": [
+              {
+                "name": "rr-menu-toggle",
+                "type": {
+                  "text": "CustomEvent"
+                },
+                "description": "When the menu opens or closes; detail: { open: boolean }"
+              },
+              {
+                "description": "When an item is chosen; detail: { value: string }",
+                "name": "rr-menu-select"
+              }
+            ],
+            "attributes": [
+              {
+                "name": "open",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "description": "Whether the menu is open. Usually driven by the component itself; settable for controlled usage.",
+                "fieldName": "open"
+              },
+              {
+                "name": "placement",
+                "type": {
+                  "text": "MenuPlacement"
+                },
+                "default": "'bottom-start'",
+                "description": "Which edge of the trigger the menu aligns to: bottom-start (default) or bottom-end.",
+                "fieldName": "placement"
+              },
+              {
+                "name": "label",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "description": "Accessible label for the menu popup (required); sets aria-label on the role=menu element.",
+                "fieldName": "label"
+              }
+            ],
+            "superclass": {
+              "name": "LitElement",
+              "package": "lit"
+            },
+            "tagName": "rr-menu",
+            "customElement": true
+          }
+        ],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrMenu",
+            "declaration": {
+              "name": "RrMenu",
+              "module": "src/menu/menu.ts"
+            }
+          },
+          {
+            "kind": "custom-element-definition",
+            "name": "rr-menu",
+            "declaration": {
+              "name": "RrMenu",
+              "module": "src/menu/menu.ts"
             }
           }
         ]
