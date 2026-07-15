@@ -11,6 +11,24 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-07-15 — Figma-variable drift audit scheduled as an agentic Routine, not a GitHub Action
+
+**What:** `scripts/drift_audit.py` (Figma variables vs. DTCG token JSON) now runs on a
+weekly schedule — as a Claude Code Routine ("Parsimony Figma-variable drift audit",
+Mondays 10:00 UTC) that exports the variables via the Figma MCP, runs the auditor, and
+reflects the result as one tracked issue. **Why not an Action:** the script consumes a
+variables export it cannot fetch itself, and Figma's variables REST API is
+Enterprise-plan-only — a plain CI job on the Pro plan has no way to produce the export.
+The MCP path is the same one that caught the real drift on 2026-07-15 (danger trio +
+border.default stale since the 2026-07-02 token changes) by hand. **Alternative
+considered:** committing periodic manual exports for CI to diff — rejected as
+drift-prone in itself. **Caveat/status:** Routines created from inside a session carry
+no MCP connector grants; until the Routine is re-created from the claude.ai Routines UI
+with the Figma + GitHub connectors attached, its runs exit quietly (by design) instead
+of auditing. Active once re-created with connectors.
+
+---
+
 ## 2026-07-14 — Collapse to a two-tier token model; drop the component tier
 
 **Decided:** Move the token architecture from three tiers to **two** — primitives →
