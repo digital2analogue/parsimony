@@ -99,6 +99,12 @@ React 19 supports `onInput` and `onChange` on custom elements natively. For `<rr
 
 ### MCP tools (in-repo at `packages/mcp`)
 
+Registered project-wide via `.mcp.json` at the repo root, so any Claude Code
+session in a clone gets the `parsimony` server automatically — run `npm ci`
+once first (the server needs the workspace-installed MCP SDK). Other agent
+CLIs can register the same entry point: `node packages/mcp/src/server.mjs`
+(stdio).
+
 - `list_components()` — names and summaries
 - `get_component(name)` — props, slots, events, tokens used, rules, examples, accessibility contract
 - `check_usage(snippet)` — flags violations of rules in `ai/rules.md` (hex literals, `--primitive-*` references, deprecated tokens)
