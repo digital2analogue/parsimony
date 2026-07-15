@@ -161,6 +161,21 @@ export class RrSelect extends LitElement {
     if (changed.has('value')) {
       this._internals.setFormValue?.(this.value);
     }
+    // Sync the native select's displayed selection with `value`. There is no
+    // template binding for this — a `.value` binding on <select> commits
+    // before the <option> children render and silently no-ops — and `options`
+    // often arrive after the element upgrades. Only applied when `value`
+    // matches a real option; otherwise the native select keeps its own
+    // selection.
+    if (changed.has('value') || changed.has('options')) {
+      if (
+        this._select &&
+        this._select.value !== this.value &&
+        this.options.some(o => o.value === this.value)
+      ) {
+        this._select.value = this.value;
+      }
+    }
     if (changed.has('errorText')) {
       if (this._isInvalid) {
         this.setAttribute('data-invalid', '');

@@ -115,3 +115,40 @@ describe('rr-select', () => {
     expect(results).toHaveNoViolations();
   });
 });
+
+describe('rr-select value ↔ native selection sync', () => {
+  it('applies value to the native select when options arrive after upgrade', async () => {
+    const el = createSelect('value="b"');
+    await el.updateComplete;
+    el.options = [
+      { value: 'a', label: 'A' },
+      { value: 'b', label: 'B' },
+      { value: 'c', label: 'C' },
+    ];
+    await el.updateComplete;
+    const native = el.shadowRoot!.querySelector('select')!;
+    expect(native.value).toBe('b');
+  });
+
+  it('updates the native selection when value changes programmatically', async () => {
+    const el = createSelect('value="a"');
+    el.options = [
+      { value: 'a', label: 'A' },
+      { value: 'b', label: 'B' },
+    ];
+    await el.updateComplete;
+    el.value = 'b';
+    await el.updateComplete;
+    expect(el.shadowRoot!.querySelector('select')!.value).toBe('b');
+  });
+
+  it('leaves the native selection alone when value matches no option', async () => {
+    const el = createSelect('value="zzz"');
+    el.options = [
+      { value: 'a', label: 'A' },
+      { value: 'b', label: 'B' },
+    ];
+    await el.updateComplete;
+    expect(el.shadowRoot!.querySelector('select')!.value).toBe('a');
+  });
+});
