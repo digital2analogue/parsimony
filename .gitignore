@@ -4,6 +4,7 @@ packages/components/dist/
 packages/components/storybook-static/
 packages/tokens/css/
 .DS_Store
-.claude/
+.claude/*
+!.claude/skills/
 scripts/output/
 __pycache__/
