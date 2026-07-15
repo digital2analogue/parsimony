@@ -31,6 +31,13 @@ export class RrSpinner extends LitElement {
       width: 24px;
       height: 24px;
       animation: rr-spin 0.8s linear infinite;
+    }
+
+    /* A frozen arc still reads as "busy" (plus the aria-label); the rotation
+       is decorative, so honor the OS-level motion preference. */
+    @media (prefers-reduced-motion: reduce) {
+      svg {
+        animation: none;
       color: var(--color-foreground-action);
     }
 

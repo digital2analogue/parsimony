@@ -145,3 +145,78 @@ describe('rr-tab-list', () => {
     expect(results).toHaveNoViolations();
   });
 });
+
+describe('rr-tab-list keyboard navigation', () => {
+  beforeEach(() => {
+    document.body.innerHTML = '';
+  });
+
+  function press(el: HTMLElement, key: string): KeyboardEvent {
+    const ev = new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true });
+    el.dispatchEvent(ev);
+    return ev;
+  }
+
+  it('ArrowRight selects the next tab', async () => {
+    const el = createTabList('a');
+    await el.updateComplete;
+    press(el, 'ArrowRight');
+    expect(el.value).toBe('b');
+    expect((el.querySelector('rr-tab[value="b"]') as RrTab).selected).toBe(true);
+  });
+
+  it('ArrowRight wraps from the last tab to the first', async () => {
+    const el = createTabList('c');
+    await el.updateComplete;
+    press(el, 'ArrowRight');
+    expect(el.value).toBe('a');
+  });
+
+  it('ArrowLeft selects the previous tab, wrapping from the first to the last', async () => {
+    const el = createTabList('a');
+    await el.updateComplete;
+    press(el, 'ArrowLeft');
+    expect(el.value).toBe('c');
+  });
+
+  it('Home and End jump to the first and last tab', async () => {
+    const el = createTabList('b');
+    await el.updateComplete;
+    press(el, 'End');
+    expect(el.value).toBe('c');
+    press(el, 'Home');
+    expect(el.value).toBe('a');
+  });
+
+  it('skips disabled tabs when navigating', async () => {
+    const el = createElement(`
+      <rr-tab-list label="Sections" value="a">
+        <rr-tab value="a">A</rr-tab>
+        <rr-tab value="b" disabled>B</rr-tab>
+        <rr-tab value="c">C</rr-tab>
+      </rr-tab-list>
+    `) as RrTabList;
+    await el.updateComplete;
+    press(el, 'ArrowRight');
+    expect(el.value).toBe('c');
+  });
+
+  it('emits change with the newly selected value', async () => {
+    const el = createTabList('a');
+    await el.updateComplete;
+    const seen: string[] = [];
+    el.addEventListener('change', (e) => seen.push((e as CustomEvent<{ value: string }>).detail.value));
+    press(el, 'ArrowRight');
+    expect(seen).toEqual(['b']);
+  });
+
+  it('prevents default on handled keys and ignores unrelated keys', async () => {
+    const el = createTabList('a');
+    await el.updateComplete;
+    expect(press(el, 'ArrowRight').defaultPrevented).toBe(true);
+    const before = el.value;
+    const other = press(el, 'a');
+    expect(other.defaultPrevented).toBe(false);
+    expect(el.value).toBe(before);
+  });
+});

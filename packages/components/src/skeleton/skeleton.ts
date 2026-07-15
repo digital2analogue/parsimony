@@ -43,6 +43,12 @@ export class RrSkeleton extends LitElement {
       border-radius: var(--radius-sm);
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      .skeleton {
+        animation: none;
+      }
+    }
+
     :host([variant='text']) .skeleton {
       border-radius: var(--radius-sm);
       transform: scaleY(0.85);
