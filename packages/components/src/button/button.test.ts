@@ -20,7 +20,7 @@ describe('rr-button', () => {
     const el = createElement('<rr-button>Click</rr-button>') as RrButton;
     await el.updateComplete;
     expect(el.variant).toBe('primary');
-    expect(el.size).toBe('medium');
+    expect(el.size).toBe('md');
     expect(el.disabled).toBe(false);
     expect(el.loading).toBe(false);
     expect(el.type).toBe('button');
@@ -41,10 +41,10 @@ describe('rr-button', () => {
   });
 
   it('reflects size attribute', async () => {
-    const el = createElement('<rr-button size="small">Tag</rr-button>') as RrButton;
+    const el = createElement('<rr-button size="sm">Tag</rr-button>') as RrButton;
     await el.updateComplete;
-    expect(el.size).toBe('small');
-    expect(el.getAttribute('size')).toBe('small');
+    expect(el.size).toBe('sm');
+    expect(el.getAttribute('size')).toBe('sm');
   });
 
   it('disables the inner button when disabled', async () => {

@@ -21,19 +21,19 @@ _TODO: what is `rr-alert` for, and when to reach for it vs. an alternative._
 ### Success
 
 ```html
-<rr-alert variant="success" title="Saved">Your changes were saved.</rr-alert>
+<rr-alert variant="success" heading="Saved">Your changes were saved.</rr-alert>
 ```
 
 ### Danger, dismissible
 
 ```html
-<rr-alert variant="danger" title="Upload failed" dismissible>The file could not be processed.</rr-alert>
+<rr-alert variant="danger" heading="Upload failed" dismissible>The file could not be processed.</rr-alert>
 ```
 
 ### Info with icon
 
 ```html
-<rr-alert variant="info" title="Heads up">
+<rr-alert variant="info" heading="Heads up">
   <rr-icon slot="icon" name="info"></rr-icon>
   Maintenance is scheduled for tonight.
 </rr-alert>
@@ -46,7 +46,7 @@ _TODO: what is `rr-alert` for, and when to reach for it vs. an alternative._
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `variant` | `'success' \| 'warning' \| 'danger' \| 'info'` | `success` | Visual variant and semantic role. |
-| `title` | `string` | `` | Optional bold title rendered above the body content. |
+| `heading` | `string` | `` | Optional bold heading rendered above the body content. |
 | `dismissible` | `boolean` | `false` | When true, renders a dismiss button that hides the alert and fires close. |
 {/* GEN:properties:end */}
 
@@ -58,7 +58,7 @@ _TODO: what is `rr-alert` for, and when to reach for it vs. an alternative._
 | Slot | Description |
 |------|-------------|
 | `default` | Alert body content. |
-| `icon` | Optional icon in front of the title (use <rr-icon>). |
+| `icon` | Optional icon in front of the heading (use <rr-icon>). |
 
 ### Events
 
@@ -112,7 +112,7 @@ _TODO: what is `rr-alert` for, and when to reach for it vs. an alternative._
 
 **Rules**
 
-- Do not rely on color alone to convey the alert variant — pair with a title or icon
+- Do not rely on color alone to convey the alert variant — pair with a heading or icon
 - The dismiss button carries an aria-label of "Dismiss"
 {/* GEN:accessibility:end */}
 
@@ -141,6 +141,6 @@ npm install @riverromney/components
 ```
 
 ```html
-<rr-alert variant="success" title="Saved">Your changes were saved.</rr-alert>
+<rr-alert variant="success" heading="Saved">Your changes were saved.</rr-alert>
 ```
 {/* GEN:implementation:end */}

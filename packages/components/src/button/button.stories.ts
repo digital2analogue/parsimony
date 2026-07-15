@@ -7,14 +7,14 @@ const meta: Meta = {
   component: 'rr-button',
   argTypes: {
     variant: { control: 'select', options: ['primary', 'secondary', 'danger', 'ghost'] },
-    size: { control: 'select', options: ['small', 'medium', 'large'] },
+    size: { control: 'select', options: ['sm', 'md', 'lg'] },
     disabled: { control: 'boolean' },
     loading: { control: 'boolean' },
     label: { control: 'text' },
   },
   args: {
     variant: 'primary',
-    size: 'medium',
+    size: 'md',
     disabled: false,
     loading: false,
     label: 'Save changes',

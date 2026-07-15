@@ -6,7 +6,7 @@
   "package": "@riverromney/components",
   "props": [
     { "name": "variant", "type": "string", "default": "primary" },
-    { "name": "size", "type": "string", "default": "medium" },
+    { "name": "size", "type": "string", "default": "md" },
     { "name": "disabled", "type": "boolean", "default": false },
     { "name": "loading", "type": "boolean", "default": false },
     { "name": "type", "type": "string", "default": "button" },
@@ -72,8 +72,8 @@
     { "title": "Primary", "html": "<rr-button>Save changes</rr-button>" },
     { "title": "Secondary", "html": "<rr-button variant=\"secondary\">Cancel</rr-button>" },
     { "title": "Danger", "html": "<rr-button variant=\"danger\">Delete</rr-button>" },
-    { "title": "Small", "html": "<rr-button size=\"small\">Tag</rr-button>" },
-    { "title": "Large", "html": "<rr-button size=\"large\">Get started</rr-button>" },
+    { "title": "Small", "html": "<rr-button size=\"sm\">Tag</rr-button>" },
+    { "title": "Large", "html": "<rr-button size=\"lg\">Get started</rr-button>" },
     { "title": "Loading", "html": "<rr-button loading>Saving...</rr-button>" },
     { "title": "Disabled", "html": "<rr-button disabled>Unavailable</rr-button>" },
     { "title": "Icon-only", "html": "<rr-button aria-label=\"Close\"><span slot=\"prefix\">X</span></rr-button>" }
