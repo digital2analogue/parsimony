@@ -11,6 +11,7 @@ on:
 
 permissions:
   contents: write
+  actions: write # to dispatch ci.yml after the baselines commit
 
 jobs:
   update:
@@ -34,9 +35,11 @@ jobs:
         run: npm run test:visual:update
 
       - name: Commit refreshed baselines
+        id: commit
         run: |
           if [ -z "$(git status --porcelain -- packages/components/tests/visual/__screenshots__)" ]; then
             echo "Baselines unchanged — nothing to commit."
+            echo "pushed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name "github-actions[bot]"
@@ -46,7 +49,20 @@ jobs:
           # The branch can move while baselines regenerate — rebase our
           # baseline commit on top (favouring the fresh screenshots) and retry.
           for i in 1 2 3; do
-            git push && exit 0
+            if git push; then
+              echo "pushed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
             git pull --rebase -X theirs origin "$GITHUB_REF_NAME"
           done
           exit 1
+
+      # A GITHUB_TOKEN push never triggers push/PR workflows, so the PR's CI
+      # run lands gated at "action required". workflow_dispatch is exempt from
+      # that rule — dispatching ci.yml here attaches a fresh `verify` check to
+      # the new branch head with no human re-run needed.
+      - name: Re-trigger CI on the baselines commit
+        if: steps.commit.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run ci.yml --repo "$GITHUB_REPOSITORY" --ref "$GITHUB_REF_NAME"
