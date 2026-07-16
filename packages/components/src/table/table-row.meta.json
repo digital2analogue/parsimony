@@ -5,10 +5,17 @@
   "summary": "A row inside rr-table; carries role=row, its zebra/hover/selected visuals are painted by the parent table's stylesheet.",
   "package": "@digital2analogue2/parsimony-components",
   "props": [
-    { "name": "selected", "type": "boolean", "default": false }
+    {
+      "name": "selected",
+      "type": "boolean",
+      "default": false
+    }
   ],
   "slots": [
-    { "name": "(default)", "description": "rr-table-cell elements." }
+    {
+      "name": "(default)",
+      "description": "rr-table-cell elements."
+    }
   ],
   "events": [],
   "cssParts": [],
@@ -17,29 +24,39 @@
     "--motion-easing-default"
   ],
   "rules": [
-    "Never use hex values. Always use var(--color-*) or var(--component-*)",
+    "Never use hex values. Always use var(--color-*) semantic tokens",
     "Never reference --primitive-* tokens in component code",
-    "Drive selected from your selection model — it is the only state the row owns"
+    "Drive selected from your selection model \u2014 it is the only state the row owns"
   ],
   "examples": [
-    { "title": "Row", "html": "<rr-table-row>\n  <rr-table-cell>High-value approvals</rr-table-cell>\n</rr-table-row>" },
-    { "title": "Selected row", "html": "<rr-table-row selected>\n  <rr-table-cell>Low income</rr-table-cell>\n</rr-table-row>" }
+    {
+      "title": "Row",
+      "html": "<rr-table-row>\n  <rr-table-cell>High-value approvals</rr-table-cell>\n</rr-table-row>"
+    },
+    {
+      "title": "Selected row",
+      "html": "<rr-table-row selected>\n  <rr-table-cell>Low income</rr-table-cell>\n</rr-table-row>"
+    }
   ],
   "accessibility": {
     "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/table/",
     "role": "row",
     "focusable": false,
     "keyboard": [
-      "None of its own — interactive cell content keeps its native keyboard behavior"
+      "None of its own \u2014 interactive cell content keeps its native keyboard behavior"
     ],
     "wcag": [
       "1.3.1 Info and Relationships",
       "4.1.2 Name, Role, Value"
     ],
     "rules": [
-      "role=row lives on the host so the flattened tree reads table → rowgroup → row → cell",
+      "role=row lives on the host so the flattened tree reads table \u2192 rowgroup \u2192 row \u2192 cell",
       "selected reflects to aria-selected=true and clears when deselected"
     ]
   },
-  "figma": { "componentKey": "", "nodeId": "189:2", "codeConnectFile": "table.figma.ts" }
+  "figma": {
+    "componentKey": "",
+    "nodeId": "189:2",
+    "codeConnectFile": "table.figma.ts"
+  }
 }

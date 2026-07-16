@@ -80,7 +80,7 @@ Multiple autonomous sessions (local + cloud) work this repo in parallel. Each bo
 
 1. **Primitives** (`tokens/primitives/`) — raw hex values. Never use in UI code.
 2. **Semantic** (`tokens/semantic/`, `tokens/brands/`) — named roles (background, foreground, border). These are what UI code imports.
-3. **Component** (`tokens/components/`) — tokens scoped to a single component (badge, button, input, …), consumed by the matching `rr-*` web component in `packages/components/`.
+3. **Component** (`tokens/components/`) — tokens scoped to a single component (badge, button, input, …), consumed by the matching `rr-*` web component in `packages/components/`. **FROZEN — do not add to this tier.** The target architecture is two-tier (primitives → semantic; see #114 and the 2026-07-16 decision entry): new components write semantic roles directly, and the 9 remaining legacy families migrate out under #114.
 
 ## Workflow: Making a Token Change
 

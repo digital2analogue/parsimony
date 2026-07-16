@@ -1280,14 +1280,14 @@
         }
       ],
       "tokensUsed": [
-        "--component-menu-background",
-        "--component-menu-border",
-        "--component-menu-radius",
+        "--color-background-alt",
+        "--color-border-elevated",
+        "--radius-default",
         "--shadow-overlay",
         "--spacing-micro"
       ],
       "rules": [
-        "Never use hex values. Always use var(--color-*) or var(--component-*)",
+        "Never use hex values. Always use var(--color-*) semantic tokens",
         "Never reference --primitive-* tokens in component code",
         "All text/background pairings must pass WCAG AA (4.5:1)",
         "Always set label — it names the menu popup for assistive tech",
@@ -1377,11 +1377,11 @@
         }
       ],
       "tokensUsed": [
-        "--component-menu-item-foreground",
-        "--component-menu-item-hover-background",
-        "--component-menu-item-danger-foreground",
-        "--component-menu-item-danger-hover-background",
-        "--component-menu-item-disabled-foreground",
+        "--color-foreground-default",
+        "--color-background-accent-green",
+        "--color-foreground-danger",
+        "--color-background-danger-alt",
+        "--color-foreground-disabled",
         "--color-border-focus",
         "--font-label-medium",
         "--spacing-tight",
@@ -1391,7 +1391,7 @@
         "--motion-easing-default"
       ],
       "rules": [
-        "Never use hex values. Always use var(--color-*) or var(--component-*)",
+        "Never use hex values. Always use var(--color-*) semantic tokens",
         "Never reference --primitive-* tokens in component code",
         "All text/background pairings must pass WCAG AA (4.5:1)",
         "Reserve danger for genuinely destructive actions — one per menu is the norm",
@@ -2268,17 +2268,16 @@
         }
       ],
       "tokensUsed": [
-        "--component-table-row-zebra-background",
-        "--component-table-row-hover-background",
-        "--component-table-row-selected-background",
-        "--component-table-row-selected-rail",
+        "--color-background-alt",
+        "--color-background-accent-green",
+        "--color-foreground-action",
         "--spacing-inline",
         "--spacing-element",
         "--spacing-tight",
         "--radius-none"
       ],
       "rules": [
-        "Never use hex values. Always use var(--color-*) or var(--component-*)",
+        "Never use hex values. Always use var(--color-*) semantic tokens",
         "Never reference --primitive-* tokens in component code",
         "All text/background pairings must pass WCAG AA (4.5:1)",
         "Always set label — it names the table for assistive tech",
@@ -2343,9 +2342,9 @@
       "events": [],
       "cssParts": [],
       "tokensUsed": [
-        "--component-table-cell-foreground",
-        "--component-table-header-foreground",
-        "--component-table-row-separator",
+        "--color-foreground-default",
+        "--color-foreground-muted",
+        "--color-border-muted",
         "--font-label-medium",
         "--font-label-strong-small",
         "--font-mono-label-small",
@@ -2353,7 +2352,7 @@
         "--spacing-element"
       ],
       "rules": [
-        "Never use hex values. Always use var(--color-*) or var(--component-*)",
+        "Never use hex values. Always use var(--color-*) semantic tokens",
         "Never reference --primitive-* tokens in component code",
         "All text/background pairings must pass WCAG AA (4.5:1)",
         "Use numeric for amounts, counts, and IDs so digit columns align — not for text that happens to contain digits"
@@ -2422,7 +2421,7 @@
         "--motion-easing-default"
       ],
       "rules": [
-        "Never use hex values. Always use var(--color-*) or var(--component-*)",
+        "Never use hex values. Always use var(--color-*) semantic tokens",
         "Never reference --primitive-* tokens in component code",
         "Drive selected from your selection model — it is the only state the row owns"
       ],
@@ -2772,20 +2771,18 @@
         }
       ],
       "tokensUsed": [
-        "--component-toast-background",
-        "--component-toast-foreground",
-        "--component-toast-border",
-        "--component-toast-neutral-accent",
-        "--component-toast-success-accent",
-        "--component-toast-warning-accent",
-        "--component-toast-danger-accent",
-        "--component-toast-info-accent",
-        "--component-toast-radius",
-        "--component-toast-padding-x",
-        "--component-toast-padding-y",
-        "--shadow-dialog",
-        "--color-foreground-alt",
+        "--color-background-alt",
         "--color-foreground-default",
+        "--color-border-elevated",
+        "--color-foreground-alt",
+        "--color-foreground-success",
+        "--color-foreground-warning",
+        "--color-foreground-danger",
+        "--color-foreground-info",
+        "--radius-default",
+        "--spacing-element",
+        "--spacing-inline",
+        "--shadow-dialog",
         "--color-border-focus",
         "--font-label-strong-medium",
         "--font-body-medium",
@@ -2797,7 +2794,7 @@
         "--motion-easing-default"
       ],
       "rules": [
-        "Never use hex values. Always use var(--color-*) or var(--component-*)",
+        "Never use hex values. Always use var(--color-*) semantic tokens",
         "Never reference --primitive-* tokens in component code",
         "All text/background pairings must pass WCAG AA (4.5:1)",
         "Placement is the consumer's job — render toasts inside a fixed-position region; the component owns the surface, not the position",

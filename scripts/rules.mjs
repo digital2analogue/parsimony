@@ -14,15 +14,15 @@
 // ── Patterns ────────────────────────────────────────────────────────────────
 
 // Valid CSS hex colors: 3, 4, 6, or 8 digits. (Catches #RGBA / #RRGGBBAA too.)
-const HEX = '#(?:[0-9a-fA-F]{3,4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})\\b';
+const HEX = "#(?:[0-9a-fA-F]{3,4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})\\b";
 // Primitive token references — never allowed in UI/component code.
-const PRIMITIVE = '--primitive-[a-z][a-z-]*';
+const PRIMITIVE = "--primitive-[a-z][a-z-]*";
 // Hardcoded numeric font-size (e.g. `font-size: 14px`) — use font tokens.
-const FONT_SIZE = 'font-size:\\s*[0-9]';
+const FONT_SIZE = "font-size:\\s*[0-9]";
 // Hardcoded font-weight (e.g. `font-weight: 700` / `bold`) — use --font-weight-*.
 // `var(--…)`, `normal`, and the CSS-wide keywords are not literals, so they
 // don't match and need no allowlist entry.
-const FONT_WEIGHT = 'font-weight:\\s*(?:\\d+|bold|bolder|lighter)\\b';
+const FONT_WEIGHT = "font-weight:\\s*(?:\\d+|bold|bolder|lighter)\\b";
 // font-family naming anything other than a --font-family-* token, a generic
 // CSS family, or one of the three approved families (hard rule #3). The negative
 // lookahead lets `var(--…)`, generics, CSS-wide keywords, and the approved
@@ -39,16 +39,46 @@ const FONT_FAMILY =
 // category was eliminated — hover/selected route through action-hover/border-hover/
 // action/background-alt now.
 export const DEPRECATED_TOKENS = [
-  { token: '--color-foreground-accent', replacement: '--color-foreground-accent-{green|blue|violet|amber} (named slots)' },
-  { token: '--color-background-accent', replacement: '--color-background-action' },
-  { token: '--color-foreground-on-accent', replacement: '--color-foreground-accent-on-{color} (named)' },
-  { token: '--color-foreground-primary', replacement: '--color-foreground-default' },
-  { token: '--color-feedback-error', replacement: '--color-foreground-danger' },
-  { token: '--color-feedback-danger-foreground', replacement: '--color-foreground-danger' },
-  { token: '--color-foreground-accent-red', replacement: '--color-foreground-danger' },
-  { token: '--color-foreground-on-accent-red', replacement: '--color-foreground-on-danger' },
-  { token: '--color-state-hover', replacement: '--color-background-action-hover (or --color-border-hover for outlines)' },
-  { token: '--color-state-selected', replacement: '--color-background-action (or --color-background-alt for subtle)' },
+  {
+    token: "--color-foreground-accent",
+    replacement:
+      "--color-foreground-accent-{green|blue|violet|amber} (named slots)",
+  },
+  {
+    token: "--color-background-accent",
+    replacement: "--color-background-action",
+  },
+  {
+    token: "--color-foreground-on-accent",
+    replacement: "--color-foreground-accent-on-{color} (named)",
+  },
+  {
+    token: "--color-foreground-primary",
+    replacement: "--color-foreground-default",
+  },
+  { token: "--color-feedback-error", replacement: "--color-foreground-danger" },
+  {
+    token: "--color-feedback-danger-foreground",
+    replacement: "--color-foreground-danger",
+  },
+  {
+    token: "--color-foreground-accent-red",
+    replacement: "--color-foreground-danger",
+  },
+  {
+    token: "--color-foreground-on-accent-red",
+    replacement: "--color-foreground-on-danger",
+  },
+  {
+    token: "--color-state-hover",
+    replacement:
+      "--color-background-action-hover (or --color-border-hover for outlines)",
+  },
+  {
+    token: "--color-state-selected",
+    replacement:
+      "--color-background-action (or --color-background-alt for subtle)",
+  },
 ];
 
 // Fast lookup by token name → { token, replacement }. Used by the MCP get_token
@@ -57,7 +87,7 @@ export const DEPRECATED = new Map(DEPRECATED_TOKENS.map((d) => [d.token, d]));
 
 // Lines matching these are exempt from the hex rule (false positives).
 export const HEX_ALLOWLIST = [
-  /url\(#/,           // SVG fragment IDs, e.g. fill="url(#grad)"
+  /url\(#/, // SVG fragment IDs, e.g. fill="url(#grad)"
   /sourceMappingURL/, // source maps
 ];
 
@@ -67,42 +97,53 @@ export const HEX_ALLOWLIST = [
  */
 export const RULES = [
   {
-    id: 'no-hex',
+    id: "no-hex",
     hardRule: 1,
-    message: 'No hardcoded colors. Use var(--color-*) custom properties',
+    message: "No hardcoded colors. Use var(--color-*) custom properties",
     find: (text) => matchAll(text, HEX),
     allowlist: HEX_ALLOWLIST,
   },
   {
-    id: 'no-primitive',
+    id: "no-primitive",
     hardRule: 9,
-    message: 'Never reference primitive tokens (--primitive-*) in UI code. Use the semantic layer',
+    message:
+      "Never reference primitive tokens (--primitive-*) in UI code. Use the semantic layer",
     find: (text) => matchAll(text, PRIMITIVE),
   },
   {
-    id: 'no-hardcoded-font-size',
+    id: "no-hardcoded-font-size",
     hardRule: 8,
-    message: 'No hardcoded font sizes. Use var(--font-size-*) primitives or a font shorthand token',
+    message:
+      "No hardcoded font sizes. Use var(--font-size-*) primitives or a font shorthand token",
     find: (text) => matchAll(text, FONT_SIZE),
   },
   {
-    id: 'no-hardcoded-font-weight',
+    id: "no-hardcoded-font-weight",
     hardRule: 2,
-    message: 'No hardcoded font weights. Use var(--font-weight-*) custom properties',
+    message:
+      "No hardcoded font weights. Use var(--font-weight-*) custom properties",
     find: (text) => matchAll(text, FONT_WEIGHT),
   },
   {
-    id: 'no-unapproved-font-family',
+    id: "no-unapproved-font-family",
     hardRule: 3,
-    message: 'Font family must be a var(--font-family-*) token (or a generic family). Only Space Grotesk, Spectral, and JetBrains Mono are approved',
+    message:
+      "Font family must be a var(--font-family-*) token (or a generic family). Only Space Grotesk, Spectral, and JetBrains Mono are approved",
     find: (text) => matchAll(text, FONT_FAMILY).map((m) => m.trim()),
   },
   {
-    id: 'deprecated-token',
+    id: "deprecated-token",
     hardRule: null,
-    message: 'Deprecated token. See ai/DECISION-ENGINE.md "Tokens That Were Deleted"',
+    message:
+      'Deprecated token. See ai/DECISION-ENGINE.md "Tokens That Were Deleted"',
     // Returns matched token-name strings (shape unchanged for validate + drift-lint).
-    find: (text) => DEPRECATED_TOKENS.filter((d) => text.includes(d.token)).map((d) => d.token),
+    // Boundary-aware: several deprecated names are prefixes of their own live
+    // replacements (--color-background-accent vs --color-background-accent-green),
+    // so a bare substring match would flag the replacement too.
+    find: (text) =>
+      DEPRECATED_TOKENS.filter((d) =>
+        new RegExp(`${d.token}(?![-\\w])`).test(text),
+      ).map((d) => d.token),
   },
 ];
 
@@ -110,7 +151,7 @@ export const RULES = [
 
 // Fresh regex per call so the global lastIndex never leaks between scans.
 function matchAll(text, pattern) {
-  return text.match(new RegExp(pattern, 'g')) ?? [];
+  return text.match(new RegExp(pattern, "g")) ?? [];
 }
 
 function allowlisted(rule, line) {
@@ -140,13 +181,18 @@ export function lintSnippet(text) {
  */
 export function lintLines(text) {
   const violations = [];
-  const lines = text.split('\n');
+  const lines = text.split("\n");
   lines.forEach((line, i) => {
     for (const rule of RULES) {
       if (allowlisted(rule, line)) continue;
       const matches = rule.find(line);
       if (matches.length > 0) {
-        violations.push({ line: i + 1, id: rule.id, rule: rule.message, match: matches[0] });
+        violations.push({
+          line: i + 1,
+          id: rule.id,
+          rule: rule.message,
+          match: matches[0],
+        });
       }
     }
   });

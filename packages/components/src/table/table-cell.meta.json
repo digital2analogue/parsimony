@@ -5,18 +5,29 @@
   "summary": "A cell inside rr-table-row; header cells get the muted all-caps recipe, numeric cells right-align in mono with tabular figures.",
   "package": "@digital2analogue2/parsimony-components",
   "props": [
-    { "name": "header", "type": "boolean", "default": false },
-    { "name": "numeric", "type": "boolean", "default": false }
+    {
+      "name": "header",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "numeric",
+      "type": "boolean",
+      "default": false
+    }
   ],
   "slots": [
-    { "name": "(default)", "description": "Cell content — text, badges, menus, buttons." }
+    {
+      "name": "(default)",
+      "description": "Cell content \u2014 text, badges, menus, buttons."
+    }
   ],
   "events": [],
   "cssParts": [],
   "tokensUsed": [
-    "--component-table-cell-foreground",
-    "--component-table-header-foreground",
-    "--component-table-row-separator",
+    "--color-foreground-default",
+    "--color-foreground-muted",
+    "--color-border-muted",
     "--font-label-medium",
     "--font-label-strong-small",
     "--font-mono-label-small",
@@ -24,22 +35,31 @@
     "--spacing-element"
   ],
   "rules": [
-    "Never use hex values. Always use var(--color-*) or var(--component-*)",
+    "Never use hex values. Always use var(--color-*) semantic tokens",
     "Never reference --primitive-* tokens in component code",
     "All text/background pairings must pass WCAG AA (4.5:1)",
-    "Use numeric for amounts, counts, and IDs so digit columns align — not for text that happens to contain digits"
+    "Use numeric for amounts, counts, and IDs so digit columns align \u2014 not for text that happens to contain digits"
   ],
   "examples": [
-    { "title": "Header cell", "html": "<rr-table-cell header>Rule</rr-table-cell>" },
-    { "title": "Numeric cell", "html": "<rr-table-cell numeric>25,000</rr-table-cell>" },
-    { "title": "Rich content", "html": "<rr-table-cell><rr-badge variant=\"success\">Approve</rr-badge></rr-table-cell>" }
+    {
+      "title": "Header cell",
+      "html": "<rr-table-cell header>Rule</rr-table-cell>"
+    },
+    {
+      "title": "Numeric cell",
+      "html": "<rr-table-cell numeric>25,000</rr-table-cell>"
+    },
+    {
+      "title": "Rich content",
+      "html": "<rr-table-cell><rr-badge variant=\"success\">Approve</rr-badge></rr-table-cell>"
+    }
   ],
   "accessibility": {
     "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/table/",
     "role": "cell",
     "focusable": false,
     "keyboard": [
-      "None of its own — slotted interactive content keeps its native keyboard behavior"
+      "None of its own \u2014 slotted interactive content keeps its native keyboard behavior"
     ],
     "wcag": [
       "1.3.1 Info and Relationships",
@@ -51,5 +71,9 @@
       "Padding follows the parent table's density via inherited custom properties"
     ]
   },
-  "figma": { "componentKey": "91f18b4333a122c204876c095cb573ef0068766c", "nodeId": "188:2", "codeConnectFile": "table.figma.ts" }
+  "figma": {
+    "componentKey": "91f18b4333a122c204876c095cb573ef0068766c",
+    "nodeId": "188:2",
+    "codeConnectFile": "table.figma.ts"
+  }
 }

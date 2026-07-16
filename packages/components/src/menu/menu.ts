@@ -52,9 +52,9 @@ export class RrMenu extends LitElement {
       flex-direction: column;
       min-width: 180px;
       padding: var(--spacing-micro);
-      background: var(--component-menu-background);
-      border: 1px solid var(--component-menu-border);
-      border-radius: var(--component-menu-radius);
+      background: var(--color-background-alt);
+      border: 1px solid var(--color-border-elevated);
+      border-radius: var(--radius-default);
       box-shadow: var(--shadow-overlay);
     }
 

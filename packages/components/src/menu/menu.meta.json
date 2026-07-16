@@ -5,34 +5,61 @@
   "summary": "Dropdown action menu (WAI-ARIA menu-button pattern) with full keyboard navigation, Escape/outside-click dismissal, and trigger ARIA wiring.",
   "package": "@digital2analogue2/parsimony-components",
   "props": [
-    { "name": "open", "type": "boolean", "default": false },
-    { "name": "placement", "type": "string", "default": "bottom-start" },
-    { "name": "label", "type": "string", "default": "" }
+    {
+      "name": "open",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "placement",
+      "type": "string",
+      "default": "bottom-start"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "default": ""
+    }
   ],
   "slots": [
-    { "name": "trigger", "description": "The control that opens the menu (e.g. an rr-button)." },
-    { "name": "(default)", "description": "Place <rr-menu-item> elements here." }
+    {
+      "name": "trigger",
+      "description": "The control that opens the menu (e.g. an rr-button)."
+    },
+    {
+      "name": "(default)",
+      "description": "Place <rr-menu-item> elements here."
+    }
   ],
   "events": [
-    { "name": "rr-menu-select", "detail": "Fired when an item is chosen; detail.value is the item's value." },
-    { "name": "rr-menu-toggle", "detail": "Fired when the menu opens or closes; detail.open is the new state." }
+    {
+      "name": "rr-menu-select",
+      "detail": "Fired when an item is chosen; detail.value is the item's value."
+    },
+    {
+      "name": "rr-menu-toggle",
+      "detail": "Fired when the menu opens or closes; detail.open is the new state."
+    }
   ],
   "cssParts": [
-    { "name": "menu", "description": "The floating menu surface." }
+    {
+      "name": "menu",
+      "description": "The floating menu surface."
+    }
   ],
   "tokensUsed": [
-    "--component-menu-background",
-    "--component-menu-border",
-    "--component-menu-radius",
+    "--color-background-alt",
+    "--color-border-elevated",
+    "--radius-default",
     "--shadow-overlay",
     "--spacing-micro"
   ],
   "rules": [
-    "Never use hex values. Always use var(--color-*) or var(--component-*)",
+    "Never use hex values. Always use var(--color-*) semantic tokens",
     "Never reference --primitive-* tokens in component code",
     "All text/background pairings must pass WCAG AA (4.5:1)",
-    "Always set label — it names the menu popup for assistive tech",
-    "The popup positions with CSS below the trigger (no portal) — keep the menu outside overflow:hidden ancestors"
+    "Always set label \u2014 it names the menu popup for assistive tech",
+    "The popup positions with CSS below the trigger (no portal) \u2014 keep the menu outside overflow:hidden ancestors"
   ],
   "examples": [
     {
@@ -67,5 +94,9 @@
       "Focus returns to the trigger on Escape and on item selection"
     ]
   },
-  "figma": { "componentKey": "00760ccf444bbe5b10f0328eb8305b1f87a0365a", "nodeId": "186:3", "codeConnectFile": "menu.figma.ts" }
+  "figma": {
+    "componentKey": "00760ccf444bbe5b10f0328eb8305b1f87a0365a",
+    "nodeId": "186:3",
+    "codeConnectFile": "menu.figma.ts"
+  }
 }
