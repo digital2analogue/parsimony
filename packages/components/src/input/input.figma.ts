@@ -3,7 +3,7 @@ import figma, { html } from '@figma/code-connect';
 /**
  * Code Connect mapping for <rr-input>.
  *
- * Figma file:  Brand Tokens Design System (4aOEBHcnAv2Kbn0g1arL78)
+ * Figma file:  Parsimony Design System (4aOEBHcnAv2Kbn0g1arL78)
  * Component:   Input ComponentSet — node 103:27
  * Variant prop: "State" — default | hover | focus | error | disabled
  *
@@ -14,7 +14,7 @@ import figma, { html } from '@figma/code-connect';
  *     the code snippet shows `error-text` to guide implementation.
  */
 figma.connect(
-  'https://figma.com/design/4aOEBHcnAv2Kbn0g1arL78/Brand-Tokens-Design-System?node-id=103-27',
+  'https://figma.com/design/4aOEBHcnAv2Kbn0g1arL78/Parsimony-Design-System?node-id=103-27',
   {
     props: {
       disabled: figma.enum('State', {

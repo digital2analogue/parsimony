@@ -3,10 +3,10 @@ import figma, { html } from '@figma/code-connect';
 /**
  * Code Connect mapping for <rr-radio-group> + <rr-radio>.
  * Figma node: Components page → RadioGroup (node 121-77)
- * Figma file: Brand Tokens Design System (4aOEBHcnAv2Kbn0g1arL78)
+ * Figma file: Parsimony Design System (4aOEBHcnAv2Kbn0g1arL78)
  */
 figma.connect(
-  'https://figma.com/design/4aOEBHcnAv2Kbn0g1arL78/Brand-Tokens-Design-System?node-id=121-77',
+  'https://figma.com/design/4aOEBHcnAv2Kbn0g1arL78/Parsimony-Design-System?node-id=121-77',
   {
     props: {
       orientation: figma.enum('Orientation', {

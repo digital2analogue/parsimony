@@ -3,7 +3,7 @@ import figma, { html } from '@figma/code-connect';
 /**
  * Code Connect mapping for <rr-tag>.
  *
- * Figma file:  Brand Tokens Design System (4aOEBHcnAv2Kbn0g1arL78)
+ * Figma file:  Parsimony Design System (4aOEBHcnAv2Kbn0g1arL78)
  * Component:   Tag ComponentSet — node 171:28 (page "Components / Tag")
  * Variant props:
  *   "Variant" — default | subtle  (1:1 with the element)
@@ -12,7 +12,7 @@ import figma, { html } from '@figma/code-connect';
  * the last rr-* component with no design counterpart.
  */
 figma.connect(
-  'https://figma.com/design/4aOEBHcnAv2Kbn0g1arL78/Brand-Tokens-Design-System?node-id=171-28',
+  'https://figma.com/design/4aOEBHcnAv2Kbn0g1arL78/Parsimony-Design-System?node-id=171-28',
   {
     props: {
       variant: figma.enum('Variant', {

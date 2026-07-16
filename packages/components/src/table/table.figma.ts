@@ -3,13 +3,13 @@ import figma, { html } from '@figma/code-connect';
 /**
  * Code Connect mappings for <rr-table> and <rr-table-cell>.
  * Figma nodes: Components / Table page → Table (189-2), Table Cell (188-2)
- * Figma file: Brand Tokens Design System (4aOEBHcnAv2Kbn0g1arL78)
+ * Figma file: Parsimony Design System (4aOEBHcnAv2Kbn0g1arL78)
  * (rr-table-row has no standalone Figma set — rows appear inside the composed Table.)
  */
 
 // Table Cell component set — Type (body/header/numeric) maps to the boolean modifiers.
 figma.connect(
-  'https://figma.com/design/4aOEBHcnAv2Kbn0g1arL78/Brand-Tokens-Design-System?node-id=188-2',
+  'https://figma.com/design/4aOEBHcnAv2Kbn0g1arL78/Parsimony-Design-System?node-id=188-2',
   {
     props: {
       header: figma.enum('Type', {
@@ -27,7 +27,7 @@ figma.connect(
 
 // Table component — the composed surface; rows and cells are slotted.
 figma.connect(
-  'https://figma.com/design/4aOEBHcnAv2Kbn0g1arL78/Brand-Tokens-Design-System?node-id=189-2',
+  'https://figma.com/design/4aOEBHcnAv2Kbn0g1arL78/Parsimony-Design-System?node-id=189-2',
   {
     props: {},
     example: () =>
