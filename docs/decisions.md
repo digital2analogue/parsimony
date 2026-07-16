@@ -11,6 +11,52 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-07-16 — Automation trust levels are written down before more autonomy is added
+
+**What:** Codify the trust ladder the automation already follows, as policy, so any new
+agentic step slots into an explicit tier instead of inventing its own autonomy. Autonomy
+is decided by **risk × confidence**, not by how clever the automation is. Four tiers:
+
+- **T0 — Enforce (block, never act):** `validate.mjs` / the `verify` branch-protection
+  check, the WCAG-AA pairing check, and the artifact-staleness gate. These are walls, not
+  agents — a red gate stops a merge and asks a human. Highest-confidence, highest-risk
+  (a bad token reference or contrast regression reaching a consumer), so zero autonomy by
+  design.
+- **T1 — Flag only (monitor + analyze, human executes):** the weekly scanners —
+  `drift-lint.yml`, `publish-freshness.yml`, `stale-prs.yml`, and the Figma-variable drift
+  Routine (2026-07-15). Each opens/closes exactly one tracked issue and **never** edits
+  code, merges, or closes a PR. Low confidence that the right fix is mechanical (drift can
+  mean the token moved *or* the consumer is wrong), so they surface, a human decides.
+- **T2 — Auto-act on low-risk/high-confidence:** `dependabot-automerge.yml` merges patch/
+  minor bumps once CI is green. Reversible, well-tested by CI, low blast radius → ship
+  without a human. **Major** bumps drop to T1 (draft PR, manual review) because the risk
+  rises.
+- **T3 — Never automated:** new semantic tokens, any new fg/bg pairing, token *value*
+  changes, and anything touching the brand source. These need design judgement the static
+  gates can't supply (the accent family is explicitly out of scope for `validate_brand` for
+  this reason) — they stay human-authored PRs.
+
+**Why:** Every automation added here so far picked its own autonomy ad hoc, and it happened
+to land in a sane place (scanners flag, Dependabot merges the safe stuff, the gates block).
+Writing the ladder down turns "happened to" into a rule: a new agentic step must name its
+tier and justify it by risk × confidence *before* it's built. It also draws the bright line
+this repo keeps implicitly — **the drift scanners are T1 on purpose**; making one auto-fix
+drift would silently promote it to T2 against a low-confidence signal, which is the failure
+mode the tiering exists to prevent.
+
+**Alternative considered:** Leave the levels implicit (they already work) — rejected: the
+next parallel session boots with no memory of the pattern and could wire an auto-fixer onto
+a T1 scanner without noticing it crossed a line. Also considered a formal MAPE-K
+control-loop reframing (monitor/analyze/plan/execute over the knowledge base) — deferred as
+over-scoped: the pieces (CI + weekly scanners + issues as the shared board) already cover
+monitor→analyze→flag for a solo, self-consumed system; a unified loop with a live health
+score is elephant, not mouse, until the scatter across separate issues actually hurts.
+
+**Status:** Decided. Policy only — no code change; the tiers describe existing behavior.
+New automation PRs should state their tier in the description.
+
+---
+
 ## 2026-07-15 — Figma-variable drift audit scheduled as an agentic Routine, not a GitHub Action
 
 **What:** `scripts/drift_audit.py` (Figma variables vs. DTCG token JSON) now runs on a
