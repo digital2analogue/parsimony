@@ -2221,6 +2221,246 @@
     {
       "metaVersion": "1.0.0",
       "status": "beta",
+      "name": "rr-table",
+      "summary": "Structural data table (CSS table layout + ARIA table roles) owning zebra, hover, and selected row states for the whole family.",
+      "package": "@digital2analogue2/parsimony-components",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "default": "",
+          "description": "Accessible name for the table (required); sets aria-label on the role=table host."
+        },
+        {
+          "name": "density",
+          "type": "string",
+          "default": "default",
+          "description": "Row density: default (12/16 cell padding) or compact (8/12) for data-dense surfaces."
+        },
+        {
+          "name": "zebra",
+          "type": "boolean",
+          "default": false,
+          "description": "Zebra-stripes even body rows with the elevated surface fill."
+        },
+        {
+          "name": "interactive",
+          "type": "boolean",
+          "default": false,
+          "description": "Marks rows as clickable: enables the green hover tint and pointer cursor."
+        }
+      ],
+      "slots": [
+        {
+          "name": "header",
+          "description": "A single rr-table-row of header cells (rr-table-cell header)."
+        },
+        {
+          "name": "(default)",
+          "description": "Body rr-table-row elements."
+        }
+      ],
+      "events": [],
+      "cssParts": [
+        {
+          "name": "table",
+          "description": "The table layout container."
+        }
+      ],
+      "tokensUsed": [
+        "--component-table-row-zebra-background",
+        "--component-table-row-hover-background",
+        "--component-table-row-selected-background",
+        "--component-table-row-selected-rail",
+        "--spacing-inline",
+        "--spacing-element",
+        "--spacing-tight",
+        "--radius-none"
+      ],
+      "rules": [
+        "Never use hex values. Always use var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)",
+        "Always set label — it names the table for assistive tech",
+        "Set interactive only when rows actually respond to clicks — the hover tint is an interactivity signal, never decoration"
+      ],
+      "examples": [
+        {
+          "title": "Zebra table",
+          "html": "<rr-table label=\"Rules\" zebra>\n  <rr-table-row slot=\"header\">\n    <rr-table-cell header>Rule</rr-table-cell>\n    <rr-table-cell header numeric>Amount</rr-table-cell>\n  </rr-table-row>\n  <rr-table-row>\n    <rr-table-cell>High-value approvals</rr-table-cell>\n    <rr-table-cell numeric>25,000</rr-table-cell>\n  </rr-table-row>\n</rr-table>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/table/",
+        "role": "table",
+        "focusable": false,
+        "keyboard": [
+          "Interactive content inside cells (menus, buttons, links) keeps its own keyboard behavior; the table adds none"
+        ],
+        "wcag": [
+          "1.3.1 Info and Relationships",
+          "1.4.3 Contrast (Minimum)",
+          "4.1.2 Name, Role, Value"
+        ],
+        "rules": [
+          "The host carries role=table with aria-label from the label prop; shadow rowgroups carry role=rowgroup",
+          "Because layout is CSS tables (not <table>), the explicit ARIA roles on host/rows/cells are the semantics — do not remove them",
+          "Selected rows expose aria-selected=true"
+        ]
+      },
+      "figma": {
+        "componentKey": "fa86843dc2d06923b18e457573ff1278c1b7d3f5",
+        "nodeId": "189:2",
+        "codeConnectFile": "table.figma.ts"
+      }
+    },
+    {
+      "metaVersion": "1.0.0",
+      "status": "beta",
+      "name": "rr-table-cell",
+      "summary": "A cell inside rr-table-row; header cells get the muted all-caps recipe, numeric cells right-align in mono with tabular figures.",
+      "package": "@digital2analogue2/parsimony-components",
+      "props": [
+        {
+          "name": "header",
+          "type": "boolean",
+          "default": false,
+          "description": "Renders the cell as a column header (role=columnheader, muted all-caps recipe)."
+        },
+        {
+          "name": "numeric",
+          "type": "boolean",
+          "default": false,
+          "description": "Right-aligns the cell in mono with tabular figures — for amounts, counts, IDs."
+        }
+      ],
+      "slots": [
+        {
+          "name": "(default)",
+          "description": "Cell content — text, badges, menus, buttons."
+        }
+      ],
+      "events": [],
+      "cssParts": [],
+      "tokensUsed": [
+        "--component-table-cell-foreground",
+        "--component-table-header-foreground",
+        "--component-table-row-separator",
+        "--font-label-medium",
+        "--font-label-strong-small",
+        "--font-mono-label-small",
+        "--spacing-inline",
+        "--spacing-element"
+      ],
+      "rules": [
+        "Never use hex values. Always use var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "All text/background pairings must pass WCAG AA (4.5:1)",
+        "Use numeric for amounts, counts, and IDs so digit columns align — not for text that happens to contain digits"
+      ],
+      "examples": [
+        {
+          "title": "Header cell",
+          "html": "<rr-table-cell header>Rule</rr-table-cell>"
+        },
+        {
+          "title": "Numeric cell",
+          "html": "<rr-table-cell numeric>25,000</rr-table-cell>"
+        },
+        {
+          "title": "Rich content",
+          "html": "<rr-table-cell><rr-badge variant=\"success\">Approve</rr-badge></rr-table-cell>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/table/",
+        "role": "cell",
+        "focusable": false,
+        "keyboard": [
+          "None of its own — slotted interactive content keeps its native keyboard behavior"
+        ],
+        "wcag": [
+          "1.3.1 Info and Relationships",
+          "1.4.3 Contrast (Minimum)",
+          "4.1.2 Name, Role, Value"
+        ],
+        "rules": [
+          "role=cell flips to role=columnheader when header is set, including at runtime",
+          "Padding follows the parent table's density via inherited custom properties"
+        ]
+      },
+      "figma": {
+        "componentKey": "91f18b4333a122c204876c095cb573ef0068766c",
+        "nodeId": "188:2",
+        "codeConnectFile": "table.figma.ts"
+      }
+    },
+    {
+      "metaVersion": "1.0.0",
+      "status": "beta",
+      "name": "rr-table-row",
+      "summary": "A row inside rr-table; carries role=row, its zebra/hover/selected visuals are painted by the parent table's stylesheet.",
+      "package": "@digital2analogue2/parsimony-components",
+      "props": [
+        {
+          "name": "selected",
+          "type": "boolean",
+          "default": false,
+          "description": "Marks the row as selected — tint fill plus the solid action rail, strongest row state."
+        }
+      ],
+      "slots": [
+        {
+          "name": "(default)",
+          "description": "rr-table-cell elements."
+        }
+      ],
+      "events": [],
+      "cssParts": [],
+      "tokensUsed": [
+        "--motion-duration-instant",
+        "--motion-easing-default"
+      ],
+      "rules": [
+        "Never use hex values. Always use var(--color-*) or var(--component-*)",
+        "Never reference --primitive-* tokens in component code",
+        "Drive selected from your selection model — it is the only state the row owns"
+      ],
+      "examples": [
+        {
+          "title": "Row",
+          "html": "<rr-table-row>\n  <rr-table-cell>High-value approvals</rr-table-cell>\n</rr-table-row>"
+        },
+        {
+          "title": "Selected row",
+          "html": "<rr-table-row selected>\n  <rr-table-cell>Low income</rr-table-cell>\n</rr-table-row>"
+        }
+      ],
+      "accessibility": {
+        "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/table/",
+        "role": "row",
+        "focusable": false,
+        "keyboard": [
+          "None of its own — interactive cell content keeps its native keyboard behavior"
+        ],
+        "wcag": [
+          "1.3.1 Info and Relationships",
+          "4.1.2 Name, Role, Value"
+        ],
+        "rules": [
+          "role=row lives on the host so the flattened tree reads table → rowgroup → row → cell",
+          "selected reflects to aria-selected=true and clears when deselected"
+        ]
+      },
+      "figma": {
+        "componentKey": "",
+        "nodeId": "189:2",
+        "codeConnectFile": "table.figma.ts"
+      }
+    },
+    {
+      "metaVersion": "1.0.0",
+      "status": "beta",
       "name": "rr-tag",
       "summary": "Outlined uppercase tag/chip — the square, transparent counterpart to the filled pill badge. Two emphasis variants via component tokens.",
       "package": "@digital2analogue2/parsimony-components",
@@ -4111,6 +4351,30 @@
           },
           {
             "kind": "js",
+            "name": "RrTable",
+            "declaration": {
+              "name": "RrTable",
+              "module": "./table/table.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrTableRow",
+            "declaration": {
+              "name": "RrTableRow",
+              "module": "./table/table-row.js"
+            }
+          },
+          {
+            "kind": "js",
+            "name": "RrTableCell",
+            "declaration": {
+              "name": "RrTableCell",
+              "module": "./table/table-cell.js"
+            }
+          },
+          {
+            "kind": "js",
             "name": "RrTabList",
             "declaration": {
               "name": "RrTabList",
@@ -5970,6 +6234,301 @@
             "declaration": {
               "name": "RrSpinner",
               "module": "src/spinner/spinner.ts"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/table/table-cell.ts",
+        "declarations": [
+          {
+            "kind": "class",
+            "description": "`<rr-table-cell>` — a cell inside `rr-table-row`.\n\nThe host carries `role=\"cell\"` (or `role=\"columnheader\"` when `header` is\nset) and lays out as a CSS table cell. Padding comes from the parent\ntable's density via inherited custom properties. Cells accept arbitrary\ncontent — text, badges, menus, buttons.\n\nHeader cells render the system's column-header recipe: muted, uppercase,\nall-caps tracking, label-strong-small. Numeric cells right-align in\nmono with tabular figures so digit columns line up.",
+            "name": "RrTableCell",
+            "slots": [
+              {
+                "description": "Cell content",
+                "name": ""
+              }
+            ],
+            "members": [
+              {
+                "kind": "field",
+                "name": "header",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "description": "Renders the cell as a column header (role=columnheader, muted all-caps recipe).",
+                "attribute": "header",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "numeric",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "description": "Right-aligns the cell in mono with tabular figures — for amounts, counts, IDs.",
+                "attribute": "numeric",
+                "reflects": true
+              },
+              {
+                "kind": "method",
+                "name": "_syncRole",
+                "privacy": "private"
+              }
+            ],
+            "attributes": [
+              {
+                "name": "header",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "description": "Renders the cell as a column header (role=columnheader, muted all-caps recipe).",
+                "fieldName": "header"
+              },
+              {
+                "name": "numeric",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "description": "Right-aligns the cell in mono with tabular figures — for amounts, counts, IDs.",
+                "fieldName": "numeric"
+              }
+            ],
+            "superclass": {
+              "name": "LitElement",
+              "package": "lit"
+            },
+            "tagName": "rr-table-cell",
+            "customElement": true
+          }
+        ],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrTableCell",
+            "declaration": {
+              "name": "RrTableCell",
+              "module": "src/table/table-cell.ts"
+            }
+          },
+          {
+            "kind": "custom-element-definition",
+            "name": "rr-table-cell",
+            "declaration": {
+              "name": "RrTableCell",
+              "module": "src/table/table-cell.ts"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/table/table-row.ts",
+        "declarations": [
+          {
+            "kind": "class",
+            "description": "`<rr-table-row>` — a row inside `rr-table`.\n\nThe host carries `role=\"row\"` and lays out as a CSS table row; its visual\nstates (zebra, hover, selected fill and rail) are painted by the parent\nrr-table's stylesheet so every table shares one recipe. `selected` is the\nonly state a row owns — set it from your selection model.",
+            "name": "RrTableRow",
+            "slots": [
+              {
+                "description": "rr-table-cell elements",
+                "name": ""
+              }
+            ],
+            "members": [
+              {
+                "kind": "field",
+                "name": "selected",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "description": "Marks the row as selected — tint fill plus the solid action rail, strongest row state.",
+                "attribute": "selected",
+                "reflects": true
+              }
+            ],
+            "attributes": [
+              {
+                "name": "selected",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "description": "Marks the row as selected — tint fill plus the solid action rail, strongest row state.",
+                "fieldName": "selected"
+              }
+            ],
+            "superclass": {
+              "name": "LitElement",
+              "package": "lit"
+            },
+            "tagName": "rr-table-row",
+            "customElement": true
+          }
+        ],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrTableRow",
+            "declaration": {
+              "name": "RrTableRow",
+              "module": "src/table/table-row.ts"
+            }
+          },
+          {
+            "kind": "custom-element-definition",
+            "name": "rr-table-row",
+            "declaration": {
+              "name": "RrTableRow",
+              "module": "src/table/table-row.ts"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/table/table.figma.ts",
+        "declarations": [],
+        "exports": []
+      },
+      {
+        "kind": "javascript-module",
+        "path": "src/table/table.ts",
+        "declarations": [
+          {
+            "kind": "class",
+            "description": "`<rr-table>` — a structural data table composed from `rr-table-row` and\n`rr-table-cell`.\n\nRaw `<tr>`/`<td>` can't be slotted into a custom element (the HTML parser\ndrops table tags outside a `<table>` context), so the family uses CSS\ntable display with explicit ARIA table semantics: this host is the\n`role=\"table\"`, rows are `role=\"row\"`, cells `role=\"cell\"` /\n`role=\"columnheader\"`. Cells accept arbitrary content — badges, menus,\nbuttons.\n\nRow states are owned here (zebra striping, hover tint, selected rail) so\nevery table in the system shares one visual language. The hover tint only\nrenders when `interactive` is set — accent green signals interactivity,\nnever decoration.",
+            "name": "RrTable",
+            "cssParts": [
+              {
+                "description": "The table layout container",
+                "name": "table"
+              }
+            ],
+            "slots": [
+              {
+                "description": "A single rr-table-row of header cells (rr-table-cell header)",
+                "name": "header"
+              },
+              {
+                "description": "Body rr-table-row elements",
+                "name": ""
+              }
+            ],
+            "members": [
+              {
+                "kind": "field",
+                "name": "label",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "description": "Accessible name for the table (required); sets aria-label on the role=table host.",
+                "attribute": "label"
+              },
+              {
+                "kind": "field",
+                "name": "density",
+                "type": {
+                  "text": "TableDensity"
+                },
+                "default": "'default'",
+                "description": "Row density: default (12/16 cell padding) or compact (8/12) for data-dense surfaces.",
+                "attribute": "density",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "zebra",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "description": "Zebra-stripes even body rows with the elevated surface fill.",
+                "attribute": "zebra",
+                "reflects": true
+              },
+              {
+                "kind": "field",
+                "name": "interactive",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "description": "Marks rows as clickable: enables the green hover tint and pointer cursor.",
+                "attribute": "interactive",
+                "reflects": true
+              }
+            ],
+            "attributes": [
+              {
+                "name": "label",
+                "type": {
+                  "text": "string"
+                },
+                "default": "''",
+                "description": "Accessible name for the table (required); sets aria-label on the role=table host.",
+                "fieldName": "label"
+              },
+              {
+                "name": "density",
+                "type": {
+                  "text": "TableDensity"
+                },
+                "default": "'default'",
+                "description": "Row density: default (12/16 cell padding) or compact (8/12) for data-dense surfaces.",
+                "fieldName": "density"
+              },
+              {
+                "name": "zebra",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "description": "Zebra-stripes even body rows with the elevated surface fill.",
+                "fieldName": "zebra"
+              },
+              {
+                "name": "interactive",
+                "type": {
+                  "text": "boolean"
+                },
+                "default": "false",
+                "description": "Marks rows as clickable: enables the green hover tint and pointer cursor.",
+                "fieldName": "interactive"
+              }
+            ],
+            "superclass": {
+              "name": "LitElement",
+              "package": "lit"
+            },
+            "tagName": "rr-table",
+            "customElement": true
+          }
+        ],
+        "exports": [
+          {
+            "kind": "js",
+            "name": "RrTable",
+            "declaration": {
+              "name": "RrTable",
+              "module": "src/table/table.ts"
+            }
+          },
+          {
+            "kind": "custom-element-definition",
+            "name": "rr-table",
+            "declaration": {
+              "name": "RrTable",
+              "module": "src/table/table.ts"
             }
           }
         ]

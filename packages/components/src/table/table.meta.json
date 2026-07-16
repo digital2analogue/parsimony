@@ -1,0 +1,63 @@
+{
+  "metaVersion": "1.0.0",
+  "status": "beta",
+  "name": "rr-table",
+  "summary": "Structural data table (CSS table layout + ARIA table roles) owning zebra, hover, and selected row states for the whole family.",
+  "package": "@digital2analogue2/parsimony-components",
+  "props": [
+    { "name": "label", "type": "string", "default": "" },
+    { "name": "density", "type": "string", "default": "default" },
+    { "name": "zebra", "type": "boolean", "default": false },
+    { "name": "interactive", "type": "boolean", "default": false }
+  ],
+  "slots": [
+    { "name": "header", "description": "A single rr-table-row of header cells (rr-table-cell header)." },
+    { "name": "(default)", "description": "Body rr-table-row elements." }
+  ],
+  "events": [],
+  "cssParts": [
+    { "name": "table", "description": "The table layout container." }
+  ],
+  "tokensUsed": [
+    "--component-table-row-zebra-background",
+    "--component-table-row-hover-background",
+    "--component-table-row-selected-background",
+    "--component-table-row-selected-rail",
+    "--spacing-inline",
+    "--spacing-element",
+    "--spacing-tight",
+    "--radius-none"
+  ],
+  "rules": [
+    "Never use hex values. Always use var(--color-*) or var(--component-*)",
+    "Never reference --primitive-* tokens in component code",
+    "All text/background pairings must pass WCAG AA (4.5:1)",
+    "Always set label — it names the table for assistive tech",
+    "Set interactive only when rows actually respond to clicks — the hover tint is an interactivity signal, never decoration"
+  ],
+  "examples": [
+    {
+      "title": "Zebra table",
+      "html": "<rr-table label=\"Rules\" zebra>\n  <rr-table-row slot=\"header\">\n    <rr-table-cell header>Rule</rr-table-cell>\n    <rr-table-cell header numeric>Amount</rr-table-cell>\n  </rr-table-row>\n  <rr-table-row>\n    <rr-table-cell>High-value approvals</rr-table-cell>\n    <rr-table-cell numeric>25,000</rr-table-cell>\n  </rr-table-row>\n</rr-table>"
+    }
+  ],
+  "accessibility": {
+    "ariaPattern": "https://www.w3.org/WAI/ARIA/apg/patterns/table/",
+    "role": "table",
+    "focusable": false,
+    "keyboard": [
+      "Interactive content inside cells (menus, buttons, links) keeps its own keyboard behavior; the table adds none"
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships",
+      "1.4.3 Contrast (Minimum)",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "The host carries role=table with aria-label from the label prop; shadow rowgroups carry role=rowgroup",
+      "Because layout is CSS tables (not <table>), the explicit ARIA roles on host/rows/cells are the semantics — do not remove them",
+      "Selected rows expose aria-selected=true"
+    ]
+  },
+  "figma": { "componentKey": "fa86843dc2d06923b18e457573ff1278c1b7d3f5", "nodeId": "189:2", "codeConnectFile": "table.figma.ts" }
+}

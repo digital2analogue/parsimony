@@ -36,7 +36,7 @@ generated from `design-system.json` and `ai/rules.md`.
 > (rules live in `scripts/rules.mjs`). Never emit hex literals, never reference
 > `--primitive-*` tokens, and only use spacing/sizes from the token scale.
 
-## Available components (24)
+## Available components (27)
 
 ### `<rr-alert>`
 
@@ -437,6 +437,58 @@ Accessible tab strip that wraps rr-tab elements, managing selection and arrow-ke
 - Never reference --primitive-* tokens in component code
 - All text/background pairings must pass WCAG AA (4.5:1)
 - Tab panels are managed by the consuming app — listen for the change event and show/hide content accordingly.
+
+### `<rr-table>`
+
+Structural data table (CSS table layout + ARIA table roles) owning zebra, hover, and selected row states for the whole family.
+
+| Attribute | Type | Default | Notes |
+|---|---|---|---|
+| `label` | string | `` | Accessible name for the table (required); sets aria-label on the role=table host. |
+| `density` | string | `default` | Row density: default (12/16 cell padding) or compact (8/12) for data-dense surfaces. |
+| `zebra` | boolean | `false` | Zebra-stripes even body rows with the elevated surface fill. |
+| `interactive` | boolean | `false` | Marks rows as clickable: enables the green hover tint and pointer cursor. |
+
+**Slots:** `header` — A single rr-table-row of header cells (rr-table-cell header).; `(default)` — Body rr-table-row elements.
+
+**Component rules:**
+- Never use hex values. Always use var(--color-*) or var(--component-*)
+- Never reference --primitive-* tokens in component code
+- All text/background pairings must pass WCAG AA (4.5:1)
+- Always set label — it names the table for assistive tech
+- Set interactive only when rows actually respond to clicks — the hover tint is an interactivity signal, never decoration
+
+### `<rr-table-cell>`
+
+A cell inside rr-table-row; header cells get the muted all-caps recipe, numeric cells right-align in mono with tabular figures.
+
+| Attribute | Type | Default | Notes |
+|---|---|---|---|
+| `header` | boolean | `false` | Renders the cell as a column header (role=columnheader, muted all-caps recipe). |
+| `numeric` | boolean | `false` | Right-aligns the cell in mono with tabular figures — for amounts, counts, IDs. |
+
+**Slots:** `(default)` — Cell content — text, badges, menus, buttons.
+
+**Component rules:**
+- Never use hex values. Always use var(--color-*) or var(--component-*)
+- Never reference --primitive-* tokens in component code
+- All text/background pairings must pass WCAG AA (4.5:1)
+- Use numeric for amounts, counts, and IDs so digit columns align — not for text that happens to contain digits
+
+### `<rr-table-row>`
+
+A row inside rr-table; carries role=row, its zebra/hover/selected visuals are painted by the parent table's stylesheet.
+
+| Attribute | Type | Default | Notes |
+|---|---|---|---|
+| `selected` | boolean | `false` | Marks the row as selected — tint fill plus the solid action rail, strongest row state. |
+
+**Slots:** `(default)` — rr-table-cell elements.
+
+**Component rules:**
+- Never use hex values. Always use var(--color-*) or var(--component-*)
+- Never reference --primitive-* tokens in component code
+- Drive selected from your selection model — it is the only state the row owns
 
 ### `<rr-tag>`
 

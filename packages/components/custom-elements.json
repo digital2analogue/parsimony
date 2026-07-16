@@ -1376,6 +1376,30 @@
         },
         {
           "kind": "js",
+          "name": "RrTable",
+          "declaration": {
+            "name": "RrTable",
+            "module": "./table/table.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "RrTableRow",
+          "declaration": {
+            "name": "RrTableRow",
+            "module": "./table/table-row.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "RrTableCell",
+          "declaration": {
+            "name": "RrTableCell",
+            "module": "./table/table-cell.js"
+          }
+        },
+        {
+          "kind": "js",
           "name": "RrTabList",
           "declaration": {
             "name": "RrTabList",
@@ -3235,6 +3259,301 @@
           "declaration": {
             "name": "RrSpinner",
             "module": "src/spinner/spinner.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/table/table-cell.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "`<rr-table-cell>` — a cell inside `rr-table-row`.\n\nThe host carries `role=\"cell\"` (or `role=\"columnheader\"` when `header` is\nset) and lays out as a CSS table cell. Padding comes from the parent\ntable's density via inherited custom properties. Cells accept arbitrary\ncontent — text, badges, menus, buttons.\n\nHeader cells render the system's column-header recipe: muted, uppercase,\nall-caps tracking, label-strong-small. Numeric cells right-align in\nmono with tabular figures so digit columns line up.",
+          "name": "RrTableCell",
+          "slots": [
+            {
+              "description": "Cell content",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "header",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Renders the cell as a column header (role=columnheader, muted all-caps recipe).",
+              "attribute": "header",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "numeric",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Right-aligns the cell in mono with tabular figures — for amounts, counts, IDs.",
+              "attribute": "numeric",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "_syncRole",
+              "privacy": "private"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "header",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Renders the cell as a column header (role=columnheader, muted all-caps recipe).",
+              "fieldName": "header"
+            },
+            {
+              "name": "numeric",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Right-aligns the cell in mono with tabular figures — for amounts, counts, IDs.",
+              "fieldName": "numeric"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "rr-table-cell",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RrTableCell",
+          "declaration": {
+            "name": "RrTableCell",
+            "module": "src/table/table-cell.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "rr-table-cell",
+          "declaration": {
+            "name": "RrTableCell",
+            "module": "src/table/table-cell.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/table/table-row.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "`<rr-table-row>` — a row inside `rr-table`.\n\nThe host carries `role=\"row\"` and lays out as a CSS table row; its visual\nstates (zebra, hover, selected fill and rail) are painted by the parent\nrr-table's stylesheet so every table shares one recipe. `selected` is the\nonly state a row owns — set it from your selection model.",
+          "name": "RrTableRow",
+          "slots": [
+            {
+              "description": "rr-table-cell elements",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Marks the row as selected — tint fill plus the solid action rail, strongest row state.",
+              "attribute": "selected",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Marks the row as selected — tint fill plus the solid action rail, strongest row state.",
+              "fieldName": "selected"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "rr-table-row",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RrTableRow",
+          "declaration": {
+            "name": "RrTableRow",
+            "module": "src/table/table-row.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "rr-table-row",
+          "declaration": {
+            "name": "RrTableRow",
+            "module": "src/table/table-row.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/table/table.figma.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/table/table.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "`<rr-table>` — a structural data table composed from `rr-table-row` and\n`rr-table-cell`.\n\nRaw `<tr>`/`<td>` can't be slotted into a custom element (the HTML parser\ndrops table tags outside a `<table>` context), so the family uses CSS\ntable display with explicit ARIA table semantics: this host is the\n`role=\"table\"`, rows are `role=\"row\"`, cells `role=\"cell\"` /\n`role=\"columnheader\"`. Cells accept arbitrary content — badges, menus,\nbuttons.\n\nRow states are owned here (zebra striping, hover tint, selected rail) so\nevery table in the system shares one visual language. The hover tint only\nrenders when `interactive` is set — accent green signals interactivity,\nnever decoration.",
+          "name": "RrTable",
+          "cssParts": [
+            {
+              "description": "The table layout container",
+              "name": "table"
+            }
+          ],
+          "slots": [
+            {
+              "description": "A single rr-table-row of header cells (rr-table-cell header)",
+              "name": "header"
+            },
+            {
+              "description": "Body rr-table-row elements",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "Accessible name for the table (required); sets aria-label on the role=table host.",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "density",
+              "type": {
+                "text": "TableDensity"
+              },
+              "default": "'default'",
+              "description": "Row density: default (12/16 cell padding) or compact (8/12) for data-dense surfaces.",
+              "attribute": "density",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "zebra",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Zebra-stripes even body rows with the elevated surface fill.",
+              "attribute": "zebra",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "interactive",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Marks rows as clickable: enables the green hover tint and pointer cursor.",
+              "attribute": "interactive",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "Accessible name for the table (required); sets aria-label on the role=table host.",
+              "fieldName": "label"
+            },
+            {
+              "name": "density",
+              "type": {
+                "text": "TableDensity"
+              },
+              "default": "'default'",
+              "description": "Row density: default (12/16 cell padding) or compact (8/12) for data-dense surfaces.",
+              "fieldName": "density"
+            },
+            {
+              "name": "zebra",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Zebra-stripes even body rows with the elevated surface fill.",
+              "fieldName": "zebra"
+            },
+            {
+              "name": "interactive",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Marks rows as clickable: enables the green hover tint and pointer cursor.",
+              "fieldName": "interactive"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "rr-table",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RrTable",
+          "declaration": {
+            "name": "RrTable",
+            "module": "src/table/table.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "rr-table",
+          "declaration": {
+            "name": "RrTable",
+            "module": "src/table/table.ts"
           }
         }
       ]
