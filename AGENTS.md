@@ -34,6 +34,8 @@ Each file declares its scope in YAML front-matter (`scope`, `applies-to`, `alway
 | `<rr-icon>` | Sized, accessible wrapper for inline SVG icons. Decorative by default; labelled icons become `role="img"`. |
 | `<rr-input>` | Form-associated text input with label, helper/error text, and ElementInternals for native form participation. |
 | `<rr-link>` | Anchor enforcing the design system link style — underlined by default, underline removed on hover. |
+| `<rr-menu>` | Dropdown action menu (WAI-ARIA menu-button pattern) with full keyboard navigation, Escape/outside-click dismissal, and trigger ARIA wiring. |
+| `<rr-menu-item>` | A single action inside `<rr-menu>`; `danger` and `disabled` modifiers; focus managed by the parent menu. |
 | `<rr-progress>` | Horizontal progress bar with determinate and indeterminate modes, using native `role="progressbar"`. |
 | `<rr-radio>` | Individual radio button. Must be used inside `<rr-radio-group>`, which manages name, value, and selection. |
 | `<rr-radio-group>` | Form-associated group of radio buttons. Renders a fieldset/legend and manages selection and form value for its `<rr-radio>` children. |
@@ -41,8 +43,12 @@ Each file declares its scope in YAML front-matter (`scope`, `applies-to`, `alway
 | `<rr-skeleton>` | Animated shimmer placeholder for loading states. Text, circular, and rectangular shape variants. |
 | `<rr-spinner>` | Animated circular loading indicator that announces its status to screen readers. |
 | `<rr-tab>` | A single tab button used inside `<rr-tab-list>`; its selection state is managed by the parent. |
+| `<rr-table>` | Structural data table (CSS table layout + ARIA table roles) owning zebra, hover, and selected row states for the whole family. |
+| `<rr-table-row>` | A row inside `<rr-table>`; carries `role="row"` and the `selected` state; visuals painted by the parent table. |
+| `<rr-table-cell>` | A cell inside `<rr-table-row>`; `header` cells get the muted all-caps recipe, `numeric` cells right-align in mono. |
 | `<rr-tab-list>` | Accessible tab strip that wraps `<rr-tab>` elements, managing selection and arrow-key navigation. |
 | `<rr-textarea>` | Form-associated multi-line text area with label, helper text, and error state. |
+| `<rr-toast>` | Transient floating notification with status variants, optional auto-dismiss (hover/focus-paused), an action slot, and live-region semantics. |
 | `<rr-toggle>` | Form-associated toggle switch for binary on/off settings. |
 
 ### Installation
@@ -134,6 +140,6 @@ Pick the brand by loading the appropriate `build/css/<brand>.css` file at the co
 | Brand | Sites | Notes |
 |---|---|---|
 | **base** (default) | `riverromney.com`, `riverromney.design` | Dark theme, phosphor green accent |
-| **decision-engine** | enterprise data UI surfaces | Light-mode, C1-Navy primary, Inter font exception |
+| **decision-engine** | enterprise data UI surfaces | Light-mode, primary-blue action color, Geist font exception |
 | **dot-art** | `riverromney.art` | Pure-black canvas override for photo contrast |
 | **dot-blog** | `riverromney.blog` | 18px body, relaxed line-height for long-form reading |
