@@ -8,6 +8,11 @@ on:
   push:
     branches: ['**']
   pull_request:
+  # Dispatched by update-visual-baselines.yml after its bot commit: pushes made
+  # with GITHUB_TOKEN don't trigger push/PR runs (they land as "action required"),
+  # but workflow_dispatch is exempt — this re-attaches a real `verify` check to
+  # the branch head without a human pressing re-run.
+  workflow_dispatch:
 
 permissions:
   contents: read

@@ -70,7 +70,7 @@ _Standard framing: a conversation starter, not a grade._
 
 - [verified] The package is now self-describing: `tokens.json` (425 base tokens with tier/value/description + per-brand override sets: decision-engine 200, dot-art 8), `rules.json` (10 hard + 6 soft rules + the 6 lint detectors), and `AGENTS.md` ship in the 0.4.0 tarball (npm-verified). A consumer-side agent no longer needs the session-scoped MCP for ground truth — the always-there install path exists (#86 closed).
 - [verified] MCP server registered via `.mcp.json`; its data quality improved this pass (real shadow structures from the resolver fix).
-- Withheld point (unchanged): fresh-session MCP pickup has still not been *observed* — no new session has been started in a clone since registration. Same observation task, still open (work-order-2 item 5).
+- ~~Withheld point (unchanged): fresh-session MCP pickup has still not been *observed*~~ **Addendum (same day, post-report):** observed and confirmed. A fresh headless Claude Code session started in the clone picked up the `parsimony` server from `.mcp.json` and executed live calls — `list_components` returned all 27 components (staples included) and `get_token('shadow.dialog')` returned the real resolved composite value through the MCP transport. Work-order item closed; the point stays withheld in this report's score for honesty (the observation happened after scoring), and S10 enters the next pass with zero known caveats.
 
 ## Station 7 note (unscored, for the record)
 
