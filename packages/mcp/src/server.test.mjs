@@ -159,6 +159,13 @@ describe("check_usage (via shared rules)", () => {
     expect(v[0].id).toBe("deprecated-token");
   });
 
+  it("does not flag live tokens whose name extends a deprecated prefix", () => {
+    // --color-background-accent (deleted) is a prefix of its own live
+    // replacement family — the detector must be boundary-aware.
+    expect(lintSnippet("var(--color-background-accent-green)")).toHaveLength(0);
+    expect(lintSnippet("var(--color-foreground-accent-amber)")).toHaveLength(0);
+  });
+
   it("detects hardcoded font weights (numeric + keyword)", () => {
     expect(lintSnippet("font-weight: 700;")[0].id).toBe(
       "no-hardcoded-font-weight",
