@@ -54,6 +54,15 @@ export function cell(s) {
 export function fmtVal(v) {
   if (v == null) return "";
   if (typeof v === "string") return v;
+  // A 4-number array is a cubic-bezier easing — print it as the CSS it
+  // becomes, not as bare coordinates.
+  if (
+    Array.isArray(v) &&
+    v.length === 4 &&
+    v.every((n) => typeof n === "number")
+  ) {
+    return `cubic-bezier(${v.join(", ")})`;
+  }
   if (Array.isArray(v)) return v.map(fmtVal).join(" ");
   if (typeof v === "object") return Object.values(v).map(fmtVal).join(" ");
   return String(v);
