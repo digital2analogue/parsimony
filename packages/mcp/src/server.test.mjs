@@ -652,6 +652,32 @@ describe("validate_brand (via contrast.mjs)", () => {
   it("returns null for an unknown brand", () => {
     expect(validateBrand(tokenStore, "nope")).toBeNull();
   });
+
+  it("the explicit pairing map extends the union with accent + non-text pairs (#87)", async () => {
+    const { allIntendedPairings } =
+      await import("../../../scripts/contrast.mjs");
+    const all = allIntendedPairings(tokenStore);
+    expect(all.some((p) => p.fg.includes("accent"))).toBe(true);
+    expect(all.some((p) => p.kind === "non-text")).toBe(true);
+    // Convention-only derivation stays accent-free (asserted above); the map
+    // is strictly additive.
+    expect(all.length).toBeGreaterThan(intendedPairings(tokenStore).length);
+  });
+
+  it("excludeBrands scopes map pairs per brand (DE never renders the base accent-tint pairs)", async () => {
+    const { allIntendedPairings } =
+      await import("../../../scripts/contrast.mjs");
+    const de = allIntendedPairings(tokenStore, "decision-engine");
+    expect(
+      de.some(
+        (p) =>
+          p.fg === "color.foreground.accent-green" &&
+          p.bg === "color.background.accent-green",
+      ),
+    ).toBe(false);
+    // ...while non-excluded map pairs still apply to DE.
+    expect(de.some((p) => p.kind === "non-text")).toBe(true);
+  });
 });
 
 describe("lint_consumer (via drift-scan.mjs)", () => {

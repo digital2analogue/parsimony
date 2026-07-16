@@ -181,6 +181,41 @@ console.log(
       : "",
 );
 
+// ── §5 Intended-pairing contrast (tokens/pairings.json, #87) ────────────────
+// Every mapped pair (plus the convention-derived set) must hold its threshold
+// — AA 4.5:1 for text, 3:1 for non-text — in the base theme and every brand.
+
+console.log("Checking intended-pairing contrast (base + every brand)...\n");
+{
+  const pairingsPath = resolve(ROOT, "tokens/pairings.json");
+  const pairingsSchema = JSON.parse(
+    readFileSync(resolve(ROOT, "schemas/pairings.schema.json"), "utf8"),
+  );
+  const validatePairingsDoc = ajv.compile(pairingsSchema);
+  const doc = JSON.parse(readFileSync(pairingsPath, "utf8"));
+  if (!validatePairingsDoc(doc)) {
+    fail("tokens/pairings.json: schema validation failed");
+    for (const e of validatePairingsDoc.errors ?? [])
+      console.error(`    ${e.instancePath || "/"} ${e.message}`);
+  } else {
+    const { loadTokens } = await import("./tokens.mjs");
+    const { validateAllPairings } = await import("./contrast.mjs");
+    const store = await loadTokens();
+    const failures = validateAllPairings(store);
+    for (const f of failures) {
+      fail(
+        f.ratio === null
+          ? `pairings: ${f.brand}: ${f.fg} on ${f.bg} — ${f.reason}`
+          : `pairings: ${f.brand}: ${f.fg} on ${f.bg} — ${f.ratio}:1 (needs ${f.threshold}:1, ${f.kind})`,
+      );
+    }
+    if (failures.length === 0)
+      console.log(
+        `  ✓ ${doc.pairs.length} mapped pairs (+ convention set) hold AA/3:1 across base + all brands\n`,
+      );
+  }
+}
+
 // ── Result ──────────────────────────────────────────────────────────────────
 
 if (exitCode === 0) console.log("All checks passed.");

@@ -53,6 +53,10 @@ any extra setup:
 - **`rules.json`** — the hard/soft rules plus the lint-detector catalog (the
   same set the repo's build gate and drift-lint enforce), so agents can
   self-check before writing code.
+- **`pairings.json`** — the intended fg/bg pairing map (text pairs at AA
+  4.5:1, non-text edges at 3:1), checked against every brand in the source
+  repo's CI. Consumer contrast gates can generate their token-level pairs
+  from it instead of hand-maintaining a copy.
 
 All three are build-generated at pack time (never hand-edited). The richer
 interface — `check_usage`, `get_component`, contrast checks — is the MCP

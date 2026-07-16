@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/digital2analogue/parsimony/schemas/pairings.schema.json",
+  "title": "Intended-pairing map",
+  "description": "tokens/pairings.json — explicit fg/bg token pairs the system intends to be used together (#87). Checked against base + every brand by validate.mjs and validate_brand.",
+  "type": "object",
+  "required": ["pairs"],
+  "properties": {
+    "pairs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["fg", "bg", "kind", "context"],
+        "additionalProperties": false,
+        "properties": {
+          "fg": {
+            "type": "string",
+            "pattern": "^color\\.(foreground|border)\\.[a-z0-9-]+$",
+            "description": "Dotted token path of the foreground (text or edge) color."
+          },
+          "bg": {
+            "type": "string",
+            "pattern": "^color\\.background\\.[a-z0-9-]+$",
+            "description": "Dotted token path of the background the fg sits on."
+          },
+          "kind": {
+            "enum": ["text", "non-text"],
+            "description": "text → WCAG AA 4.5:1; non-text → SC 1.4.11 3:1 (interactive edges, focus indicators)."
+          },
+          "context": {
+            "type": "string",
+            "minLength": 8,
+            "description": "Where this pairing renders — the human reason the pair exists."
+          },
+          "excludeBrands": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Brands that never render this pair (document why in $excludeBrands-note)."
+          }
+        }
+      }
+    }
+  },
+  "patternProperties": { "^\\$": {} },
+  "additionalProperties": false
+}

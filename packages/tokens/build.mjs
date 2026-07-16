@@ -131,3 +131,11 @@ console.log("  rules.json (hard/soft rules + lint detector catalog)");
 
 copyFileSync(resolve(ROOT, "AGENTS.md"), resolve(HERE, "AGENTS.md"));
 console.log("  AGENTS.md (consumer-facing agent guide)");
+
+copyFileSync(
+  resolve(ROOT, "tokens/pairings.json"),
+  resolve(HERE, "pairings.json"),
+);
+console.log(
+  "  pairings.json (intended fg/bg pairing map — consumer contrast gates can generate from it)",
+);

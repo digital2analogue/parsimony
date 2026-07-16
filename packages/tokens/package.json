@@ -8,6 +8,7 @@
     "css",
     "tokens.json",
     "rules.json",
+    "pairings.json",
     "AGENTS.md",
     "README.md"
   ],
@@ -18,7 +19,8 @@
     "./dot-blog.css": "./css/dot-blog.css",
     "./package.json": "./package.json",
     "./tokens.json": "./tokens.json",
-    "./rules.json": "./rules.json"
+    "./rules.json": "./rules.json",
+    "./pairings.json": "./pairings.json"
   },
   "sideEffects": [
     "*.css"
