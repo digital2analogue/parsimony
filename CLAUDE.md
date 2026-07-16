@@ -62,6 +62,9 @@ AGENTS.md            Vendor-neutral guide for agents *consuming* the system in p
 
 ## Branch & PR Workflow
 
+> Contributor-facing version: [CONTRIBUTING.md](CONTRIBUTING.md) (same rules,
+> human-oriented). PRs follow `.github/pull_request_template.md`.
+
 Multiple autonomous sessions (local + cloud) work this repo in parallel. Each boots without memory of the others, so branches and PRs drift unless every session follows these rules. (Context: a 6-week-old PR regressed shipped state, a real bug fix sat a month, and the highest-value PR rotted into conflict — all from branches that never caught up to `main`. See `docs/decisions.md`.)
 
 1. **Branch fresh; rebase before opening or updating a PR.** Always `git fetch origin && git rebase origin/main` before you push a PR. A branch behind `main` is the root cause of every drift incident here — the one PR that was branched from current `main` was the only one that stayed clean.
