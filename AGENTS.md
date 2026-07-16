@@ -27,7 +27,7 @@ Each file declares its scope in YAML front-matter (`scope`, `applies-to`, `alway
 | `<rr-alert>` | Inline notification banner for success, warning, danger, and info messages. Optionally dismissible. |
 | `<rr-avatar>` | Circular identity surface showing initials or an image, with size and accent-color variants. |
 | `<rr-badge>` | Status badge and accent chip. 9 variants map to component tokens; brand theming cascades via CSS custom properties. |
-| `<rr-button>` | Button with primary/secondary/danger variants, three sizes, loading spinner, and full keyboard/form semantics. |
+| `<rr-button>` | Button with primary/secondary/ghost/danger variants, three sizes (sm/md/lg), loading spinner, and full keyboard/form semantics. |
 | `<rr-card>` | Surface container on the elevated background tier with optional header, body, and footer slots. |
 | `<rr-checkbox>` | Form-associated checkbox with checked, indeterminate, and disabled states. Backed by ElementInternals. |
 | `<rr-dialog>` | Modal dialog built on the native `<dialog>` element with focus trap and Escape-to-close. |
