@@ -3,13 +3,13 @@ import figma, { html } from '@figma/code-connect';
 /**
  * Code Connect mappings for <rr-menu> and <rr-menu-item>.
  * Figma nodes: Components / Menu page → Menu (186-3), Menu Item (186-2)
- * Figma file: Brand Tokens Design System (4aOEBHcnAv2Kbn0g1arL78)
+ * Figma file: Parsimony Design System (4aOEBHcnAv2Kbn0g1arL78)
  */
 
 // Menu Item component set — Variant (default/danger) maps to the danger prop;
 // State (rest/hover/disabled) maps disabled; hover is a presentation-only state.
 figma.connect(
-  'https://figma.com/design/4aOEBHcnAv2Kbn0g1arL78/Brand-Tokens-Design-System?node-id=186-2',
+  'https://figma.com/design/4aOEBHcnAv2Kbn0g1arL78/Parsimony-Design-System?node-id=186-2',
   {
     props: {
       danger: figma.enum('Variant', {
@@ -27,7 +27,7 @@ figma.connect(
 
 // Menu component — the open surface; the trigger and items are slotted.
 figma.connect(
-  'https://figma.com/design/4aOEBHcnAv2Kbn0g1arL78/Brand-Tokens-Design-System?node-id=186-3',
+  'https://figma.com/design/4aOEBHcnAv2Kbn0g1arL78/Parsimony-Design-System?node-id=186-3',
   {
     props: {},
     example: () =>
