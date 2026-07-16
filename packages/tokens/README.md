@@ -38,6 +38,26 @@ import "@digital2analogue2/parsimony/base.css";
 }
 ```
 
+## For AI agents (and their tools)
+
+The tarball is self-describing — three generated files travel with every
+install so an agent working in a consumer repo has the ground truth without
+any extra setup:
+
+- **`AGENTS.md`** — the consumer-facing usage guide (semantic-layer
+  discipline, hard rules, component inventory).
+- **`tokens.json`** — the machine-readable catalog: every token as
+  `{ name, cssVar, tier, value, description }`. `base` is the full dark-theme
+  set; `overrides.<brand>` lists only tokens whose resolved value diverges.
+  Never use `tier: "primitive"` tokens in UI code.
+- **`rules.json`** — the hard/soft rules plus the lint-detector catalog (the
+  same set the repo's build gate and drift-lint enforce), so agents can
+  self-check before writing code.
+
+All three are build-generated at pack time (never hand-edited). The richer
+interface — `check_usage`, `get_component`, contrast checks — is the MCP
+server in the source repo's `packages/mcp`.
+
 ## Versioning
 
 The package version tracks the design system. A token **rename or removal** is a

@@ -3,6 +3,9 @@ build/css/
 packages/components/dist/
 packages/components/storybook-static/
 packages/tokens/css/
+packages/tokens/tokens.json
+packages/tokens/rules.json
+packages/tokens/AGENTS.md
 .DS_Store
 .claude/*
 !.claude/skills/
