@@ -15,11 +15,11 @@
  * an optional drift cross-check (see designMdCoverage), never as a value source.
  */
 
-import { readFileSync } from 'node:fs';
-import { resolve, relative } from 'node:path';
-import { glob } from 'node:fs/promises';
+import { readFileSync } from "node:fs";
+import { resolve, relative } from "node:path";
+import { glob } from "node:fs/promises";
 
-const ROOT = resolve(import.meta.dirname, '..');
+const ROOT = resolve(import.meta.dirname, "..");
 
 // ── Tree walking ──────────────────────────────────────────────────────────────
 
@@ -29,11 +29,11 @@ const REF_RE = /\{([^}]+)\}/g;
  *  values (typography, transition) are objects whose own structure must be
  *  recursed into — never stringified, or their braces look like references. */
 export function extractRefs(value, out = []) {
-  if (typeof value === 'string') {
+  if (typeof value === "string") {
     for (const m of value.matchAll(REF_RE)) out.push(m[1]);
   } else if (Array.isArray(value)) {
     value.forEach((v) => extractRefs(v, out));
-  } else if (value && typeof value === 'object') {
+  } else if (value && typeof value === "object") {
     Object.values(value).forEach((v) => extractRefs(v, out));
   }
   return out;
@@ -44,17 +44,18 @@ export function extractRefs(value, out = []) {
  *  {reference} found in its value in `refs` ({ ref, from, file }). */
 export function collectTokenNodes(obj, prefix, nodes, refs, file) {
   for (const [key, val] of Object.entries(obj)) {
-    if (key.startsWith('$')) continue;
-    if (val && typeof val === 'object') {
+    if (key.startsWith("$")) continue;
+    if (val && typeof val === "object") {
       const path = prefix ? `${prefix}.${key}` : key;
-      if ('$value' in val) {
+      if ("$value" in val) {
         nodes.set(path, {
           value: val.$value,
           type: val.$type ?? null,
-          description: val.$description ?? '',
+          description: val.$description ?? "",
           file,
         });
-        for (const ref of extractRefs(val.$value)) refs.push({ ref, from: path, file });
+        for (const ref of extractRefs(val.$value))
+          refs.push({ ref, from: path, file });
       } else {
         collectTokenNodes(val, path, nodes, refs, file);
       }
@@ -65,8 +66,8 @@ export function collectTokenNodes(obj, prefix, nodes, refs, file) {
 async function scan(globPattern, nodes, refs) {
   for await (const entry of glob(globPattern, { cwd: ROOT })) {
     const file = relative(ROOT, resolve(ROOT, entry));
-    const data = JSON.parse(readFileSync(resolve(ROOT, entry), 'utf8'));
-    collectTokenNodes(data, '', nodes, refs, file);
+    const data = JSON.parse(readFileSync(resolve(ROOT, entry), "utf8"));
+    collectTokenNodes(data, "", nodes, refs, file);
   }
 }
 
@@ -84,19 +85,21 @@ async function scan(globPattern, nodes, refs) {
 export async function loadTokens() {
   const base = new Map();
   const baseRefs = [];
-  await scan('tokens/primitives/**/*.tokens.json', base, baseRefs);
-  await scan('tokens/semantic/**/*.tokens.json', base, baseRefs);
-  await scan('tokens/components/**/*.tokens.json', base, baseRefs);
+  await scan("tokens/primitives/**/*.tokens.json", base, baseRefs);
+  await scan("tokens/semantic/**/*.tokens.json", base, baseRefs);
+  await scan("tokens/components/**/*.tokens.json", base, baseRefs);
 
   const brands = new Map();
   const brandRefs = new Map();
-  for await (const entry of glob('tokens/brands/**/*.tokens.json', { cwd: ROOT })) {
+  for await (const entry of glob("tokens/brands/**/*.tokens.json", {
+    cwd: ROOT,
+  })) {
     const file = relative(ROOT, resolve(ROOT, entry));
-    const name = file.replace(/^.*[/\\]/, '').replace(/\.tokens\.json$/, '');
+    const name = file.replace(/^.*[/\\]/, "").replace(/\.tokens\.json$/, "");
     const nodes = new Map();
     const refs = [];
-    const data = JSON.parse(readFileSync(resolve(ROOT, entry), 'utf8'));
-    collectTokenNodes(data, '', nodes, refs, file);
+    const data = JSON.parse(readFileSync(resolve(ROOT, entry), "utf8"));
+    collectTokenNodes(data, "", nodes, refs, file);
     brands.set(name, nodes);
     brandRefs.set(name, refs);
   }
@@ -111,7 +114,10 @@ export async function loadTokens() {
  *  letterSpacing.body → --letter-spacing-body, lineHeight.relaxed → --line-height-relaxed
  *  (a plain dot→dash replace would wrongly emit --letterSpacing-body). */
 export function toCssVar(path) {
-  return `--${path.replace(/([a-z0-9])([A-Z])/g, '$1-$2').replace(/\./g, '-').toLowerCase()}`;
+  return `--${path
+    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
+    .replace(/\./g, "-")
+    .toLowerCase()}`;
 }
 
 /** Look a token up in the brand layer first, then the base layer. */
@@ -123,7 +129,18 @@ function lookup({ base, brands }, path, brand) {
 /** Resolve a value, following {refs} to their final values. Composite values
  *  (objects/arrays) are resolved leaf by leaf. Guards against reference cycles. */
 function resolveValue(value, store, brand, seen = new Set()) {
-  if (typeof value === 'string') {
+  if (typeof value === "string") {
+    // A value that is exactly one reference resolves to whatever the target
+    // holds — including composite objects (shadow tokens). Routing these
+    // through String.replace would coerce objects to "[object Object]".
+    const whole = /^\{([^}]+)\}$/.exec(value);
+    if (whole) {
+      const ref = whole[1];
+      if (seen.has(ref)) return value; // cycle — leave the ref visible
+      const node = lookup(store, ref, brand);
+      if (!node) return value; // dangling — leave visible (validate catches these)
+      return resolveValue(node.value, store, brand, new Set([...seen, ref]));
+    }
     return value.replace(REF_RE, (_, ref) => {
       if (seen.has(ref)) return `{${ref}}`; // cycle — leave the ref visible
       const node = lookup(store, ref, brand);
@@ -131,10 +148,14 @@ function resolveValue(value, store, brand, seen = new Set()) {
       return resolveValue(node.value, store, brand, new Set([...seen, ref]));
     });
   }
-  if (Array.isArray(value)) return value.map((v) => resolveValue(v, store, brand, seen));
-  if (value && typeof value === 'object') {
+  if (Array.isArray(value))
+    return value.map((v) => resolveValue(v, store, brand, seen));
+  if (value && typeof value === "object") {
     return Object.fromEntries(
-      Object.entries(value).map(([k, v]) => [k, resolveValue(v, store, brand, seen)]),
+      Object.entries(value).map(([k, v]) => [
+        k,
+        resolveValue(v, store, brand, seen),
+      ]),
     );
   }
   return value;
@@ -147,15 +168,22 @@ function terminalPrimitive(value, store, brand, seen = new Set()) {
   const refs = extractRefs(value);
   for (const ref of refs) {
     if (seen.has(ref)) continue;
-    if (ref.startsWith('primitive.')) {
+    if (ref.startsWith("primitive.")) {
       // Follow further in case a primitive aliases another primitive.
       const node = lookup(store, ref, brand);
-      const deeper = node ? terminalPrimitive(node.value, store, brand, new Set([...seen, ref])) : null;
+      const deeper = node
+        ? terminalPrimitive(node.value, store, brand, new Set([...seen, ref]))
+        : null;
       return deeper ?? ref;
     }
     const node = lookup(store, ref, brand);
     if (node) {
-      const deeper = terminalPrimitive(node.value, store, brand, new Set([...seen, ref]));
+      const deeper = terminalPrimitive(
+        node.value,
+        store,
+        brand,
+        new Set([...seen, ref]),
+      );
       if (deeper) return deeper;
     }
   }
@@ -211,12 +239,12 @@ export function findTokens(store, query, { brand, limit = 10 } = {}) {
     const nameHay = `${path} ${css}`.toLowerCase();
     const fullHay = `${nameHay} ${node.description}`.toLowerCase();
     if (!terms.every((t) => fullHay.includes(t))) continue;
-    const match = terms.every((t) => nameHay.includes(t)) ? 'name' : 'usage';
+    const match = terms.every((t) => nameHay.includes(t)) ? "name" : "usage";
     hits.push({ name: path, cssProperty: css, usage: node.description, match });
   }
   // Name matches first, then shorter path (more specific roots rank higher).
   hits.sort((a, b) => {
-    if (a.match !== b.match) return a.match === 'name' ? -1 : 1;
+    if (a.match !== b.match) return a.match === "name" ? -1 : 1;
     return a.name.length - b.name.length;
   });
   return hits.slice(0, limit);
@@ -228,13 +256,13 @@ export function findTokens(store, query, { brand, limit = 10 } = {}) {
  * `typography` map to the camelCase / `font` roots the tokens actually live under.
  */
 export const SCALE_CATEGORIES = {
-  spacing: 'spacing',
-  radius: 'radius',
-  shadow: 'shadow',
-  motion: 'motion',
-  icon: 'icon',
-  'letter-spacing': 'letterSpacing',
-  typography: 'font',
+  spacing: "spacing",
+  radius: "radius",
+  shadow: "shadow",
+  motion: "motion",
+  icon: "icon",
+  "letter-spacing": "letterSpacing",
+  typography: "font",
 };
 
 /**
@@ -285,8 +313,10 @@ export function getBrand(store, name) {
       cssProperty: toCssVar(path),
       base: baseTok ? baseTok.value : null,
       value: brandTok.value,
-      changed: !baseTok || JSON.stringify(baseTok.value) !== JSON.stringify(brandTok.value),
-      usage: brandTok.usage || (baseTok && baseTok.usage) || '',
+      changed:
+        !baseTok ||
+        JSON.stringify(baseTok.value) !== JSON.stringify(brandTok.value),
+      usage: brandTok.usage || (baseTok && baseTok.usage) || "",
     });
   }
   overrides.sort((a, b) => a.name.localeCompare(b.name));
@@ -303,7 +333,10 @@ export function getBrand(store, name) {
  */
 export function compareBrands(store, a, b) {
   if (!store.brands.has(a) || !store.brands.has(b)) return null;
-  const paths = new Set([...store.brands.get(a).keys(), ...store.brands.get(b).keys()]);
+  const paths = new Set([
+    ...store.brands.get(a).keys(),
+    ...store.brands.get(b).keys(),
+  ]);
   const diffs = [];
   for (const path of paths) {
     const va = resolveToken(store, path, { brand: a })?.value ?? null;
