@@ -11,6 +11,25 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-07-16 — Explicit pairing map lands (#87); decision-engine scoped out of six base pairs
+
+**What:** `tokens/pairings.json` is now the single declarative source of intended fg/bg
+pairings beyond the convention-derived set — the accent family, alert-surface text, and
+non-text (SC 1.4.11, 3:1) interactive edges. `validate_brand` checks the union;
+`npm run validate` §5 checks every pair against base + every brand on every push; the map
+ships in `@digital2analogue2/parsimony` so consumer contrast gates can generate their
+token-level pairs from it. Six pairs carry `excludeBrands: ["decision-engine"]`: the four
+accent-tint pairs (DE pairs tint fills with its own DE-local accent foregrounds — e.g.
+`foreground.accent-purple` — so the base `fg-accent-X ↔ bg-accent-X` convention doesn't
+apply there), `border.action` on canvas (the base ghost-button outline DE never renders),
+and `foreground.success` on `background.alt` (**4.38:1 under DE — a borderline real
+finding**, excluded rather than silently codified; darkening DE's success foreground one
+step would fix it but repaints decisioning-table's status text, so it's an owner call —
+tracked in the 2026-07-16 work order). **Alternative considered:** encoding all pairs
+unscoped and letting DE fail the gate — rejected because three of the six are documented
+non-renders, not defects, and a gate that cries wolf gets bypassed. **Status:** live;
+gate green across base + 3 brands (25 mapped pairs + convention set).
+
 ## 2026-07-15 — Figma-variable drift audit scheduled as an agentic Routine, not a GitHub Action
 
 **What:** `scripts/drift_audit.py` (Figma variables vs. DTCG token JSON) now runs on a
