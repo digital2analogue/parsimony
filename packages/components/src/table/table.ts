@@ -67,17 +67,17 @@ export class RrTable extends LitElement {
     }
 
     :host([zebra]) .body ::slotted(rr-table-row:nth-child(even)) {
-      background: var(--component-table-row-zebra-background);
+      background: var(--color-background-alt);
     }
 
     :host([interactive]) .body ::slotted(rr-table-row:hover) {
-      background: var(--component-table-row-hover-background);
+      background: var(--color-background-accent-green);
       cursor: pointer;
     }
 
     .body ::slotted(rr-table-row[selected]) {
-      background: var(--component-table-row-selected-background) !important;
-      box-shadow: inset 3px 0 0 var(--component-table-row-selected-rail);
+      background: var(--color-background-accent-green) !important;
+      box-shadow: inset 3px 0 0 var(--color-foreground-action);
     }
   `;
 

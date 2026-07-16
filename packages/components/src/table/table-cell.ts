@@ -23,16 +23,16 @@ export class RrTableCell extends LitElement {
       vertical-align: middle;
       padding: var(--rr-table-cell-padding-y, var(--spacing-inline))
         var(--rr-table-cell-padding-x, var(--spacing-element));
-      border-bottom: 1px solid var(--component-table-row-separator);
+      border-bottom: 1px solid var(--color-border-muted);
       font: var(--font-label-medium);
-      color: var(--component-table-cell-foreground);
+      color: var(--color-foreground-default);
     }
 
     :host([header]) {
       font: var(--font-label-strong-small);
       letter-spacing: var(--letter-spacing-all-caps);
       text-transform: uppercase;
-      color: var(--component-table-header-foreground);
+      color: var(--color-foreground-muted);
     }
 
     :host([numeric]) {

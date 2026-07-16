@@ -5,35 +5,59 @@
   "summary": "Structural data table (CSS table layout + ARIA table roles) owning zebra, hover, and selected row states for the whole family.",
   "package": "@digital2analogue2/parsimony-components",
   "props": [
-    { "name": "label", "type": "string", "default": "" },
-    { "name": "density", "type": "string", "default": "default" },
-    { "name": "zebra", "type": "boolean", "default": false },
-    { "name": "interactive", "type": "boolean", "default": false }
+    {
+      "name": "label",
+      "type": "string",
+      "default": ""
+    },
+    {
+      "name": "density",
+      "type": "string",
+      "default": "default"
+    },
+    {
+      "name": "zebra",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "interactive",
+      "type": "boolean",
+      "default": false
+    }
   ],
   "slots": [
-    { "name": "header", "description": "A single rr-table-row of header cells (rr-table-cell header)." },
-    { "name": "(default)", "description": "Body rr-table-row elements." }
+    {
+      "name": "header",
+      "description": "A single rr-table-row of header cells (rr-table-cell header)."
+    },
+    {
+      "name": "(default)",
+      "description": "Body rr-table-row elements."
+    }
   ],
   "events": [],
   "cssParts": [
-    { "name": "table", "description": "The table layout container." }
+    {
+      "name": "table",
+      "description": "The table layout container."
+    }
   ],
   "tokensUsed": [
-    "--component-table-row-zebra-background",
-    "--component-table-row-hover-background",
-    "--component-table-row-selected-background",
-    "--component-table-row-selected-rail",
+    "--color-background-alt",
+    "--color-background-accent-green",
+    "--color-foreground-action",
     "--spacing-inline",
     "--spacing-element",
     "--spacing-tight",
     "--radius-none"
   ],
   "rules": [
-    "Never use hex values. Always use var(--color-*) or var(--component-*)",
+    "Never use hex values. Always use var(--color-*) semantic tokens",
     "Never reference --primitive-* tokens in component code",
     "All text/background pairings must pass WCAG AA (4.5:1)",
-    "Always set label — it names the table for assistive tech",
-    "Set interactive only when rows actually respond to clicks — the hover tint is an interactivity signal, never decoration"
+    "Always set label \u2014 it names the table for assistive tech",
+    "Set interactive only when rows actually respond to clicks \u2014 the hover tint is an interactivity signal, never decoration"
   ],
   "examples": [
     {
@@ -55,9 +79,13 @@
     ],
     "rules": [
       "The host carries role=table with aria-label from the label prop; shadow rowgroups carry role=rowgroup",
-      "Because layout is CSS tables (not <table>), the explicit ARIA roles on host/rows/cells are the semantics — do not remove them",
+      "Because layout is CSS tables (not <table>), the explicit ARIA roles on host/rows/cells are the semantics \u2014 do not remove them",
       "Selected rows expose aria-selected=true"
     ]
   },
-  "figma": { "componentKey": "fa86843dc2d06923b18e457573ff1278c1b7d3f5", "nodeId": "189:2", "codeConnectFile": "table.figma.ts" }
+  "figma": {
+    "componentKey": "fa86843dc2d06923b18e457573ff1278c1b7d3f5",
+    "nodeId": "189:2",
+    "codeConnectFile": "table.figma.ts"
+  }
 }

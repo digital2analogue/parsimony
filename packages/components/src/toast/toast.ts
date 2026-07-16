@@ -36,25 +36,25 @@ export class RrToast extends LitElement {
       display: flex;
       align-items: flex-start;
       gap: var(--spacing-tight);
-      padding: var(--component-toast-padding-y) var(--component-toast-padding-x);
-      border-radius: var(--component-toast-radius);
-      border: 1px solid var(--component-toast-border);
-      background: var(--component-toast-background);
-      color: var(--component-toast-foreground);
-      box-shadow: var(--shadow-dialog), inset 3px 0 0 var(--component-toast-neutral-accent);
+      padding: var(--spacing-inline) var(--spacing-element);
+      border-radius: var(--radius-default);
+      border: 1px solid var(--color-border-elevated);
+      background: var(--color-background-alt);
+      color: var(--color-foreground-default);
+      box-shadow: var(--shadow-dialog), inset 3px 0 0 var(--color-foreground-alt);
     }
 
     :host([variant='success']) .toast {
-      box-shadow: var(--shadow-dialog), inset 3px 0 0 var(--component-toast-success-accent);
+      box-shadow: var(--shadow-dialog), inset 3px 0 0 var(--color-foreground-success);
     }
     :host([variant='warning']) .toast {
-      box-shadow: var(--shadow-dialog), inset 3px 0 0 var(--component-toast-warning-accent);
+      box-shadow: var(--shadow-dialog), inset 3px 0 0 var(--color-foreground-warning);
     }
     :host([variant='danger']) .toast {
-      box-shadow: var(--shadow-dialog), inset 3px 0 0 var(--component-toast-danger-accent);
+      box-shadow: var(--shadow-dialog), inset 3px 0 0 var(--color-foreground-danger);
     }
     :host([variant='info']) .toast {
-      box-shadow: var(--shadow-dialog), inset 3px 0 0 var(--component-toast-info-accent);
+      box-shadow: var(--shadow-dialog), inset 3px 0 0 var(--color-foreground-info);
     }
 
     .body {
@@ -67,10 +67,10 @@ export class RrToast extends LitElement {
       font: var(--font-label-strong-medium);
     }
 
-    :host([variant='success']) .heading { color: var(--component-toast-success-accent); }
-    :host([variant='warning']) .heading { color: var(--component-toast-warning-accent); }
-    :host([variant='danger']) .heading { color: var(--component-toast-danger-accent); }
-    :host([variant='info']) .heading { color: var(--component-toast-info-accent); }
+    :host([variant='success']) .heading { color: var(--color-foreground-success); }
+    :host([variant='warning']) .heading { color: var(--color-foreground-warning); }
+    :host([variant='danger']) .heading { color: var(--color-foreground-danger); }
+    :host([variant='info']) .heading { color: var(--color-foreground-info); }
 
     .content {
       font: var(--font-body-medium);

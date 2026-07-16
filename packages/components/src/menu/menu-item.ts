@@ -32,14 +32,14 @@ export class RrMenuItem extends LitElement {
       padding: var(--spacing-tight) var(--spacing-inline);
       border-radius: var(--radius-sm);
       font: var(--font-label-medium);
-      color: var(--component-menu-item-foreground);
+      color: var(--color-foreground-default);
       white-space: nowrap;
       transition: background var(--motion-duration-instant) var(--motion-easing-default);
     }
 
     :host(:hover:not([disabled])) .item,
     :host(:focus) .item {
-      background: var(--component-menu-item-hover-background);
+      background: var(--color-background-accent-green);
     }
 
     /* Items only receive focus programmatically during keyboard nav — an
@@ -49,12 +49,12 @@ export class RrMenuItem extends LitElement {
     }
 
     :host([danger]) .item {
-      color: var(--component-menu-item-danger-foreground);
+      color: var(--color-foreground-danger);
     }
 
     :host([danger]:hover:not([disabled])) .item,
     :host([danger]:focus) .item {
-      background: var(--component-menu-item-danger-hover-background);
+      background: var(--color-background-danger-alt);
     }
 
     :host([disabled]) {
@@ -62,7 +62,7 @@ export class RrMenuItem extends LitElement {
     }
 
     :host([disabled]) .item {
-      color: var(--component-menu-item-disabled-foreground);
+      color: var(--color-foreground-disabled);
       background: none;
     }
   `;

@@ -31,6 +31,7 @@ generated from `design-system.json` and `ai/rules.md`.
 7. Spacing values must come from the defined scale — do not introduce arbitrary values
 8. No hardcoded font sizes — use var(--font-size-*) primitives or semantic font shorthand tokens
 9. Never use primitive tokens (color.green.*, space.*, font.size.*) in UI code — always go through the semantic layer
+10. Motion must respect `prefers-reduced-motion` (WCAG 2.3.3). The built brand CSS zeroes `--motion-duration-*` under `reduce`, so token-driven transitions stop automatically — never hardcode a transition/animation duration that bypasses the tokens. Any infinite animation (spin, shimmer, pulse) cannot be reached by the token override and MUST carry its own `@media (prefers-reduced-motion: reduce)` guard that stops or damps it
 
 > Generated stories that violate these are rejected by `npm run validate`
 > (rules live in `scripts/rules.mjs`). Never emit hex literals, never reference
@@ -258,7 +259,7 @@ Dropdown action menu (WAI-ARIA menu-button pattern) with full keyboard navigatio
 **Events:** `rr-menu-select`, `rr-menu-toggle`
 
 **Component rules:**
-- Never use hex values. Always use var(--color-*) or var(--component-*)
+- Never use hex values. Always use var(--color-*) semantic tokens
 - Never reference --primitive-* tokens in component code
 - All text/background pairings must pass WCAG AA (4.5:1)
 - Always set label — it names the menu popup for assistive tech
@@ -279,7 +280,7 @@ A single action inside rr-menu; the host carries role=menuitem and focus is mana
 **Events:** `rr-menu-item-select`
 
 **Component rules:**
-- Never use hex values. Always use var(--color-*) or var(--component-*)
+- Never use hex values. Always use var(--color-*) semantic tokens
 - Never reference --primitive-* tokens in component code
 - All text/background pairings must pass WCAG AA (4.5:1)
 - Reserve danger for genuinely destructive actions — one per menu is the norm
@@ -452,7 +453,7 @@ Structural data table (CSS table layout + ARIA table roles) owning zebra, hover,
 **Slots:** `header` — A single rr-table-row of header cells (rr-table-cell header).; `(default)` — Body rr-table-row elements.
 
 **Component rules:**
-- Never use hex values. Always use var(--color-*) or var(--component-*)
+- Never use hex values. Always use var(--color-*) semantic tokens
 - Never reference --primitive-* tokens in component code
 - All text/background pairings must pass WCAG AA (4.5:1)
 - Always set label — it names the table for assistive tech
@@ -470,7 +471,7 @@ A cell inside rr-table-row; header cells get the muted all-caps recipe, numeric 
 **Slots:** `(default)` — Cell content — text, badges, menus, buttons.
 
 **Component rules:**
-- Never use hex values. Always use var(--color-*) or var(--component-*)
+- Never use hex values. Always use var(--color-*) semantic tokens
 - Never reference --primitive-* tokens in component code
 - All text/background pairings must pass WCAG AA (4.5:1)
 - Use numeric for amounts, counts, and IDs so digit columns align — not for text that happens to contain digits
@@ -486,7 +487,7 @@ A row inside rr-table; carries role=row, its zebra/hover/selected visuals are pa
 **Slots:** `(default)` — rr-table-cell elements.
 
 **Component rules:**
-- Never use hex values. Always use var(--color-*) or var(--component-*)
+- Never use hex values. Always use var(--color-*) semantic tokens
 - Never reference --primitive-* tokens in component code
 - Drive selected from your selection model — it is the only state the row owns
 
@@ -554,7 +555,7 @@ Transient floating notification with status variants, optional auto-dismiss (hov
 **Events:** `rr-toast-close`
 
 **Component rules:**
-- Never use hex values. Always use var(--color-*) or var(--component-*)
+- Never use hex values. Always use var(--color-*) semantic tokens
 - Never reference --primitive-* tokens in component code
 - All text/background pairings must pass WCAG AA (4.5:1)
 - Placement is the consumer's job — render toasts inside a fixed-position region; the component owns the surface, not the position

@@ -11,6 +11,24 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-07-16 — Component-token tier frozen: new components ship semantic-only
+
+**What:** The three staple components added 2026-07-15/16 (toast, menu, table) initially
+shipped with new `component.*` token families — 27 tokens deepening the tier #114 exists
+to delete. Same-day correction: all three migrated to the semantic roles their component
+tokens aliased (pure 1:1 substitution, zero visual change), the three token files are
+deleted, and **the tier is frozen — no new `component.*` tokens, ever; new components
+write semantic roles directly.** #114's remaining scope is now exactly the 9 legacy
+families. Fallout fix: the shared deprecated-token detector (`scripts/rules.mjs`) used a
+bare substring match, so deleted `--color-background-accent` flagged its own live
+replacement `--color-background-accent-green` the moment a component used the semantic
+token directly — now boundary-aware (validate, `check_usage`, and drift-lint all share
+the fix). **Why:** the tier's re-pointable-hook purpose has never been exercised (zero
+brand divergence across 139 tokens — see #114); adding to it was convention-following
+against the stated two-tier target the portfolio case study already presents.
+**Status:** live; package 0.5.0 (0.4.0's 27 new component vars existed on the registry
+for minutes with zero consumers).
+
 ## 2026-07-16 — Explicit pairing map lands (#87); decision-engine scoped out of six base pairs
 
 **What:** `tokens/pairings.json` is now the single declarative source of intended fg/bg
