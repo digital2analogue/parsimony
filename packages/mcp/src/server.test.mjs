@@ -348,8 +348,8 @@ describe("deprecation guidance", () => {
 });
 
 describe("find_rule / get_rule (via reasoning.mjs)", () => {
-  it("parses the 9 hard + 6 soft rules from ai/rules.md", () => {
-    expect(rules.filter((r) => r.type === "hard")).toHaveLength(9);
+  it("parses the 10 hard + 6 soft rules from ai/rules.md", () => {
+    expect(rules.filter((r) => r.type === "hard")).toHaveLength(10);
     expect(rules.filter((r) => r.type === "soft")).toHaveLength(6);
   });
 

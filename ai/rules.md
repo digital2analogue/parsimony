@@ -16,6 +16,7 @@ always-on: true
 7. Spacing values must come from the defined scale — do not introduce arbitrary values
 8. No hardcoded font sizes — use var(--font-size-*) primitives or semantic font shorthand tokens
 9. Never use primitive tokens (color.green.*, space.*, font.size.*) in UI code — always go through the semantic layer
+10. Motion must respect `prefers-reduced-motion` (WCAG 2.3.3). The built brand CSS zeroes `--motion-duration-*` under `reduce`, so token-driven transitions stop automatically — never hardcode a transition/animation duration that bypasses the tokens. Any infinite animation (spin, shimmer, pulse) cannot be reached by the token override and MUST carry its own `@media (prefers-reduced-motion: reduce)` guard that stops or damps it
 
 ## Soft Rules (prefer but can flex)
 1. Prefer semantic font shorthand tokens (--font-display, --font-title-large, --font-body-large, --font-label-medium, etc.) over assembling individual primitives

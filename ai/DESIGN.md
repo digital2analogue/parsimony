@@ -249,6 +249,8 @@ Smaller spacing values (3xs–md) are fixed — they're already tight enough and
 
 ## Motion — Semantic Tokens
 
+**Reduced motion (WCAG 2.3.3):** every built brand CSS appends an `@media (prefers-reduced-motion: reduce)` block that zeroes `--motion-duration-*`, so all token-driven transitions collapse to instant for users who ask for less motion. This only works if durations come from the tokens — never hardcode one. Infinite animations (spinners, shimmer) are outside the token override's reach and carry their own reduce guards in the components.
+
 ### Duration
 | CSS Property | Value | Usage |
 |---|---|---|
