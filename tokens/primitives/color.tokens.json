@@ -220,6 +220,11 @@
           "$type": "color",
           "$description": "Elevated gray border step for DE light mode. Between border-default (gray.200) and border-hover (blue.700). Used for structural chrome borders — headers, card frames, prominent dividers."
         },
+        "400": {
+          "$value": "#8F99AB",
+          "$type": "color",
+          "$description": "Disabled-text gray for DE light mode — the exact midpoint of gray.300 and gray.500, filling the slot the ramp had left empty. It exists because nothing between those two worked: gray.300 is 1.64:1 on background.default (present but barely perceptible) and gray.500 jumps to 4.85:1, which is DE's faintest ENABLED text. This lands at 2.70:1 on background.default and holds 2.37:1 on the darkest surface (background.hover), so disabled reads as unavailable rather than absent while staying clearly below muted. Referenced by: color.foreground.disabled (decision-engine)."
+        },
         "600": {
           "$value": "#4E5F79",
           "$type": "color",
