@@ -11,6 +11,50 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-09-08 — decision-engine gets gray.400, the rung its ramp was missing (#247)
+
+**What.** New primitive `color.gray.400` (`#8F99AB`), and decision-engine's
+`color.foreground.disabled` moves from `gray.200` to it. DE rejoins the
+disabled-text gate added the same day, so every brand in the system is now
+covered by it.
+
+**Why.** The #239 gate found DE carrying the same defect in a light theme:
+`foreground.disabled` was `gray.200` (`#D8DCE0`), measuring **1.29:1** on its
+own `background.default`. Arrived at from the opposite direction to base dark —
+not a token pointing at its own background, but a near-white grey on a
+near-white surface — and identical in effect.
+
+It could not be fixed by repointing, which is why it was raised rather than
+patched: `gray.300` is 1.64:1 (present, but barely perceptible) and the next
+step, `gray.500`, is 4.85:1 — which is DE's *faintest enabled text*
+(`foreground.muted`). There was nothing in the 2–3:1 band where a disabled
+value belongs.
+
+**The value is the ramp's own geometry, not an invented colour.** `#8F99AB` is
+the exact midpoint of `gray.300` and `gray.500`, and the `400` slot was already
+empty. It measures 2.70:1 on `background.default` and holds **2.37:1 on
+`background.hover`**, the darkest of DE's four surfaces — so it clears the gate
+everywhere, not just on the surface that was easiest to check. At 56% of
+muted's contrast it sits in the same relative position base dark's fix does
+(53%), which is what keeps "disabled" reading the same way across brands rather
+than merely passing in both.
+
+**Alternative considered.** Take `gray.300` and lower the gate's floor to
+accommodate it. Rejected: that is fixing the thermometer. 1.64:1 is not a
+legibility win, and a floor tuned to whatever the ramp happens to contain stops
+being a floor.
+
+**On the standing no-new-primitives rule.** This is the case that rule reserves
+for escalation rather than an exception to it — the need was measured, the
+existing ramp demonstrably could not serve it, and the decision was the
+owner's. The primitive is emitted into every brand's CSS, as all primitives
+are; only DE references it, the same arrangement `gray.50`/`gray.100` already
+have.
+
+**Status.** Shipped.
+
+---
+
 ## 2026-09-08 — Disabled text gets its own value, one rung above the surfaces it sits on (#239)
 
 **What.** `color.foreground.disabled` moves from `{primitive.color.green.900}`
