@@ -11,6 +11,48 @@ reverse or would surprise someone reading the code later.
 
 ---
 
+## 2026-09-08 — Disabled text gets its own value, one rung above the surfaces it sits on (#239)
+
+**What.** `color.foreground.disabled` moves from `{primitive.color.green.900}`
+to `{primitive.color.green.700}` (#1E241E -> #5C685A). One token, every
+surface. A `tests/unit/tokens.spec.ts` gate now asserts disabled text clears
+1.5:1 against every background role each brand defines.
+
+**Why.** `foreground.disabled` and `background.alt` were both `green.900`. On
+the canvas that read as deeply receded, which was the intent. On a card, menu
+or listbox it was the *same colour as its own surface* — 1:1, not dim but
+absent. The shipped `components-menu--danger-and-disabled` baseline rendered a
+hole where "Delete" should be, and `rr-listbox` inherited it on arrival.
+
+Nothing caught it because WCAG 1.4.3 exempts disabled text, so the contrast
+gate marks the pair exempt and moves on. That is the lesson worth keeping: **an
+exemption declines to set a floor, it does not license 1:1.** Wherever a rule
+says "not required", something still has to say what is acceptable, or the
+value is unowned. The new test is that floor — deliberately loose (1.5:1),
+because disabled *should* be faint; it guards against collision, not dimness.
+
+green.700 measures 3.33:1 on the canvas and 2.70:1 on `background.alt`, against
+6.32/5.12 for `foreground.muted`, the faintest *enabled* text. So the hierarchy
+still reads: default > alt > muted > disabled, with disabled clearly last and
+still present.
+
+**Alternative considered.** A second token — keep `green.900` for the canvas and
+add a disabled colour for elevated surfaces. Rejected: it makes correctness
+depend on the author knowing what is painted underneath, which is exactly the
+knowledge nobody has at the call site. One value that works everywhere is worth
+a slightly less recessed look on the plain canvas.
+
+**Not fixed here.** decision-engine has the same defect in a light theme —
+`foreground.disabled` (gray.200 #D8DCE0) is 1.29:1 on its own
+`background.default`. Its gray ramp has no rung that works: gray.300 is 1.64:1
+and gray.500 jumps to 4.85:1, so closing it needs a new primitive, which is a
+brand decision rather than a system one. DE is excluded from the new gate with
+that reason stated in the test, and tracked separately.
+
+**Status.** Shipped.
+
+---
+
 ## 2026-09-04 — rr-listbox owns its value; the chip that opens it does not (#230)
 
 **What.** `rr-listbox` + `rr-option` ship as the selection half of the popup
