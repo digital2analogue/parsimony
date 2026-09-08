@@ -86,3 +86,65 @@ describe('brand token files', () => {
     }
   })
 })
+
+// ---------------------------------------------------------------------------
+// Disabled text must stay visible on every surface it can be drawn on (#239).
+//
+// color.foreground.disabled was {primitive.color.green.900} — the SAME value
+// as color.background.alt. On the canvas that read as deeply receded, which
+// was the intent. On a card, menu or listbox it was 1:1 against its own
+// surface and the text simply was not there: the shipped
+// `components-menu--danger-and-disabled` baseline rendered a hole where
+// "Delete" should be.
+//
+// Nothing caught it because WCAG 1.4.3 exempts disabled text, so the contrast
+// gate marks the pair exempt and moves on. The exemption declines to set a
+// floor; it does not license 1:1. This is that floor.
+//
+// Deliberately loose: disabled SHOULD be faint, and the point is only that it
+// remains perceptible. The failure this guards against is collision, not
+// dimness — anything at or below ~1.3:1 is a token pointing at its own
+// background, which is a bug in every theme.
+describe('disabled text vs. the surfaces it renders on (#239)', () => {
+  const FLOOR = 1.5
+
+  // Every role a component can paint disabled text onto. Roles a given brand
+  // does not define are skipped, so this stays correct as brands diverge.
+  const SURFACES = ['default', 'alt', 'elevated', 'hover'] as const
+  // decision-engine is NOT in this list, and not because it passes: its
+  // foreground.disabled (gray.200 #D8DCE0) measures 1.29:1 on its own
+  // background.default and 1.20:1 on background.alt — the same defect in a
+  // light theme. It is excluded rather than fixed here because DE's gray ramp
+  // has no rung that works: gray.300 is 1.64:1 (barely perceptible) and the
+  // next step, gray.500, is 4.85:1 (body-text weight, far too loud for
+  // disabled). Closing it needs a new primitive, which is a brand decision.
+  // Tracked separately; add 'decision-engine' here as part of that fix.
+  const BRANDS = [null, 'dot-art', 'dot-blog'] as const
+
+  it.each(BRANDS)('holds for brand %s', async (brand) => {
+    const { loadTokens, resolveToken } = await import('../../scripts/tokens.mjs')
+    const { contrastRatio } = await import('../../scripts/assembly.mjs')
+    const store = await loadTokens()
+
+    const opts = brand ? { brand } : {}
+    const fg = resolveToken(store, 'color.foreground.disabled', opts)
+    expect(fg?.value, 'color.foreground.disabled must resolve').toBeTruthy()
+
+    const checked: string[] = []
+    for (const surface of SURFACES) {
+      const bg = resolveToken(store, `color.background.${surface}`, opts)
+      if (!bg?.value) continue
+      const ratio = contrastRatio(fg.value, bg.value)
+      expect(
+        ratio,
+        `foreground.disabled (${fg.value}) on background.${surface} (${bg.value}) ` +
+          `is ${ratio.toFixed(2)}:1 — disabled text is invisible against this surface`,
+      ).toBeGreaterThan(FLOOR)
+      checked.push(surface)
+    }
+
+    // Guard the guard: if resolution silently returned nothing for every
+    // surface, the loop above would pass by never running.
+    expect(checked.length, 'no surfaces were actually checked').toBeGreaterThan(0)
+  })
+})
