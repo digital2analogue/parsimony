@@ -111,15 +111,12 @@ describe('disabled text vs. the surfaces it renders on (#239)', () => {
   // Every role a component can paint disabled text onto. Roles a given brand
   // does not define are skipped, so this stays correct as brands diverge.
   const SURFACES = ['default', 'alt', 'elevated', 'hover'] as const
-  // decision-engine is NOT in this list, and not because it passes: its
-  // foreground.disabled (gray.200 #D8DCE0) measures 1.29:1 on its own
-  // background.default and 1.20:1 on background.alt — the same defect in a
-  // light theme. It is excluded rather than fixed here because DE's gray ramp
-  // has no rung that works: gray.300 is 1.64:1 (barely perceptible) and the
-  // next step, gray.500, is 4.85:1 (body-text weight, far too loud for
-  // disabled). Closing it needs a new primitive, which is a brand decision.
-  // Tracked separately; add 'decision-engine' here as part of that fix.
-  const BRANDS = [null, 'dot-art', 'dot-blog'] as const
+  // decision-engine was excluded when this gate landed — its foreground.disabled
+  // was gray.200 (#D8DCE0), 1.29:1 on its own background.default, and the ramp
+  // had no rung between "barely perceptible" and "body-text weight" to fix it
+  // with. gray.400 (#8F99AB) was added for exactly that gap (#247), so DE is
+  // covered here now. Every brand in the system is.
+  const BRANDS = [null, 'decision-engine', 'dot-art', 'dot-blog'] as const
 
   it.each(BRANDS)('holds for brand %s', async (brand) => {
     const { loadTokens, resolveToken } = await import('../../scripts/tokens.mjs')
